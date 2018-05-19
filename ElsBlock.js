@@ -188,7 +188,7 @@ class TetrisGame {
 
     this.restartGame();
     
-    this.random_shape_chance = 0.10; // set this to 0, to skip random shapes
+    this.random_shape_chance = 0.01; // set this to 0, to skip random shapes
     this.shape_next = undefined;
     this.pickNextShape();
   }
