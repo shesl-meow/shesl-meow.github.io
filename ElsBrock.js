@@ -11,8 +11,6 @@
 // https://vimeo.com/243877934
 //
 
-
-
 var shapelist = 
   [
     [   8    
@@ -158,7 +156,7 @@ function keyPressed(){
   if(key == 'R') this.tetris.restart = true;
   
   // WASD / ARROW
-  keypress_UP    |= (key === 'W') || (keyCode === UP_ARROW   );
+  keypress_UP    |= (key === 'W') || (keyCode === UP_ARROW   ) || (keyCode === 32);
   keypress_DOWN  |= (key === 'S') || (keyCode === DOWN_ARROW );
   keypress_LEFT  |= (key === 'A') || (keyCode === LEFT_ARROW );
   keypress_RIGHT |= (key === 'D') || (keyCode === RIGHT_ARROW);
@@ -169,7 +167,7 @@ function keyPressed(){
 
 function keyReleased(){
   // WASD / ARROW   
-  keypress_UP    ^= (key === 'W') || (keyCode === UP_ARROW   );
+  keypress_UP    ^= (key === 'W') || (keyCode === UP_ARROW   ) || (keyCode === 32);
   keypress_DOWN  ^= (key === 'S') || (keyCode === DOWN_ARROW );
   keypress_LEFT  ^= (key === 'A') || (keyCode === LEFT_ARROW );
   keypress_RIGHT ^= (key === 'D') || (keyCode === RIGHT_ARROW);

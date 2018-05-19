@@ -1,3 +1,29 @@
 body {
   text-align: center;
 }
+
+
+h1 {
+  background: #05A8AA;
+  color: #FFF;
+  position: relative;
+  width: 50%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.btn {
+  color: #05A8AA;
+  border: 1px solid #05A8AA;
+  border-radius: 10px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 10px 0px;
+  padding: 20px;
+  width: 20%;
+  position: relative;
+  margin: 0 auto;
+  text-decoration: none;
+  text-transform: uppercase;
+}
