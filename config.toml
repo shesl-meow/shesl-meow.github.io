@@ -1,0 +1,12 @@
+baseURL = "http://shesl-meow.github.io/"
+languageCode = "zh-cn"
+title = "shesl-meow's note site"
+
+theme = "book"
+
+[markup]
+[markup.goldmark.renderer]
+  unsafe = true
+
+[markup.tableOfContents]
+  startLevel = 1
