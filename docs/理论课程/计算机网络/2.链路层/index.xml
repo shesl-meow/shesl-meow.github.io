@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>2.链路层 on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/2.%E9%93%BE%E8%B7%AF%E5%B1%82/</link><description>Recent content in 2.链路层 on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/2.%E9%93%BE%E8%B7%AF%E5%B1%82/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/2.%E9%93%BE%E8%B7%AF%E5%B1%82/%E9%93%BE%E8%B7%AF%E5%B1%82/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/2.%E9%93%BE%E8%B7%AF%E5%B1%82/%E9%93%BE%E8%B7%AF%E5%B1%82/</guid><description>学习地址：
+《计算机网络：自顶向下的方法》 链路层 # 概念 # 结点（node）：运行链路层协议的任何设备（比如：主机、路由器、交换机和 WiFi 接入点）。
+链路（link）：沿着通信路径连接响铃结点的通信信道。
+链路层协议能提供可能的服务包括：
+成帧（framing）：一个帧由一个数据字段（网络层数据报）和若干个首部字段组成。 链路接入：媒体访问控制（Medium Access Control, MAC）协议规定了帧在链路上传输的规则。 可靠交付：当链路层协议提供可靠交付服务时，它保证无差错地经链路层移动每个数据报网络。 差错检测和纠正 链路层的主体部分是在网络适配器（network adapter）中实现的，网络适配器有时也称作网络接口卡（Network Interface Card, NIC）。
+位于网络适配器核心的是链路层控制器，该控制器通常是一个实现了许多链路层服务的专用芯片（例如，Intel 的 8254x 控制器实现了以太网协议，Atheros AR5006 控制器实现了 802.11 WiFi 协议）
+差错检测和纠正技术 # 奇偶校验 # 差错检测最简单的方式就是奇偶校验位（parity bit）。实现方式：
+发送方需要包含一个附加的比特位，使得所有比特中，1 的总数总是一个偶数。 接收方只要检测到奇数个值位 1 的比特位，则传输信息出现了差错。 使用二维奇偶校验（two-dimensional parity）方案，包含值改变的列和行的校验值都将会差错，因此可以予以纠正，如下：
+接收方检测和纠正差错的能力被称为前向纠正（Forward Error Correction, FEC）。
+检验和 # 因特网检验和（Internet checksum）就基于这种方法，即数据的字节作为 16 比特的整数对待并求和，这个和的反码形成了携带在报文段首部的因特网检验和。
+循环冗余检测 # 循环冗余检测（Cyclic Redundancy Check, CRC）编码又被称作多项式编码（polynomial code），因为该编码能够将要发送的比特串看作为系数是 0 和 1 的多项式，比特串的操作被解释位多项式算术。</description></item></channel></rss>

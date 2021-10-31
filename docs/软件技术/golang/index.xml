@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Golang on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/golang/</link><description>Recent content in Golang on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/golang/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/golang/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/golang/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</guid><description>Golang GC # 常见 GC 算法 # 名称 描述 优点 缺点 引用计数 根据对象自身的引用计数来回收，当引用计数归零时进行回收。 简单直接，回收速度快 需要额外的空间存放计数；
+需要频繁更新计数；
+无法处理循环引用的情况； 标记清除 标记出所有不需要回收的对象，在标记完成后统一回收掉所有未被标记的对象。 简单直接，速度快 会造成不连续的内存空间（内存碎片）
+不适合回收对象过多的场景 复制法 将内存分为大小相同的两块，每次使用其中的一块，当这一块的内存使用完后，将还存活的对象复制到另一块去，然后再把使用的空间一次清理掉 解决了内存碎片的问题 每次清除针对的都是整块内存，效率低于标记清除法；
+有部分内存总是利用不到，资源浪费，移动存活对象比较耗时，并且如果存活对象较多的时候，需要担保机制确保复制区有足够的空间可完成复制； 标记整理 标记过程同标记清除法，结束后将存活对象压缩至一端，然后清除边界外的内容。 解决了内存碎片的问题，也不像标记复制法那样需要担保机制，存活对象较多的场景也使适用； 性能低，因为在移动对象的时候不仅需要移动对象还要维护对象的引用地址，可能需要对内存经过几次扫描才能完成； 分代式 将对象根据存活时间的长短进行分类，存活时间小于某个值的为“年轻代”，存活时间大于某个值的为“老年代”，永远不会参与回收的对象为“永久代”。并根据分代假设（如果一个对象存活时间不长则倾向于被回收，如果一个对象已经存活很长时间则倾向于存活更长时间）对对象进行回收。 STW 对用户代码影响大 Golang GC # Golang 使用的垃圾清理算法是“无分代”、“不整理”、“与用户代码并发执行”的三色标记清理算法。
+为什么 Golang 不使用“顺序内存分配器”？
+Go 运行时的分配算法基于 tcmalloc，基本上没有碎片问题，对对象进行整理不会带来实质性的性能提升。 并且顺序内存分配器在多线程的场景下并不适用。 为什么 Golang 不使用“分代假设”？</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/golang/%E8%8F%9C%E9%B8%9F%E6%95%99%E7%A8%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/golang/%E8%8F%9C%E9%B8%9F%E6%95%99%E7%A8%8B/</guid><description>菜鸟教程 # 语言教程 # 计算机软件经历了数十年的发展，形成了多种学术流派，有面向过程编程、面向对象编程、函数式编程、面向消息编程等，这些思想究竟孰优孰劣，众说纷纭。
+除了 OOP 外，近年出现了一些小众的编程哲学，Go 语言对这些思想亦有所吸收。例如，Go 语言接受了函数式编程的一些想法，支持匿名函数与闭包。再如，Go语言接受了以 Erlang 语言为代表的面向消息编程思想，支持 goroutine 和通道，并推荐使用消息而不是共享内存来进行并发编程。总体来说，Go 语言是一个非常现代化的语言，精小但非常强大。
+Go 语言最主要的特性：
+自动垃圾回收 更丰富的内置类型 函数多返回值 错误处理 匿名函数和闭包 类型和接口 并发编程 反射 语言交互性 语法基础 # 仅仅列举一些值得注意的语法。
+数据类型 # 使用 fmt.Sprintf 格式化字符串并赋值给新串：
+fmt.Sprintf(&amp;#34;Code=%d&amp;amp;endDate=%s&amp;#34;, 123, &amp;#34;2020-12-31&amp;#34;); Go 中按类别大约有以下几种数据类型：
+”布尔型“、“数字型”、“字符串型”、“派生类型”； 其中“派生类型”有以下几种：指针类型、数组类型、struct 类型、channel 类型、函数类型、切片类型、interface 类型、Map 类型； 变量 # 变量声明有以下几种方式：
+// 一次声明多个变量 var identifier type // 根据值自行判定变量类型。 var v_name = value // 省略 var，使用 := 定义。左侧如果没有声明新的变量，就产生编译错误 v_name := value 声明多变量的方式：</description></item></channel></rss>

@@ -1,0 +1,142 @@
+diff --git a/labcodes/lab3/kern/debug/kdebug.c b/labcodes/lab3/kern/debug/kdebug.c
+index bb63b7d..9474602 100644
+--- a/labcodes/lab3/kern/debug/kdebug.c
++++ b/labcodes/lab3/kern/debug/kdebug.c
+@@ -305,5 +305,18 @@ print_stackframe(void) {
+       *           NOTICE: the calling funciton's return addr eip  = ss:[ebp+4]
+       *                   the calling funciton's ebp = ss:[ebp]
+       */
++      uint32_t ebp=read_ebp();
++      uint32_t eip=read_eip();
++      for(int i=0;ebp != 0&&i<STACKFRAME_DEPTH;i++){
++          cprintf("ebp: 0x%08x ,eip: 0x%08x ",ebp,eip);
++          cprintf("args: ");
++          for(int j=0;j<4;j++){
++              cprintf("0x%08x  ",*((uint32_t *)ebp+2+j));
++          }
++          print_debuginfo(eip - 1);
++          eip=*((uint32_t *)ebp+1);
++          ebp=*(uint32_t *)ebp;
++   
++      }
+ }
+ 
+diff --git a/labcodes/lab3/kern/mm/default_pmm.c b/labcodes/lab3/kern/mm/default_pmm.c
+index b388bca..e213858 100644
+--- a/labcodes/lab3/kern/mm/default_pmm.c
++++ b/labcodes/lab3/kern/mm/default_pmm.c
+@@ -135,12 +135,14 @@ default_alloc_pages(size_t n) {
+         }
+     }
+     if (page != NULL) {
+-        list_del(&(page->page_link));
++       
+         if (page->property > n) {
+             struct Page *p = page + n;
+             p->property = page->property - n;
+-            list_add(&free_list, &(p->page_link));
++            SetPageProperty(p);
++            list_add_after(&(page->page_link), &(p->page_link));
+     }
++        list_del(&(page->page_link));
+         nr_free -= n;
+         ClearPageProperty(page);
+     }
+@@ -175,7 +177,16 @@ default_free_pages(struct Page *base, size_t n) {
+         }
+     }
+     nr_free += n;
+-    list_add(&free_list, &(base->page_link));
++    le = list_next(&free_list);
++    while (le != &free_list) {
++        p = le2page(le, page_link);
++        if (base + base->property <= p) {
++            assert(base + base->property != p);
++            break;
++        }
++        le = list_next(le);
++    }
++    list_add_before(le, &(base->page_link));
+ }
+ 
+ static size_t
+diff --git a/labcodes/lab3/kern/mm/pmm.c b/labcodes/lab3/kern/mm/pmm.c
+index 5c09bb0..00e7dbb 100644
+--- a/labcodes/lab3/kern/mm/pmm.c
++++ b/labcodes/lab3/kern/mm/pmm.c
+@@ -347,18 +347,18 @@ get_pte(pde_t *pgdir, uintptr_t la, bool create) {
+      *   PTE_W           0x002                   // page table/directory entry flags bit : Writeable
+      *   PTE_U           0x004                   // page table/directory entry flags bit : User can access
+      */
+-#if 0
+-    pde_t *pdep = NULL;   // (1) find page directory entry
+-    if (0) {              // (2) check if entry is not present
+-                          // (3) check if creating is needed, then alloc page for page table
+-                          // CAUTION: this page is used for page table, not for common data page
+-                          // (4) set page reference
+-        uintptr_t pa = 0; // (5) get linear address of page
+-                          // (6) clear page content using memset
+-                          // (7) set page directory entry's permission
+-    }
+-    return NULL;          // (8) return page table entry
+-#endif
++    pde_t *pdep = &pgdir[PDX(la)];          // (1) find page directory entry
++    if (!(*pdep & PTE_P)) {                 // (2) check if entry is not present
++        struct Page *page;                  // (3) check if creating is needed, then alloc page for page table
++        if (!create || (page = alloc_page()) == NULL) {
++            return NULL;
++        }
++        set_page_ref(page, 1);              // (4) set page reference
++        uintptr_t pa = page2pa(page);       // (5) get linear address of page
++        memset(KADDR(pa), 0, PGSIZE);       // (6) clear page content using memset
++        *pdep = pa | PTE_U | PTE_W | PTE_P; // (7) set page directory entry's permission
++    }                                       // (8) return page table entry
++    return &((pte_t *)KADDR(PDE_ADDR(*pdep)))[PTX(la)];
+ }
+ 
+ //get_page - get related Page struct for linear address la using PDT pgdir
+@@ -404,6 +404,14 @@ page_remove_pte(pde_t *pgdir, uintptr_t la, pte_t *ptep) {
+                                   //(6) flush tlb
+     }
+ #endif
++ if (*ptep & PTE_P) {
++        struct Page *page = pte2page(*ptep);
++        if (page_ref_dec(page) == 0) {
++            free_page(page);
++        }
++        *ptep = 0;
++        tlb_invalidate(pgdir, la);
++    }
+ }
+ 
+ //page_remove - free an Page which is related linear address la and has an validated pte
+diff --git a/labcodes/lab3/kern/trap/trap.c b/labcodes/lab3/kern/trap/trap.c
+index af78676..a9fbf56 100644
+--- a/labcodes/lab3/kern/trap/trap.c
++++ b/labcodes/lab3/kern/trap/trap.c
+@@ -46,6 +46,17 @@ idt_init(void) {
+       *     You don't know the meaning of this instruction? just google it! and check the libs/x86.h to know more.
+       *     Notice: the argument of lidt is idt_pd. try to find it!
+       */
++    extern uintptr_t __vectors[];
++    for (int i = 0; i < 256; i++) {
++        if (i < IRQ_OFFSET) { 
++            SETGATE(idt[i], 1, GD_KTEXT, __vectors[i], DPL_KERNEL); 
++        } else if (i == T_SYSCALL) { 
++            SETGATE(idt[i], 1, GD_KTEXT, __vectors[i], DPL_USER);
++        } else { 
++            SETGATE(idt[i], 0, GD_KTEXT, __vectors[i], DPL_KERNEL);
++        }
++    }
++    lidt(&idt_pd);
+ }
+ 
+ static const char *
+@@ -147,6 +158,7 @@ trap_dispatch(struct trapframe *tf) {
+          * (2) Every TICK_NUM cycle, you can print some info using a funciton, such as print_ticks().
+          * (3) Too Simple? Yes, I think so!
+          */
++        if(++ticks % TICK_NUM == 0) print_ticks();
+         break;
+     case IRQ_OFFSET + IRQ_COM1:
+         c = cons_getc();

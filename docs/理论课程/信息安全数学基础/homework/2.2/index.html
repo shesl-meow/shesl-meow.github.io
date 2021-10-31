@@ -1,0 +1,2750 @@
+<!doctype html><html lang=en dir=ltr>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="2.2 #  解答题 #  1 #  关于欧拉函数，对于 10：$$\phi(10) = 4$$
+因此我们知道 $$7^4 \equiv 1 \pmod{10}$$，而 $$2046 \equiv 2 \pmod{4}$$
+因此，我们有：$$7^{2046} \equiv 7^2 \equiv 9 \pmod{10}​$$
+2 #  对于 100 有：$$100 = 4*25$$，并且有 $$\phi(25) = 20$$
+因此首先有 $$2^{100} \equiv 0 \pmod{4}$$，然后有 $$2^{100} = (2^{5})^{20} \equiv 1 \pmod{25}$$
+而存在这样的数 76：$$2^{100} \equiv 76 \pmod{4}, 2^{100} \equiv 76 \pmod{25}$$
+因此 $$2^{100} \equiv 76 \pmod{100}$$
+3 #  考虑到 $$\displaystyle (x+4)^5 \overset{二项式展开}{\equiv} x^5 \pmod{4}$$">
+<meta name=theme-color content="#FFFFFF">
+<meta name=color-scheme content="light dark"><meta property="og:title" content>
+<meta property="og:description" content="2.2 #  解答题 #  1 #  关于欧拉函数，对于 10：$$\phi(10) = 4$$
+因此我们知道 $$7^4 \equiv 1 \pmod{10}$$，而 $$2046 \equiv 2 \pmod{4}$$
+因此，我们有：$$7^{2046} \equiv 7^2 \equiv 9 \pmod{10}​$$
+2 #  对于 100 有：$$100 = 4*25$$，并且有 $$\phi(25) = 20$$
+因此首先有 $$2^{100} \equiv 0 \pmod{4}$$，然后有 $$2^{100} = (2^{5})^{20} \equiv 1 \pmod{25}$$
+而存在这样的数 76：$$2^{100} \equiv 76 \pmod{4}, 2^{100} \equiv 76 \pmod{25}$$
+因此 $$2^{100} \equiv 76 \pmod{100}$$
+3 #  考虑到 $$\displaystyle (x+4)^5 \overset{二项式展开}{\equiv} x^5 \pmod{4}$$">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/homework/2.2/"><meta property="article:section" content="docs">
+<title>2.2 | shesl-meow's note site</title>
+<link rel=manifest href=/manifest.json>
+<link rel=icon href=/favicon.png type=image/x-icon>
+<link rel=stylesheet href=/book.min.e62c87c0a5f78618c1d9654bac000b57fdba292e359cd3ae3a97d4774328868d.css integrity="sha256-5iyHwKX3hhjB2WVLrAALV/26KS41nNOuOpfUd0Moho0=" crossorigin=anonymous>
+<script defer src=/flexsearch.min.js></script>
+<script defer src=/en.search.min.68da7aaeeae1dfe0b17058ce421b50f52c1f84d2099d60f450e382898168ef07.js integrity="sha256-aNp6rurh3+CxcFjOQhtQ9SwfhNIJnWD0UOOCiYFo7wc=" crossorigin=anonymous></script>
+</head>
+<body dir=ltr>
+<input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control>
+<main class="container flex">
+<aside class=book-menu>
+<div class=book-menu-content>
+<nav>
+<h2 class=book-brand>
+<a class="flex align-center" href=/><span>shesl-meow's note site</span>
+</a>
+</h2>
+<div class=book-search>
+<input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/>
+<div class="book-search-spinner hidden"></div>
+<ul id=book-search-results></ul>
+</div>
+<ul>
+<li class=book-section-flat>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/>安全技术</a>
+<ul>
+<li>
+<input type=checkbox id=section-7004199ed5f730b6753e4ed1cbd8fe80 class=toggle>
+<label for=section-7004199ed5f730b6753e4ed1cbd8fe80 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/android%E9%80%86%E5%90%91%E5%88%86%E6%9E%90/>Android逆向分析</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/android%E9%80%86%E5%90%91%E5%88%86%E6%9E%90/1.%E5%88%86%E6%9E%90%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/>1.分析环境搭建</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/android%E9%80%86%E5%90%91%E5%88%86%E6%9E%90/2.%E5%A6%82%E4%BD%95%E5%88%86%E6%9E%90%E5%AE%89%E5%8D%93%E7%A8%8B%E5%BA%8F/>2.如何分析安卓程序</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/android%E9%80%86%E5%90%91%E5%88%86%E6%9E%90/3.dalvik%E8%99%9A%E6%8B%9F%E6%9C%BA/>3. Dalvik虚拟机</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/android%E9%80%86%E5%90%91%E5%88%86%E6%9E%90/4.android%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6/>4. Android可执行文件</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-e5d2d57babfda41463beac05d9372c91 class=toggle>
+<label for=section-e5d2d57babfda41463beac05d9372c91 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-wiki/>ctf-wiki</a>
+</label>
+<ul>
+<li>
+<input type=checkbox id=section-7342627d59f05c729d3e875266d6b1e4 class=toggle>
+<label for=section-7342627d59f05c729d3e875266d6b1e4 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-wiki/7.1.stackoverflow/>7.1.StackOverflow</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-wiki/7.1.stackoverflow/1.canary/>1. Canary</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-wiki/7.1.stackoverflow/2.protection/>2. Protection</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-wiki/7.1.stackoverflow/3.rop/>3. Rop</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-adea1378ce49f790e93e79a8eb56789b class=toggle>
+<label for=section-adea1378ce49f790e93e79a8eb56789b class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-wiki/7.3.glibcheap/>7.3.GlibcHeap</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-wiki/7.3.glibcheap/0.%E6%BC%8F%E6%B4%9E%E7%B1%BB%E5%9E%8B/>0.漏洞类型</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-wiki/7.3.glibcheap/1.unlink/>1. Unlink</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-9cb4c6bc315dc1b33082f5d5288c3a94 class=toggle>
+<label for=section-9cb4c6bc315dc1b33082f5d5288c3a94 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ios%E9%80%86%E5%90%91%E5%88%86%E6%9E%90/>iOS逆向分析</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ios%E9%80%86%E5%90%91%E5%88%86%E6%9E%90/1.%E6%AD%A3%E5%90%91%E5%9F%BA%E7%A1%80/>1.正向基础</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ios%E9%80%86%E5%90%91%E5%88%86%E6%9E%90/2.%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90/>2.静态分析</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-341295ddc0d83396a7d3558679ef1833 class=toggle>
+<label for=section-341295ddc0d83396a7d3558679ef1833 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/linux%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/>LinuxAudit</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/linux%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/elfformat/>Elf Format</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/linux%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/elfsections/>Elf Sections</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/linux%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/glibcheap/>Glibc Heap</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/linux%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/glibctcache/>Glibc Tcache</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-3286d64b801e56c8a67fc3d6c705ad5f class=toggle>
+<label for=section-3286d64b801e56c8a67fc3d6c705ad5f class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/xman3%E5%A4%8F%E4%BB%A4%E8%90%A5/>xman3</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/xman3%E5%A4%8F%E4%BB%A4%E8%90%A5/day12/>Day12</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/xman3%E5%A4%8F%E4%BB%A4%E8%90%A5/day13/>Day13</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/xman3%E5%A4%8F%E4%BB%A4%E8%90%A5/day15/>Day15</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/xman3%E5%A4%8F%E4%BB%A4%E8%90%A5/day2/>Day2</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/xman3%E5%A4%8F%E4%BB%A4%E8%90%A5/day3/>Day3</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/xman3%E5%A4%8F%E4%BB%A4%E8%90%A5/day4/>Day4</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/xman3%E5%A4%8F%E4%BB%A4%E8%90%A5/day5/>Day5</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/xman3%E5%A4%8F%E4%BB%A4%E8%90%A5/day6/>Day6</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/xman3%E5%A4%8F%E4%BB%A4%E8%90%A5/day7/>Day7</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/xman3%E5%A4%8F%E4%BB%A4%E8%90%A5/day8/>Day8</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/xman3%E5%A4%8F%E4%BB%A4%E8%90%A5/day9/>Day9</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-4cebd3955ba8591e1363f6c23bcebf77 class=toggle>
+<label for=section-4cebd3955ba8591e1363f6c23bcebf77 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/>工具</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/tips/>Tips</a>
+</li>
+<li>
+<input type=checkbox id=section-9202b25bebf47a37ff2de0c98701af22 class=toggle>
+<label for=section-9202b25bebf47a37ff2de0c98701af22 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/android/>android</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/android/adb/>Adb</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/android/apksigner/>Apksigner</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/android/apktool/>Apktool</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-0eae5ba399f09cd8f193445ec92d4f78 class=toggle>
+<label for=section-0eae5ba399f09cd8f193445ec92d4f78 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/gdb/>gdb</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/gdb/gdb%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0/>Gdb自学笔记</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/gdb/peda/>Peda</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-ee4c92a3ecfef9fbb2739a0ecca67a8d class=toggle>
+<label for=section-ee4c92a3ecfef9fbb2739a0ecca67a8d class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/kali/>kali</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/kali/mysql%E7%88%86%E7%A0%B4/>Mysql爆破</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/kali/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/>信息收集</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/kali/%E6%BC%8F%E6%B4%9E%E8%AF%84%E4%BC%B0/>漏洞评估</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-1e87f8eba2b863a4a2c3adb6ca31b4ef class=toggle>
+<label for=section-1e87f8eba2b863a4a2c3adb6ca31b4ef class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/nmap/>nmap</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/nmap/frag/>Frag</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/nmap/manual/>Manual</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-3c637d982c2facd1fe56b143d8623ca1 class=toggle>
+<label for=section-3c637d982c2facd1fe56b143d8623ca1 class="flex justify-between">
+<a role=button>openssl</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/openssl/1.aboutcsr/>1. About Csr</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/openssl/2.generatecsr/>2. Generate Csr</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/openssl/3.generatessl/>3. Generate Ssl</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/openssl/4.viewcertificate/>4. View Certificate</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/openssl/5.privatekey/>5. Private Key</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/openssl/6.convertformats/>6. Convert Formats</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-b94e5a103823552edb2079eab5ec3a5b class=toggle>
+<label for=section-b94e5a103823552edb2079eab5ec3a5b class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/pwntools/>pwntools</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/pwntools/1.gettingstarted/>1. Getting Started</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/pwntools/%E6%96%B0%E6%89%8B%E6%95%99%E7%A8%8B/>新手教程</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/pwntools/%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/>调试环境部署</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-70f7de56514323ec9b63f894a7e62b47 class=toggle>
+<label for=section-70f7de56514323ec9b63f894a7e62b47 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/vmware/>vmware</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/vmware/networkconfig/>Networkconfig</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-9fc152e7fbbca7c1d05dfe9fb8b153b5 class=toggle>
+<label for=section-9fc152e7fbbca7c1d05dfe9fb8b153b5 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E7%99%BD%E5%B8%BD%E5%AD%90%E8%AE%B2web%E5%AE%89%E5%85%A8/>白帽子讲WEB安全</a>
+</label>
+<ul>
+<li>
+<input type=checkbox id=section-6ee23af465dbdc85d1ad591729939bc6 class=toggle>
+<label for=section-6ee23af465dbdc85d1ad591729939bc6 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E7%99%BD%E5%B8%BD%E5%AD%90%E8%AE%B2web%E5%AE%89%E5%85%A8/1.%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E5%85%A8/>1.客户端安全</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E7%99%BD%E5%B8%BD%E5%AD%90%E8%AE%B2web%E5%AE%89%E5%85%A8/1.%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E5%85%A8/1.%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AE%89%E5%85%A8/>1.浏览器安全</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E7%99%BD%E5%B8%BD%E5%AD%90%E8%AE%B2web%E5%AE%89%E5%85%A8/1.%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E5%85%A8/2.%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BBxss/>2.跨站脚本攻击 Xss</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E7%99%BD%E5%B8%BD%E5%AD%90%E8%AE%B2web%E5%AE%89%E5%85%A8/1.%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E5%85%A8/3.%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf/>3.跨站点请求伪造 Csrf</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E7%99%BD%E5%B8%BD%E5%AD%90%E8%AE%B2web%E5%AE%89%E5%85%A8/1.%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E5%85%A8/4.%E7%82%B9%E5%87%BB%E5%8A%AB%E6%8C%81clickjacking/>4.点击劫持 Click Jacking</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E7%99%BD%E5%B8%BD%E5%AD%90%E8%AE%B2web%E5%AE%89%E5%85%A8/1.%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E5%85%A8/5.html5%E5%AE%89%E5%85%A8/>5. Html5安全</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-c7f451b94680b581dea354150c71f7a2 class=toggle>
+<label for=section-c7f451b94680b581dea354150c71f7a2 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E7%99%BD%E5%B8%BD%E5%AD%90%E8%AE%B2web%E5%AE%89%E5%85%A8/2.%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%AE%89%E5%85%A8/>2.服务端安全</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E7%99%BD%E5%B8%BD%E5%AD%90%E8%AE%B2web%E5%AE%89%E5%85%A8/2.%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%AE%89%E5%85%A8/1.%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB/>1.注入攻击</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E7%99%BD%E5%B8%BD%E5%AD%90%E8%AE%B2web%E5%AE%89%E5%85%A8/2.%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%AE%89%E5%85%A8/2.%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/>2.文件上传漏洞</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E7%99%BD%E5%B8%BD%E5%AD%90%E8%AE%B2web%E5%AE%89%E5%85%A8/2.%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%AE%89%E5%85%A8/7.%E5%BA%94%E7%94%A8%E5%B1%82%E6%8B%92%E7%BB%9D%E6%9C%8D%E5%8A%A1%E6%94%BB%E5%87%BBddos/>7.应用层拒绝服务攻击 Ddo S</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-5c49df8f622ae7e20e9387330ea9a57e class=toggle>
+<label for=section-5c49df8f622ae7e20e9387330ea9a57e class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-writeup/>题目</a>
+</label>
+<ul>
+<li>
+<input type=checkbox id=section-9dd798bc4730ef64253fd5ae774df568 class=toggle>
+<label for=section-9dd798bc4730ef64253fd5ae774df568 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-writeup/2019de1ctf/>2019de1ctf</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-writeup/2019de1ctf/babylfsr/>Babylfsr</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-writeup/2019de1ctf/babyrsa/>Babyrsa</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-185a7d8d37a4df368f0d03e7e473ede4 class=toggle>
+<label for=section-185a7d8d37a4df368f0d03e7e473ede4 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-writeup/2019ogeek/>2019OGeek</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-writeup/2019ogeek/bookmanager/>Bookmanager</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-e6edc61bffcb3b4d3540e38430b122f7 class=toggle>
+<label for=section-e6edc61bffcb3b4d3540e38430b122f7 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-writeup/ctf-wiki/>ctf-wiki</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-writeup/ctf-wiki/offbyone/>Offbyone</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-writeup/ctf-wiki/ret2libc3/>Ret2libc3</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-writeup/ctf-wiki/useafterfree/>Useafterfree</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-fc626c3e6698738b2569cacf54951c88 class=toggle>
+<label for=section-fc626c3e6698738b2569cacf54951c88 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-writeup/pwnable/>pwnable</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-writeup/pwnable/1.start/>1.Start</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-writeup/pwnable/2.orw/>2.Orw</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-writeup/pwnable/3.calc/>3.Calc</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/ctf-writeup/pwnable/4.3x17/>4.3x17</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class=book-section-flat>
+<a href=http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/>杂项博客</a>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/latexmanual/>Latex Manual</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/linuxmanual/>Linux Manual</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8/>客户端本地存储</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/%E7%94%A8%E6%88%B7%E7%B3%BB%E7%BB%9F/>用户系统</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/%E7%B4%A0%E6%95%B0%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/>素数相关算法</a>
+</li>
+</ul>
+</li>
+<li class=book-section-flat>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/>理论课程</a>
+<ul>
+<li>
+<input type=checkbox id=section-08294d07f59844688b295beedec20d37 class=toggle>
+<label for=section-08294d07f59844688b295beedec20d37 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/csapp/>CSAPP</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/csapp/1.tour/>1. Tour</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/csapp/2.representandmanipulate/>2. Represent and Manipulate</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-b48c462f0cf79309484e4d40631df945 class=toggle checked>
+<label for=section-b48c462f0cf79309484e4d40631df945 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/>信息安全数学基础</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/1.week_one/>1.Week One</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/10.%E5%AD%90%E7%BE%A4/>10.子群</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/11.%E5%BE%AA%E7%8E%AF%E7%BE%A4/>11.循环群</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/12.%E7%BD%AE%E6%8D%A2%E7%BE%A4/>12.置换群</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/13.%E9%99%AA%E9%9B%86%E4%B8%8E%E5%95%86%E7%BE%A4/>13.陪集与商群</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/14.%E5%90%8C%E6%80%81%E4%B8%8E%E5%90%8C%E6%9E%84/>14.同态与同构</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/15.%E4%BA%A4%E6%8D%A2%E7%8E%AF%E5%92%8C%E5%9F%9F/>15.交换环和域</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/16.%E4%B8%80%E5%85%83%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%8E%AF/>16.一元多项式环</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/17.%E7%90%86%E6%83%B3%E5%92%8C%E5%95%86%E7%8E%AF/>17.理想和商环</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/18.%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF/>18.椭圆曲线</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/19.%E5%9F%9F%E4%B8%8A%E7%9A%84%E4%B8%80%E5%85%83%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%8E%AF/>19.域上的一元多项式环</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/2.%E6%95%B4%E9%99%A4/>2.整除</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/3.%E5%90%8C%E4%BD%99/>3.同余</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/4.%E6%AC%A1%E6%95%B0/>4.次数</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/5.%E5%8E%9F%E6%A0%B9/>5.原根</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/6.%E6%8C%87%E6%95%B0/>6.指数</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/7.%E4%BA%8C%E6%AC%A1%E5%89%A9%E4%BD%99/>7.二次剩余</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/8.%E6%95%B0%E8%AE%BA%E5%BA%94%E7%94%A8/>8.数论应用</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/9.%E7%BE%A4/>9.群</a>
+</li>
+<li>
+<input type=checkbox id=section-a61eff99094935c2aaf8102c385b9696 class=toggle checked>
+<label for=section-a61eff99094935c2aaf8102c385b9696 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/homework/>HOMEWORK</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/homework/2.1/>2.1</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/homework/2.2/ class=active>2.2</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/homework/3.1/>3.1</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/homework/3.2/>3.2</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/homework/4.1/>4.1</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/homework/4.2/>4.2</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-a091c8cc68e393db2b7d1d87a60c424e class=toggle>
+<label for=section-a091c8cc68e393db2b7d1d87a60c424e class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/>分布式系统</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/1.introduction/>1. Introduction</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/2.infra-rpc/>2. Infra Rpc</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/3.gfs/>3. Gfs</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/4.vm-ft/>4. Vm Ft</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/5.go-raft/>5. Go Raft</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/6.raft/>6. Raft</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/7.zookeeper/>7. Zoo Keeper</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-c6cd187fa00be1c5355b90ac75fdd932 class=toggle>
+<label for=section-c6cd187fa00be1c5355b90ac75fdd932 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%AF%86%E7%A0%81%E5%AD%A6/>密码学</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%AF%86%E7%A0%81%E5%AD%A6/homework1/>Homework1</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%AF%86%E7%A0%81%E5%AD%A6/homework2/>Homework2</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%AF%86%E7%A0%81%E5%AD%A6/script2/>Script2</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%AF%86%E7%A0%81%E5%AD%A6/summary/>Summary</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%AF%86%E7%A0%81%E5%AD%A6/%E6%94%BB%E5%87%BB%E6%96%B9%E6%B3%95/>攻击方法</a>
+</li>
+<li>
+<input type=checkbox id=section-085ba4bc5e5bdb30e53c2582665edb4b class=toggle>
+<label for=section-085ba4bc5e5bdb30e53c2582665edb4b class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%AF%86%E7%A0%81%E5%AD%A6/%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81%E4%BD%93%E5%88%B6/>公钥密码体制</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%AF%86%E7%A0%81%E5%AD%A6/%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81%E4%BD%93%E5%88%B6/diffiehellman/>Diffie Hellman</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%AF%86%E7%A0%81%E5%AD%A6/%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81%E4%BD%93%E5%88%B6/elgamal/>El Gamal</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%AF%86%E7%A0%81%E5%AD%A6/%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81%E4%BD%93%E5%88%B6/ellipticcurve/>Elliptic Curve</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%AF%86%E7%A0%81%E5%AD%A6/%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81%E4%BD%93%E5%88%B6/ntru/>Ntru</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-7f8b976ea1130254fce7be176b990652 class=toggle>
+<label for=section-7f8b976ea1130254fce7be176b990652 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%AF%86%E7%A0%81%E5%AD%A6/%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81%E4%BD%93%E5%88%B6/>分组密码体制</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%AF%86%E7%A0%81%E5%AD%A6/%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81%E4%BD%93%E5%88%B6/%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F/>工作模式</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-7591e07dfe381f38d539a6068b65d30a class=toggle>
+<label for=section-7591e07dfe381f38d539a6068b65d30a class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%AF%86%E7%A0%81%E5%AD%A6/%E5%9B%BD%E5%AF%86%E7%AE%97%E6%B3%95/>国密算法</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%AF%86%E7%A0%81%E5%AD%A6/%E5%9B%BD%E5%AF%86%E7%AE%97%E6%B3%95/sm2/>Sm2</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%AF%86%E7%A0%81%E5%AD%A6/%E5%9B%BD%E5%AF%86%E7%AE%97%E6%B3%95/sm3/>Sm3</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%AF%86%E7%A0%81%E5%AD%A6/%E5%9B%BD%E5%AF%86%E7%AE%97%E6%B3%95/sm4/>Sm4</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-5419451fe0e3b781d25b014f17e442d7 class=toggle>
+<label for=section-5419451fe0e3b781d25b014f17e442d7 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/>恶意代码分析</a>
+</label>
+<ul>
+<li>
+<input type=checkbox id=section-1cd1a86f99f5fa53031f49755412e13a class=toggle>
+<label for=section-1cd1a86f99f5fa53031f49755412e13a class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/01/>01</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/01/lab1-1/>Lab1 1</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/01/lab1-2/>Lab1 2</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/01/lab1-3/>Lab1 3</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/01/lab1-4/>Lab1 4</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-e634a5beeedaf5c9daebeb01590d4060 class=toggle>
+<label for=section-e634a5beeedaf5c9daebeb01590d4060 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03/>03</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03/lab3-1/>Lab3 1</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03/lab3-2/>Lab3 2</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03/lab3-3/>Lab3 3</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03/lab3-4/>Lab3 4</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-e0c7a6eb34ba9a2bc47a53f1ad0ed494 class=toggle>
+<label for=section-e0c7a6eb34ba9a2bc47a53f1ad0ed494 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/04/>04</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/04/lab4-1/>Lab4 1</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/04/lab4-2/>Lab4 2</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/04/lab4-3/>Lab4 3</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/04/lab4-4/>Lab4 4</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-bf4a3d66f13fb0e9329020d20c1306ec class=toggle>
+<label for=section-bf4a3d66f13fb0e9329020d20c1306ec class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/05/>05</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/05/lab5-1/>Lab5 1</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-bc6b83be7c1060f3d5e4ddf73e0d44db class=toggle>
+<label for=section-bc6b83be7c1060f3d5e4ddf73e0d44db class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/06/>06</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/06/lab6-1/>Lab6 1</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/06/lab6-2/>Lab6 2</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/06/lab6-3/>Lab6 3</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/06/lab6-4/>Lab6 4</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-2388c83febac26916dc848cea491c6a3 class=toggle>
+<label for=section-2388c83febac26916dc848cea491c6a3 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/07/>07</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/07/lab7-1/>Lab7 1</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/07/lab7-2/>Lab7 2</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/07/lab7-3/>Lab7 3</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-84134c34ef8b3432fc0e557d6e97df68 class=toggle>
+<label for=section-84134c34ef8b3432fc0e557d6e97df68 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/09/>09</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/09/lab9-1/>Lab9 1</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/09/lab9-2/>Lab9 2</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-f53a1bdd5b68e65a7a75621ac2fb0979 class=toggle>
+<label for=section-f53a1bdd5b68e65a7a75621ac2fb0979 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/>操作系统</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/>期末复习</a>
+</li>
+<li>
+<input type=checkbox id=section-7046d3f078470e6f69eda86f034ee103 class=toggle>
+<label for=section-7046d3f078470e6f69eda86f034ee103 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/2.%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/>2.进程与线程</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/2.%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/3.%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/>3.进程间通信</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-7b0ba7488c84a9a938a874f0a7722b2c class=toggle>
+<label for=section-7b0ba7488c84a9a938a874f0a7722b2c class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/>HOMEWORK</a>
+</label>
+<ul>
+<li>
+<input type=checkbox id=section-0358a3138b59180a634f4318fbb84966 class=toggle>
+<label for=section-0358a3138b59180a634f4318fbb84966 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab1/>lab1</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab1/exe1/>Exe1</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab1/exe2/>Exe2</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab1/exe3/>Exe3</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab1/exe4/>Exe4</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab1/exe5/>Exe5</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab1/exe6/>Exe6</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab1/personal_summary/>Personal Summary</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-1fe413a79bff0e52fbe777f7dd893efa class=toggle>
+<label for=section-1fe413a79bff0e52fbe777f7dd893efa class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab2/>lab2</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab2/exe0/>Exe0</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab2/exe2/>Exe2</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-152ddf1fd124a245fbe69a89f53b9af4 class=toggle>
+<label for=section-152ddf1fd124a245fbe69a89f53b9af4 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab3/>lab3</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab3/exe0/>Exe0</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab3/exe1/>Exe1</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab3/exe2/>Exe2</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-653fec3178bbbad781ad5afbd4e08312 class=toggle>
+<label for=section-653fec3178bbbad781ad5afbd4e08312 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab4/>lab4</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab4/exe0/>Exe0</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab4/exe1/>Exe1</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-88066c79184dcb8855ab0d2e89c69248 class=toggle>
+<label for=section-88066c79184dcb8855ab0d2e89c69248 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%AE%9E%E9%AA%8C%E9%A1%B9%E7%9B%AE%E7%BB%84%E6%88%90/>实验项目组成</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%AE%9E%E9%AA%8C%E9%A1%B9%E7%9B%AE%E7%BB%84%E6%88%90/%E4%B8%AD%E6%96%AD%E4%B8%8E%E5%BC%82%E5%B8%B8/>中断与异常</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%AE%9E%E9%AA%8C%E9%A1%B9%E7%9B%AE%E7%BB%84%E6%88%90/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E4%B8%8E%E5%88%86%E6%AE%B5%E6%A8%A1%E5%BC%8F/>保护模式与分段模式</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%AE%9E%E9%AA%8C%E9%A1%B9%E7%9B%AE%E7%BB%84%E6%88%90/%E5%88%86%E9%A1%B5%E6%8A%80%E6%9C%AF/>分页技术</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-f7748c934cb94d7534259e432a1a9244 class=toggle>
+<label for=section-f7748c934cb94d7534259e432a1a9244 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91/>数字逻辑</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91/%E5%8D%A1%E8%AF%BA%E5%9B%BE/>卡诺图</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91/%E5%8F%AF%E7%BC%96%E7%A8%8B%E9%80%BB%E8%BE%91%E5%99%A8%E4%BB%B6/>可编程逻辑器件</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91/%E5%90%8C%E6%AD%A5%E6%97%B6%E5%BA%8F%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF/>同步时序逻辑电路</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91/%E5%BC%82%E6%AD%A5%E6%97%B6%E5%BA%8F%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF/>异步时序逻辑电路</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91/%E6%95%B0%E5%88%B6%E4%B8%8E%E7%BC%96%E7%A0%81/>数制与编码</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91/%E8%A7%A6%E5%8F%91%E5%99%A8/>触发器</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-a24e9c8dc6587a025f311889a2d3cdc8 class=toggle>
+<label for=section-a24e9c8dc6587a025f311889a2d3cdc8 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/>数据库系统原理</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0/>面试复习</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-8d97982597120840212b79c1f5521de7 class=toggle>
+<label for=section-8d97982597120840212b79c1f5521de7 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/>数据结构</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/b-tree/>B Tree</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/bintree/>Bin Tree</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/dictionary/>Dictionary</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/priorityqueue/>Priority Queue</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/review/>Review</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/searchtree/>Search Tree</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-2d34492045ce419c0845ea19837913ac class=toggle>
+<label for=section-2d34492045ce419c0845ea19837913ac class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%A6%82%E7%8E%87%E8%AE%BA/>概率论</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%A6%82%E7%8E%87%E8%AE%BA/%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C/>假设检验</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%A6%82%E7%8E%87%E8%AE%BA/%E5%88%87%E6%AF%94%E9%9B%AA%E5%A4%AB%E4%B8%8D%E7%AD%89%E5%BC%8F/>切比雪夫不等式</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%A6%82%E7%8E%87%E8%AE%BA/%E5%A4%A7%E6%95%B0%E5%AE%9A%E7%90%86%E5%92%8C%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86/>大数定理和中心极限定理</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%A6%82%E7%8E%87%E8%AE%BA/%E6%A0%B7%E6%9C%AC%E5%8F%8A%E6%8A%BD%E6%A0%B7%E5%88%86%E5%B8%83/>样本及抽样分布</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%A6%82%E7%8E%87%E8%AE%BA/%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%9A%84%E5%88%86%E5%B8%83/>随机变量的分布</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%A6%82%E7%8E%87%E8%AE%BA/%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/>随机过程</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%A6%82%E7%8E%87%E8%AE%BA/%E9%A2%98%E7%9B%AE%E7%B2%BE%E8%A7%A3/>题目精解</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-3904281842fe58698b025f3712ab5530 class=toggle>
+<label for=section-3904281842fe58698b025f3712ab5530 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%B0%91%E6%B3%95%E6%80%BB%E8%AE%BA/>民法总论</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%B0%91%E6%B3%95%E6%80%BB%E8%AE%BA/%E6%B0%91%E6%B3%95%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/>民法期末复习</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-7489a3fe0795fd350bdd63a94caed86c class=toggle>
+<label for=section-7489a3fe0795fd350bdd63a94caed86c class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%AE%97%E6%B3%95%E5%92%8C%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6/>算法和协议中的安全机制</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%AE%97%E6%B3%95%E5%92%8C%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6/1.introduction/>1. Introduction</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%AE%97%E6%B3%95%E5%92%8C%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6/2.prsg/>2. Prsg</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%AE%97%E6%B3%95%E5%92%8C%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6/3.streamciphers/>3. Stream Ciphers</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%AE%97%E6%B3%95%E5%92%8C%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6/4.block_hash_mac/>4. Block Hash MAC</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%AE%97%E6%B3%95%E5%92%8C%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6/5.publickey/>5. Public Key</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%AE%97%E6%B3%95%E5%92%8C%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6/6.securityinfrastructure/>6. Security Infrastructure</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%AE%97%E6%B3%95%E5%92%8C%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6/7.establishcommunication/>7. Establish Communication</a>
+</li>
+<li>
+<input type=checkbox id=section-c6765f982a28710f9728fcbc35b2e8f3 class=toggle>
+<label for=section-c6765f982a28710f9728fcbc35b2e8f3 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%AE%97%E6%B3%95%E5%92%8C%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6/4.block-hash-mac/>4.Block-Hash-MAC</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%AE%97%E6%B3%95%E5%92%8C%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6/4.block-hash-mac/4.1.blockciphers/>4.1. Block Ciphers</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%AE%97%E6%B3%95%E5%92%8C%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6/4.block-hash-mac/4.2.hashfunctions/>4.2. Hash Functions</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%AE%97%E6%B3%95%E5%92%8C%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6/4.block-hash-mac/4.3.mac/>4.3. MAC</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-b2cbd8a0ea45c0bf39e7dcf6f9792d5b class=toggle>
+<label for=section-b2cbd8a0ea45c0bf39e7dcf6f9792d5b class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BB%8F%E6%B5%8E%E6%B3%95/>经济法</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BB%8F%E6%B5%8E%E6%B3%95/%E7%BB%8F%E6%B5%8E%E6%B3%95%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/>经济法期末复习</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-ae9ed563e90ebbf4844343681085abab class=toggle>
+<label for=section-ae9ed563e90ebbf4844343681085abab class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/>编译原理</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/0.%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C/>0.编译器的工作</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1.%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/>1.词法分析</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/3.%E5%B1%9E%E6%80%A7%E6%96%87%E6%B3%95%E5%92%8C%E8%AF%AD%E6%B3%95%E5%88%B6%E5%AF%BC%E7%BF%BB%E8%AF%91/>3.属性文法和语法制导翻译</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/4.%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E5%92%8C%E4%B8%AD%E9%97%B4%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90/>4.语义分析和中间代码生成</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/6.%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E7%BB%84%E7%BB%87/>6.运行时的存储空间组织</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/7.%E4%BC%98%E5%8C%96/>7.优化</a>
+</li>
+<li>
+<input type=checkbox id=section-0aa76b83df07b297ac10cc09778ccc41 class=toggle>
+<label for=section-0aa76b83df07b297ac10cc09778ccc41 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/2.%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90/>2.语法分析</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/2.%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90/review/>Review</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/2.%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90/%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B/>自上而下</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/2.%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90/%E8%87%AA%E4%B8%8B%E8%80%8C%E4%B8%8A/>自下而上</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-770748d4e5c26d4df3c4511c206b818d class=toggle>
+<label for=section-770748d4e5c26d4df3c4511c206b818d class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/>计算机网络</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0/>面试复习</a>
+</li>
+<li>
+<input type=checkbox id=section-bf71d985a204ea337dc08bcfdf8e8ce8 class=toggle>
+<label for=section-bf71d985a204ea337dc08bcfdf8e8ce8 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/1.%E7%89%A9%E7%90%86%E5%B1%82/>1.物理层</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/1.%E7%89%A9%E7%90%86%E5%B1%82/%E7%89%A9%E7%90%86%E5%B1%82/>物理层</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-e03c9a47ec9979e71aa1f58e6cff44ce class=toggle>
+<label for=section-e03c9a47ec9979e71aa1f58e6cff44ce class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/2.%E9%93%BE%E8%B7%AF%E5%B1%82/>2.链路层</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/2.%E9%93%BE%E8%B7%AF%E5%B1%82/%E9%93%BE%E8%B7%AF%E5%B1%82/>链路层</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-23c012e8fe3e0e52c1dafc3742d4f7b6 class=toggle>
+<label for=section-23c012e8fe3e0e52c1dafc3742d4f7b6 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/3.%E7%BD%91%E7%BB%9C%E5%B1%82/>3.网络层</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/3.%E7%BD%91%E7%BB%9C%E5%B1%82/%E7%BD%91%E7%BB%9C%E5%B1%82/>网络层</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-1c7f4b67416bb532b382aa2a294a3877 class=toggle>
+<label for=section-1c7f4b67416bb532b382aa2a294a3877 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/4.%E4%BC%A0%E8%BE%93%E5%B1%82/>4.传输层</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/4.%E4%BC%A0%E8%BE%93%E5%B1%82/ssl/>Ssl</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/4.%E4%BC%A0%E8%BE%93%E5%B1%82/tcp/>Tcp</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/4.%E4%BC%A0%E8%BE%93%E5%B1%82/%E8%BF%90%E8%BE%93%E5%B1%82/>运输层</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-44df81ca0603a245f4a8bf71e59e523c class=toggle>
+<label for=section-44df81ca0603a245f4a8bf71e59e523c class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/5.%E5%BA%94%E7%94%A8%E5%B1%82/>5.应用层</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/5.%E5%BA%94%E7%94%A8%E5%B1%82/ftp/>FTP</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/5.%E5%BA%94%E7%94%A8%E5%B1%82/ntp/>Ntp</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/5.%E5%BA%94%E7%94%A8%E5%B1%82/smtp/>SMTP</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/5.%E5%BA%94%E7%94%A8%E5%B1%82/socket/>Socket</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/5.%E5%BA%94%E7%94%A8%E5%B1%82/uwsgi/>Uwsgi</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-d6a72023b23af7c582d13cfb8ecc6686 class=toggle>
+<label for=section-d6a72023b23af7c582d13cfb8ecc6686 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%9F%BA%E6%9C%AC%E5%8A%9F/>网络基本功</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%9F%BA%E6%9C%AC%E5%8A%9F/1.%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93/>1.网络传输</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%9F%BA%E6%9C%AC%E5%8A%9F/2.%E4%BA%A4%E6%8D%A2%E6%9C%BA/>2.交换机</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%9F%BA%E6%9C%AC%E5%8A%9F/3.vlan%E4%B8%8Etrunk/>3. Vlan与 Trunk</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%9F%BA%E6%9C%AC%E5%8A%9F/4.%E8%B7%AF%E7%94%B1/>4.路由</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%9F%BA%E6%9C%AC%E5%8A%9F/8.tcp%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/>8. Tcp滑动窗口</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-8086fe76439d18724eeca4379f5df3a3 class=toggle>
+<label for=section-8086fe76439d18724eeca4379f5df3a3 class="flex justify-between">
+<a role=button>项目管理</a>
+</label>
+<ul>
+<li>
+<input type=checkbox id=section-54d2113d034495f6a32dded6874da6f3 class=toggle>
+<label for=section-54d2113d034495f6a32dded6874da6f3 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/%E9%AB%98%E6%95%88%E8%83%BD%E5%9B%A2%E9%98%9F%E6%A8%A1%E5%BC%8F/>高效能团队模式</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/%E9%AB%98%E6%95%88%E8%83%BD%E5%9B%A2%E9%98%9F%E6%A8%A1%E5%BC%8F/1.%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84%E7%9A%84%E9%99%B7%E9%98%B1/>1.组织结构的陷阱</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/%E9%AB%98%E6%95%88%E8%83%BD%E5%9B%A2%E9%98%9F%E6%A8%A1%E5%BC%8F/2.%E5%BA%B7%E5%A8%81%E5%AE%9A%E5%BE%8B/>2.康威定律</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/%E9%AB%98%E6%95%88%E8%83%BD%E5%9B%A2%E9%98%9F%E6%A8%A1%E5%BC%8F/3.%E5%9B%A2%E9%98%9F%E4%BC%98%E5%85%88/>3.团队优先</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/%E9%AB%98%E6%95%88%E8%83%BD%E5%9B%A2%E9%98%9F%E6%A8%A1%E5%BC%8F/4.%E9%9D%99%E6%80%81%E5%9B%A2%E9%98%9F%E6%8B%93%E6%89%91/>4.静态团队拓扑</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/%E9%AB%98%E6%95%88%E8%83%BD%E5%9B%A2%E9%98%9F%E6%A8%A1%E5%BC%8F/5.%E5%9B%9B%E7%B1%BB%E5%9F%BA%E6%9C%AC%E5%9B%A2%E9%98%9F%E6%8B%93%E6%89%91/>5.四类基本团队拓扑</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class=book-section-flat>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/>算法统计</a>
+<ul>
+<li>
+<input type=checkbox id=section-f743eb4dbe82a4fb0f987fc40e818fcc class=toggle>
+<label for=section-f743eb4dbe82a4fb0f987fc40e818fcc class="flex justify-between">
+<a role=button>LeetCode</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/leetcode/boyermoore/>Boyer Moore</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-70e0cf9b6b5e4aa5062d8529c57bd6ce class=toggle>
+<label for=section-70e0cf9b6b5e4aa5062d8529c57bd6ce class="flex justify-between">
+<a role=button>OI-Wiki</a>
+</label>
+<ul>
+<li>
+<input type=checkbox id=section-7a3b3af522cfc7c8b73b367b3b477fd8 class=toggle>
+<label for=section-7a3b3af522cfc7c8b73b367b3b477fd8 class="flex justify-between">
+<a role=button>动态规划</a>
+</label>
+<ul>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-2de9ee27207e122fd089f11d7b565176 class=toggle>
+<label for=section-2de9ee27207e122fd089f11d7b565176 class="flex justify-between">
+<a role=button>图论</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/oi-wiki/%E5%9B%BE%E8%AE%BA/tarjan/>Tarjan</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-a6249e352f5ce2f018dc0a39063df93b class=toggle>
+<label for=section-a6249e352f5ce2f018dc0a39063df93b class="flex justify-between">
+<a role=button>数据结构</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/oi-wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/st%E8%A1%A8/>St表</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/oi-wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E4%B8%BB%E5%B8%AD%E6%A0%91/>主席树</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/oi-wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%8D%95%E8%B0%83%E6%A0%88/>单调栈</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/oi-wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%A0%86/>堆</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/oi-wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%B9%B6%E6%9F%A5%E9%9B%86/>并查集</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-9562301ec1c4c680ebe131311ea8b1f3 class=toggle>
+<label for=section-9562301ec1c4c680ebe131311ea8b1f3 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/>机器学习快速入门教程</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/1.framing/>1. Framing</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/10.regularization/>10. Regularization</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/11.logisticregression/>11. Logistic Regression</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/12.classification/>12. Classification</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/2.descending/>2. Descending</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/3.reduceloss/>3. Reduce Loss</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/4.tensorflowapi/>4. Tensor Flow API</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/5.generalization/>5. Generalization</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/6.trainingandtest/>6. Training and Test</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/7.validation/>7. Validation</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/8.representation/>8. Representation</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/9.featurecrosses/>9. Feature Crosses</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/rnn/>Rnn</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-f4a276624930c2be36815223fc0f4efd class=toggle>
+<label for=section-f4a276624930c2be36815223fc0f4efd class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E5%85%A5%E9%97%A8%E7%BB%8F%E5%85%B8/>算法竞赛入门经典</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E5%85%A5%E9%97%A8%E7%BB%8F%E5%85%B8/1.%E5%9F%BA%E7%A1%80%E9%A2%98%E7%9B%AE/>1.基础题目</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E5%85%A5%E9%97%A8%E7%BB%8F%E5%85%B8/2.%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%88%9D%E6%AD%A5/>2.动态规划初步</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E5%85%A5%E9%97%A8%E7%BB%8F%E5%85%B8/3.%E6%95%B0%E5%AD%A6%E6%A6%82%E5%BF%B5%E4%B8%8E%E6%96%B9%E6%B3%95/>3.数学概念与方法</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E5%85%A5%E9%97%A8%E7%BB%8F%E5%85%B8/4.%E5%9B%BE%E8%AE%BA%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%AE%97%E6%B3%95/>4.图论模型与算法</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class=book-section-flat>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/>软件技术</a>
+<ul>
+<li>
+<input type=checkbox id=section-6234482cb8ceb02cf3b58bac5cd13ef5 class=toggle>
+<label for=section-6234482cb8ceb02cf3b58bac5cd13ef5 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/cpp/>Cplusplus</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/cpp/attribute/>Attribute</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/cpp/stl/>Stl</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/cpp/%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0/>面试复习</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-a1d369aa91d645c7a837daa4cf594fe1 class=toggle>
+<label for=section-a1d369aa91d645c7a837daa4cf594fe1 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/csharp/>CSharp</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/csharp/1.%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D/>1.基本介绍</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/csharp/2.%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/>2.基本语法</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/csharp/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B/>从零开始</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-a091bbcb8837b0430cd5fc99211be4e1 class=toggle>
+<label for=section-a091bbcb8837b0430cd5fc99211be4e1 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/database/>Database</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/database/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/>基本概念</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/database/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/>性能优化</a>
+</li>
+<li>
+<input type=checkbox id=section-5990e5190850ed202a6cf7355b5505d2 class=toggle>
+<label for=section-5990e5190850ed202a6cf7355b5505d2 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/database/mongodb/>MongoDB</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/database/mongodb/%E5%8E%9F%E7%90%86%E4%BB%8B%E7%BB%8D/>原理介绍</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-7d8f40129818a91e7dbfe60f8813b1d2 class=toggle>
+<label for=section-7d8f40129818a91e7dbfe60f8813b1d2 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/database/redis/>Redis</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/database/redis/1.%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E5%AF%B9%E8%B1%A1/>1.数据结构与对象</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/database/redis/2.%E5%8D%95%E6%9C%BA%E6%95%B0%E6%8D%AE%E5%BA%93/>2.单机数据库</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/database/redis/%E9%94%81%E5%AE%9E%E7%8E%B0/>锁实现</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-365b28dde93396e7de309bf22e0b11f5 class=toggle>
+<label for=section-365b28dde93396e7de309bf22e0b11f5 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/docker/>Docker</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/docker/1.orientation/>1. Orientation</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/docker/2.containers/>2. Containers</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/docker/3.services/>3. Services</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-5325fe931dbf84fdab85cb9b3d7ce383 class=toggle>
+<label for=section-5325fe931dbf84fdab85cb9b3d7ce383 class="flex justify-between">
+<a role=button>Golang</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/golang/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/>垃圾回收</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/golang/%E8%8F%9C%E9%B8%9F%E6%95%99%E7%A8%8B/>菜鸟教程</a>
+</li>
+<li>
+<input type=checkbox id=section-a3e36a391d462cc9bb53022812563e6c class=toggle>
+<label for=section-a3e36a391d462cc9bb53022812563e6c class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/golang/draveness/>Draveness</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/golang/draveness/%E5%B8%B8%E7%94%A8%E5%85%B3%E9%94%AE%E5%AD%97/>常用关键字</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-846ac311d9bbea7070c79af698bff0e2 class=toggle>
+<label for=section-846ac311d9bbea7070c79af698bff0e2 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/>iOS</a>
+</label>
+<ul>
+<li>
+<input type=checkbox id=section-f12eae63cf6d4d41bb348042933aa5e8 class=toggle>
+<label for=section-f12eae63cf6d4d41bb348042933aa5e8 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/cocoapods/>CocoaPods</a>
+</label>
+<ul>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-21403506873daf8f5a6973fe17d42aa6 class=toggle>
+<label for=section-21403506873daf8f5a6973fe17d42aa6 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/objective-csdk/>Objective-C&SDK</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/objective-csdk/1.%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/>1.基本语法</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/objective-csdk/10.%E6%95%B0%E7%BB%84%E4%B8%8E%E5%AD%97%E5%85%B8/>10.数组与字典</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/objective-csdk/11.runloop/>11. Run Loop</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/objective-csdk/2.%E7%B1%BB/>2.类</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/objective-csdk/3.%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/>3.内存管理</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/objective-csdk/4.%E5%9D%97/>4.块</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/objective-csdk/5.%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F/>5.通信方式</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/objective-csdk/6.%E5%A4%9A%E7%BA%BF%E7%A8%8B/>6.多线程</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/objective-csdk/7.%E7%AE%80%E5%8D%95ui/>7.简单 Ui</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/objective-csdk/8.%E5%A4%8D%E6%9D%82ui/>8.复杂 Ui</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/objective-csdk/9.%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%AD%98%E5%82%A8/>9.网络与存储</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-ae6deb19f0294265934528cc4fa2ed0c class=toggle>
+<label for=section-ae6deb19f0294265934528cc4fa2ed0c class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/runtime/>Runtime</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/runtime/1.%E7%AE%80%E4%BB%8B/>1.简介</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/runtime/2.%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/>2.数据结构</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/runtime/3.%E7%BC%96%E8%AF%91%E7%BB%93%E6%9E%9C/>3.编译结果</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/runtime/swizzling/>Swizzling</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-04091c1ae9f0b820e949c2690a511ff7 class=toggle>
+<label for=section-04091c1ae9f0b820e949c2690a511ff7 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/swiftsdk/>Swift&SDK</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/swiftsdk/1.%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/>1.基本语法</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/swiftsdk/2.%E5%86%85%E7%BD%AE%E7%B1%BB%E5%9E%8B/>2.内置类型</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/swiftsdk/3.%E5%87%BD%E6%95%B0%E4%B8%8E%E7%BB%93%E6%9E%84/>3.函数与结构</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/swiftsdk/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/>问题记录</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-4a81870aea2213a052ff4db48a61b168 class=toggle>
+<label for=section-4a81870aea2213a052ff4db48a61b168 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/>性能优化</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/cpugpu/>Cpu& Gpu</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88/>优化方案</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-c1fba772530f735ab462d49f491e0dab class=toggle>
+<label for=section-c1fba772530f735ab462d49f491e0dab class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/>JAVA</a>
+</label>
+<ul>
+<li>
+<input type=checkbox id=section-c08c7f614a5c33df07bf1bfa792018db class=toggle>
+<label for=section-c08c7f614a5c33df07bf1bfa792018db class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/android/>Android</a>
+</label>
+<ul>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-4d976c2a7773d006be4d6726b7d9c65e class=toggle>
+<label for=section-4d976c2a7773d006be4d6726b7d9c65e class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/codeacademy/>codeacademy</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/codeacademy/1.introduction/>1. Introduction</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/codeacademy/2.conditionalandcontrolflow/>2. Conditional and Control Flow</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/codeacademy/3.objectoriented/>3. Object Oriented</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/codeacademy/4.datastructures/>4. Data Structures</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-d1cce7397d63591e0c9c8526aa0d0355 class=toggle>
+<label for=section-d1cce7397d63591e0c9c8526aa0d0355 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/>菜鸟基础教程</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/1.%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/>1.基础语法</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/10.character%E7%B1%BB/>10. Character类</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/11.string%E7%B1%BB/>11. String类</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/12.buffer%E4%B8%8Ebuilder/>12. Buffer与 Builder</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/13.%E6%95%B0%E7%BB%84/>13.数组</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/14.%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4/>14.日期和时间</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/15.%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/>15.正则表达式</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/2.%E5%AF%B9%E8%B1%A1%E5%92%8C%E7%B1%BB/>2.对象和类</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/3.%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/>3.基本数据类型</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/4.%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B/>4.变量类型</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/5.%E4%BF%AE%E9%A5%B0%E7%AC%A6/>5.修饰符</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/6.%E8%BF%90%E7%AE%97%E7%AC%A6/>6.运算符</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/7.%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84/>7.循环结构</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/8.%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5/>8.条件语句</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/9.number%E5%92%8Cmath%E7%B1%BB/>9. Number和 Math类</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-028f86082ad2776ea26f57556c9f2863 class=toggle>
+<label for=section-028f86082ad2776ea26f57556c9f2863 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/>菜鸟面向对象</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/1.%E7%BB%A7%E6%89%BF/>1.继承</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/2.%E9%87%8D%E5%86%99%E4%B8%8E%E9%87%8D%E8%BD%BD/>2.重写与重载</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/3.%E5%A4%9A%E6%80%81/>3.多态</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/4.%E6%8A%BD%E8%B1%A1%E7%B1%BB/>4.抽象类</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/5.%E5%B0%81%E8%A3%85/>5.封装</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/6.%E6%8E%A5%E5%8F%A3/>6.接口</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/7.%E5%8C%85/>7.包</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-50e9cbdc96c793c55d7117f6d7eb9c6b class=toggle>
+<label for=section-50e9cbdc96c793c55d7117f6d7eb9c6b class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/>JavaScript</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/proxy/>Proxy</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/reflect/>Reflect</a>
+</li>
+<li>
+<input type=checkbox id=section-94cf31219ada55e1fd5bba43cb90fee1 class=toggle>
+<label for=section-94cf31219ada55e1fd5bba43cb90fee1 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/functional/>functional</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/functional/1.basic/>1. Basic</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/functional/2.container/>2. Container</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/functional/3.monad/>3. Monad</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/functional/4.applicative/>4. Applicative</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-5a5124adcd96cf2201c477d48fe83bd4 class=toggle>
+<label for=section-5a5124adcd96cf2201c477d48fe83bd4 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/html5/>html5</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/html5/html-css%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0/>HTML Css自学笔记</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/html5/javascript%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0/>Java Script自学笔记</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-b049899d996ade26eaf35129797be806 class=toggle>
+<label for=section-b049899d996ade26eaf35129797be806 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/>nodejs</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/1.%E7%AE%80%E5%8D%95%E7%9A%84%E4%BE%8B%E5%AD%90/>1.简单的例子</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/10.%E5%87%BD%E6%95%B0%E4%B8%8E%E7%B1%BB/>10.函数与类</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/2.npm%E4%BB%8B%E7%BB%8D/>2. Npm介绍</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/3.repl/>3. Repl</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/4.%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/>4.回调函数</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/5.%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/>5.事件循环</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/6.eventemitter/>6. Event Emitter</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/7.buffer/>7. Buffer</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/8.stream/>8. Stream</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/9.%E6%A8%A1%E5%9D%97%E7%B3%BB%E7%BB%9F/>9.模块系统</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/nodemodules/>Node Modules</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-4b7806db5eb947484ca975a2df43fb44 class=toggle>
+<label for=section-4b7806db5eb947484ca975a2df43fb44 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/reactjs/>reactjs</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/reactjs/1.react%E5%9F%BA%E7%A1%80/>1. React基础</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/reactjs/2.react%E8%BF%9B%E9%98%B6/>2. React进阶</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/reactjs/hooks/>Hooks</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-b51cc819dab8a579c7c3c0f97e00801a class=toggle>
+<label for=section-b51cc819dab8a579c7c3c0f97e00801a class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/typescript/>typescript</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/typescript/stackoverflow/>Stack Overflow</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/typescript/trick/>Trick</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/typescript/%E5%85%B6%E4%BB%96/>其他</a>
+</li>
+<li>
+<input type=checkbox id=section-44ee6d0f0d5640ed6dbd26e973dd3dae class=toggle>
+<label for=section-44ee6d0f0d5640ed6dbd26e973dd3dae class="flex justify-between">
+<a role=button>菜鸟教程</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/typescript/%E8%8F%9C%E9%B8%9F%E6%95%99%E7%A8%8B/1.%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/>1.基本语法</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/typescript/%E8%8F%9C%E9%B8%9F%E6%95%99%E7%A8%8B/2.%E6%8E%A7%E5%88%B6%E6%B5%81/>2.控制流</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/typescript/%E8%8F%9C%E9%B8%9F%E6%95%99%E7%A8%8B/3.%E5%86%85%E7%BD%AE%E7%B1%BB%E5%9E%8B/>3.内置类型</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/typescript/%E8%8F%9C%E9%B8%9F%E6%95%99%E7%A8%8B/4.%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/>4.面向对象</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/typescript/%E8%8F%9C%E9%B8%9F%E6%95%99%E7%A8%8B/5.%E6%A8%A1%E5%9D%97/>5.模块</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-c9b46cc3c20b321151e5e5d80e2f9423 class=toggle>
+<label for=section-c9b46cc3c20b321151e5e5d80e2f9423 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/vuejs/>vuejs</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/vuejs/%E5%9F%BA%E7%A1%80/>基础</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-520e4c1083566cf013fe3b72b3f4c408 class=toggle>
+<label for=section-520e4c1083566cf013fe3b72b3f4c408 class="flex justify-between">
+<a role=button>Linux</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/shell%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0/>Shell自学笔记</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/>基本操作</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/%E9%98%B2%E7%81%AB%E5%A2%99/>防火墙</a>
+</li>
+<li>
+<input type=checkbox id=section-d5c145e0546701424632528b6cfbe71a class=toggle>
+<label for=section-d5c145e0546701424632528b6cfbe71a class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/commandset/>CommandSet</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/commandset/awk/>Awk</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/commandset/command/>Command</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/commandset/crontab/>Crontab</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/commandset/du/>Du</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/commandset/fold/>Fold</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/commandset/grep/>Grep</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/commandset/netstat/>Netstat</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/commandset/patch/>Patch</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/commandset/tmux/>Tmux</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/commandset/wc/>Wc</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-3ccd7f643c29fc93970c32024f72b668 class=toggle>
+<label for=section-3ccd7f643c29fc93970c32024f72b668 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/macos/>MacOS</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/macos/1.%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/>1.系统配置</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/macos/2.mac%E5%B7%A5%E4%BD%9C%E6%B5%81/>2. Mac工作流</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-b2e2717a2254582c3f0f9b50341079e1 class=toggle>
+<label for=section-b2e2717a2254582c3f0f9b50341079e1 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/miniprogram/>MiniProgram</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/miniprogram/1.directorystructrue/>1. Directory Structrue</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/miniprogram/2.settings/>2. Settings</a>
+</li>
+<li>
+<input type=checkbox id=section-096e926748261937eb068f4442a274aa class=toggle>
+<label for=section-096e926748261937eb068f4442a274aa class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/miniprogram/3.logiclayer/>3.LogicLayer</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/miniprogram/3.logiclayer/1.registerprocess/>1. Register Process</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/miniprogram/3.logiclayer/2.scenevalues/>2. Scene Values</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/miniprogram/3.logiclayer/3.registrationpage/>3. Registration Page</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/miniprogram/3.logiclayer/4.route/>4. Route</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/miniprogram/3.logiclayer/5.modular/>5. Modular</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/miniprogram/3.logiclayer/6.api/>6. API</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-715725dc9f36a041a16856d1278ecf56 class=toggle>
+<label for=section-715725dc9f36a041a16856d1278ecf56 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/miniprogram/4.viewlayer/>4.ViewLayer</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/miniprogram/4.viewlayer/1.wxml/>1. Wxml</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/miniprogram/4.viewlayer/2.wxss/>2. Wxss</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/miniprogram/4.viewlayer/3.component/>3. Component</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-e99be2dd471d9795bb019cce6a949cbe class=toggle>
+<label for=section-e99be2dd471d9795bb019cce6a949cbe class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/php/>PHP</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/php/%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0/>基础语法自学笔记</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/php/%E8%BF%9B%E9%98%B6%E8%AF%AD%E6%B3%95%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0/>进阶语法自学笔记</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-06a3a29aaf1b5401980c5feef0dab734 class=toggle>
+<label for=section-06a3a29aaf1b5401980c5feef0dab734 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/>Python</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/celery/>Celery</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/virutalenv/>Virutalenv</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0/>自学笔记</a>
+</li>
+<li>
+<input type=checkbox id=section-c9668c48465b51b7f8450e46f40faf51 class=toggle>
+<label for=section-c9668c48465b51b7f8450e46f40faf51 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/django/>Django</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/django/admin-site/>Admin Site</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/django/authentication-system/>Authentication System</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/django/guardian/>Guardian</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/django/signals/>Signals</a>
+</li>
+<li>
+<input type=checkbox id=section-a400c6320e563098d2e5183f8abbbaab class=toggle>
+<label for=section-a400c6320e563098d2e5183f8abbbaab class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/django/tutorial/>Tutorial</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/django/tutorial/tutorial01/>Tutorial01</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/django/tutorial/tutorial02/>Tutorial02</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/django/tutorial/tutorial03/>Tutorial03</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/django/tutorial/tutorial04/>Tutorial04</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/django/tutorial/tutorial05/>Tutorial05</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-abb534a591981482592b5cf42ed91d28 class=toggle>
+<label for=section-abb534a591981482592b5cf42ed91d28 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/flask/>Flask</a>
+</label>
+<ul>
+<li>
+<input type=checkbox id=section-5cee8a6502b423cf377316a63539b869 class=toggle>
+<label for=section-5cee8a6502b423cf377316a63539b869 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/flask/tutorial/>Tutorial</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/flask/tutorial/1.projectlayout/>1. Project Layout</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/flask/tutorial/2.applicationsetup/>2. Application Setup</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/flask/tutorial/3.databases/>3. Databases</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-0bfa6bde475dda9141f1690db88ed84f class=toggle>
+<label for=section-0bfa6bde475dda9141f1690db88ed84f class="flex justify-between">
+<a role=button>Rust</a>
+</label>
+<ul>
+<li>
+<input type=checkbox id=section-6975af8ca9f17dd048d7efd696221571 class=toggle>
+<label for=section-6975af8ca9f17dd048d7efd696221571 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/rust/thebook/>TheBook</a>
+</label>
+<ul>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-7bab1d4db71f251d520e8b7a6c6129b4 class=toggle>
+<label for=section-7bab1d4db71f251d520e8b7a6c6129b4 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/>SystemDesign</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/api%E8%AE%BE%E8%AE%A1/>Api设计</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/%E5%BE%AE%E6%9C%8D%E5%8A%A1/>微服务</a>
+</li>
+<li>
+<input type=checkbox id=section-3d3d97243e425cdd82f85ce64c8c2015 class=toggle>
+<label for=section-3d3d97243e425cdd82f85ce64c8c2015 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/>DesignPatterns</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/reactor%E6%A8%A1%E5%BC%8F/>Reactor模式</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/uml/>Uml</a>
+</li>
+<li>
+<input type=checkbox id=section-39ac44ef458153b3744e38e564cc868d class=toggle>
+<label for=section-39ac44ef458153b3744e38e564cc868d class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/1.%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/>1.创建型模式</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/1.%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/1.%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/>1.工厂模式</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/1.%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/2.%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/>2.抽象工厂模式</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/1.%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/3.%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/>3.单例模式</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/1.%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/4.%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/>4.建造者模式</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/1.%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/5.%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/>5.原型模式</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-e0e7b57d74f737e4ba73f6ec248eb422 class=toggle>
+<label for=section-e0e7b57d74f737e4ba73f6ec248eb422 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/>2.结构型模式</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/10.%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/>10.装饰器模式</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/11.%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/>11.外观模式</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/12.%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/>12.享元模式</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/13.%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/>13.代理模式</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/6.%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/>6.适配器模式</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/7.%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/>7.桥接模式</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/8.%E8%BF%87%E6%BB%A4%E5%99%A8%E6%A8%A1%E5%BC%8F/>8.过滤器模式</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/9.%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/>9.组合模式</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-c7f80627b457d21aa881118a44f607b8 class=toggle>
+<label for=section-c7f80627b457d21aa881118a44f607b8 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/3.%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/>3.行为型模式</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/3.%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/14.%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/>14.责任链模式</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/3.%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/15.%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/>15.命令模式</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/3.%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/16.%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F/>16.解释器模式</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/3.%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/17.%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/>17.迭代器模式</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/designpatterns/3.%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/18.%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/>18.中介者模式</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-062465c7d7771770441d91070ad6579e class=toggle>
+<label for=section-062465c7d7771770441d91070ad6579e class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/unity/>Unity</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/unity/blending/>Blending</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/unity/%E7%89%B9%E6%95%88%E7%B3%BB%E7%BB%9F/>特效系统</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-50a94598a5c521b6dbe2202c1910e2f2 class=toggle>
+<label for=section-50a94598a5c521b6dbe2202c1910e2f2 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/versioncontrol/>VersionControl</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/versioncontrol/gitadvance/>Git Advance</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/versioncontrol/svntutorial/>Svn Tutorial</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/versioncontrol/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/>版本控制</a>
+</li>
+</ul>
+</li>
+<li>
+<input type=checkbox id=section-eb07f8ebb68a250af8feec16bc9a3e56 class=toggle>
+<label for=section-eb07f8ebb68a250af8feec16bc9a3e56 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/vim/>Vim</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/vim/1.vimtutor/>1.Vimtutor</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/readme/>Readme</a>
+</li>
+</ul>
+</nav>
+<script>(function(){var a=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+</div>
+</aside>
+<div class=book-page>
+<header class=book-header>
+<div class="flex align-center justify-between">
+<label for=menu-control>
+<img src=/svg/menu.svg class=book-icon alt=Menu>
+</label>
+<strong>2.2</strong>
+<label for=toc-control>
+<img src=/svg/toc.svg class=book-icon alt="Table of Contents">
+</label>
+</div>
+<aside class="hidden clearfix">
+<nav id=TableOfContents>
+<ul>
+<li><a href=#22>2.2</a>
+<ul>
+<li><a href=#解答题>解答题</a>
+<ul>
+<li><a href=#1>1</a></li>
+<li><a href=#2>2</a></li>
+<li><a href=#3>3</a></li>
+<li><a href=#4>4</a></li>
+<li><a href=#5>5</a></li>
+<li><a href=#6>6</a></li>
+<li><a href=#7>7</a></li>
+<li><a href=#8>8</a></li>
+<li><a href=#9>9</a></li>
+<li><a href=#10>10</a></li>
+<li><a href=#11>11</a></li>
+<li><a href=#12>12</a></li>
+<li><a href=#13>13</a></li>
+<li><a href=#14>14</a></li>
+<li><a href=#15>15</a></li>
+<li><a href=#16>16</a></li>
+<li><a href=#17>17</a></li>
+<li><a href=#18>18</a></li>
+<li><a href=#19>19</a></li>
+<li><a href=#20>20</a></li>
+</ul>
+</li>
+<li><a href=#证明题>证明题</a>
+<ul>
+<li><a href=#1-1>1</a></li>
+<li><a href=#2-1>2</a></li>
+<li><a href=#3-1>3</a></li>
+<li><a href=#4-1>4</a></li>
+<li><a href=#5-1>5</a></li>
+<li><a href=#6-1>6</a></li>
+<li><a href=#7-1>7</a></li>
+<li><a href=#8-1>8</a></li>
+<li><a href=#9-1>9</a></li>
+<li><a href=#10-1>10</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</aside>
+</header>
+<article class=markdown><h1 id=22>
+2.2
+<a class=anchor href=#22>#</a>
+</h1>
+<h2 id=解答题>
+解答题
+<a class=anchor href=#%e8%a7%a3%e7%ad%94%e9%a2%98>#</a>
+</h2>
+<h3 id=1>
+1
+<a class=anchor href=#1>#</a>
+</h3>
+<p>关于欧拉函数，对于 10：$$\phi(10) = 4$$</p>
+<p>因此我们知道 $$7^4 \equiv 1 \pmod{10}$$，而 $$2046 \equiv 2 \pmod{4}$$</p>
+<p>因此，我们有：$$7^{2046} \equiv 7^2 \equiv 9 \pmod{10}​$$</p>
+<h3 id=2>
+2
+<a class=anchor href=#2>#</a>
+</h3>
+<p>对于 100 有：$$100 = 4*25$$，并且有 $$\phi(25) = 20$$</p>
+<p>因此首先有 $$2^{100} \equiv 0 \pmod{4}$$，然后有 $$2^{100} = (2^{5})^{20} \equiv 1 \pmod{25}$$</p>
+<p>而存在这样的数 76：$$2^{100} \equiv 76 \pmod{4}, 2^{100} \equiv 76 \pmod{25}$$</p>
+<p>因此 $$2^{100} \equiv 76 \pmod{100}$$</p>
+<h3 id=3>
+3
+<a class=anchor href=#3>#</a>
+</h3>
+<p>考虑到 $$\displaystyle (x+4)^5 \overset{二项式展开}{\equiv} x^5 \pmod{4}$$</p>
+<p>有因为 $$99 = 4 * 25 - 1 = 4*24 + 3$$</p>
+<p>因此我们有：$$1^5 + 2^5 + 3^5 +&mldr; + 99^5 \equiv 24 * (1^5 + 2^5 + 3^5) \equiv 0\pmod{4}$$</p>
+<h3 id=4>
+4
+<a class=anchor href=#4>#</a>
+</h3>
+<p>我们知道 $$555 \equiv 2 \pmod{7}$$，</p>
+<p>并且有：$$2^3 \equiv 1 \pmod{7}, 555 \equiv 0 \pmod{3}$$</p>
+<p>因此：$$555^{555} \equiv 2^{555} \equiv 2^0 \equiv 1 \pmod{7}​$$</p>
+<h3 id=5>
+5
+<a class=anchor href=#5>#</a>
+</h3>
+<p>（1）每个数都是奇数的模 9 完全剩余系：</p>
+<p>$${1, 11, 3, 13, 5,15, 7, 17, 9}$$</p>
+<p>（2）每个数都是偶数的模 9 完全剩余系：</p>
+<p>$${0, 10, 2, 12, 4, 14, 6, 16, 8}$$</p>
+<h3 id=6>
+6
+<a class=anchor href=#6>#</a>
+</h3>
+<p>考虑 $$r_i = 11k+n, n =1,2,&mldr;,11$$，</p>
+<p>有：$$11k+n \equiv 1\pmod{3} \Rightarrow 11k \equiv 1-n \pmod{3}$$</p>
+<p>枚举 n 计算 k 可以得到这样的模 11 完全剩余系：</p>
+<p>$$k = {0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1} \overset{剩余系}{\Rightarrow}{1, 13, 25, 4, 16, 28, 7, 19, 31, 10, 22}$$</p>
+<h3 id=7>
+7
+<a class=anchor href=#7>#</a>
+</h3>
+<p>可以通过 <code>sage</code> 中的数论模块计算欧拉函数：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> sage.all <span style=color:#f92672>import</span> <span style=color:#f92672>*</span>
+print(euler_phi(<span style=color:#ae81ff>24</span>), euler_phi(<span style=color:#ae81ff>64</span>), euler_phi(<span style=color:#ae81ff>187</span>), euler_phi(<span style=color:#ae81ff>360</span>))
+<span style=color:#75715e># (8, 32, 160, 96)</span>
+</code></pre></div><p>（NOTE：在 Arch Linux 下安装 <code>sage</code> 的命令：<code>yaout sagemath</code>）</p>
+<p>也可以用短除法将其素因数分解$$\displaystyle m = p_1^{a_1} p_2^{a_2} &mldr; p_s^{a_s}​$$，</p>
+<p>然后利用公式 $$\displaystyle \phi(m) = m \prod_{i=1}^s (1 - \frac{1}{p_i})​$$，计算其欧拉函数。比如：</p>
+<pre tabindex=0><code>24 ==&gt; 2 2 2 3 ==&gt; 24=(2^3)*(3^1)
+
+phi(24) ==&gt; 24*(1/2)*(2/3) ==&gt; 8
+</code></pre><h3 id=8>
+8
+<a class=anchor href=#8>#</a>
+</h3>
+<blockquote>
+<p>费马小定理：若 p 是素数，则对任意整数 a，有：$$a^p \equiv a \pmod{p}$$</p>
+</blockquote>
+<p>（1）</p>
+<p>根据费马小定理，我们有：$$9^{73} \equiv 9 \pmod{73}$$</p>
+<p>我们又知道：$$794 \equiv 2 \pmod{72}$$</p>
+<p>因此我们知道 $$9^{794} \equiv 9^2 \equiv 8 \pmod{73}$$</p>
+<p>因为 $$a \in [0, 73)​$$，所以 $$a = 8​$$</p>
+<p>（2）</p>
+<p>我们有：$$x^{29} \equiv x \pmod{29}, 86 \equiv 2 \pmod{28}$$</p>
+<p>因此 $$x^{86} \equiv x^{2} \equiv 6\pmod{29}​$$</p>
+<ol>
+<li>
+<p>穷举 29 以内的所有自然数：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> range(<span style=color:#ae81ff>29</span>):
+    <span style=color:#66d9ef>if</span> (i<span style=color:#f92672>**</span><span style=color:#ae81ff>2</span>)<span style=color:#f92672>%</span><span style=color:#ae81ff>29</span> <span style=color:#f92672>==</span> <span style=color:#ae81ff>6</span>: print(i)
+<span style=color:#75715e># 8 21</span>
+</code></pre></div></li>
+<li>
+<p>也可使用 sage 模块进行求解：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> sage.all <span style=color:#f92672>import</span> <span style=color:#f92672>*</span>
+x <span style=color:#f92672>=</span> SR<span style=color:#f92672>.</span>symbol(<span style=color:#e6db74>&#39;x&#39;</span>)
+solve_mod(x<span style=color:#f92672>**</span><span style=color:#ae81ff>2</span><span style=color:#f92672>==</span><span style=color:#ae81ff>6</span>, <span style=color:#ae81ff>29</span>) <span style=color:#75715e># [(8,), (21,)]</span>
+</code></pre></div></li>
+</ol>
+<p>所以原同余方程的解为：$$x \equiv 8 \pmod{29}​$$ 或 $$x \equiv 21 \pmod{29}​$$</p>
+<p>（3）</p>
+<p>同样的：$$x^{13} \equiv x \pmod{13}, 39 \equiv 3 \pmod{12}$$</p>
+<p>因此：$$x^{39} \equiv x^{3} \equiv 3 \pmod{13}$$</p>
+<p>同样地，穷举 13 以内的所有自然数（大于 13 的数仍无法成立已在第三题中证明）：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> range(<span style=color:#ae81ff>13</span>): <span style=color:#66d9ef>if</span> (i<span style=color:#f92672>**</span><span style=color:#ae81ff>3</span>)<span style=color:#f92672>%</span><span style=color:#ae81ff>13</span> <span style=color:#f92672>==</span> <span style=color:#ae81ff>3</span>: print(i) <span style=color:#75715e># &lt;没有输出&gt;</span>
+</code></pre></div><p>所以该同余方程没有解</p>
+<h3 id=9>
+9
+<a class=anchor href=#9>#</a>
+</h3>
+<p>可以直接使用 <code>gmpy2</code> 中的 <code>invert</code> 函数进行计算：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> gmpy2
+print(gmpy2<span style=color:#f92672>.</span>invert(<span style=color:#ae81ff>229</span>, <span style=color:#ae81ff>281</span>)) <span style=color:#75715e># mpz(27)</span>
+</code></pre></div><p>另外，笔算可以使用<a href=https://zh.wikipedia.org/wiki/%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95>欧几里得扩展算法</a>，</p>
+<p>因为考虑到贝祖等式成立：$$ax + by = gcd(a, b)$$</p>
+<p>令 $$a = 229, b = 281 \Rightarrow gcd(a, b) =1$$，那么 x 即为 a 关于模 281 的逆元：</p>
+<p>$$\begin{pmatrix} 281 \ 229\end{pmatrix} = \begin{pmatrix} 1 & 1 \ 1 & 0\end{pmatrix}\begin{pmatrix} 4 & 1 \ 1 & 0\end{pmatrix}\begin{pmatrix} 2 & 1 \ 1 & 0\end{pmatrix}\begin{pmatrix} 2 & 1 \ 1 & 0\end{pmatrix} \begin{pmatrix} 10 & 1 \ 1 & 0\end{pmatrix} \begin{pmatrix} 1 \ 0\end{pmatrix} ​$$</p>
+<p>$$\Rightarrow \begin{pmatrix} 281 \ 229\end{pmatrix} = \begin{pmatrix} 281 & 27\ 229 & 22\end{pmatrix}\begin{pmatrix} 1 \ 0\end{pmatrix} \Rightarrow \begin{pmatrix} -22 & 27 \ 229 & -281\end{pmatrix} \begin{pmatrix} 281 \ 229\end{pmatrix} = \begin{pmatrix} 1 \ 0\end{pmatrix}$$</p>
+<p>因此我们有：$$229^{-1} = 27 \pmod{281}$$</p>
+<h3 id=10>
+10
+<a class=anchor href=#10>#</a>
+</h3>
+<p>设对于 m：$$\displaystyle m = 2^{a_1} p_2^{a_2} &mldr; p_s^{a_s}​$$，其中 $$\alpha_1​$$ 为非负整数，其他 $$\alpha_i​$$ 为正整数</p>
+<p>显然有 $$p_i, i = 2,3,&mldr;,s$$ 为奇数。</p>
+<p>根据欧拉函数的计算有： $$\displaystyle \phi(m) = m (\frac{1}{2})^{\alpha_1>0}\prod_{i=2}^s (1 - \frac{1}{p_i}) = m (\frac{1}{2})^{\alpha_1>0}\prod_{i=1}^s \frac{p_i - 1}{p_i}$$</p>
+<ol>
+<li>若 $$s > 0​$$，那任意的 i，总有 $$p_i \equiv 1 \pmod{2}, p_i -1 \equiv 0 \pmod{2}​$$，所以此时 $$\displaystyle \prod_{i=2}^s \frac{p_i - 1}{p_i}​$$ 总有一个 2 的因子。</li>
+<li>若 $$s =0​$$，那么 $$\displaystyle \phi(m) = \frac{m}{2} ​$$，为了使 $$ m > 3​$$，一定有 $$\displaystyle \frac{m}{2}​$$ 存在 2 的因子。</li>
+</ol>
+<h3 id=11>
+11
+<a class=anchor href=#11>#</a>
+</h3>
+<p>设命题 M：$$\phi(m)$$ 能被 4 整除；$$\overline{M}$$：$$\phi(m)$$ 不能被 4 整除。</p>
+<ol>
+<li>
+<p>先考虑 m 为偶数，根据第十题的讨论：$$\overline{M}$$ 一个必要条件是 $$\displaystyle \frac{m}{2}$$ 的素因子数量仅为一（若大于 1 的话，必然出现两个 2 的因子），分类讨论这个素因子为 2 的情况：</p>
+<ul>
+<li>得到一个更强的 $$\overline{M}$$ 的必要条件：<strong>$$\displaystyle \frac{m}{2}$$ 是素数</strong>。</li>
+</ul>
+<p>再考虑 $$\overline{M}$$ 一个必要条件：</p>
+<p>不考虑 $$\displaystyle \frac{m}{2} = 2$$ 的情况，为使 $$\displaystyle \frac{m}{2} - 1 \not\equiv 0 \pmod{4}$$，必有 $$\displaystyle \frac{m}{2} = 4k+3$$。</p>
+<p>所以：$$m \in {2k | k = 2 或 k 为形如 4n+3 的素数}$$</p>
+</li>
+<li>
+<p>再考虑 m 为奇数，同样根据第十题的讨论也能得到，m 的素因子数量仅为一，结合 m 为奇数的条件：</p>
+<ul>
+<li>可以得到一个 $$\overline{M}$$ 的必要条件：<strong>$$m$$ 是素数</strong></li>
+</ul>
+<p>再考虑一个必要条件可以得到：$$m = 4k+3$$。</p>
+<p>所以：$$m \in {k | k为形如 4n+3 的素数}$$</p>
+</li>
+</ol>
+<p>综上所述，m 的取值空间为：$${2} \cup{k, 2k | k为形如 4n+3 的素数}$$</p>
+<h3 id=12>
+12
+<a class=anchor href=#12>#</a>
+</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> sage.all <span style=color:#f92672>import</span> <span style=color:#f92672>*</span>
+x <span style=color:#f92672>=</span> SR<span style=color:#f92672>.</span>symbol(<span style=color:#e6db74>&#39;x&#39;</span>)
+solve_mod(<span style=color:#ae81ff>27</span><span style=color:#f92672>*</span>x <span style=color:#f92672>==</span> <span style=color:#ae81ff>12</span>, <span style=color:#ae81ff>15</span>), solve_mod(<span style=color:#ae81ff>24</span><span style=color:#f92672>*</span>x <span style=color:#f92672>==</span> <span style=color:#ae81ff>6</span>, <span style=color:#ae81ff>81</span>), solve_mod(<span style=color:#ae81ff>91</span><span style=color:#f92672>*</span>x <span style=color:#f92672>==</span> <span style=color:#ae81ff>26</span>, <span style=color:#ae81ff>169</span>), solve_mod(<span style=color:#ae81ff>71</span><span style=color:#f92672>*</span>x <span style=color:#f92672>==</span> <span style=color:#ae81ff>32</span>, <span style=color:#ae81ff>3441</span>)
+<span style=color:#75715e># ([(6,), (1,), (11,)],</span>
+<span style=color:#75715e>#  [(7,), (34,), (61,)],</span>
+<span style=color:#75715e>#  [(4,), (17,), (30,), (43,), (56,), (69,), (82,), (95,), (108,), (121,), (134,), (147,), (160,)],</span>
+<span style=color:#75715e>#  [(1309,)])</span>
+</code></pre></div><p>笔算通过以下的定理计算：</p>
+<blockquote>
+<p>设 $$m > 1, gcd(a, m) =d > 1$$，则同余方程 $$ax \equiv b \pmod{m}$$ 有解的充要条件是 $$d | b$$，并且其解的个数为 d，且若 $$x \equiv x_0 \pmod{m}$$ 是一个特解，则它的 d 个解为：$$\displaystyle x \equiv x_0 + \frac{m}{d}t \pmod{m}, t = 0,1,&mldr;,d-1$$</p>
+</blockquote>
+<h3 id=13>
+13
+<a class=anchor href=#13>#</a>
+</h3>
+<p>容易得到：$$7^{-1} \equiv 15 \pmod{26}$$，即：$$7*15 \equiv 1 \pmod{26}$$</p>
+<p>$$y \equiv 7x + 3\pmod{26} \Rightarrow y-3 \equiv 7x \pmod{26} \Rightarrow x \equiv15y -45 \pmod{26}$$</p>
+<p>化简得到：$$x \equiv 15y + 7 \pmod{26}$$</p>
+<h3 id=14>
+14
+<a class=anchor href=#14>#</a>
+</h3>
+<blockquote>
+<p>定理：设 $$m_1, m_2,.., m_k$$ 是 k 个两两互素的正整数，若令 $$m = m_1 m_2 &mldr;m_k, m = m_iM_i$$，则对任意的整数 $$b_1, b_2, &mldr;, b_k$$，同余方程组：</p>
+<p>$$\begin{cases}x \equiv b_1 \pmod{m_1} \ x \equiv b_2 \pmod{m_2} \ &mldr; \x \equiv b_k \pmod{m_k} \end{cases}$$</p>
+<p>有唯一解：$$\displaystyle x \equiv \sum_{i=1}^{k} M_iM_i' b_i \pmod{m}$$，其中 $$M_i M_i' \equiv 1 \pmod{m_i}$$</p>
+</blockquote>
+<p>（1）$$x \equiv 25<em>1</em>9 + 12 * 23 * 6 \equiv 81 \pmod{300}$$</p>
+<p>（2）$$x \equiv 330<em>1</em>5 + 154<em>4</em>12 + 105<em>13</em>18 \equiv 1272\pmod{2310}$$</p>
+<p>（3）</p>
+<p>$$\begin{cases} x \equiv 2 \pmod{9} \ 3x \equiv 4 \pmod{5} \ 4x \equiv 3 \pmod{7} \end{cases} \Rightarrow \begin{cases} x \equiv 2 \pmod{9} \ x \equiv 2<em>4 \pmod{5} \ x \equiv 2</em>3 \pmod{7} \end{cases} \Rightarrow \begin{cases} x \equiv 2 \pmod{9} \ x \equiv 3 \pmod{5} \ x \equiv 6 \pmod{7} \end{cases}$$</p>
+<p>所以 $$x \equiv 35<em>8</em>2 + 63<em>2</em>3 + 45<em>5</em>6 \equiv 83 \pmod{315}$$</p>
+<h3 id=15>
+15
+<a class=anchor href=#15>#</a>
+</h3>
+<p>设士兵的总人数为 x，即有方程组：$$\begin{cases}x \equiv 1 \pmod{3} \ x \equiv 2 \pmod{5} \ x\equiv 2 \pmod{7} \end{cases}$$</p>
+<p>根据上面描述的定理：$$x \equiv 35<em>2</em>1 + 21<em>1</em>2 + 15<em>1</em>2 \equiv 37\pmod{105}$$</p>
+<p>考虑到 x 的取值范围，因此共有 37 个士兵。</p>
+<h3 id=16>
+16
+<a class=anchor href=#16>#</a>
+</h3>
+<p>对于 440，我们有 $$440 = 11<em>2^3</em>5$$，因此对 $$91x \equiv 419 \pmod{440}$$ 有：</p>
+<p>$$\begin{cases} 91x \equiv 419 \pmod{11} \91x \equiv 419 \pmod{8} \ 91x \equiv 419 \pmod{5} \end{cases} \Rightarrow \begin{cases} 3x \equiv 1 \pmod{11} \ 3x \equiv 3 \pmod{8} \ x \equiv 4 \pmod{5} \end{cases} \Rightarrow \begin{cases} x \equiv 4 \pmod{11} \ x \equiv 1 \pmod{8} \ x \equiv 4 \pmod{5} \end{cases}$$</p>
+<p>同样的根据之前的定理：$$x \equiv 40<em>8</em>4 + 55<em>7</em>1 + 88<em>2</em>4 \equiv 169 \pmod{440}$$</p>
+<h3 id=17>
+17
+<a class=anchor href=#17>#</a>
+</h3>
+<p>即求同余方程组 $$\begin{cases} x \equiv 0 \pmod{13} \ x \equiv 2 \pmod{3} \ x \equiv 2 \pmod{5}\ x \equiv 2 \pmod{7} \ x \equiv 2 \pmod{11} \end{cases}$$ 的解，</p>
+<p>解得 $$x \equiv 2*(5005*1 + 3003*2 + 2145*5 + 1365*1) \equiv 1157 \pmod{15015}$$</p>
+<h3 id=18>
+18
+<a class=anchor href=#18>#</a>
+</h3>
+<p>设其中的最后一个整数为 x，即解同余方程组：</p>
+<p>$$\begin{cases}x - 3\equiv 0 \pmod{2^2} \ x -2 \equiv 0 \pmod{3^2} \ x-1 \equiv 0 \pmod{5^2} \ x \equiv 0 \pmod{7^2}\end{cases} \Rightarrow \begin{cases}x \equiv 3 \pmod{4} \ x \equiv 2 \pmod{9} \ x \equiv 1 \pmod{25} \ x \equiv 0 \pmod{49}\end{cases} $$</p>
+<p>解得 $$x \equiv 105^2<em>1</em>3 + 70^2 * 7 *2 + 42^2 * 9 *1 \equiv 29351\pmod{210^2}$$</p>
+<p>所以这四个数分别为：29348, 29349, 29350, 29351</p>
+<h3 id=19>
+19
+<a class=anchor href=#19>#</a>
+</h3>
+<p>也就是说有这样的两个等式成立：$$K \begin{pmatrix} 3 \ 14\end{pmatrix} = \begin{pmatrix} 1 \ 14\end{pmatrix}, K \begin{pmatrix} 2 \ 19\end{pmatrix} = \begin{pmatrix} 11 \ 21\end{pmatrix}$$</p>
+<p>对 K 的四个未知数，可以列出以下的方程式：$$\begin{cases} 3a_{11} + 14a_{12} = 1 \ 3a_{21} + 14a_{22} = 14 \ 2a_{11} + 19 a_{12} = 11 \ 2a_{21} + 19 a_{22} = 21\end{cases}\pmod{26}$$</p>
+<p>可以由这个方程组解出：$$\begin{cases} a_{11} \equiv 7 \ a_{12} \equiv 19 \ a_{21} = 8 \ a_{22} = 3 \end{cases}$$，所以这个矩阵为 $$K= \begin{pmatrix} 7 & 19 \ 8 & 3\end{pmatrix}$$</p>
+<h3 id=20>
+20
+<a class=anchor href=#20>#</a>
+</h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> sage.all <span style=color:#f92672>import</span> <span style=color:#f92672>*</span>
+x <span style=color:#f92672>=</span> SR<span style=color:#f92672>.</span>symbol(<span style=color:#e6db74>&#39;x&#39;</span>)
+print(solve_mod(<span style=color:#ae81ff>3</span><span style=color:#f92672>*</span>x<span style=color:#f92672>**</span><span style=color:#ae81ff>14</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>4</span><span style=color:#f92672>*</span>x<span style=color:#f92672>**</span><span style=color:#ae81ff>13</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>2</span><span style=color:#f92672>*</span>x<span style=color:#f92672>**</span><span style=color:#ae81ff>11</span> <span style=color:#f92672>+</span> x<span style=color:#f92672>**</span><span style=color:#ae81ff>9</span> <span style=color:#f92672>+</span>x<span style=color:#f92672>**</span><span style=color:#ae81ff>6</span> <span style=color:#f92672>+</span>x<span style=color:#f92672>**</span><span style=color:#ae81ff>3</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>12</span><span style=color:#f92672>*</span>x<span style=color:#f92672>**</span><span style=color:#ae81ff>2</span> <span style=color:#f92672>+</span> x <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>5</span>))
+<span style=color:#75715e># [(0,), (1,), (2,)]</span>
+</code></pre></div><p>即 $$x \equiv 0, 1, 2 \pmod{5}​$$</p>
+<p>另外，可以通过一下方法笔算：</p>
+<p>注意到欧拉函数 $$\phi(5) = 4$$，因此根据欧拉定理我们有 $$x^{\phi(5)} \equiv x^4 \equiv 1 \pmod{5}$$</p>
+<p>因此在模 5 的情况下有：</p>
+<p>$$3x^{14} + 4x^{13} + 2x^{11} +x^9 + x^6 +x^3 +12x^2 +x \equiv 0 \pmod{5} \Leftrightarrow$$</p>
+<p>$$3x^{2} + 4x^1 + 2x^{3} + x^1 + x^2 +x^3 +2 x^2 +x \equiv 0 \pmod{5} \Leftrightarrow$$</p>
+<p>$$3x^3 + 6x^2 +6x \equiv 0 \pmod{5} \Leftrightarrow x^3 + 2x^2 + 2x \equiv 0 \pmod{5}$$</p>
+<p>穷举就容易求解了。</p>
+<h2 id=证明题>
+证明题
+<a class=anchor href=#%e8%af%81%e6%98%8e%e9%a2%98>#</a>
+</h2>
+<h3 id=1-1>
+1
+<a class=anchor href=#1-1>#</a>
+</h3>
+<p>设一个正整数 n 表示为：$$\displaystyle n = \sum_{i=0}^{m}\alpha_i*10^i$$</p>
+<p>那么即证明 $$\displaystyle n \equiv 0 \pmod{3} \Leftrightarrow \sum_{i=0}^{m} \alpha_i \equiv 0 \pmod{3}$$</p>
+<p>我们知道对任意 i，有：$$10^i \equiv 1 \pmod{3}$$（考虑 $$10^i - 1$$ 与 3 的整除关系）</p>
+<p>于是我们有以下等价关系的推导：</p>
+<p>$$\displaystyle n = \sum_{i=0}^{m} (\alpha_i *(10^i - 1)) + \sum_{i=0}^{m} \alpha_i \equiv 0\pmod{3} \Leftrightarrow \sum_{i=0}^{m}\alpha_i \equiv 0 \pmod{3}$$</p>
+<p>所以题式得证。</p>
+<h3 id=2-1>
+2
+<a class=anchor href=#2-1>#</a>
+</h3>
+<p>设 $$f(x) = 0 $$ 有一个整数解 s，即 $$f(s) = 0$$，设 $$t \in \mathbb{Z}_m, s \equiv t \pmod{m}$$</p>
+<p>又有：$$f(1), f(2), &mldr;, f(m) \not\equiv 0 \pmod{m} \Leftrightarrow f(0), f(1), &mldr;f(m-1) \not\equiv 0 \pmod{m}$$</p>
+<p>所以我们有以下的推导：</p>
+<p>$$\displaystyle f(s) = 0 \overset{弱化}{\Rightarrow} f(s) \equiv 0 \pmod{m} \overset{f(x) 是整系数多项式}{\Rightarrow} f(t) \equiv 0 \pmod{m}$$</p>
+<p>注意到 $$t \in \mathbb{Z}_m$$，这与上面的推导是矛盾的，所以 $$f(x) = 0$$ 不存在整数解。</p>
+<h3 id=3-1>
+3
+<a class=anchor href=#3-1>#</a>
+</h3>
+<p>我们注意到 $$(m-1)^2 - 1^2 = m(m-2) \equiv 0 \pmod{m}$$</p>
+<p>这意味着：$$(m-1)^2 \equiv 1^2 \pmod{m}$$</p>
+<p>这违反了完全剩余系两两不同余的构造条件。</p>
+<h3 id=4-1>
+4
+<a class=anchor href=#4-1>#</a>
+</h3>
+<p>我们先假定一个不需要证明的定理：</p>
+<ul>
+<li>模 m 的完全剩余类完备地将 $$\mathbb{Z}$$ 分割为 m 个集合。即 $$\forall n \in \mathbb{Z}, \exist C_r, n\in C_r, r \in \mathbb{Z}_m$$</li>
+</ul>
+<p>因为，m 个整数都不属于模 m 的 0 剩余类。</p>
+<p>那么总共有 m-1 个完全剩余类，完备地覆盖 m 个整数的取值空间。</p>
+<p>根据鸽笼定理，题式成立。</p>
+<h3 id=5-1>
+5
+<a class=anchor href=#5-1>#</a>
+</h3>
+<p>考虑设 $$ 1 \le s \le t \le 18$$，</p>
+<p>先证明这样的结论：$$s \equiv t \pmod{18} \Leftrightarrow 2^s \equiv 2^t \pmod{27}$$</p>
+<p>有以下推导：$$2^s \equiv 2^t \pmod{27} \Leftrightarrow 2^s(2^{t-s} - 1) \equiv 0 \pmod{27} \Leftrightarrow 2^{t-s} \equiv 1 \pmod{27}$$</p>
+<p>$$\Leftrightarrow t-s \equiv 0 \pmod{\phi(27)} \Leftrightarrow t \equiv s \pmod{18}$$</p>
+<p>所以根据反证法有：$$2, 2^2, 2^3,&mldr;,2^{18}$$ 两两不同余，而有可以知道模 27 的完全剩余系大小为 $$\phi(27) = 18$$，因此必有 $$2, 2^2, 2^3,&mldr;,2^{18}$$ 构成一个完全剩余系。</p>
+<h3 id=6-1>
+6
+<a class=anchor href=#6-1>#</a>
+</h3>
+<p>因为 7 是素数，根据费马小定理 $$a^7 \equiv a \pmod{7}​$$</p>
+<p>又因为 $$gcd(a, 3) = 1 \Rightarrow gcd(a, 9) = 1​$$，根据欧拉定理 $$a^{\phi(9)} \equiv 1 \pmod{9}​$$</p>
+<p>因此我们有：$$a^7 \equiv a \pmod{7}, a^7 \equiv a \pmod{9} \Rightarrow a^7 \equiv a \pmod{63}$$</p>
+<h3 id=7-1>
+7
+<a class=anchor href=#7-1>#</a>
+</h3>
+<p>见解答题第九题。</p>
+<h3 id=8-1>
+8
+<a class=anchor href=#8-1>#</a>
+</h3>
+<p>对于欧拉函数的分解 $$\phi(n) = 14 = 2*7$$</p>
+<p>我们又知道任意 $$\displaystyle m = p_1^{a_1} p_2^{a_2} &mldr; p_s^{a_s}$$</p>
+<p>其欧拉函数可以表示成为：$$\displaystyle \phi(m) = m \prod_{i=1}^s (1 - \frac{1}{p_i}) = \frac{m}{p_i p_2 &mldr; p_s} \prod_{i=1}^{s}(p_i - 1)​$$ 的形式。</p>
+<p>因为 $$p_i​$$ 均为素数，而 $$7+1​$$ 不是素数，$$\displaystyle 7 | \frac{m}{p_1p_2&mldr;p_s} \Rightarrow 7|m \Rightarrow 7 \in {p_{i+1} | i \in \mathbb{Z}_s}​$$</p>
+<p>有 $$7-1=6$$，从而：$$\displaystyle 3 | \prod_{i=1}^{s}(p_i - 1)$$，且 $$\displaystyle \frac{m}{p_i p_2 &mldr; p_s}$$ 总是一个整数，</p>
+<p>但 3 并不整除 14，这是矛盾的，因此不存在这样的数字 n 使得 $$\phi(n) = 14$$</p>
+<h3 id=9-1>
+9
+<a class=anchor href=#9-1>#</a>
+</h3>
+<p>（1）</p>
+<p>对于奇数 $$a = 2k+1, k \ge 1$$，根据欧拉定理，我们有：$$\displaystyle 2^{\phi(a)} \equiv 1 \pmod{a}$$</p>
+<p>因为 $$\phi(a) \le a-1$$ 总是成立的，所以 $$\phi(a) = d$$ 即为所求。</p>
+<p>（2）</p>
+<p>因为我们有：$$\displaystyle 2^{kd_0} - 1 = (2^{d_0} - 1)(\sum_{i=1}^{k} 2^{d_0(k-i)})$$</p>
+<p>$$\displaystyle d_0 | h \Leftrightarrow h = kd_0 \Leftrightarrow (2^{d_0} - 1)| (2^h -1)$$</p>
+<p>至此，充分性是分显然的： $$(2^{d_0} - 1)|(2^h - 1) \Rightarrow a|(2^h - 1)$$</p>
+<p>关于必要性：</p>
+<p>如果 $$d_0$$ 与 $$h$$ 有非 1 最大公因数数，那么这与 $$d_0$$ 最小相悖。</p>
+<p>如果 $$d_0$$ 与 h 是互素的，根据 2.1 第九题的证明，$$(2^{d_0} - 1) | (2^h -1)$$ 不可能成立。</p>
+<p>因此我们用反证法证明了必要性。</p>
+<h3 id=10-1>
+10
+<a class=anchor href=#10-1>#</a>
+</h3>
+<p>$$2x^3 - x^2 +3x +11 \equiv 0 \pmod{5} \Leftrightarrow 2x^3 - x^2 +3x -4 \equiv 0 \pmod{5}$$</p>
+<p>$$\Leftrightarrow (x-1)(2x^2 + x + 4) \equiv 0 \pmod{5} \Rightarrow x = 1\pmod{5} 或 2x^2 + x +4 \equiv 0 \pmod{5}​$$</p>
+<p>$$2x^2 + x +4 \equiv 0 \pmod{5} \Leftrightarrow 2x^2 +x -1 \equiv 0 \pmod{5} \Rightarrow (x+1)(2x - 1) \pmod{5}$$</p>
+<p>由此可知三个解分别为 $$x \equiv 1, 3, 4 \pmod{5} ​$$</p>
+</article>
+<footer class=book-footer>
+<div class="flex flex-wrap justify-between">
+</div>
+<script>(function(){function a(c){const a=window.getSelection(),b=document.createRange();b.selectNodeContents(c),a.removeAllRanges(),a.addRange(b)}document.querySelectorAll("pre code").forEach(b=>{b.addEventListener("click",function(c){a(b.parentElement),navigator.clipboard&&navigator.clipboard.writeText(b.parentElement.textContent)})})})()</script>
+</footer>
+<div class=book-comments>
+</div>
+<label for=menu-control class="hidden book-menu-overlay"></label>
+</div>
+<aside class=book-toc>
+<div class=book-toc-content>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#22>2.2</a>
+<ul>
+<li><a href=#解答题>解答题</a>
+<ul>
+<li><a href=#1>1</a></li>
+<li><a href=#2>2</a></li>
+<li><a href=#3>3</a></li>
+<li><a href=#4>4</a></li>
+<li><a href=#5>5</a></li>
+<li><a href=#6>6</a></li>
+<li><a href=#7>7</a></li>
+<li><a href=#8>8</a></li>
+<li><a href=#9>9</a></li>
+<li><a href=#10>10</a></li>
+<li><a href=#11>11</a></li>
+<li><a href=#12>12</a></li>
+<li><a href=#13>13</a></li>
+<li><a href=#14>14</a></li>
+<li><a href=#15>15</a></li>
+<li><a href=#16>16</a></li>
+<li><a href=#17>17</a></li>
+<li><a href=#18>18</a></li>
+<li><a href=#19>19</a></li>
+<li><a href=#20>20</a></li>
+</ul>
+</li>
+<li><a href=#证明题>证明题</a>
+<ul>
+<li><a href=#1-1>1</a></li>
+<li><a href=#2-1>2</a></li>
+<li><a href=#3-1>3</a></li>
+<li><a href=#4-1>4</a></li>
+<li><a href=#5-1>5</a></li>
+<li><a href=#6-1>6</a></li>
+<li><a href=#7-1>7</a></li>
+<li><a href=#8-1>8</a></li>
+<li><a href=#9-1>9</a></li>
+<li><a href=#10-1>10</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</aside>
+</main>
+</body>
+</html>

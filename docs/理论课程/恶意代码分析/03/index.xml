@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>03 on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03/</link><description>Recent content in 03 on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03/lab3-1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03/lab3-1/</guid><description>lab 3-1 # QUESTION 1 # What are this malware’s imports and strings?
+通过 PEiD 这个软件分析这个病毒：
+发现这个病毒使用了 PEncrypt 3.1 加壳了。所以我们并不知道它实际的导入函数。
+于是我们通过 strings 命令分析里面的可见字符串：
+$ strings Lab03-01.exe !This program cannot be run in DOS mode. Rich .text `.data ExitProcess kernel32.dll ws2_32 # ... CONNECT %s:%i HTTP/1.0 # ... QQVP advpack StubPath SOFTWARE\Classes\http\shell\open\commandV Software\Microsoft\Active Setup\Installed Components\ test www.practicalmalwareanalysis.com admin VideoDriver WinVMX32- vmx32to64.exe SOFTWARE\Microsoft\Windows\CurrentVersion\Run SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders AppData V%X_ 可见加壳后还有一些注册表位置、域名等字符串。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03/lab3-2/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03/lab3-2/</guid><description>lab 3-2 # QUESTION 1 # How can you get this malware to install itself?
+首先查看文件类型：
+$ file Lab03-02.dll Lab03-02.dll: PE32 executable (DLL) (GUI) Intel 80386, for MS Windows 因此使用程序 rundll32.exe 安装动态链接库，msdn 使用教程。
+我们进一步查看这个动态链接库的导出内容，以查看应该运行哪个函数安装：
+因此从名字来判断，有可能是 Install 也有可能是 installA，我们发现前者运行不了，因此安装这个动态链接库的指令为：
+$ rundll32.exe Lab03-02.dll, installA QUESTION 2 # regmon # 恢复虚拟机快照到运行动态链接库之前，打开 Regmon，过滤 rundll32.exe 这个可执行文件，再高亮调用的 CreateKey 这个函数，再运行上面安装动态链接库的命令，我们得到以下的结果：
+可见这个动态链接库通过 rundll32.exe 创建了一个名为 IPRIP 的服务。
+regedit # 我们也可以通过 regedit 观察这个注册表的内容（可以看到其名称为 Intranet Network Awareness (INA+)）：</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03/lab3-3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03/lab3-3/</guid><description>lab 3-3 # QUESTION 1 # What do you notice when monitoring this malware with Process Explorer?
+拿到病毒首先分析是否加壳：
+可见其 packer 就是 Visual C++ 6.0，没有进行任何加壳，理论上可以直接分析反汇编代码，但是题目让我们进行动态分析，于是我们再虚拟机中运行这个病毒。
+我们首先打开 Procexp 与 Procmon，然后运行 Lab03-03.exe 这个程序：
+我们发现 Lab03-03.exe 这个应程序再运行时创建了一个 svchost.exe 的子进程。
+另外我们尝试通过 procmon 中过滤 Process Name =is= Lab03-03.exe 进程观察这个进程调用的 API。我们发现这个病毒尝试创建这样一个敏感文件 C:/Windows/System32/svchost.exe：
+我们猜测这个病毒可能尝试替换电脑中的 svchost.exe 文件，并且替换电脑的服务进程。
+QUESTION 2 # Can you identify any live memory modifications?
+同样的我们再 procmon 中添加以下的两条过滤条件：
+&amp;#34;Process Name&amp;#34; is &amp;#34;Lab03-03.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03/lab3-4/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03/lab3-4/</guid><description>lab 3-4 # QUESTION 1 # What happens when you run this file?
+拿到病毒首先分析是否加壳：
+同样的这个文件也是 Microsoft Visual C++ 6.0，同样理论上也可以直接分析反汇编代码。对于本题我们只需要双击运行即可。
+双击运行结果：病毒闪退，然后把自己删掉了。
+QUESTION 2 # What is causing the roadblock in dynamic analysis?
+这个病毒会检测自己是否被正确执行，然后闪退把自己删除。
+QUESTION 3 # Are there other ways to run this program?
+分析反汇编代码应该可以观察这个程序需要什么手段才可以正确执行，但是我懒，不想继续分析了。</description></item></channel></rss>

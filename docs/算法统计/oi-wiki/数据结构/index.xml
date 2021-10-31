@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>数据结构 on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/oi-wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link><description>Recent content in 数据结构 on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/oi-wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/oi-wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/st%E8%A1%A8/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/oi-wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/st%E8%A1%A8/</guid><description>ST(Sparse Table) # 可重复贡献问题 # 对于运算 $$opt$$，如果它满足 $$x\ opt\ x = x$$，则对应的区间询问就是一个可重复贡献问题。
+例如:
+运算 max 有 $$max(x, x) = x$$，运算 gcd 有 $$gcd(x, x) = x$$ 所以 RMQ 和区间 GCD 就是一个可重复贡献问题。像区间和就不具有这个性质，如果求区间和的时候采用的预处理区间重叠了，则会导致重叠部分被计算两次，这是我们所不愿意看到的。另外， 还必须满足结合律才能使用 ST 表求解。 更具体的：
+题目大意：给定 个数，有 个询问，对于每个询问，你需要回答区间 中的最大值。
+考虑暴力做法。每次都对区间 扫描一遍，求出最大值。
+显然，这个算法会超时。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/oi-wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E4%B8%BB%E5%B8%AD%E6%A0%91/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/oi-wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E4%B8%BB%E5%B8%AD%E6%A0%91/</guid><description>主席树 # 主席树全称“可持久化权值线段树”
+什么是“可持久化数据结构”？
+可持久化数据结构 (Persistent data structure) 总是可以保留每一个历史版本，并且支持操作的不可变特性 (immutable)。 一个最朴素的思路是每个版本都维护一个新的线段树：
+Root1 Root2 Root3 ｜ | | 初始版本 更新操作1 更新操作2 一个显然的思路是：这个思路的空间复杂度特别高。
+我们的某次更新操作只需要更改某个叶子结点的值，但是我们却需要复制整个线段树。“主席树”就是这样一个将提升空间复杂度利用率的数据结构。比如下图：
+蓝色的是初始化的树结构，橙色的节点是进行了一次插入 (value: 4, count: 2) 之后的第二个版本的结构，可见第二个版本复用了第一个版本的需求节点。在查询时与普通的线段树类似，除了我们需要指定在哪个版本的根结点进行查询。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/oi-wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%8D%95%E8%B0%83%E6%A0%88/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/oi-wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%8D%95%E8%B0%83%E6%A0%88/</guid><description>单调栈 # 顾名思义，单调栈即满足单调性的栈结构。与单调队列相比，其只在一端进行进出。
+相对于普通的栈结构，在处理单调栈时需要额外地关心在进行插入操作时需要将违背单调性的斩顶元素先弹出。代码：
+while (!sta.empty() &amp;amp;&amp;amp; sta.top() &amp;lt; x) sta.pop() sta.push(x) 应用 # 离线解决 RMQ(Range Maximum/Minimum Query) 问题，即求解一个区间中的最大、最小值问题。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/oi-wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%A0%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/oi-wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%A0%86/</guid><description>堆 # 简介 # 堆是一棵树，其每个节点都有一个键值，且每个节点的键值都大于等于/小于等于其父亲的键值。
+这一数据结构（考虑小根堆，大根堆是对称的）主要支持的操作有：“插入一个数”、“查询最小值”、“删除最小值”、“合并两个堆”、“减小一个元素的值”。
+堆的类型 # 二叉堆 # 最常见的堆结构
+配对堆（可并堆） #</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/oi-wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%B9%B6%E6%9F%A5%E9%9B%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/oi-wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%B9%B6%E6%9F%A5%E9%9B%86/</guid><description>并查集 # 简介 # 参考：
+https://visualgo.net/zh/ufds https://oi-wiki.org/ds/dsu/ 并查集是一种树形的数据结构，顾名思义，它用于处理一些不交集的 合并 及 查询 问题。 它支持两种操作：
+查找（Find）：确定某个元素处于哪个子集； 合并（Union）：将两个子集合并成一个集合。 并查集优化：路径压缩，不关心连接状态时直接拼接到根结点。
+应用 # 相关算法：
+最小生成树算法中的 Kruskal&amp;rsquo;s algorithm 就是用的并查集的思想。 最近公共祖先中的 Tarjan&amp;rsquo;s algorithm 也是并查集的思想。 相关题目：
+「NOI2015」程序自动分析
+「JSOI2008」星球大战
+「NOI2001」食物链
+「NOI2002」银河英雄传说</description></item></channel></rss>

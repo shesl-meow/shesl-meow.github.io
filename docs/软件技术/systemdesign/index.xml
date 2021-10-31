@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SystemDesign on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/</link><description>Recent content in SystemDesign on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/api%E8%AE%BE%E8%AE%A1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/api%E8%AE%BE%E8%AE%A1/</guid><description>API 设计 # RESTful # For TypeScript: https://github.com/thiagobustamante/typescript-rest
+REST: Representational state transfer.
+RESTful 是一种面向资源的过时 API 设计理念，他基于 http 协议，没有单独定义自己的一套协议，只是一种 API 设计范式。
+它提供了四个指导原则：
+Resource-Base 基于资源的：一个 uri 单独对应于一个资源； Manipulation Through Representations 动作表示：对资源的不同动作通过方法或参数表示； Self-Descriptive Message 自描述信息：每条请求都能没有上下文地无状态地，唯一执行一个动作； Hypermedia as the Engine of Application State (HATEOAS)：用高级的请求体来表示状态； GraphQL # For TypeScript: https://github.com/MichalLytek/type-graphql, https://typegraphql.com/
+Official Website: https://graphql.org/
+GraphQL: Graph Query Language.
+介绍：GraphQL 是 Facebook 为了解决 RESTful 设计模式在系统庞大之后出现的各种问题应运而生的接口描述语言。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/systemdesign/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</guid><description>微服务 # 服务发现 # https://zhuanlan.zhihu.com/p/161277955
+使用一个名字服务器进行服务发现。解决分布式微服务的网络调用结构问题。
+服务限流 # https://zhuanlan.zhihu.com/p/65900436
+服务限流算法：
+计数器算法、漏桶算法、令牌算法 服务雪崩降级熔断 # 服务雪崩：
+一个服务失败，导致整条链路的服务都失败的情形，我们称之为服务雪崩。 服务熔断：
+当下游的服务因为某种原因突然变得不可用或响应过慢，上游服务为了保证自己整体服务的可用性，不再继续调用目标服务，直接返回，快速释放资源。 服务降级：
+当下游的服务因为某种原因响应过慢，下游服务主动停掉一些不太重要的业务，释放出服务器资源，增加响应速度。</description></item></channel></rss>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MongoDB on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/database/mongodb/</link><description>Recent content in MongoDB on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/database/mongodb/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/database/mongodb/%E5%8E%9F%E7%90%86%E4%BB%8B%E7%BB%8D/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/database/mongodb/%E5%8E%9F%E7%90%86%E4%BB%8B%E7%BB%8D/</guid><description>原理介绍 # 参考资料：https://zhuanlan.zhihu.com/p/87722764
+简介 # MongoDB 是最受欢迎的 NoSQL 数据库，文档数据库排名第一位，在所有数据库引擎中排名第五位（Oracle、MySQL、Microsoft-SQL-Server、Postgre SQL）。
+了解 MongoDB 的发展历史可以查看 这篇文章。
+特性 # 以下是 MongoDB 的一些特性：
+面向文档存储，基于 JSON/BSON 可表示灵活的数据结构。因此与 javascript 有天生的兼容性，nodejs 服务则倾向于使用 mongodb 作为其底层数据结构；
+动态 DDL 能力，没有强 Schema 约束，支持快速迭代。同样也于 javascript 脚本语言的变量无类型性吻合。
+高性能计算，提供基于内存的快速数据查询；
+容易扩展，利用数据分片可以支持海量数据存储；
+丰富的功能集，支持二级索引、强大的聚合管道功能，为开发者量身定做的功能，如数据自动老化、固定集合等等。
+跨平台版本、支持多语言SDK。
+基本模型 # 基本概念与操作 # MongoDB 是最像关系型数据库的文档型数据库，为了实现关系型数据库的一些模型，MongoDB 自己定义了一些概念。
+RDBMS 概念 MongoDB 概念 database database。与 RDB 相同，表示表的集合。 table collection：一个 collection 可以存放多个文档。 不同之处在于 collection 的 schema 是动态的，不需要预先声明一个严格的表结构。更重要的是，默认情况下 MongoDB 并不会对写入的数据做任何schema 的校验。 row document：相当于 RDB 中的“行”，一个文档由多个字段（列）组成，并采用bson 格式表示（下面阐述）。 column field：相当于 RDB 中的“列”，相比普通column的差别在于field的类型可以更加灵活，比如支持嵌套的文档、数组。 view view：在 MongoDB3.</description></item></channel></rss>

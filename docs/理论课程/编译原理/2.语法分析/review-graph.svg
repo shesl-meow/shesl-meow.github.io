@@ -1,0 +1,577 @@
+<svg id="mermaid-1547548338683" width="100%" xmlns="http://www.w3.org/2000/svg" style="max-width: 1115.62890625px;" viewBox="0 0 1115.62890625 642.5">
+   <style>
+      #mermaid-1547548338683 .label {
+      font-family: 'trebuchet ms', verdana, arial;
+      color: #333; }
+      #mermaid-1547548338683 .node rect,
+      #mermaid-1547548338683 .node circle,
+      #mermaid-1547548338683 .node ellipse,
+      #mermaid-1547548338683 .node polygon {
+      fill: #ECECFF;
+      stroke: #9370DB;
+      stroke-width: 1px; }
+      #mermaid-1547548338683 .node.clickable {
+      cursor: pointer; }
+      #mermaid-1547548338683 .arrowheadPath {
+      fill: #333333; }
+      #mermaid-1547548338683 .edgePath .path {
+      stroke: #333333;
+      stroke-width: 1.5px; }
+      #mermaid-1547548338683 .edgeLabel {
+      background-color: #e8e8e8; }
+      #mermaid-1547548338683 .cluster rect {
+      fill: #ffffde !important;
+      stroke: #aaaa33 !important;
+      stroke-width: 1px !important; }
+      #mermaid-1547548338683 .cluster text {
+      fill: #333; }
+      #mermaid-1547548338683 div.mermaidTooltip {
+      position: absolute;
+      text-align: center;
+      max-width: 200px;
+      padding: 2px;
+      font-family: 'trebuchet ms', verdana, arial;
+      font-size: 12px;
+      background: #ffffde;
+      border: 1px solid #aaaa33;
+      border-radius: 2px;
+      pointer-events: none;
+      z-index: 100; }
+      #mermaid-1547548338683 .actor {
+      stroke: #CCCCFF;
+      fill: #ECECFF; }
+      #mermaid-1547548338683 text.actor {
+      fill: black;
+      stroke: none; }
+      #mermaid-1547548338683 .actor-line {
+      stroke: grey; }
+      #mermaid-1547548338683 .messageLine0 {
+      stroke-width: 1.5;
+      stroke-dasharray: '2 2';
+      stroke: #333; }
+      #mermaid-1547548338683 .messageLine1 {
+      stroke-width: 1.5;
+      stroke-dasharray: '2 2';
+      stroke: #333; }
+      #mermaid-1547548338683 #arrowhead {
+      fill: #333; }
+      #mermaid-1547548338683 #crosshead path {
+      fill: #333 !important;
+      stroke: #333 !important; }
+      #mermaid-1547548338683 .messageText {
+      fill: #333;
+      stroke: none; }
+      #mermaid-1547548338683 .labelBox {
+      stroke: #CCCCFF;
+      fill: #ECECFF; }
+      #mermaid-1547548338683 .labelText {
+      fill: black;
+      stroke: none; }
+      #mermaid-1547548338683 .loopText {
+      fill: black;
+      stroke: none; }
+      #mermaid-1547548338683 .loopLine {
+      stroke-width: 2;
+      stroke-dasharray: '2 2';
+      stroke: #CCCCFF; }
+      #mermaid-1547548338683 .note {
+      stroke: #aaaa33;
+      fill: #fff5ad; }
+      #mermaid-1547548338683 .noteText {
+      fill: black;
+      stroke: none;
+      font-family: 'trebuchet ms', verdana, arial;
+      font-size: 14px; }
+      #mermaid-1547548338683 .activation0 {
+      fill: #f4f4f4;
+      stroke: #666; }
+      #mermaid-1547548338683 .activation1 {
+      fill: #f4f4f4;
+      stroke: #666; }
+      #mermaid-1547548338683 .activation2 {
+      fill: #f4f4f4;
+      stroke: #666; }
+      #mermaid-1547548338683 .section {
+      stroke: none;
+      opacity: 0.2; }
+      #mermaid-1547548338683 .section0 {
+      fill: rgba(102, 102, 255, 0.49); }
+      #mermaid-1547548338683 .section2 {
+      fill: #fff400; }
+      #mermaid-1547548338683 .section1,
+      #mermaid-1547548338683 .section3 {
+      fill: white;
+      opacity: 0.2; }
+      #mermaid-1547548338683 .sectionTitle0 {
+      fill: #333; }
+      #mermaid-1547548338683 .sectionTitle1 {
+      fill: #333; }
+      #mermaid-1547548338683 .sectionTitle2 {
+      fill: #333; }
+      #mermaid-1547548338683 .sectionTitle3 {
+      fill: #333; }
+      #mermaid-1547548338683 .sectionTitle {
+      text-anchor: start;
+      font-size: 11px;
+      text-height: 14px; }
+      #mermaid-1547548338683 .grid .tick {
+      stroke: lightgrey;
+      opacity: 0.3;
+      shape-rendering: crispEdges; }
+      #mermaid-1547548338683 .grid path {
+      stroke-width: 0; }
+      #mermaid-1547548338683 .today {
+      fill: none;
+      stroke: red;
+      stroke-width: 2px; }
+      #mermaid-1547548338683 .task {
+      stroke-width: 2; }
+      #mermaid-1547548338683 .taskText {
+      text-anchor: middle;
+      font-size: 11px; }
+      #mermaid-1547548338683 .taskTextOutsideRight {
+      fill: black;
+      text-anchor: start;
+      font-size: 11px; }
+      #mermaid-1547548338683 .taskTextOutsideLeft {
+      fill: black;
+      text-anchor: end;
+      font-size: 11px; }
+      #mermaid-1547548338683 .taskText0,
+      #mermaid-1547548338683 .taskText1,
+      #mermaid-1547548338683 .taskText2,
+      #mermaid-1547548338683 .taskText3 {
+      fill: white; }
+      #mermaid-1547548338683 .task0,
+      #mermaid-1547548338683 .task1,
+      #mermaid-1547548338683 .task2,
+      #mermaid-1547548338683 .task3 {
+      fill: #8a90dd;
+      stroke: #534fbc; }
+      #mermaid-1547548338683 .taskTextOutside0,
+      #mermaid-1547548338683 .taskTextOutside2 {
+      fill: black; }
+      #mermaid-1547548338683 .taskTextOutside1,
+      #mermaid-1547548338683 .taskTextOutside3 {
+      fill: black; }
+      #mermaid-1547548338683 .active0,
+      #mermaid-1547548338683 .active1,
+      #mermaid-1547548338683 .active2,
+      #mermaid-1547548338683 .active3 {
+      fill: #bfc7ff;
+      stroke: #534fbc; }
+      #mermaid-1547548338683 .activeText0,
+      #mermaid-1547548338683 .activeText1,
+      #mermaid-1547548338683 .activeText2,
+      #mermaid-1547548338683 .activeText3 {
+      fill: black !important; }
+      #mermaid-1547548338683 .done0,
+      #mermaid-1547548338683 .done1,
+      #mermaid-1547548338683 .done2,
+      #mermaid-1547548338683 .done3 {
+      stroke: grey;
+      fill: lightgrey;
+      stroke-width: 2; }
+      #mermaid-1547548338683 .doneText0,
+      #mermaid-1547548338683 .doneText1,
+      #mermaid-1547548338683 .doneText2,
+      #mermaid-1547548338683 .doneText3 {
+      fill: black !important; }
+      #mermaid-1547548338683 .crit0,
+      #mermaid-1547548338683 .crit1,
+      #mermaid-1547548338683 .crit2,
+      #mermaid-1547548338683 .crit3 {
+      stroke: #ff8888;
+      fill: red;
+      stroke-width: 2; }
+      #mermaid-1547548338683 .activeCrit0,
+      #mermaid-1547548338683 .activeCrit1,
+      #mermaid-1547548338683 .activeCrit2,
+      #mermaid-1547548338683 .activeCrit3 {
+      stroke: #ff8888;
+      fill: #bfc7ff;
+      stroke-width: 2; }
+      #mermaid-1547548338683 .doneCrit0,
+      #mermaid-1547548338683 .doneCrit1,
+      #mermaid-1547548338683 .doneCrit2,
+      #mermaid-1547548338683 .doneCrit3 {
+      stroke: #ff8888;
+      fill: lightgrey;
+      stroke-width: 2;
+      cursor: pointer;
+      shape-rendering: crispEdges; }
+      #mermaid-1547548338683 .doneCritText0,
+      #mermaid-1547548338683 .doneCritText1,
+      #mermaid-1547548338683 .doneCritText2,
+      #mermaid-1547548338683 .doneCritText3 {
+      fill: black !important; }
+      #mermaid-1547548338683 .activeCritText0,
+      #mermaid-1547548338683 .activeCritText1,
+      #mermaid-1547548338683 .activeCritText2,
+      #mermaid-1547548338683 .activeCritText3 {
+      fill: black !important; }
+      #mermaid-1547548338683 .titleText {
+      text-anchor: middle;
+      font-size: 18px;
+      fill: black; }
+      #mermaid-1547548338683 g.classGroup text {
+      fill: #9370DB;
+      stroke: none;
+      font-family: 'trebuchet ms', verdana, arial;
+      font-size: 10px; }
+      #mermaid-1547548338683 g.classGroup rect {
+      fill: #ECECFF;
+      stroke: #9370DB; }
+      #mermaid-1547548338683 g.classGroup line {
+      stroke: #9370DB;
+      stroke-width: 1; }
+      #mermaid-1547548338683 .classLabel .box {
+      stroke: none;
+      stroke-width: 0;
+      fill: #ECECFF;
+      opacity: 0.5; }
+      #mermaid-1547548338683 .classLabel .label {
+      fill: #9370DB;
+      font-size: 10px; }
+      #mermaid-1547548338683 .relation {
+      stroke: #9370DB;
+      stroke-width: 1;
+      fill: none; }
+      #mermaid-1547548338683 #compositionStart {
+      fill: #9370DB;
+      stroke: #9370DB;
+      stroke-width: 1; }
+      #mermaid-1547548338683 #compositionEnd {
+      fill: #9370DB;
+      stroke: #9370DB;
+      stroke-width: 1; }
+      #mermaid-1547548338683 #aggregationStart {
+      fill: #ECECFF;
+      stroke: #9370DB;
+      stroke-width: 1; }
+      #mermaid-1547548338683 #aggregationEnd {
+      fill: #ECECFF;
+      stroke: #9370DB;
+      stroke-width: 1; }
+      #mermaid-1547548338683 #dependencyStart {
+      fill: #9370DB;
+      stroke: #9370DB;
+      stroke-width: 1; }
+      #mermaid-1547548338683 #dependencyEnd {
+      fill: #9370DB;
+      stroke: #9370DB;
+      stroke-width: 1; }
+      #mermaid-1547548338683 #extensionStart {
+      fill: #9370DB;
+      stroke: #9370DB;
+      stroke-width: 1; }
+      #mermaid-1547548338683 #extensionEnd {
+      fill: #9370DB;
+      stroke: #9370DB;
+      stroke-width: 1; }
+      #mermaid-1547548338683 .commit-id,
+      #mermaid-1547548338683 .commit-msg,
+      #mermaid-1547548338683 .branch-label {
+      fill: lightgrey;
+      color: lightgrey; }
+   </style>
+   <style>#mermaid-1547548338683 {
+      color: rgba(0, 0, 0, 0.65);
+      font: ;
+      }
+   </style>
+   <g transform="translate(-12, -12)">
+      <g class="output">
+         <g class="clusters">
+            <g class="cluster" id="subGraph1" transform="translate(327.322265625,384)" style="opacity: 1;">
+               <rect width="614.64453125" height="525" x="-307.322265625" y="-262.5"></rect>
+               <g class="label">
+                  <g transform="translate(0,0)">
+                     <foreignObject width="0" height="0">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"></div>
+                     </foreignObject>
+                  </g>
+               </g>
+               <text x="0" y="-248.5" fill="black" stroke="none" id="mermaid-1547548338683Text" style="text-anchor: middle;">自下而上</text>
+            </g>
+            <g class="cluster" id="subGraph0" transform="translate(887.13671875,384)" style="opacity: 1;">
+               <rect width="464.984375" height="525" x="-232.4921875" y="-262.5"></rect>
+               <g class="label">
+                  <g transform="translate(0,0)">
+                     <foreignObject width="0" height="0">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"></div>
+                     </foreignObject>
+                  </g>
+               </g>
+               <text x="0" y="-248.5" fill="black" stroke="none" id="mermaid-1547548338683Text" style="text-anchor: middle;">自上而下</text>
+            </g>
+         </g>
+         <g class="edgePaths">
+            <g class="edgePath" style="opacity: 1;">
+               <path class="path" d="M607.41015625,52.34898219326607L955.3203125,96.5L955.3203125,121.5L955.3203125,146.5" marker-end="url(#arrowhead97)" style="fill:none"></path>
+               <defs>
+                  <marker id="arrowhead97" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto">
+                     <path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path>
+                  </marker>
+               </defs>
+            </g>
+            <g class="edgePath" style="opacity: 1;">
+               <path class="path" d="M503.41015625,53.84567405632115L229.43359375,96.5L229.43359375,121.5L229.43359375,146.5" marker-end="url(#arrowhead98)" style="fill:none"></path>
+               <defs>
+                  <marker id="arrowhead98" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto">
+                     <path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path>
+                  </marker>
+               </defs>
+            </g>
+            <g class="edgePath" style="opacity: 1;">
+               <path class="path" d="M955.3203125,198L955.3203125,286L955.3203125,374" marker-end="url(#arrowhead99)" style="fill:none"></path>
+               <defs>
+                  <marker id="arrowhead99" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto">
+                     <path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path>
+                  </marker>
+               </defs>
+            </g>
+            <g class="edgePath" style="opacity: 1;">
+               <path class="path" d="M902.4714214475684,425.5L786.51171875,482L786.51171875,554.25" marker-end="url(#arrowhead100)" style="fill:none"></path>
+               <defs>
+                  <marker id="arrowhead100" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto">
+                     <path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path>
+                  </marker>
+               </defs>
+            </g>
+            <g class="edgePath" style="opacity: 1;">
+               <path class="path" d="M967.1203576177811,425.5L993.01171875,482L993.01171875,554.25" marker-end="url(#arrowhead101)" style="fill:none"></path>
+               <defs>
+                  <marker id="arrowhead101" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto">
+                     <path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path>
+                  </marker>
+               </defs>
+            </g>
+            <g class="edgePath" style="opacity: 1;">
+               <path class="path" d="M212.69697802197803,198L155.5,286L155.5,374" marker-end="url(#arrowhead102)" style="fill:none"></path>
+               <defs>
+                  <marker id="arrowhead102" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto">
+                     <path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path>
+                  </marker>
+               </defs>
+            </g>
+            <g class="edgePath" style="opacity: 1;">
+               <path class="path" d="M257.1829326923077,198L352.015625,286L352.015625,374" marker-end="url(#arrowhead103)" style="fill:none"></path>
+               <defs>
+                  <marker id="arrowhead103" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto">
+                     <path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path>
+                  </marker>
+               </defs>
+            </g>
+            <g class="edgePath" style="opacity: 1;">
+               <path class="path" d="M299.078125,420.8612331672948L145.76953125,482L145.76953125,538.5" marker-end="url(#arrowhead104)" style="fill:none"></path>
+               <defs>
+                  <marker id="arrowhead104" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto">
+                     <path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path>
+                  </marker>
+               </defs>
+            </g>
+            <g class="edgePath" style="opacity: 1;">
+               <path class="path" d="M344.4004440539514,425.5L327.69140625,482L327.69140625,538.5" marker-end="url(#arrowhead105)" style="fill:none"></path>
+               <defs>
+                  <marker id="arrowhead105" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto">
+                     <path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path>
+                  </marker>
+               </defs>
+            </g>
+            <g class="edgePath" style="opacity: 1;">
+               <path class="path" d="M403.9546566299392,425.5L517.91796875,482L517.91796875,554.25" marker-end="url(#arrowhead106)" style="fill:none"></path>
+               <defs>
+                  <marker id="arrowhead106" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto">
+                     <path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path>
+                  </marker>
+               </defs>
+            </g>
+         </g>
+         <g class="edgeLabels">
+            <g class="edgeLabel" transform="" style="opacity: 1;">
+               <g transform="translate(0,0)" class="label">
+                  <foreignObject width="0" height="0">
+                     <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div>
+                  </foreignObject>
+               </g>
+            </g>
+            <g class="edgeLabel" transform="" style="opacity: 1;">
+               <g transform="translate(0,0)" class="label">
+                  <foreignObject width="0" height="0">
+                     <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel"></span></div>
+                  </foreignObject>
+               </g>
+            </g>
+            <g class="edgeLabel" transform="translate(955.3203125,286)" style="opacity: 1;">
+               <g transform="translate(-125.234375,-47.25)" class="label">
+                  <foreignObject width="250.4765625" height="94.5">
+                     <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel">1.不含左递归<br />2.非终结符 FIRST 集不相交<br />3.一个关于epsilon时的约束</span></div>
+                  </foreignObject>
+               </g>
+            </g>
+            <g class="edgeLabel" transform="translate(786.51171875,482)" style="opacity: 1;">
+               <g transform="translate(-73.5,-31.5)" class="label">
+                  <foreignObject width="147" height="63">
+                     <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel">一个非终结符<br />对应一个子程序</span></div>
+                  </foreignObject>
+               </g>
+            </g>
+            <g class="edgeLabel" transform="translate(993.01171875,482)" style="opacity: 1;">
+               <g transform="translate(-73.5,-15.75)" class="label">
+                  <foreignObject width="147" height="31.5">
+                     <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel">构造预测分析表</span></div>
+                  </foreignObject>
+               </g>
+            </g>
+            <g class="edgeLabel" transform="translate(155.5,286)" style="opacity: 1;">
+               <g transform="translate(-115.5,-63)" class="label">
+                  <foreignObject width="231" height="126">
+                     <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel">1.算符文法:<br />不含两个相继的非终结符<br />2.算符优先文法:<br />算符间关系是唯一的</span></div>
+                  </foreignObject>
+               </g>
+            </g>
+            <g class="edgeLabel" transform="translate(352.015625,286)" style="opacity: 1;">
+               <g transform="translate(-61.015625,-47.25)" class="label">
+                  <foreignObject width="122.0390625" height="94.5">
+                     <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel">状态<br />ACTION 子表<br />GOTO 子表</span></div>
+                  </foreignObject>
+               </g>
+            </g>
+            <g class="edgeLabel" transform="translate(145.76953125,482)" style="opacity: 1;">
+               <g transform="translate(-81.4453125,-31.5)" class="label">
+                  <foreignObject width="162.890625" height="63">
+                     <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel">1.无移进规约冲突<br />2.不含多个规约项</span></div>
+                  </foreignObject>
+               </g>
+            </g>
+            <g class="edgeLabel" transform="translate(327.69140625,482)" style="opacity: 1;">
+               <g transform="translate(-73.5,-31.5)" class="label">
+                  <foreignObject width="147" height="63">
+                     <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel">通过多读一个词<br />解决LR(0)冲突</span></div>
+                  </foreignObject>
+               </g>
+            </g>
+            <g class="edgeLabel" transform="translate(517.91796875,482)" style="opacity: 1;">
+               <g transform="translate(-96.7265625,-15.75)" class="label">
+                  <foreignObject width="193.453125" height="31.5">
+                     <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span class="edgeLabel">合并LR(1)项目同心集</span></div>
+                  </foreignObject>
+               </g>
+            </g>
+         </g>
+         <g class="nodes">
+            <g class="node" id="M2" transform="translate(229.43359375,172.25)" style="opacity: 1;">
+               <rect rx="0" ry="0" x="-52" y="-25.75" width="104" height="51.5"></rect>
+               <g class="label" transform="translate(0,0)">
+                  <g transform="translate(-42,-15.75)">
+                     <foreignObject width="84" height="31.5">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">自下而上</div>
+                     </foreignObject>
+                  </g>
+               </g>
+            </g>
+            <g class="node" id="WF2" transform="translate(155.5,399.75)" style="opacity: 1;">
+               <rect rx="5" ry="5" x="-73" y="-25.75" width="146" height="51.5"></rect>
+               <g class="label" transform="translate(0,0)">
+                  <g transform="translate(-63,-15.75)">
+                     <foreignObject width="126" height="31.5">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">算符优先文法</div>
+                     </foreignObject>
+                  </g>
+               </g>
+            </g>
+            <g class="node" id="WF3" transform="translate(352.015625,399.75)" style="opacity: 1;">
+               <rect rx="5" ry="5" x="-52.9375" y="-25.75" width="105.875" height="51.5"></rect>
+               <g class="label" transform="translate(0,0)">
+                  <g transform="translate(-42.9375,-15.75)">
+                     <foreignObject width="85.875" height="31.5">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">LR分析法</div>
+                     </foreignObject>
+                  </g>
+               </g>
+            </g>
+            <g class="node" id="WF31" transform="translate(145.76953125,580)" style="opacity: 1;">
+               <rect rx="5" ry="5" x="-57.984375" y="-41.5" width="115.96875" height="83"></rect>
+               <g class="label" transform="translate(0,0)">
+                  <g transform="translate(-47.984375,-31.5)">
+                     <foreignObject width="95.9765625" height="63">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">SLR分析法<br />LR(0)项目</div>
+                     </foreignObject>
+                  </g>
+               </g>
+            </g>
+            <g class="node" id="WF32" transform="translate(327.69140625,580)" style="opacity: 1;">
+               <rect rx="5" ry="5" x="-73.9375" y="-41.5" width="147.875" height="83"></rect>
+               <g class="label" transform="translate(0,0)">
+                  <g transform="translate(-63.9375,-31.5)">
+                     <foreignObject width="127.875" height="63">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">规范LR分析法<br />LR(1)项目</div>
+                     </foreignObject>
+                  </g>
+               </g>
+            </g>
+            <g class="node" id="WF33" transform="translate(517.91796875,580)" style="opacity: 1;">
+               <rect rx="5" ry="5" x="-64.4453125" y="-25.75" width="128.890625" height="51.5"></rect>
+               <g class="label" transform="translate(0,0)">
+                  <g transform="translate(-54.4453125,-15.75)">
+                     <foreignObject width="108.890625" height="31.5">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">LALR分析法</div>
+                     </foreignObject>
+                  </g>
+               </g>
+            </g>
+            <g class="node" id="M1" transform="translate(955.3203125,172.25)" style="opacity: 1;">
+               <rect rx="0" ry="0" x="-52" y="-25.75" width="104" height="51.5"></rect>
+               <g class="label" transform="translate(0,0)">
+                  <g transform="translate(-42,-15.75)">
+                     <foreignObject width="84" height="31.5">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">自上而下</div>
+                     </foreignObject>
+                  </g>
+               </g>
+            </g>
+            <g class="node" id="WF1" transform="translate(955.3203125,399.75)" style="opacity: 1;">
+               <rect rx="5" ry="5" x="-54.859375" y="-25.75" width="109.71875" height="51.5"></rect>
+               <g class="label" transform="translate(0,0)">
+                  <g transform="translate(-44.859375,-15.75)">
+                     <foreignObject width="89.71875" height="31.5">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">LL(1)文法</div>
+                     </foreignObject>
+                  </g>
+               </g>
+            </g>
+            <g class="node" id="WF11" transform="translate(786.51171875,580)" style="opacity: 1;">
+               <rect rx="5" ry="5" x="-83.5" y="-25.75" width="167" height="51.5"></rect>
+               <g class="label" transform="translate(0,0)">
+                  <g transform="translate(-73.5,-15.75)">
+                     <foreignObject width="147" height="31.5">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">递归下降分析器</div>
+                     </foreignObject>
+                  </g>
+               </g>
+            </g>
+            <g class="node" id="WF12" transform="translate(993.01171875,580)" style="opacity: 1;">
+               <rect rx="5" ry="5" x="-73" y="-25.75" width="146" height="51.5"></rect>
+               <g class="label" transform="translate(0,0)">
+                  <g transform="translate(-63,-15.75)">
+                     <foreignObject width="126" height="31.5">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">预测分析程序</div>
+                     </foreignObject>
+                  </g>
+               </g>
+            </g>
+            <g class="node" id="TOPIC" transform="translate(555.41015625,45.75)" style="opacity: 1;">
+               <rect rx="0" ry="0" x="-52" y="-25.75" width="104" height="51.5"></rect>
+               <g class="label" transform="translate(0,0)">
+                  <g transform="translate(-42,-15.75)">
+                     <foreignObject width="84" height="31.5">
+                        <div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;">语法分析</div>
+                     </foreignObject>
+                  </g>
+               </g>
+            </g>
+         </g>
+      </g>
+   </g>
+</svg>

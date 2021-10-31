@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cplusplus on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/cpp/</link><description>Recent content in Cplusplus on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/cpp/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/cpp/attribute/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/cpp/attribute/</guid><description>__attribute__ # C++ 中的 __attribute__ 是 GNU 为 C 语言提供的一项机制，它允许开发者向函数、变量添加一些特征以方便错误检查。下面是几个使用 __attribute__ 的例子，更完整的使用示例可以查看 GNU 官方文档
+unused # Gcc 编译器有一个特性，如果在编译时加入 -Wall（显示所有的警告）这个参数，则会将没有使用过的变量、函数作为警告抛出。
+但是有时我们需要故意地，声明一个变量不会被使用，于是我们可以使用 unused。一个被标记了 unused 属性的变量或者函数，不会抛出未使用警告。
+比如我们有时会用到 main 函数中的 argv 参数，不会用到 argc 参数所以我们可以把它们标记为 unused：
+int main(int argc __attribute__((unused)), char **argv) { /* code that uses argv, but not argc */ } PostScript：
+与之相反，我们也会有一个 used 的属性标记。 format # 像 printf 与 scanf 这样的函数，需要格式化字符串与动态参数，我们有时需要确定参数的合法性。
+比如我们定义了一个函数：
+#include&amp;lt;stdarg.h&amp;gt;void printfBy(int flag, const char *format, .</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/cpp/stl/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/cpp/stl/</guid><description>参考：
+https://stackoverflow.com/questions/6292332/what-really-is-a-deque-in-stl STL # Deque # Deque 的全称是 double ended queue，两端结束队列；
+它是 stack 与 queque 的底层存储结构，它的实现基于 vector 的实现，它结构大致如下：
+可以看到这样存储的优点是：
+仍然可以通过接近与 O(1) 常数级别的时间复杂度进行访问； 在两端的插入删除复杂度仍然为 O(1)； 对于 stack 与 queue 这样的仅仅在双端有插入删除访问操作的数据结构，是一个合适的基类；</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/cpp/%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/cpp/%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0/</guid><description> 复习地址:
+https://github.com/huihut/interview C++ 知识结构系统梳理 # 关键字 # 零碎知识 # 面向对象 # 有关虚函数指针和虚函数表的资料：https://blog.twofei.com/496/
+如何定义一个只能分配在栈（堆）上的类：https://www.nowcoder.com/questionTerminal/0a584aa13f804f3ea72b442a065a7618
+智能指针 # 智能指针定义在头文件 memory 中。
+强制类型转换 #</description></item></channel></rss>

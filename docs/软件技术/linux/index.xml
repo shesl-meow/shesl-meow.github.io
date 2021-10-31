@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/</link><description>Recent content in Linux on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/shell%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/shell%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0/</guid><description>自学笔记 (pdf) #</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</guid><description>自学笔记 (pdf) #</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/%E9%98%B2%E7%81%AB%E5%A2%99/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/linux/%E9%98%B2%E7%81%AB%E5%A2%99/</guid><description>学习网址：
+https://www.jianshu.com/p/c2aee2ff7bd8 https://www.jianshu.com/p/62028875d53e 一个关于转发的教程：
+https://www.91yun.co/archives/3042 iptables 防火墙 # 用于实现Linux下访问控制的功能的，它分为硬件的或者软件的防火墙两种。无论是在哪个网络中，防火墙工作的地方一定是在网络的边缘。
+工作机制 # iptables 是工作在用户空间中，定义规则的工具，本身并不算是防火墙。
+它定义的规则，可以让在内核空间当中的 netfilter 来读取，并且实现让防火墙工作。所以这些规则放入内核的地方必须要是特定的位置，必须是 tcp/ip 的协议栈经过的地方，这个 tcp/ip 协议栈必须经过且可以实现读取规则的地方就叫做 netfilter（网络过滤器）。这些特定的位置包括：
+内核空间中：从一个网络接口进来，到另一个网络接口去的位置 数据包从内核流入用户空间的位置 数据包从用户空间流出的位置 进入/离开本机的外网接口 进入/离开本机的内网接口 由上我们知道了 iptables 选择了 5 个位置来作为控制的地方。
+但是你有没有发现，其实前三个位置已经基本上能将路径彻底封锁了，但是为什么已经在进出的口设置了关卡之后还要在内部卡呢？ 由于数据包尚未进行路由决策，还不知道数据要走向哪里，所以在进出口是没办法实现数据过滤的。所以要在内核空间里设置转发的关卡，进入用户空间的关卡，从用户空间出去的关卡。
+那么，既然他们没什么用，那我们为什么还要放置他们呢？因为我们在做 NAT 和 DNAT 的时候，目标地址转换必须在路由之前转换。所以我们必须在外网而后内网的接口处进行设置关卡。
+这五个位置放置了五个钩子函数（hook functions）,也叫五个规则链:
+PREROUTING （路由前）
+INPUT （数据包流入口）
+FORWARD （转发管卡）
+OUTPUT（数据包流出口）
+POSTROUTING（路由后）
+这是 netfilter 规定的五个规则链，任何一个数据包，只要经过本机，必将经过这五个链中的其中一个链。</description></item></channel></rss>

@@ -1,0 +1,52 @@
+diff --git a/labcodes/lab2/kern/debug/kdebug.c b/labcodes/lab2/kern/debug/kdebug.c
+index 2755dba..e710ba0 100644
+--- a/labcodes/lab2/kern/debug/kdebug.c
++++ b/labcodes/lab2/kern/debug/kdebug.c
+@@ -302,5 +302,17 @@ print_stackframe(void) {
+       *           NOTICE: the calling funciton's return addr eip  = ss:[ebp+4]
+       *                   the calling funciton's ebp = ss:[ebp]
+       */
++      uint32_t ebp=read_ebp();
++      uint32_t eip=read_eip();
++      for(int i=0;i<STACKFRAME_DEPTH;i++){
++          cprintf("ebp: 0x%08x ,eip: 0x%08x ",ebp,eip);
++          cprintf("args: ");
++          for(int j=0;j<4;j++){
++              cprintf("0x%08x  ",*((uint32_t *)ebp+2+j));
++          }
++          print_debuginfo(eip - 1);
++          eip=*((uint32_t *)ebp+1);
++          ebp=*(uint32_t *)ebp;
++      }
+ }
+ 
+diff --git a/labcodes/lab2/kern/trap/trap.c b/labcodes/lab2/kern/trap/trap.c
+index af78676..a9fbf56 100644
+--- a/labcodes/lab2/kern/trap/trap.c
++++ b/labcodes/lab2/kern/trap/trap.c
+@@ -46,6 +46,17 @@ idt_init(void) {
+       *     You don't know the meaning of this instruction? just google it! and check the libs/x86.h to know more.
+       *     Notice: the argument of lidt is idt_pd. try to find it!
+       */
++    extern uintptr_t __vectors[];
++    for (int i = 0; i < 256; i++) {
++        if (i < IRQ_OFFSET) { 
++            SETGATE(idt[i], 1, GD_KTEXT, __vectors[i], DPL_KERNEL); 
++        } else if (i == T_SYSCALL) { 
++            SETGATE(idt[i], 1, GD_KTEXT, __vectors[i], DPL_USER);
++        } else { 
++            SETGATE(idt[i], 0, GD_KTEXT, __vectors[i], DPL_KERNEL);
++        }
++    }
++    lidt(&idt_pd);
+ }
+ 
+ static const char *
+@@ -147,6 +158,7 @@ trap_dispatch(struct trapframe *tf) {
+          * (2) Every TICK_NUM cycle, you can print some info using a funciton, such as print_ticks().
+          * (3) Too Simple? Yes, I think so!
+          */
++        if(++ticks % TICK_NUM == 0) print_ticks();
+         break;
+     case IRQ_OFFSET + IRQ_COM1:
+         c = cons_getc();

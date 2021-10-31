@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Database on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/database/</link><description>Recent content in Database on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/database/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/database/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/database/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</guid><description>数据库基本概念 # 什么是 NOSQL？
+NoSQL(NoSQL = Not Only SQL )，意即&amp;quot;不仅仅是SQL&amp;quot;。 ACID 理论 # 关系型数据库有事务（transaction）的概念，事务遵循 ACID 原则：
+A (Atomicity 原子性)：事务里的所有操作要么全部做完，要么都不做，事务成功的条件是事务里的所有操作都成功，只要有一个操作失败，整个事务就失败，需要回滚。 C (Consistency 一致性)： I (Isolation 独立性)： D (Durability 持久性)： 分布式系统 # 什么是分布式系统？
+简单的来说，一个分布式系统是一组计算机系统一起工作，在终端用户看来，就像一台计算机在工作一样。这组一起工作的计算机，拥有共享的状态，他们同时运行，独立机器的故障不会影响整个系统的正常运行。 分布式系统的优点：
+**可靠性（容错） ：**分布式计算系统中的一个重要的优点是可靠性。一台服务器的系统崩溃并不影响到其余的服务器。
+**可扩展性：**在分布式计算系统可以根据需要增加更多的机器。
+**资源共享：**共享数据是必不可少的应用，如银行，预订系统。
+**灵活性：**由于该系统是非常灵活的，它很容易安装，实施和调试新的服务。
+**更快的速度：**分布式计算系统可以有多台计算机的计算能力，使得它比其他系统有更快的处理速度。
+**开放系统：**由于它是开放的系统，本地或者远程都可以访问到该服务。
+**更高的性能：**相较于集中式计算机网络集群可以提供更高的性能（及更好的性价比）。
+分布式系统的缺点：
+**故障排除：**故障排除和诊断问题。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/database/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/database/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</guid><description>性能优化 # 查询优化 # 查询语句使用原则：
+范围查询的列放到索引列的最后面：MySQL 会一直向右利用索引匹配直到遇到范围查询（&amp;gt;、&amp;lt;、between、like）就停止匹配，所以如果将范围放在前面，后面的索引将无法使用。
+PS：这里的范围查询是不包括 in 的，in 是指多个等值条件查询，不对联合索引的匹配造成影响。但是通过 explain 分析执行计划时无法区别范围查询和多个等值查询（统一显示为 range）
+= 和 in 可以乱序：MySQL 的查询优化器会帮你优化成索引可以识别的形式。根据经验是将业务中使用到的查询里最常用的列放在前面，这样可以尽量使用到该索引。
+字符串通配符尽量后置：Like 查询如果使用 %s% 这种格式，非最左前缀匹配将无法使用到索引。</description></item></channel></rss>
