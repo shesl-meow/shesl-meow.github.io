@@ -2,7 +2,7 @@ name: github pages
 on:
   push:
     branches:
-      - master
+      - source
   pull_request: null
 jobs:
   deploy:
@@ -27,5 +27,5 @@ jobs:
           personal_token: ${{ secrets.ACCESS_TOKEN }}
           user_name: shesl-meow
           user_email: shesl-meow@qq.com
-          publish_branch: gh-pages
+          publish_branch: master
           publish_dir: ./public
