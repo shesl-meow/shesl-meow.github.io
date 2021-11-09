@@ -2,24 +2,22 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=description content="Google File System (Distribute Storage) #  分布式存储的困难点：
- 高性能：High performance in many server; 多机器：System with many machine could cause &ldquo;constant fault&rdquo;; 一致性错误：To avoid contact fault, we will need replication; 数据同步：During the replication, potential inconsistencies will occur; 一致性与高性能矛盾：To get better consistency, low performance occur;  分布式存储的一个大的课题就是在“一致性”与“高性能”之间的 tradeoff.
-GFS Master：
- RAM 中存储：  一个 filename 到 handlers array 的映射表； 每个 handler 都包含 version/chunk servers list/primary/least time 信息；   磁盘中存储着 log/checkpoint；  READ，客户端读取流程：">
+<meta name=description content="Go Memory Model: https://golang.org/ref/mem
+ Go Threads and Raft #  Happens Before #  Hanpens Before，为了深入研究同步问题而提出的概念：
+ 关于一个变量 v 的读语句 r 与写语句 w，r 可以得到 w 的值需要满足以下条件：  r does not happene before w; There is not other w' that happens before r and after w;   一个读语句 v 能够准确地捕获到某个特定的 w 语句的值，需要满足以下条件：  w happends before r; Any other w' to v either hanppends before w or after r;    Golang Lifetime #  Initialization, 一个 golang 程序的初始化：">
 <meta name=theme-color content="#FFFFFF">
 <meta name=color-scheme content="light dark"><meta property="og:title" content>
-<meta property="og:description" content="Google File System (Distribute Storage) #  分布式存储的困难点：
- 高性能：High performance in many server; 多机器：System with many machine could cause &ldquo;constant fault&rdquo;; 一致性错误：To avoid contact fault, we will need replication; 数据同步：During the replication, potential inconsistencies will occur; 一致性与高性能矛盾：To get better consistency, low performance occur;  分布式存储的一个大的课题就是在“一致性”与“高性能”之间的 tradeoff.
-GFS Master：
- RAM 中存储：  一个 filename 到 handlers array 的映射表； 每个 handler 都包含 version/chunk servers list/primary/least time 信息；   磁盘中存储着 log/checkpoint；  READ，客户端读取流程：">
+<meta property="og:description" content="Go Memory Model: https://golang.org/ref/mem
+ Go Threads and Raft #  Happens Before #  Hanpens Before，为了深入研究同步问题而提出的概念：
+ 关于一个变量 v 的读语句 r 与写语句 w，r 可以得到 w 的值需要满足以下条件：  r does not happene before w; There is not other w' that happens before r and after w;   一个读语句 v 能够准确地捕获到某个特定的 w 语句的值，需要满足以下条件：  w happends before r; Any other w' to v either hanppends before w or after r;    Golang Lifetime #  Initialization, 一个 golang 程序的初始化：">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/3.gfs/"><meta property="article:section" content="docs">
-<title>3. Gfs | shesl-meow's note site</title>
+<meta property="og:url" content="http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/5.go-raft/"><meta property="article:section" content="docs">
+<title>5. Go Raft | shesl-meow's note site</title>
 <link rel=manifest href=/manifest.json>
 <link rel=icon href=/favicon.png type=image/x-icon>
 <link rel=stylesheet href=/book.min.e62c87c0a5f78618c1d9654bac000b57fdba292e359cd3ae3a97d4774328868d.css integrity="sha256-5iyHwKX3hhjB2WVLrAALV/26KS41nNOuOpfUd0Moho0=" crossorigin=anonymous>
 <script defer src=/flexsearch.min.js></script>
-<script defer src=/en.search.min.47957c044cf68e63c619483aed5ae8d37f4aec53c865e4cb3b2dd17a0649f1e1.js integrity="sha256-R5V8BEz2jmPGGUg67Vro039K7FPIZeTLOy3RegZJ8eE=" crossorigin=anonymous></script>
+<script defer src=/en.search.min.5a78a265175c1dd0d0295b3ace8211ca48fa1b187b9b1076858f0a1d15950736.js integrity="sha256-WniiZRdcHdDQKVs6zoIRykj6Gxh7mxB2hY8KHRWVBzY=" crossorigin=anonymous></script>
 </head>
 <body dir=ltr>
 <input type=checkbox class="hidden toggle" id=menu-control>
@@ -557,25 +555,39 @@ GFS Master：
 </label>
 <ul>
 <li>
-<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/1.introduction/>1. Introduction</a>
+<input type=checkbox id=section-02c43405cfcbb6c2a1fcbbcdba2b4cd6 class=toggle checked>
+<label for=section-02c43405cfcbb6c2a1fcbbcdba2b4cd6 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/>分布式系统</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/1.introduction/>1. Introduction</a>
 </li>
 <li>
-<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/2.infra-rpc/>2. Infra Rpc</a>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/2.infra-rpc/>2. Infra Rpc</a>
 </li>
 <li>
-<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/3.gfs/ class=active>3. Gfs</a>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/3.gfs/>3. Gfs</a>
 </li>
 <li>
-<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/4.vm-ft/>4. Vm Ft</a>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/4.vm-ft/>4. Vm Ft</a>
 </li>
 <li>
-<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/5.go-raft/>5. Go Raft</a>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/5.go-raft/ class=active>5. Go Raft</a>
 </li>
 <li>
-<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/6.raft/>6. Raft</a>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/6.raft/>6. Raft</a>
 </li>
 <li>
-<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/7.zookeeper/>7. Zoo Keeper</a>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/7.zookeeper/>7. Zoo Keeper</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/8.craq/>8. Craq</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/9.aurora/>9. Aurora</a>
+</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -2289,7 +2301,7 @@ GFS Master：
 <label for=menu-control>
 <img src=/svg/menu.svg class=book-icon alt=Menu>
 </label>
-<strong>3. Gfs</strong>
+<strong>5. Go Raft</strong>
 <label for=toc-control>
 <img src=/svg/toc.svg class=book-icon alt="Table of Contents">
 </label>
@@ -2297,103 +2309,144 @@ GFS Master：
 <aside class="hidden clearfix">
 <nav id=TableOfContents>
 <ul>
-<li><a href=#google-file-system-distribute-storage>Google File System (Distribute Storage)</a></li>
+<li><a href=#go-threads-and-raft>Go Threads and Raft</a>
+<ul>
+<li><a href=#happens-before>Happens Before</a></li>
+<li><a href=#golang-lifetime>Golang Lifetime</a></li>
+<li><a href=#communication>Communication</a>
+<ul>
+<li><a href=#channel>Channel</a></li>
+<li><a href=#locks>Locks</a></li>
+<li><a href=#once>Once</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </nav>
 </aside>
 </header>
-<article class=markdown><h1 id=google-file-system-distribute-storage>
-Google File System (Distribute Storage)
-<a class=anchor href=#google-file-system-distribute-storage>#</a>
+<article class=markdown><blockquote>
+<p>Go Memory Model: <a href=https://golang.org/ref/mem>https://golang.org/ref/mem</a></p>
+</blockquote>
+<h1 id=go-threads-and-raft>
+Go Threads and Raft
+<a class=anchor href=#go-threads-and-raft>#</a>
 </h1>
-<p>分布式存储的困难点：</p>
+<h2 id=happens-before>
+Happens Before
+<a class=anchor href=#happens-before>#</a>
+</h2>
+<p>Hanpens Before，为了深入研究同步问题而提出的概念：</p>
 <ul>
-<li>高性能：High performance in many server;</li>
-<li>多机器：System with many machine could cause &ldquo;constant fault&rdquo;;</li>
-<li>一致性错误：To avoid contact fault, we will need replication;</li>
-<li>数据同步：During the replication, potential inconsistencies will occur;</li>
-<li>一致性与高性能矛盾：To get better consistency, low performance occur;</li>
-</ul>
-<p>分布式存储的一个大的课题就是在“一致性”与“高性能”之间的 <code>tradeoff</code>.</p>
-<p>GFS Master：</p>
-<ul>
-<li>RAM 中存储：
-<ul>
-<li>一个 <code>filename</code> 到 <code>handlers array</code> 的映射表；</li>
-<li>每个 <code>handler</code> 都包含 <code>version</code>/<code>chunk servers list</code>/<code>primary</code>/<code>least time</code> 信息；</li>
-</ul>
-</li>
-<li>磁盘中存储着 <code>log</code>/<code>checkpoint</code>；</li>
-</ul>
-<p>READ，客户端读取流程：</p>
+<li>关于一个变量 v 的读语句 <code>r</code> 与写语句 <code>w</code>，<code>r</code> 可以得到 <code>w</code> 的值需要满足以下条件：
 <ol>
-<li>C send <code>filename</code> and <code>offset</code> to the master M;</li>
-<li>M finds <code>chunk handle</code> for that <code>offset</code>;</li>
-<li>M replies list of <code>chunkservers</code>(aka CS) only with <code>lastest versions</code>;</li>
-<li>C caches this response;</li>
-<li>C sends request to <code>nearest CS</code> with <code>offset</code>;</li>
-<li>CS read the chuck file from disk and returns;</li>
+<li><code>r</code> does not happene before <code>w</code>;</li>
+<li>There is not other <code>w'</code> that happens before <code>r</code> and after <code>w</code>;</li>
 </ol>
-<p>APPEND，客户端追加流程：</p>
+</li>
+<li>一个读语句 <code>v</code> 能够准确地捕获到某个特定的 <code>w</code> 语句的值，需要满足以下条件：
 <ol>
-<li>
-<p>C ask M about <code>filename</code>&rsquo;s last chunk;</p>
-</li>
-<li>
-<p>If M see <code>filename</code> has no <code>primary</code> hanlder:</p>
-<ul>
-<li>Pick a <code>primary</code>(aka P) and <code>secondaries</code>(aka S) with latest version (Only these server was allowed to handle storing filename);</li>
-<li>Increment <code>lastest version</code>;</li>
-<li>Tell P/S who they are;</li>
-</ul>
-</li>
-<li>
-<p>M response C with <code>primary</code>, <code>secondaries</code> and <code>version</code>;</p>
-</li>
-<li>
-<p>C sends append data to all:</p>
-<ul>
-<li>The paper change thier tone after, C only sends data to the nearest replica and chain the data to all replicas which can reduce trans cost;</li>
-</ul>
-</li>
-<li>
-<p>C tells <code>primary</code> P to execute <code>append</code>;</p>
-</li>
-<li>
-<p>P checks that lease hasn&rsquo;t expired, and chunk has space. And then P picks an <code>offset</code> (at end of chunk), writes chunk file (a Linux file) at the offset;</p>
-</li>
-<li>
-<p>P tells each secondary the <code>offset,</code> tells to exexute <code>append</code> to chunk file</p>
-</li>
-<li>
-<p>P waits for all secondaries to reply, or timeout;</p>
-</li>
-<li>
-<p>P tells C &ldquo;ok&rdquo; or &ldquo;error&rdquo;. C retries from start if error</p>
-</li>
+<li><code>w</code> happends before <code>r</code>;</li>
+<li>Any other <code>w'</code> to v either hanppends before <code>w</code> or after <code>r</code>;</li>
 </ol>
-<p>Split Brain 问题：</p>
-<ul>
-<li>描述：一个 <code>filename</code> 同时对应了多个 <code>primary</code> 处理；</li>
-<li>原因：通常是因为 network partition 导致的（部分机器之间无法通信）；</li>
-<li>解决方案：在指派 <code>primary</code> 时同时指派一个 <code>lease</code> 表示过期时间，<code>master</code> 与 <code>primary</code> 同时维护这个过期时间，过期后 <code>master</code> 重新指派 <code>primary</code>；</li>
+</li>
 </ul>
-<p>总结：GFS 优点：</p>
+<h2 id=golang-lifetime>
+Golang Lifetime
+<a class=anchor href=#golang-lifetime>#</a>
+</h2>
+<p>Initialization, 一个 golang 程序的初始化：</p>
 <ul>
-<li><strong>Global cluster</strong> file system as universal infrastructure;</li>
-<li><strong>Seperation</strong> of naming system (master) and storage system (chunk servers)</li>
-<li>Sharding file into chunk for <strong>parallel</strong> throughput;</li>
-<li><strong>Huge</strong> files/chunks to reduce overheads;</li>
-<li>Designation primary to achieve <strong>sequential writes</strong>;</li>
-<li>Lease to prevent <strong>split-brain</strong> chunk servers primaries;</li>
+<li>对于库 <code>p</code> 引用库 <code>q</code> 的情况，<code>p</code> 的初始化函数开始在 <code>q</code> 的初始化函数结束之前；</li>
+<li>在函数 <code>main.main</code> 执行前，所有函数的 <code>init</code> 函数都应该执行完成了；</li>
 </ul>
-<p>GFS 缺点：</p>
+<p>Goroutine destruction：</p>
 <ul>
-<li>Single master performance: ran out of RAM and CPU</li>
-<li>Chunkservers not very efficient for small files</li>
-<li>Lack of automatic fail-over to master replica;</li>
-<li>Maybe consistency was too relaxed</li>
+<li>
+<p>Goroutine 的销毁不会被保证发生在任何事件之前（not guaranteed to happen before any event）。怎么理解这个 <code>happened before</code> 呢？比如下面这个例子：</p>
+</li>
+<li>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>a</span> <span style=color:#66d9ef>string</span>
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>hello</span>() {
+	<span style=color:#66d9ef>go</span> <span style=color:#66d9ef>func</span>() { <span style=color:#a6e22e>a</span> = <span style=color:#e6db74>&#34;hello&#34;</span> }()
+	print(<span style=color:#a6e22e>a</span>)
+}
+</code></pre></div><p>其中，<code>a</code> 的赋值语句发生在一个单独的 goroutine 中，它之后没有任何同步语句，所以它有可能不会被任何事件使用，激进一点的编译器会直接拒绝编译。</p>
+</li>
 </ul>
+<h2 id=communication>
+Communication
+<a class=anchor href=#communication>#</a>
+</h2>
+<p>Golang 中线程同步的方法。</p>
+<h3 id=channel>
+Channel
+<a class=anchor href=#channel>#</a>
+</h3>
+<p>Example:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>c</span> = make(<span style=color:#66d9ef>chan</span> <span style=color:#66d9ef>int</span>)
+<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>a</span> <span style=color:#66d9ef>string</span>
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>f</span>() {
+	<span style=color:#a6e22e>a</span> = <span style=color:#e6db74>&#34;hello, world&#34;</span>
+	<span style=color:#f92672>&lt;-</span><span style=color:#a6e22e>c</span>
+}
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>main</span>() {
+	<span style=color:#66d9ef>go</span> <span style=color:#a6e22e>f</span>()
+	<span style=color:#a6e22e>c</span> <span style=color:#f92672>&lt;-</span> <span style=color:#ae81ff>0</span>
+	print(<span style=color:#a6e22e>a</span>)
+}
+</code></pre></div><p>这段代码一定会输出 <code>hello world</code>，因为根据上面的理论：</p>
+<ul>
+<li><code>a = "hello world"</code> happends before <code>&lt;- c</code> happends before <code>f()</code> happends before <code>print(a)</code>;</li>
+</ul>
+<h3 id=locks>
+Locks
+<a class=anchor href=#locks>#</a>
+</h3>
+<p>Example:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>l</span> <span style=color:#a6e22e>sync</span>.<span style=color:#a6e22e>Mutex</span>
+<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>a</span> <span style=color:#66d9ef>string</span>
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>f</span>() {
+	<span style=color:#a6e22e>a</span> = <span style=color:#e6db74>&#34;hello, world&#34;</span>
+	<span style=color:#a6e22e>l</span>.<span style=color:#a6e22e>Unlock</span>()
+}
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>main</span>() {
+	<span style=color:#a6e22e>l</span>.<span style=color:#a6e22e>Lock</span>()
+	<span style=color:#66d9ef>go</span> <span style=color:#a6e22e>f</span>()
+	<span style=color:#a6e22e>l</span>.<span style=color:#a6e22e>Lock</span>()
+	print(<span style=color:#a6e22e>a</span>)
+}
+</code></pre></div><p>上面这段代码一定会输出 <code>hello world</code>，因为根据理论：</p>
+<ul>
+<li><code>a = "hello world"</code> happends before 第一个 <code>l.Unlock()</code> happens before 第二个 <code>l.Lock()</code> happens before <code>print(a)</code>;</li>
+</ul>
+<h3 id=once>
+Once
+<a class=anchor href=#once>#</a>
+</h3>
+<p>Example:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#66d9ef>var</span> <span style=color:#a6e22e>a</span> <span style=color:#66d9ef>string</span>
+<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>once</span> <span style=color:#a6e22e>sync</span>.<span style=color:#a6e22e>Once</span>
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>setup</span>() {
+	<span style=color:#a6e22e>a</span> = <span style=color:#e6db74>&#34;hello, world&#34;</span>
+}
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>doprint</span>() {
+	<span style=color:#a6e22e>once</span>.<span style=color:#a6e22e>Do</span>(<span style=color:#a6e22e>setup</span>)
+	print(<span style=color:#a6e22e>a</span>)
+}
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>twoprint</span>() {
+	<span style=color:#66d9ef>go</span> <span style=color:#a6e22e>doprint</span>()
+	<span style=color:#66d9ef>go</span> <span style=color:#a6e22e>doprint</span>()
+}
+</code></pre></div><p>上面这个代码中保证了 <code>setup</code> 这个函数只能被调用一次，并且 <code>print</code> 一定会输出 <code>hello world</code> 函数，这是因为 <code>once.Do</code> 保证了每次调用都会在第一调用结束之后。</p>
 </article>
 <footer class=book-footer>
 <div class="flex flex-wrap justify-between">
@@ -2408,7 +2461,19 @@ Google File System (Distribute Storage)
 <div class=book-toc-content>
 <nav id=TableOfContents>
 <ul>
-<li><a href=#google-file-system-distribute-storage>Google File System (Distribute Storage)</a></li>
+<li><a href=#go-threads-and-raft>Go Threads and Raft</a>
+<ul>
+<li><a href=#happens-before>Happens Before</a></li>
+<li><a href=#golang-lifetime>Golang Lifetime</a></li>
+<li><a href=#communication>Communication</a>
+<ul>
+<li><a href=#channel>Channel</a></li>
+<li><a href=#locks>Locks</a></li>
+<li><a href=#once>Once</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </nav>
 </div>

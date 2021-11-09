@@ -2,22 +2,24 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=description content="VMware FT(Fault-Tolerant) #  Primary/Backup Replication #  Two main replication approaches:
- State Transfer: Primary replica executes and sends new state to backups machine; Replicated State Machine: Primary just pass the raw external event to backups. Mostly used by recent industry and papers;  Overview:
- VM-FT consist of two machine: primary and backup. Primary deals with all external events and replicates it to backup through &ldquo;logging channel&rdquo;; VM-FT emulates a local disk interface through two remote disk server.">
+<meta name=description content="Google File System (Distribute Storage) #  分布式存储的困难点：
+ 高性能：High performance in many server; 多机器：System with many machine could cause &ldquo;constant fault&rdquo;; 一致性错误：To avoid contact fault, we will need replication; 数据同步：During the replication, potential inconsistencies will occur; 一致性与高性能矛盾：To get better consistency, low performance occur;  分布式存储的一个大的课题就是在“一致性”与“高性能”之间的 tradeoff.
+GFS Master：
+ RAM 中存储：  一个 filename 到 handlers array 的映射表； 每个 handler 都包含 version/chunk servers list/primary/least time 信息；   磁盘中存储着 log/checkpoint；  READ，客户端读取流程：">
 <meta name=theme-color content="#FFFFFF">
 <meta name=color-scheme content="light dark"><meta property="og:title" content>
-<meta property="og:description" content="VMware FT(Fault-Tolerant) #  Primary/Backup Replication #  Two main replication approaches:
- State Transfer: Primary replica executes and sends new state to backups machine; Replicated State Machine: Primary just pass the raw external event to backups. Mostly used by recent industry and papers;  Overview:
- VM-FT consist of two machine: primary and backup. Primary deals with all external events and replicates it to backup through &ldquo;logging channel&rdquo;; VM-FT emulates a local disk interface through two remote disk server.">
+<meta property="og:description" content="Google File System (Distribute Storage) #  分布式存储的困难点：
+ 高性能：High performance in many server; 多机器：System with many machine could cause &ldquo;constant fault&rdquo;; 一致性错误：To avoid contact fault, we will need replication; 数据同步：During the replication, potential inconsistencies will occur; 一致性与高性能矛盾：To get better consistency, low performance occur;  分布式存储的一个大的课题就是在“一致性”与“高性能”之间的 tradeoff.
+GFS Master：
+ RAM 中存储：  一个 filename 到 handlers array 的映射表； 每个 handler 都包含 version/chunk servers list/primary/least time 信息；   磁盘中存储着 log/checkpoint；  READ，客户端读取流程：">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/4.vm-ft/"><meta property="article:section" content="docs">
-<title>4. Vm Ft | shesl-meow's note site</title>
+<meta property="og:url" content="http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/3.gfs/"><meta property="article:section" content="docs">
+<title>3. Gfs | shesl-meow's note site</title>
 <link rel=manifest href=/manifest.json>
 <link rel=icon href=/favicon.png type=image/x-icon>
 <link rel=stylesheet href=/book.min.e62c87c0a5f78618c1d9654bac000b57fdba292e359cd3ae3a97d4774328868d.css integrity="sha256-5iyHwKX3hhjB2WVLrAALV/26KS41nNOuOpfUd0Moho0=" crossorigin=anonymous>
 <script defer src=/flexsearch.min.js></script>
-<script defer src=/en.search.min.47957c044cf68e63c619483aed5ae8d37f4aec53c865e4cb3b2dd17a0649f1e1.js integrity="sha256-R5V8BEz2jmPGGUg67Vro039K7FPIZeTLOy3RegZJ8eE=" crossorigin=anonymous></script>
+<script defer src=/en.search.min.5a78a265175c1dd0d0295b3ace8211ca48fa1b187b9b1076858f0a1d15950736.js integrity="sha256-WniiZRdcHdDQKVs6zoIRykj6Gxh7mxB2hY8KHRWVBzY=" crossorigin=anonymous></script>
 </head>
 <body dir=ltr>
 <input type=checkbox class="hidden toggle" id=menu-control>
@@ -555,25 +557,39 @@
 </label>
 <ul>
 <li>
-<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/1.introduction/>1. Introduction</a>
+<input type=checkbox id=section-02c43405cfcbb6c2a1fcbbcdba2b4cd6 class=toggle checked>
+<label for=section-02c43405cfcbb6c2a1fcbbcdba2b4cd6 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/>分布式系统</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/1.introduction/>1. Introduction</a>
 </li>
 <li>
-<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/2.infra-rpc/>2. Infra Rpc</a>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/2.infra-rpc/>2. Infra Rpc</a>
 </li>
 <li>
-<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/3.gfs/>3. Gfs</a>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/3.gfs/ class=active>3. Gfs</a>
 </li>
 <li>
-<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/4.vm-ft/ class=active>4. Vm Ft</a>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/4.vm-ft/>4. Vm Ft</a>
 </li>
 <li>
-<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/5.go-raft/>5. Go Raft</a>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/5.go-raft/>5. Go Raft</a>
 </li>
 <li>
-<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/6.raft/>6. Raft</a>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/6.raft/>6. Raft</a>
 </li>
 <li>
-<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/7.zookeeper/>7. Zoo Keeper</a>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/7.zookeeper/>7. Zoo Keeper</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/8.craq/>8. Craq</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/9.aurora/>9. Aurora</a>
+</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -2287,7 +2303,7 @@
 <label for=menu-control>
 <img src=/svg/menu.svg class=book-icon alt=Menu>
 </label>
-<strong>4. Vm Ft</strong>
+<strong>3. Gfs</strong>
 <label for=toc-control>
 <img src=/svg/toc.svg class=book-icon alt="Table of Contents">
 </label>
@@ -2295,178 +2311,102 @@
 <aside class="hidden clearfix">
 <nav id=TableOfContents>
 <ul>
-<li><a href=#vmware-ftfault-tolerant>VMware FT(Fault-Tolerant)</a>
-<ul>
-<li><a href=#primarybackup-replication>Primary/Backup Replication</a></li>
-<li><a href=#log-entry>Log Entry</a>
-<ul>
-<li><a href=#timer-interrupt>Timer Interrupt</a></li>
-<li><a href=#network-interrupt>Network Interrupt</a></li>
-<li><a href=#bounce-buffer>Bounce Buffer</a></li>
-</ul>
-</li>
-<li><a href=#more-rule>More Rule</a>
-<ul>
-<li><a href=#output-rule>Output Rule</a></li>
-<li><a href=#split-brain>Split Brain</a></li>
-</ul>
-</li>
-<li><a href=#summary>Summary</a></li>
-</ul>
-</li>
+<li><a href=#google-file-system-distribute-storage>Google File System (Distribute Storage)</a></li>
 </ul>
 </nav>
 </aside>
 </header>
-<article class=markdown><h1 id=vmware-ftfault-tolerant>
-VMware FT(Fault-Tolerant)
-<a class=anchor href=#vmware-ftfault-tolerant>#</a>
+<article class=markdown><h1 id=google-file-system-distribute-storage>
+Google File System (Distribute Storage)
+<a class=anchor href=#google-file-system-distribute-storage>#</a>
 </h1>
-<h2 id=primarybackup-replication>
-Primary/Backup Replication
-<a class=anchor href=#primarybackup-replication>#</a>
-</h2>
-<p>Two main replication approaches:</p>
-<ol>
-<li>State Transfer: Primary replica executes and sends <code>new</code> state to backups machine;</li>
-<li><strong>Replicated State Machine</strong>: Primary just pass the raw external event to backups. Mostly used by recent industry and papers;</li>
-</ol>
-<p>Overview:</p>
+<p>分布式存储的困难点：</p>
 <ul>
-<li>VM-FT consist of two machine: <code>primary</code> and <code>backup</code>. Primary deals with all external events and replicates it to backup through &ldquo;logging channel&rdquo;;</li>
-<li>VM-FT emulates a local disk interface through two remote disk server.</li>
+<li>高性能：High performance in many server;</li>
+<li>多机器：System with many machine could cause &ldquo;constant fault&rdquo;;</li>
+<li>一致性错误：To avoid contact fault, we will need replication;</li>
+<li>数据同步：During the replication, potential inconsistencies will occur;</li>
+<li>一致性与高性能矛盾：To get better consistency, low performance occur;</li>
 </ul>
-<h2 id=log-entry>
-Log Entry
-<a class=anchor href=#log-entry>#</a>
-</h2>
-<p><code>events</code> can&rsquo;t determine all situation, FT must handle the following divergence:</p>
-<ol>
-<li>指令本身的差异：Most instructions execute identically;</li>
-<li>机器所处外部的信号差异：Input from external world: network packet, DMA data, OS interrupt, etc;</li>
-<li>并不是所有指令都是状态指令（唯一输入唯一输出的纯函数）。比如：读取当前时间、随机数发生器（某种意义上说与前者是一类）；</li>
-<li>并发与多核：Parallelism and multi-core races;</li>
-</ol>
-<p>为了使得 <code>pirmary</code> 和 <code>backup</code> 的状态完全一样，我们就必须要处理上面列举的一些异常情况，在它们通信时将这些信息传递出去使得它们执行的代码完全一样。</p>
-<p>So the <code>log entry</code> who transfers message between <code>Primary</code> and <code>Backup</code> should contain these message below:</p>
+<p>分布式存储的一个大的课题就是在“一致性”与“高性能”之间的 <code>tradeoff</code>.</p>
+<p>GFS Master：</p>
 <ul>
-<li>Instruction number, interrupt type, interrupt data;</li>
-<li>Example:
+<li>RAM 中存储：
 <ul>
-<li>When executing the <strong>120120(instruction number)</strong> instruction since boot;</li>
-<li>Program get <strong>network packet (interrupt type)</strong>;</li>
-<li>Carrying a <strong>tcp hand shake ACK (interrupt data)</strong>;</li>
+<li>一个 <code>filename</code> 到 <code>handlers array</code> 的映射表；</li>
+<li>每个 <code>handler</code> 都包含 <code>version</code>/<code>chunk servers list</code>/<code>primary</code>/<code>least time</code> 信息；</li>
 </ul>
 </li>
+<li>磁盘中存储着 <code>log</code>/<code>checkpoint</code>；</li>
 </ul>
-<h3 id=timer-interrupt>
-Timer Interrupt
-<a class=anchor href=#timer-interrupt>#</a>
-</h3>
-<blockquote>
-<p>How does FT handle timer interrupts?</p>
-</blockquote>
-<p>Goal: Make sure primary and backup should see interrupt at totally same situation;</p>
-<p><code>Primary</code> should do:</p>
+<p>READ，客户端读取流程：</p>
 <ol>
-<li>FT fields the timer interrupt;</li>
-<li>FT reads instruction number X from CPU;</li>
-<li>FT send instruction number X on the logging channel to <code>Backup</code>;</li>
-<li>FT delivers interrupt to <code>Primary</code> and resume executing;</li>
+<li>C send <code>filename</code> and <code>offset</code> to the master M;</li>
+<li>M finds <code>chunk handle</code> for that <code>offset</code>;</li>
+<li>M replies list of <code>chunkservers</code>(aka CS) only with <code>lastest versions</code>;</li>
+<li>C caches this response;</li>
+<li>C sends request to <code>nearest CS</code> with <code>offset</code>;</li>
+<li>CS read the chuck file from disk and returns;</li>
 </ol>
-<p><code>Backup</code> should do:</p>
+<p>APPEND，客户端追加流程：</p>
 <ol>
-<li>Ignores its own timer hardware;</li>
-<li><code>Backup</code> see instruction number X from logging channel <strong>before</strong> the exact instruction executed;</li>
-<li>FT tells CPU to &ldquo;interrupt me at instruction X&rdquo;;</li>
-<li>FT mimics a timer interrupt to <code>Backup</code>;</li>
-</ol>
-<h3 id=network-interrupt>
-Network Interrupt
-<a class=anchor href=#network-interrupt>#</a>
-</h3>
-<blockquote>
-<p>How does FT handle arrival of network packet?</p>
-</blockquote>
-<p>Goal: Exactly same as timer interrupt, with data designating.</p>
-<p><code>Primary</code> should do:</p>
-<ul>
-<li>Boosting: Tells NIC (Network Interface Controller) to copy packet data into FT&rsquo;s private &ldquo;bounce buffer&rdquo;;</li>
-<li>At some point, NIC does DMA then interrupt:
-<ol>
-<li>FT pause the primary;</li>
-<li>FT copies the &ldquo;bound buffer&rdquo; into <code>Primary</code>&rsquo;s memory;</li>
-<li>FT simulates a NIC interrupt in <code>Primary</code>;</li>
-<li>FT send &ldquo;packet data&rdquo; and &ldquo;instruction number&rdquo; to <code>Backup</code> through log channel;</li>
-</ol>
-</li>
-</ul>
-<p><code>Backup</code> should do:</p>
-<ol>
-<li><code>Backup</code> received instruction number from log stream;</li>
-<li>FT tells CPU to interrupt at instruction X;</li>
-<li>FT copies the data to backup memory and similates NIC interrupt in <code>Backup</code>;</li>
-</ol>
-<h3 id=bounce-buffer>
-Bounce Buffer
-<a class=anchor href=#bounce-buffer>#</a>
-</h3>
-<p>What bounce buffer?</p>
-<ul>
-<li>Bounce buffer is a FT&rsquo;s memory area that store network packet data;</li>
-</ul>
-<p>Why bounce buffer?</p>
-<ul>
-<li>We want the data to appear in memory at exactly the same point in execution of the <code>Primary</code> and <code>Backup</code>;</li>
-</ul>
-<h2 id=more-rule>
-More Rule
-<a class=anchor href=#more-rule>#</a>
-</h2>
-<h3 id=output-rule>
-Output Rule
-<a class=anchor href=#output-rule>#</a>
-</h3>
-<p>Suppose we encountered the following situation:</p>
-<ul>
-<li><code>Primary</code> crashes jsut after sending the reply to client;</li>
-<li><code>Backup</code> doesn&rsquo;t receive any event from <code>Primary</code> because it has crashed;</li>
-</ul>
-<p>Output rule was brought up to deal with this:</p>
-<ul>
-<li><code>Primary</code> should repsonse to client after receiving <code>ACKnowledgement</code> from <code>Backup</code>;</li>
-</ul>
-<h3 id=split-brain>
-Split Brain
-<a class=anchor href=#split-brain>#</a>
-</h3>
-<p>Suppose we encounter the following situation:</p>
-<ul>
-<li>Network between <code>Primary</code> and <code>Backup</code> has been cut over；</li>
-<li>So both machine think the other one is dead, and think it&rsquo;s the <code>Primary</code> and stop sending logging event;</li>
-</ul>
-<p>This is a common problem called &ldquo;split brain&rdquo;. FT creat a center server support atomic <code>test-and-set</code> instruction, machine who get flag can become <code>Primary</code>.</p>
-<h2 id=summary>
-Summary
-<a class=anchor href=#summary>#</a>
-</h2>
-<p>When might FT be attractive?</p>
-<ul>
 <li>
-<p>Critical but low-intensity services: name server;</p>
+<p>C ask M about <code>filename</code>&rsquo;s last chunk;</p>
 </li>
 <li>
-<p>Services whose software is not convenient to modify;</p>
-</li>
-</ul>
-<p>What about replication for high-throughput services?</p>
+<p>If M see <code>filename</code> has no <code>primary</code> hanlder:</p>
 <ul>
-<li>Recommend: Applicative-level replicated state machines;
-<ul>
-<li>Example: Database state machine, database only support a limit set of command which is easier to transfer message;</li>
+<li>Pick a <code>primary</code>(aka P) and <code>secondaries</code>(aka S) with latest version (Only these server was allowed to handle storing filename);</li>
+<li>Increment <code>lastest version</code>;</li>
+<li>Tell P/S who they are;</li>
 </ul>
 </li>
-<li>Result: less fine-grained synchronization (更细粒度的同步), less overhead;</li>
+<li>
+<p>M response C with <code>primary</code>, <code>secondaries</code> and <code>version</code>;</p>
+</li>
+<li>
+<p>C sends append data to all:</p>
+<ul>
+<li>The paper change thier tone after, C only sends data to the nearest replica and chain the data to all replicas which can reduce trans cost;</li>
+</ul>
+</li>
+<li>
+<p>C tells <code>primary</code> P to execute <code>append</code>;</p>
+</li>
+<li>
+<p>P checks that lease hasn&rsquo;t expired, and chunk has space. And then P picks an <code>offset</code> (at end of chunk), writes chunk file (a Linux file) at the offset;</p>
+</li>
+<li>
+<p>P tells each secondary the <code>offset,</code> tells to exexute <code>append</code> to chunk file</p>
+</li>
+<li>
+<p>P waits for all secondaries to reply, or timeout;</p>
+</li>
+<li>
+<p>P tells C &ldquo;ok&rdquo; or &ldquo;error&rdquo;. C retries from start if error</p>
+</li>
+</ol>
+<p>Split Brain 问题：</p>
+<ul>
+<li>描述：一个 <code>filename</code> 同时对应了多个 <code>primary</code> 处理；</li>
+<li>原因：通常是因为 network partition 导致的（部分机器之间无法通信）；</li>
+<li>解决方案：在指派 <code>primary</code> 时同时指派一个 <code>lease</code> 表示过期时间，<code>master</code> 与 <code>primary</code> 同时维护这个过期时间，过期后 <code>master</code> 重新指派 <code>primary</code>；</li>
+</ul>
+<p>总结：GFS 优点：</p>
+<ul>
+<li><strong>Global cluster</strong> file system as universal infrastructure;</li>
+<li><strong>Seperation</strong> of naming system (master) and storage system (chunk servers)</li>
+<li>Sharding file into chunk for <strong>parallel</strong> throughput;</li>
+<li><strong>Huge</strong> files/chunks to reduce overheads;</li>
+<li>Designation primary to achieve <strong>sequential writes</strong>;</li>
+<li>Lease to prevent <strong>split-brain</strong> chunk servers primaries;</li>
+</ul>
+<p>GFS 缺点：</p>
+<ul>
+<li>Single master performance: ran out of RAM and CPU</li>
+<li>Chunkservers not very efficient for small files</li>
+<li>Lack of automatic fail-over to master replica;</li>
+<li>Maybe consistency was too relaxed</li>
 </ul>
 </article>
 <footer class=book-footer>
@@ -2482,25 +2422,7 @@ Summary
 <div class=book-toc-content>
 <nav id=TableOfContents>
 <ul>
-<li><a href=#vmware-ftfault-tolerant>VMware FT(Fault-Tolerant)</a>
-<ul>
-<li><a href=#primarybackup-replication>Primary/Backup Replication</a></li>
-<li><a href=#log-entry>Log Entry</a>
-<ul>
-<li><a href=#timer-interrupt>Timer Interrupt</a></li>
-<li><a href=#network-interrupt>Network Interrupt</a></li>
-<li><a href=#bounce-buffer>Bounce Buffer</a></li>
-</ul>
-</li>
-<li><a href=#more-rule>More Rule</a>
-<ul>
-<li><a href=#output-rule>Output Rule</a></li>
-<li><a href=#split-brain>Split Brain</a></li>
-</ul>
-</li>
-<li><a href=#summary>Summary</a></li>
-</ul>
-</li>
+<li><a href=#google-file-system-distribute-storage>Google File System (Distribute Storage)</a></li>
 </ul>
 </nav>
 </div>

@@ -2,22 +2,22 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=description content="Introduction #  分布式系统的优点：
- Parallelism：通过并行提高计算量、数据处理量； Fault Tolerate：通过多个服务器提升容错率； Physically：聚合物理意义上相互隔离的机器； Security：系统可以分布式地运行在地理位置相聚很远的地方，提升容灾性；  分布式系统的缺点与困难：
- Concurrent Parts：需要同时并行地处理多个部分； Complex Interactions：需要处理复杂的服务交互逻辑（微服务中通过“服务发现”实现分布式系统）； Partial Failure：无法同时达到绝对准确性与服务可用性； Performance：需要设计精巧的算法以实现更高的性能；  MapReduce 是“分布式系统”的开山论文，它最初被 Google 研发出来，用于解决大容量的网页问题：http://nil.csail.mit.edu/6.824/2020/papers/mapreduce.pdf">
+<meta name=description content="CRAQ #  Chain Replication (CR) #  What&rsquo;s Chain Replication?
+ 系统构成：A list of servers, with a &ldquo;head&rdquo; and a &ldquo;tail&rdquo;; 写：Client sends to Head, forward &ldquo;write&rdquo; till Tail, Tail responses to Client; 读：Client sends to Tail, Tail response.  相对于 Raft，CR 的优点？
+ 相对于 Leader 处理所有请求，将请求分散到 Head、Tail 能够提升服务吞吐量； Raft 进行写时需要发送请求到所有 Replicas，然后等待 1/2 的响应，CR 则只需要将请求传递到后继节点，提升了写性能的吞吐量； CR 的写操作只需要一个服务器的介入； 错误恢复的流程更加简单（相当于在链表中删除一个节点）；  Chain Replication with Apportioned Queries (CRAQ) #  类似于在 ZooKeeper 设计中的思考，可以将 Read 的压力分散到各个不同的 Replicas 中。CRAQ 是一个基于 CR、并且将 Read 分散到各个节点、且满足 Linearizable 性质的分布式系统设计。">
 <meta name=theme-color content="#FFFFFF">
 <meta name=color-scheme content="light dark"><meta property="og:title" content>
-<meta property="og:description" content="Introduction #  分布式系统的优点：
- Parallelism：通过并行提高计算量、数据处理量； Fault Tolerate：通过多个服务器提升容错率； Physically：聚合物理意义上相互隔离的机器； Security：系统可以分布式地运行在地理位置相聚很远的地方，提升容灾性；  分布式系统的缺点与困难：
- Concurrent Parts：需要同时并行地处理多个部分； Complex Interactions：需要处理复杂的服务交互逻辑（微服务中通过“服务发现”实现分布式系统）； Partial Failure：无法同时达到绝对准确性与服务可用性； Performance：需要设计精巧的算法以实现更高的性能；  MapReduce 是“分布式系统”的开山论文，它最初被 Google 研发出来，用于解决大容量的网页问题：http://nil.csail.mit.edu/6.824/2020/papers/mapreduce.pdf">
+<meta property="og:description" content="CRAQ #  Chain Replication (CR) #  What&rsquo;s Chain Replication?
+ 系统构成：A list of servers, with a &ldquo;head&rdquo; and a &ldquo;tail&rdquo;; 写：Client sends to Head, forward &ldquo;write&rdquo; till Tail, Tail responses to Client; 读：Client sends to Tail, Tail response.  相对于 Raft，CR 的优点？
+ 相对于 Leader 处理所有请求，将请求分散到 Head、Tail 能够提升服务吞吐量； Raft 进行写时需要发送请求到所有 Replicas，然后等待 1/2 的响应，CR 则只需要将请求传递到后继节点，提升了写性能的吞吐量； CR 的写操作只需要一个服务器的介入； 错误恢复的流程更加简单（相当于在链表中删除一个节点）；  Chain Replication with Apportioned Queries (CRAQ) #  类似于在 ZooKeeper 设计中的思考，可以将 Read 的压力分散到各个不同的 Replicas 中。CRAQ 是一个基于 CR、并且将 Read 分散到各个节点、且满足 Linearizable 性质的分布式系统设计。">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/1.introduction/"><meta property="article:section" content="docs">
-<title>1. Introduction | shesl-meow's note site</title>
+<meta property="og:url" content="http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/8.craq/"><meta property="article:section" content="docs">
+<title>8. Craq | shesl-meow's note site</title>
 <link rel=manifest href=/manifest.json>
 <link rel=icon href=/favicon.png type=image/x-icon>
 <link rel=stylesheet href=/book.min.e62c87c0a5f78618c1d9654bac000b57fdba292e359cd3ae3a97d4774328868d.css integrity="sha256-5iyHwKX3hhjB2WVLrAALV/26KS41nNOuOpfUd0Moho0=" crossorigin=anonymous>
 <script defer src=/flexsearch.min.js></script>
-<script defer src=/en.search.min.47957c044cf68e63c619483aed5ae8d37f4aec53c865e4cb3b2dd17a0649f1e1.js integrity="sha256-R5V8BEz2jmPGGUg67Vro039K7FPIZeTLOy3RegZJ8eE=" crossorigin=anonymous></script>
+<script defer src=/en.search.min.5a78a265175c1dd0d0295b3ace8211ca48fa1b187b9b1076858f0a1d15950736.js integrity="sha256-WniiZRdcHdDQKVs6zoIRykj6Gxh7mxB2hY8KHRWVBzY=" crossorigin=anonymous></script>
 </head>
 <body dir=ltr>
 <input type=checkbox class="hidden toggle" id=menu-control>
@@ -555,25 +555,39 @@
 </label>
 <ul>
 <li>
-<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/1.introduction/ class=active>1. Introduction</a>
+<input type=checkbox id=section-02c43405cfcbb6c2a1fcbbcdba2b4cd6 class=toggle checked>
+<label for=section-02c43405cfcbb6c2a1fcbbcdba2b4cd6 class="flex justify-between">
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/>分布式系统</a>
+</label>
+<ul>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/1.introduction/>1. Introduction</a>
 </li>
 <li>
-<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/2.infra-rpc/>2. Infra Rpc</a>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/2.infra-rpc/>2. Infra Rpc</a>
 </li>
 <li>
-<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/3.gfs/>3. Gfs</a>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/3.gfs/>3. Gfs</a>
 </li>
 <li>
-<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/4.vm-ft/>4. Vm Ft</a>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/4.vm-ft/>4. Vm Ft</a>
 </li>
 <li>
-<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/5.go-raft/>5. Go Raft</a>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/5.go-raft/>5. Go Raft</a>
 </li>
 <li>
-<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/6.raft/>6. Raft</a>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/6.raft/>6. Raft</a>
 </li>
 <li>
-<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/7.zookeeper/>7. Zoo Keeper</a>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/7.zookeeper/>7. Zoo Keeper</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/8.craq/ class=active>8. Craq</a>
+</li>
+<li>
+<a href=http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/mit8.624/9.aurora/>9. Aurora</a>
+</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -2287,7 +2301,7 @@
 <label for=menu-control>
 <img src=/svg/menu.svg class=book-icon alt=Menu>
 </label>
-<strong>1. Introduction</strong>
+<strong>8. Craq</strong>
 <label for=toc-control>
 <img src=/svg/toc.svg class=book-icon alt="Table of Contents">
 </label>
@@ -2295,30 +2309,62 @@
 <aside class="hidden clearfix">
 <nav id=TableOfContents>
 <ul>
-<li><a href=#introduction>Introduction</a></li>
+<li><a href=#craq>CRAQ</a>
+<ul>
+<li><a href=#chain-replication-cr>Chain Replication (CR)</a></li>
+<li><a href=#chain-replication-with-apportioned-queries-craq>Chain Replication with Apportioned Queries (CRAQ)</a></li>
+</ul>
+</li>
 </ul>
 </nav>
 </aside>
 </header>
-<article class=markdown><h1 id=introduction>
-Introduction
-<a class=anchor href=#introduction>#</a>
+<article class=markdown><h1 id=craq>
+CRAQ
+<a class=anchor href=#craq>#</a>
 </h1>
-<p>分布式系统的优点：</p>
+<h2 id=chain-replication-cr>
+Chain Replication (CR)
+<a class=anchor href=#chain-replication-cr>#</a>
+</h2>
+<p>What&rsquo;s Chain Replication?</p>
 <ul>
-<li>Parallelism：通过并行提高计算量、数据处理量；</li>
-<li>Fault Tolerate：通过多个服务器提升容错率；</li>
-<li>Physically：聚合物理意义上相互隔离的机器；</li>
-<li>Security：系统可以分布式地运行在地理位置相聚很远的地方，提升容灾性；</li>
+<li>系统构成：A list of servers, with a &ldquo;head&rdquo; and a &ldquo;tail&rdquo;;</li>
+<li>写：<code>Client</code> sends to <code>Head</code>, forward &ldquo;write&rdquo; till <code>Tail</code>, <code>Tail</code> responses to <code>Client</code>;</li>
+<li>读：<code>Client</code> sends to <code>Tail</code>, <code>Tail</code> response.</li>
 </ul>
-<p>分布式系统的缺点与困难：</p>
+<p>相对于 Raft，CR 的优点？</p>
 <ul>
-<li>Concurrent Parts：需要同时并行地处理多个部分；</li>
-<li>Complex Interactions：需要处理复杂的服务交互逻辑（微服务中通过“服务发现”实现分布式系统）；</li>
-<li>Partial Failure：无法同时达到绝对准确性与服务可用性；</li>
-<li>Performance：需要设计精巧的算法以实现更高的性能；</li>
+<li>相对于 <code>Leader</code> 处理所有请求，将请求分散到 <code>Head</code>、<code>Tail</code> 能够提升服务吞吐量；</li>
+<li>Raft 进行写时需要发送请求到所有 Replicas，然后等待 1/2 的响应，CR 则只需要将请求传递到后继节点，提升了写性能的吞吐量；</li>
+<li>CR 的写操作只需要一个服务器的介入；</li>
+<li>错误恢复的流程更加简单（相当于在链表中删除一个节点）；</li>
 </ul>
-<p><code>MapReduce</code> 是“分布式系统”的开山论文，它最初被 Google 研发出来，用于解决大容量的网页问题：http://nil.csail.mit.edu/6.824/2020/papers/mapreduce.pdf</p>
+<h2 id=chain-replication-with-apportioned-queries-craq>
+Chain Replication with Apportioned Queries (CRAQ)
+<a class=anchor href=#chain-replication-with-apportioned-queries-craq>#</a>
+</h2>
+<p>类似于在 ZooKeeper 设计中的思考，可以将 Read 的压力分散到各个不同的 Replicas 中。CRAQ 是一个基于 CR、并且将 Read 分散到各个节点、且满足 <code>Linearizable</code> 性质的分布式系统设计。</p>
+<p>How does CRAQ support linearizable reads from any replica in the chain?</p>
+<ul>
+<li>系统构成：Each replica stores a list of <code>versions</code> per object;</li>
+<li>写：Each <code>Replicas</code> create new <code>dirty version</code> as write pass through, <code>Tail</code> creates <code>clean version</code>, and ACK it back along to <code>Head</code>;</li>
+<li>读：<code>Client</code> sends to any node:
+<ul>
+<li>If latest version is clean, reply with that;</li>
+<li>If latest version is dirty, ask tail for latest version number.</li>
+</ul>
+</li>
+</ul>
+<p>CRAQ limitation?</p>
+<ul>
+<li>
+<p>If a node isn&rsquo;t reachable, CRAQ must wait, so not immediately fault-tolerant in the way that ZK and Raft are.</p>
+</li>
+<li>
+<p><code>Split brain</code> problem makes us can&rsquo;t take over the <code>Head</code> immediately.</p>
+</li>
+</ul>
 </article>
 <footer class=book-footer>
 <div class="flex flex-wrap justify-between">
@@ -2333,7 +2379,12 @@ Introduction
 <div class=book-toc-content>
 <nav id=TableOfContents>
 <ul>
-<li><a href=#introduction>Introduction</a></li>
+<li><a href=#craq>CRAQ</a>
+<ul>
+<li><a href=#chain-replication-cr>Chain Replication (CR)</a></li>
+<li><a href=#chain-replication-with-apportioned-queries-craq>Chain Replication with Apportioned Queries (CRAQ)</a></li>
+</ul>
+</li>
 </ul>
 </nav>
 </div>
