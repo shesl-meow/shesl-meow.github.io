@@ -5,8 +5,7 @@ vimtutor # Lesson 1 # 移动光标：
 k
 &amp;lt; h l &amp;gt;
 j
-v
-HINT：
+v HINT：
 h 的键位于左边，每次按下就会向左移动。 l 的键位于右边，每次按下就会向右移动。 j 键看起来很象一支尖端方向朝下的箭头。 vim 的退出：
 输入 :q!&amp;lt;Enter&amp;gt; 会退出编辑器并且丢弃进入编辑器之后的所有改动。 按下 :wq&amp;lt;Enter&amp;gt;保存并退出 vim 删除光标所在位置的字符：可以按下 x 键来删除光标所在位置的字符。
 插入文本：可以按下 i 键来插入字符。

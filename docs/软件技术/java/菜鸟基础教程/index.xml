@@ -13,16 +13,13 @@ String greeting = &amp;#34;菜鸟教程&amp;#34;; **注意:**String 类是不可
 字符串长度 # String 类的一个访问器方法是 length() 方法，它返回字符串对象包含的字符数。
 一个示例代码如下：
 public class StringDemo { public static void main(String args[]) { String site = &amp;#34;www.runoob.com&amp;#34;; int len = site.length(); System.out.println( &amp;#34;菜鸟教程网址长度 : &amp;#34; + len ); } } 连接字符串 # String 类提供了连接两个字符串的方法：
-string1.concat(string2);
-返回 string2 连接 string1 的新字符串。也可以对字符串常量使用 concat() 方法，如：</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/12.buffer%E4%B8%8Ebuilder/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/12.buffer%E4%B8%8Ebuilder/</guid><description>StringBuffer 和 StringBuilder 类 # 基本介绍 # 当对字符串进行修改的时候，需要使用 StringBuffer 和 StringBuilder 类。
+string1.concat(string2);</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/12.buffer%E4%B8%8Ebuilder/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/12.buffer%E4%B8%8Ebuilder/</guid><description>StringBuffer 和 StringBuilder 类 # 基本介绍 # 当对字符串进行修改的时候，需要使用 StringBuffer 和 StringBuilder 类。
 和 String 类不同的是，StringBuffer 和 StringBuilder 类的对象能够被多次的修改，并且不产生新的未使用对象。
 StringBuilder 类在 Java 5 中被提出，它和 StringBuffer 之间的最大不同在于 StringBuilder 的方法不是线程安全的（不能同步访问）。
 由于 StringBuilder 相较于 StringBuffer 有速度优势，所以多数情况下建议使用 StringBuilder 类。然而在应用程序要求线程安全的情况下，则必须使用 StringBuffer 类。
 使用示例：
 public class Test{ public static void main(String args[]){ StringBuffer sBuffer = new StringBuffer(&amp;#34;菜鸟教程官网：&amp;#34;); sBuffer.append(&amp;#34;www&amp;#34;); sBuffer.append(&amp;#34;.runoob&amp;#34;); sBuffer.append(&amp;#34;.com&amp;#34;); System.out.println(sBuffer); } } 方法：http://www.runoob.com/java/java-stringbuffer.html
-深入理解 # https://zhuanlan.zhihu.com/p/62780312
-Java 提供的三种操作字符串对象的方法：String、StringBuffer、StringBuilder。它们的相同点都是用来封装字符串，都实现了 CharSequence 接口。区别如下：
-关于可变性：</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/13.%E6%95%B0%E7%BB%84/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/13.%E6%95%B0%E7%BB%84/</guid><description>数组 # 声明数组变量 # 首先必须声明数组变量，才能在程序中使用数组。下面是声明数组变量的语法：
+深入理解 # https://zhuanlan.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/13.%E6%95%B0%E7%BB%84/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/13.%E6%95%B0%E7%BB%84/</guid><description>数组 # 声明数组变量 # 首先必须声明数组变量，才能在程序中使用数组。下面是声明数组变量的语法：
 dataType[] arrayRefVar; // 首选的方法 或 dataType arrayRefVar[]; // 效果相同，但不是首选方法 注意: 建议使用 dataType[] arrayRefVar 的声明风格声明数组变量。 dataType arrayRefVar[] 风格是来自 C/C++ 语言 ，在 Java 中采用是为了让 C/C++ 程序员能够快速理解 Java 语言。
 创建数组 # Java 语言使用 new 操作符来创建数组，语法如下：
 arrayRefVar = new dataType[arraySize]; 上面的语法语句做了两件事：
@@ -30,13 +27,12 @@ arrayRefVar = new dataType[arraySize]; 上面的语法语句做了两件事：
 把新创建的数组的引用赋值给变量 arrayRefVar。
 数组变量的声明，和创建数组可以用一条语句完成，如下所示：
 dataType[] arrayRefVar = new dataType[arraySize]; 另外，你还可以使用如下的方式创建数组：
-dataType[] arrayRefVar = {value0, value1, ..., valuek}; 数组作为函数的参数 # 可以</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/14.%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/14.%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4/</guid><description>日期和时间 # Date # java.util 包提供了 Date 类来封装当前的日期和时间。 Date 类提供两个构造函数来实例化 Date 对象。
+dataType[] arrayRefVar = {value0, value1, .</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/14.%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/14.%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4/</guid><description>日期和时间 # Date # java.util 包提供了 Date 类来封装当前的日期和时间。 Date 类提供两个构造函数来实例化 Date 对象。
 第一个构造函数使用当前日期和时间来初始化对象。
 Date(); 第二个构造函数接收一个参数，该参数是从1970年1月1日起的毫秒数。
 Date(long millisec); Date 对象创建以后，可以调用下面的方法：http://www.runoob.com/java/java-date-time.html
 获取当前日期时间 # Java 中获取当前日期和时间很简单，使用 Date 对象的 toString() 方法来打印当前日期和时间：
-import java.util.Date; public class DateDemo { public static void main(String args[]) { // 初始化 Date 对象 Date date = new Date(); // 使用 toString() 函数显示日期时间 System.out.println(date.toString()); } } 日期比较 # Java 使用以下三种方法来比较两个日期：
-使用 getTime() 方法获取两个日期（自1970年1月1日经历的毫秒数值），然后比较这两个值。 使用方法 before()，after() 和 equals()。例如，一个月的12号比18号早，则 new Date(99, 2, 12).</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/15.%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/15.%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid><description>正则表达式 # java.util.regex 包主要包括以下三个类：
+import java.util.Date; public class DateDemo { public static void main(String args[]) { // 初始化 Date 对象 Date date = new Date(); // 使用 toString() 函数显示日期时间 System.out.println(date.toString()); } } 日期比较 # Java 使用以下三种方法来比较两个日期：</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/15.%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/java/%E8%8F%9C%E9%B8%9F%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/15.%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid><description>正则表达式 # java.util.regex 包主要包括以下三个类：
 Pattern 类：
 pattern 对象是一个正则表达式的编译表示。Pattern 类没有公共构造方法。要创建一个 Pattern 对象，你必须首先调用其公共静态编译方法，它返回一个 Pattern 对象。该方法接受一个正则表达式作为它的第一个参数。
 Matcher 类：

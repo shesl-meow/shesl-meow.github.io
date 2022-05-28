@@ -1,3 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Docs on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/</link><description>Recent content in Docs on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/readme/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/readme/</guid><description>Introduction # 这里是 shesl 的笔记网站：
 git-repo for note resources: Note git-repo for front pages: GitPages Repo front site: GitPages 关于我：
-邮件：shesl-meow@qq.com</description></item></channel></rss>
+邮件：shesl-meow@qq.com</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E9%A1%B9%E7%9B%AE%E6%A1%86%E6%9E%B6/archon/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E9%A1%B9%E7%9B%AE%E6%A1%86%E6%9E%B6/archon/</guid><description>RPC 框架 Archon 学习 # 线程模型 # 四个独立线程池：
+Accept 线程池：接受网络请求、accept 方法的线程； IO 线程池：每个线程对应一个 folly::Eventbase，所有与IO相关的操作都在IO线程中以非阻塞的方式执行； worker 线程池：执行 CPU 任务，计算密集任务的线程；除此之外，fbthrift 还会额外为其他四种优先级分别建立两个线程； Async Dispatcher 线程池：Archon 为异步 Client 创建的线程类型，本质上是 IO 线程的一种； 设计概念 IOBuf：
+背景：在数据生产消费的时候，通常不是连续的过程，但是在内存使用过程中我们却通常需要申请一块连续的内存； 性能：fbthrift 宣称这一概念带来了很大收益，减少了内存拷贝（Zero Copy），传递指针进行解析，对非连续内存友好（流式序列化和反序列化）； 常见问题与优化思路 # Client Fast Retry 策略与 Server Loadingshedding 策略。
+优化思路：少用“异步”、“Buffered”客户端：
+Buffered 与 Framed 协议：两者都是 Thrift 的传输协议。Framed 协议有一个四字节的长度指示消息长度；Buffered 协议则通过不断尝试 fid 来探测包传输的边界，探索结束后交给 worker 线程进行序列化；
+问题：在请求大包时，Buffered 协议会反复进行序列化探测，CPU 浪费严重；
+解决方案：使用“同步 Buffered”的异步接口；</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E9%A1%B9%E7%9B%AE%E6%A1%86%E6%9E%B6/faiss/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E9%A1%B9%E7%9B%AE%E6%A1%86%E6%9E%B6/faiss/</guid><description>faiss # 1. 项目目的、框架、文件结构、接口 # 简介：
+faiss 全称 Facebook AI Similarity Search； 它用于对海量高维数据，在很短的时间内进行邻近点的计算； 它的 Github 开源地址：https://github.com/facebookresearch/faiss，Docker 地址：https://hub.docker.com/r/plippe/faiss-docker/#! 基础知识和框架：
+开发语言：C++，开放 API 语言：C++ 或 Python； C++ 中均匀分布：std::uniform_real_distribution； kmeans：一种聚类方法，将 n 组同维度的向量聚类为 k 类； omp：Open Muti-Process，可扩展、跨平台的多线程框架，官网使用例子：https://www.openmp.org/wp-content/uploads/openmp-examples-5.1.pdf。omp 提供编译层面的指令式 API： pragma 可以指定对应指令：#pragma omp directive-specification； C++ 可以用 attribute 的方式指定：[[omp :: directive( directive-specification )]] 编译框架：CMake 单元测试框架：gtest 接口：demo 和 tutorial 中调用的都是 faiss 中以 Index 开头的文件（比如 IndexFlat.h），它们都继承于 Index 这个定义于 Index.h 这个文件的类。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E9%A1%B9%E7%9B%AE%E6%A1%86%E6%9E%B6/howtoread/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E9%A1%B9%E7%9B%AE%E6%A1%86%E6%9E%B6/howtoread/</guid><description>怎么读大型项目代码 # 基本方法论 # 带着问题读代码，好于枚举式读代码：
+比如：这个项目是为了解决什么问题（读代码前先明确“我为什么要读这个项目代码”，之后对不同的步骤有倾向地侧重）？实现 xxx 逻辑的代码在哪里？这个项目是按照什么逻辑组织的？ 广度优先遍历读代码，“读完”优先级高于“深入理解”：
+有全局视角才能更方便地确认项目代码各个模块的优先级； 没有完美的代码架构，带着质疑的心态读代码，不要怀疑自己；
+前置和准备条件：
+了解代码的基本编程语言，项目的目的，代码库产生的历史背景等； 了解基本概念、术语、相关领域的常见词汇（比如 RIT、投放、品牌广告、竞价广告等）； 步骤 # 了解项目代码目的、出入口、基本框架。项目相关文档、项目的 idl 接口定义。
+通读代码，了解大概调用链路，找出核心逻辑模块。业务层的逻辑调用、通用代码的文件组织结构，比如 rpc、io 等；
+按优先级深入了解核心模块逻辑
+整理运行流程图、提出建议。上手运行这个代码，比如一个 benchmark、一个 issue、一个需求；</description></item></channel></rss>

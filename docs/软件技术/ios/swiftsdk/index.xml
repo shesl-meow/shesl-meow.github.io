@@ -14,7 +14,7 @@ import Cocoa var varA = 20 let constA = 100 var varC:Float = 20.0 var stringA = 
 字符串分割（python 中的 split）：
 let fullName = &amp;#34;First Last&amp;#34; let fullNameArr = fullName.characters.split{$0 == &amp;#34; &amp;#34;}.map(String.init) 字符 # 数据类型为 Character。
 遍历字符串中的字符：
-// swift 3 for ch in &amp;#34;Runoob&amp;#34;.characters { print(ch) } // swift 4 for ch in &amp;#34;Runoob&amp;#34; { print(ch) } 字符串后拼接字符：append()；</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/swiftsdk/3.%E5%87%BD%E6%95%B0%E4%B8%8E%E7%BB%93%E6%9E%84/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/swiftsdk/3.%E5%87%BD%E6%95%B0%E4%B8%8E%E7%BB%93%E6%9E%84/</guid><description>函数与结构 # 函数 # Swift 使用一个统一的语法来表示简单的 C 语言风格的函数到复杂的 Objective-C 语言风格的方法。
+// swift 3 for ch in &amp;#34;Runoob&amp;#34;.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/swiftsdk/3.%E5%87%BD%E6%95%B0%E4%B8%8E%E7%BB%93%E6%9E%84/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/ios/swiftsdk/3.%E5%87%BD%E6%95%B0%E4%B8%8E%E7%BB%93%E6%9E%84/</guid><description>函数与结构 # 函数 # Swift 使用一个统一的语法来表示简单的 C 语言风格的函数到复杂的 Objective-C 语言风格的方法。
 函数定义：func
 func runoob(site: String) -&amp;gt; String { return (site) } 函数调用：
 print(runoob(site: &amp;#34;www.runoob.com&amp;#34;)) 函数参数：

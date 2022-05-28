@@ -35,4 +35,4 @@ java.lang-打包基础的类 java.io-包含输入输出功能的函数 package �
 包名成为类名的一部分，正如我们前面讨论的一样。 包名必须与相应的字节码所在的目录结构相吻合。 例如：有一个 com.runoob.test 的包，这个包包含一个叫做 Runoob.java 的源文件，那么相应的，应该有如下面的一连串子目录：
 ....\com\runoob\test\Runoob.java 编译的时候，编译器为包中定义的每个类、接口等类型各创建一个不同的输出文件，输出文件的名字就是这个类型的名字，并加上 .class 作为扩展后缀。 例如：
 // 文件名: Runoob.java package com.runoob.test; public class Runoob { } class Google { } 现在，我们用-d选项来编译这个文件，如下：
-$ javac -d . Runoob.</description></item></channel></rss>
+$ javac -d .</description></item></channel></rss>

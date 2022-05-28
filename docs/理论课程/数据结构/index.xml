@@ -14,8 +14,7 @@ size(): return size of key_value.
 find(k): return pointer in key_value whose key is k.
 insert(p): insert data_pair p into key_value.
 erase(k): erase data_pair from key_value where its key is k.
-}
-线性表表示 # 两个类 sortedArrayList 和 sortedChain 分别存储键和值。
+} 线性表表示 # 两个类 sortedArrayList 和 sortedChain 分别存储键和值。
 跳表表示 # 跳跃表（skiplist）是一种随机化的数据， 由 William Pugh 在论文《Skip lists: a probabilistic alternative to balanced trees》中提出， 跳跃表以有序的方式在层次化的链表中保存元素， 效率和平衡树媲美 —— 查找、删除、添加等操作都可以在对数期望时间下完成， 并且比起平衡树来说， 跳跃表的实现要简单直观得多。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/priorityqueue/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/priorityqueue/</guid><description>优先级队列 # ADT 抽象数据类型 # ADT maxPriorityQueue
 {
 DATA:
@@ -25,9 +24,8 @@ empty(): return true if ele_queue is empty.
 size(): return size of ele_queue.
 top(): return the element with max priority.
 pop(): delete the element with max priority.
-push(x): push element &amp;quot;x&amp;quot;.
-}
-堆 # 概念：大根堆，小根堆。
+push(x): push element &amp;#34;x&amp;#34;.
+} 堆 # 概念：大根堆，小根堆。
 左高树 # 概念：
 外部结点（external node）：加入在树中所有空子树的结点。
 内部结点（internal node）：原本就存在的结点。

@@ -15,8 +15,7 @@ $ pip install django-guardian 配置：
 在 INSTALLED_APPS 中添加一个该模块：
 INSTALLED_APPS = ( ... &amp;#39;guardian&amp;#39;, ) 在 settings.py 中新添加一个数据 AUTENTICATION_BACKENDS：
 AUTHENTICATION_BACKENDS = ( &amp;#39;django.contrib.auth.backends.ModelBackend&amp;#39;, # default &amp;#39;guardian.backends.ObjectPermissionBackend&amp;#39;, ) 然后生成 guardian 的数据表：
-$ python manage.py migrate 给对象赋权：
-&amp;gt;&amp;gt;&amp;gt; from django.contrib.auth.models import User, Group &amp;gt;&amp;gt;&amp;gt; jack = User.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/django/signals/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/django/signals/</guid><description>Django Signals # Built-in Signals # Django provides a set of built-in signals that let user code get notified by Django itself of certain actions. These include some useful notifications:
+$ python manage.py migrate 给对象赋权：</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/django/signals/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/python/django/signals/</guid><description>Django Signals # Built-in Signals # Django provides a set of built-in signals that let user code get notified by Django itself of certain actions. These include some useful notifications:
 django.db.models.signals.pre_save &amp;amp; django.db.models.signals.post_save
 Sent before or after a model’s save() method is called.
 django.db.models.signals.pre_delete &amp;amp; django.db.models.signals.post_delete

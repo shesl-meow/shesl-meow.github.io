@@ -32,8 +32,8 @@ node 这个终端内的运行效果跟 chrome 中的 console 中差异不大。
 function foo1(name, age, callback) { } function foo2(value, callback1, callback2) { } 阻塞代码（同步）实例 # 创建一个文件 test.txt ，内容如下：
 laji shesl&amp;#39;s test case 创建 mainsync.js 文件, 代码如下：
 var fs = require(&amp;#34;fs&amp;#34;); var data = fs.readFileSync(&amp;#39;test.txt&amp;#39;); console.log(data.toString()); console.log(&amp;#34;done!&amp;#34;); 以上代码执行结果如下：
-$ node mainsync.js laji shesl's test case Done!! 非阻塞代码（异步）实例 # 创建一个文件 testasync.txt ，内容如下：
-laji shesl's test case 创建 mainasync.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/5.%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/5.%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/</guid><description>参考：
+$ node mainsync.js laji shesl&amp;#39;s test case Done!! 非阻塞代码（异步）实例 # 创建一个文件 testasync.txt ，内容如下：
+laji shesl&amp;#39;s test case 创建 mainasync.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/5.%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/5.%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/</guid><description>参考：
 https://www.runoob.com/nodejs/nodejs-event-loop.html
 https://zhuanlan.zhihu.com/p/37427130
 事件循环 # 简介 # Node.js 是单进程单线程应用程序，那么它是如何实现异步调用的呢？
@@ -45,7 +45,7 @@ Node.js 里面的许多对象都会分发事件：一个 net.Server 对象会在
 它被定义在 events，这个模块中：
 var events = require(&amp;#39;events&amp;#39;); 这个模块只定义了一个对象 events.EventEmitter，它的核心就是事件触发与事件监听器功能的封装：
 var eventEmitter = new events.EventEmitter(); 下面一个简单的例子阐述事件的监听和出发过程：
-//event.js 文件 var events = require(&amp;#39;events&amp;#39;); var emitter = new events.EventEmitter(); emitter.on(&amp;#39;someEvent&amp;#39;, function(arg1, arg2) { console.log(&amp;#39;listener1&amp;#39;, arg1, arg2); }); emitter.on(&amp;#39;someEvent&amp;#39;, function(arg1, arg2) { console.log(&amp;#39;listener2&amp;#39;, arg1, arg2); }); emitter.emit(&amp;#39;someEvent&amp;#39;, &amp;#39;strArg1&amp;#39;, &amp;#39;strArg2&amp;#39;); $ node events.js listener1 strArg1 strArg2 listener2 strArg1 strArg2 有关这个库更详细的接口，可以参考官方文档</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/7.buffer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/7.buffer/</guid><description>参考：
+//event.js 文件 var events = require(&amp;#39;events&amp;#39;); var emitter = new events.EventEmitter(); emitter.on(&amp;#39;someEvent&amp;#39;, function(arg1, arg2) { console.log(&amp;#39;listener1&amp;#39;, arg1, arg2); }); emitter.on(&amp;#39;someEvent&amp;#39;, function(arg1, arg2) { console.log(&amp;#39;listener2&amp;#39;, arg1, arg2); }); emitter.emit(&amp;#39;someEvent&amp;#39;, &amp;#39;strArg1&amp;#39;, &amp;#39;strArg2&amp;#39;); $ node events.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/7.buffer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/7.buffer/</guid><description>参考：
 https://www.runoob.com/nodejs/nodejs-buffer.html Buffer # 概述 # JavaScript 语言自身只有字符串数据类型，没有二进制数据类型。因此在 Node.js 中，定义了一个 Buffer 类，该类用来创建一个专门存放二进制数据的缓存区。一个 Buffer 类似于一个整数数组，但它对应于 V8 堆内存之外的一块原始内存。
 下面介绍一些常见的用法。完整的请参考官方文档。
 编码与解码 # 将字符串转化为二进制数据的过程叫编码：
@@ -62,7 +62,6 @@ var fs = require(&amp;#34;fs&amp;#34;); var data = &amp;#39;&amp;#39;; var reade
 创建一个叫 hello 的模块，只需要创建 hello.js 文件，代码如下：
 exports.world = () =&amp;gt; { console.log(&amp;#39;Hello World&amp;#39;); } 这样，其他文件包含这个文件时，就可以访问到 world 这个函数了。
 如果我们希望直接封装一个对象，可以直接给 module.exports 这个变量赋值。比如：
-function Hello() { var name; this.setName = thyName =&amp;gt; { name = thyName; }; }; module.exports = Hello; js 模块的编译在编译的过程中，Node 对获取的 javascript 文件内容进行了头尾包装，将文件内容包装在一个 function 中：
-(function (exports, require, module, __filename, __dirname) { //.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/nodemodules/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/nodemodules/</guid><description>参考：
+function Hello() { var name; this.setName = thyName =&amp;gt; { name = thyName; }; }; module.exports = Hello; js 模块的编译在编译的过程中，Node 对获取的 javascript 文件内容进行了头尾包装，将文件内容包装在一个 function 中：</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/nodemodules/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/nodejs/nodemodules/</guid><description>参考：
 https://www.zhihu.com/question/62791509 https://redfin.engineering/node-modules-at-war-why-commonjs-and-es-modules-cant-get-along-9617135eeca1 Commonjs vs ES Modules # What’s CJS? What’s ESM? # 在 Node 模块的早期，所有的 Node Module 都是用 Common.js 编写的。我们可以从 named export 与 default export 两种方式简单地了解它的使用规则：
 named export： // @filename: util.cjs module.exports.sum = (x, y) =&amp;gt; x + y; // @filename: main.cjs const {sum} = require(&amp;#39;./util.cjs&amp;#39;); default export： // @filename: util.cjs module.exports = (x, y) =&amp;gt; x + y; // @filename: main.</description></item></channel></rss>

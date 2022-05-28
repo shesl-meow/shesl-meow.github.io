@@ -4,11 +4,9 @@
 特征 # 特征是输入变量，即简单线性回归中的 x 变量。简单的机器学习项目可能会使用单个特征，而比较复杂的机器学习项目可能会使用数百万个特征，按如下方式指定：$$x_1, x_2, &amp;hellip; x_n$$
 样本 # 样本是指数据的特定实例：x。（我们采用粗体 x 表示它是一个矢量。）我们将样本分为以下两类：有标签样本、无标签样本
 有标签样本同时包含特征和标签。即：
-labeled examples: {features, label}: (x, y)
-我们使用有标签样本来训练模型。在我们的垃圾邮件检测器示例中，有标签样本是用户明确标记为 “垃圾邮件” 或 “非垃圾邮件” 的各个电子邮件。
+labeled examples: {features, label}: (x, y) 我们使用有标签样本来训练模型。在我们的垃圾邮件检测器示例中，有标签样本是用户明确标记为 “垃圾邮件” 或 “非垃圾邮件” 的各个电子邮件。
 无标签样本包含特征，但不包含标签。即：
-unlabeled examples: {features, ?}: (x, ?)
-在使用有标签样本训练模型之后，我们会使用该模型预测无标签样本的标签。在垃圾邮件检测器示例中，无标签样本是用户尚未添加标签的新电子邮件。
+unlabeled examples: {features, ?}: (x, ?) 在使用有标签样本训练模型之后，我们会使用该模型预测无标签样本的标签。在垃圾邮件检测器示例中，无标签样本是用户尚未添加标签的新电子邮件。
 模型 # 模型定义了特征与标签之间的关系。
 模型生命周期的两个阶段：
 训练是指创建或学习模型。也就是说，向模型展示有标签样本，让模型逐渐学习特征与标签之间的关系。 推断是指将训练后的模型应用于无标签样本。也就是说，使用经过训练的模型做出有用的预测 (y')。 回归与分类 # 回归模型可预测连续值。例如，回归模型做出的预测可回答如下问题：
@@ -30,9 +28,9 @@ $$minimize(Loss(Data[Model]) + \lambda complexity(Model))$$
 S 型函数：
 一个值域恰好在 0 到 1 之间的函数，定义为：$$\displaystyle y = \frac{1}{1 + e^{-z}}$$ z 表示使用逻辑回归训练的模型的线性层的输出。
 损失函数 # 线性回归的损失函数是平方损失。逻辑回归的损失函数是对数损失函数，定义如下：
-$$\displaystyle Log Loss = \sum_{(x,y)\in D} -ylog(y') - (1 - y)log(1 - y')​$$
+$$\displaystyle Log Loss = \sum_{(x,y)\in D} -ylog(y&amp;rsquo;) - (1 - y)log(1 - y&amp;rsquo;)​$$
 其中：
-$$(x, y) \in D$$ 是包含很多有标签样本 (x,y) 的数据集。 “y”是有标签样本中的标签。由于这是逻辑回归，因此 “y” 的每个值必须是 0 或 1。 “y'”是对于特征集“x”的预测值（介于 0 和 1 之间）。 正则化 # 正则化在逻辑回归建模中极其重要。如果没有正则化，逻辑回归的渐近性会不断促使损失在高维度空间内达到 0。因此，大多数逻辑回归模型会使用以下两个策略之一来降低模型复杂性：
+$$(x, y) \in D$$ 是包含很多有标签样本 (x,y) 的数据集。 “y”是有标签样本中的标签。由于这是逻辑回归，因此 “y” 的每个值必须是 0 或 1。 “y&amp;rsquo;”是对于特征集“x”的预测值（介于 0 和 1 之间）。 正则化 # 正则化在逻辑回归建模中极其重要。如果没有正则化，逻辑回归的渐近性会不断促使损失在高维度空间内达到 0。因此，大多数逻辑回归模型会使用以下两个策略之一来降低模型复杂性：
 L2 正则化。 早停法，即，限制训练步数或学习速率。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/12.classification/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/12.classification/</guid><description>分类 # 阈值 # 为了将逻辑回归值映射到二元类别，您必须指定分类阈值（也称为判定阈值）。
 准确率 # 我们假设：
 $$H_0$$ 成立 $$H_1$$ 成立 接收 不犯错（TP） 第 II 类错误（取伪错误 FP） 拒绝 第 I 类错误（弃真错误 FN） 不犯错（TN） 准确率是指我们的模型预测正确的结果所占的比例：
@@ -50,10 +48,9 @@ $$\displaystyle \text{Accuracy} = \frac{TP+TN}{TP+TN+FP+FN}$$ 当您使用分类
 接下来我们要看的线性回归模型使用的是一种称为平方损失（又称为 L2 损失）的损失函数。单个样本的平方损失如下：
 = the square of the difference between the label and the prediction
 = (observation - prediction(x))2
-= (y - y')2
-均方误差 (MSE) 指的是每个样本的平均平方损失。要计算 MSE，请求出各个样本的所有平方损失之和，然后除以样本数量：
+= (y - y&amp;#39;)2 均方误差 (MSE) 指的是每个样本的平均平方损失。要计算 MSE，请求出各个样本的所有平方损失之和，然后除以样本数量：
 $$\displaystyle MSE = \frac{1}{N} \sum_{(x,y) \in D} (y - prediction(x))^2$$，其中：</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/3.reduceloss/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%AE%97%E6%B3%95%E7%BB%9F%E8%AE%A1/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/3.reduceloss/</guid><description>降低损失 # 迭代方法 # 下图显示了机器学习算法用于训练模型的迭代试错过程：
-模型部分将一个或多个特征作为输入，然后返回一个预测 (y') 作为输出。
+模型部分将一个或多个特征作为输入，然后返回一个预测 (y&amp;rsquo;) 作为输出。
 计算损失部分是模型将要使用的损失函数。
 计算参数更新部分：机器学习系统就是在此部分检查损失函数的值，并生成新参数值。机器学习系统将根据所有标签重新评估所有特征，为损失函数生成一个新值，而该值又产生新的参数值。
 通常，可以不断迭代，直到总体损失不再变化或至少变化极其缓慢为止。这时候，我们可以说该模型已收敛。
@@ -104,6 +101,5 @@ $$\displaystyle MSE = \frac{1}{N} \sum_{(x,y) \in D} (y - prediction(x))^2$$，�
 https://www.youtube.com/watch?v=lWkFhVq9-nc introduction to RNN # Feed Forward Neural Network, FFNN # In a Feed-Forward Network, information flow only in forward direction.
 graph LR;
 I{input}; IL(Input Layer); HL(Hidden Layer); OL(Output Layer); O{Predicted output}
-I--&amp;gt;IL; IL--&amp;gt;HL; HL--&amp;gt;OL; OL--&amp;gt;O;
-Decisions are based on current input. No memory about the past. No future scope. Question:
+I--&amp;gt;IL; IL--&amp;gt;HL; HL--&amp;gt;OL; OL--&amp;gt;O; Decisions are based on current input. No memory about the past. No future scope. Question:
 cannot handle sequential data. considers only the current input. cannot memorize previous inputs.</description></item></channel></rss>

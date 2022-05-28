@@ -6,5 +6,4 @@
 比如说，这个程序需要运行 libc-2.23.so，我们就需要执行以下的两条命令：
 $ patchelf --set-interpreter /usr/local/glibc-2.23/lib/ld-2.23.so bookmanager $ export LD_PRELOAD=/usr/local/glibc-2.23/lib/libc-2.23.so 如果我们已经将可执行文件中，链接程序的地址设置好了，我们也可以再 pwntools 中这么运行：
 from pwn import * p = process([&amp;#34;./bookmanager&amp;#34;], env={&amp;#34;LD_PRELOAD&amp;#34;: &amp;#34;/usr/local/glibc-2.23/lib/libc-2.23.so&amp;#34;}) 编译指定版本的 libc # 但是上面我文件中的 ld.so 文件，题目是没有给的，于是我们就需要通过源码编译的方式得到这个文件。
-网上应该会有直接的资源下载，但是我太菜了，没有找到，只找到了源码的国内镜像 如果没有遇到任何问题，下面几条命令应该是一个完整的编译流程：
-$ wget http://mirrors.</description></item></channel></rss>
+网上应该会有直接的资源下载，但是我太菜了，没有找到，只找到了源码的国内镜像 如果没有遇到任何问题，下面几条命令应该是一个完整的编译流程：</description></item></channel></rss>

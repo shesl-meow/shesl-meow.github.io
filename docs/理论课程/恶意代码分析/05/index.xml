@@ -4,6 +4,5 @@
 QUESTION 2 # Use the Imports window to browse to gethostbyname. Where is the import located?
 同样的方法在 Import windows 中点击 Ctrl + F，双击进入后：
 .idata:100163CC ; struct hostent *__stdcall gethostbyname(const char *name)
-.idata:100163CC extrn gethostbyname:dword
-可见其地址是 .idata:100163CC
+.idata:100163CC extrn gethostbyname:dword 可见其地址是 .idata:100163CC
 QUESTION 3 # How many functions call gethostbyname?</description></item></channel></rss>

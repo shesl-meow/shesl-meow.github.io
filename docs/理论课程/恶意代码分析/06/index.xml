@@ -29,5 +29,4 @@ sub_401000：这个函数在两个 lab 中是相同的，都是用于检测网�
 在检测了网络的连通性之后，添加了一个 for 循环。其代码结构是 cmp 和 jge 组成的：
 loc_40125A:
 cmp [ebp+var_C], 5A0h
-jge short loc_4012AF
-另外还在 for 循环结束添加了 sleep 函数：</description></item></channel></rss>
+jge short loc_4012AF 另外还在 for 循环结束添加了 sleep 函数：</description></item></channel></rss>

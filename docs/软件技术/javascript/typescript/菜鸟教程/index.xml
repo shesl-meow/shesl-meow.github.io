@@ -17,11 +17,10 @@ interface IEmployee { getSalary: (number) =&amp;gt; number; // arrow function ge
 Child_interface_name extends super_interface_name 多接口继承语法格式：
 Child_interface_name extends super_interface1_name, super_interface2_name,…,super_interfaceN_name 类 # 定义类的关键字为 class，后面紧跟类名，类可以包含以下几个模块（类的数据成员）：
 字段：字段是类里面声明的变量。字段表示对象的有关数据。 构造函数：类实例化时调用，可以为类的对象分配内存。 方法：方法为对象要执行的操作。 比如：
-class Car { // 字段 engine:string; // 构造函数 constructor(engine:string) { this.engine = engine } // 方法 disp():void { console.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/typescript/%E8%8F%9C%E9%B8%9F%E6%95%99%E7%A8%8B/5.%E6%A8%A1%E5%9D%97/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/typescript/%E8%8F%9C%E9%B8%9F%E6%95%99%E7%A8%8B/5.%E6%A8%A1%E5%9D%97/</guid><description>模块 # 导出模块 # 模块导出使用关键字 export 关键字，语法格式如下：
+class Car { // 字段 engine:string; // 构造函数 constructor(engine:string) { this.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/typescript/%E8%8F%9C%E9%B8%9F%E6%95%99%E7%A8%8B/5.%E6%A8%A1%E5%9D%97/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/javascript/typescript/%E8%8F%9C%E9%B8%9F%E6%95%99%E7%A8%8B/5.%E6%A8%A1%E5%9D%97/</guid><description>模块 # 导出模块 # 模块导出使用关键字 export 关键字，语法格式如下：
 // SomeInterface.ts export interface SomeInterface { // 代码部分 } 要在另外一个文件使用该模块就需要使用 import 关键字来导入:
 import someInterfaceRef = require(&amp;#34;./SomeInterface&amp;#34;); 声明文件 # 常见到的 .d.ts 结尾的文件就是声明文件。
 在这个文件中使用 export module 语法或者 export namespace 语法，在项目的其他地方进行引用时，就可以不需要引用完整路径进行引用，比如：
 // dec.d.ts declare module &amp;#34;Dec&amp;#34; // ref.ts import * as des from &amp;#34;Dec&amp;#34;; TypeScript 作为 JavaScript 的超集，在开发过程中不可避免要引用其他第三方的 JavaScript 的库。虽然通过直接引用可以调用库的类和方法，但是却无法使用TypeScript 诸如类型检查等特性功能。
 为了解决这个问题，需要将这些库里的函数和方法体去掉后只保留导出类型声明，而产生了一个描述 JavaScript 库和模块信息的声明文件。通过引用这个声明文件，就可以借用 TypeScript 的各种特性来使用库文件了。
-比如使用 jQuery，我们需要使用 declare 关键字来定义它的类型，帮助 TypeScript 判断我们传入的参数类型对不对：
-declare var jQuery: (selector: string) =&amp;gt; any; jQuery(&amp;#39;#foo&amp;#39;); declare 定义的类型只会用于编译时的检查，编译结果中会被删除。</description></item></channel></rss>
+比如使用 jQuery，我们需要使用 declare 关键字来定义它的类型，帮助 TypeScript 判断我们传入的参数类型对不对：</description></item></channel></rss>

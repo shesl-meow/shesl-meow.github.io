@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>openssl on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/openssl/</link><description>Recent content in openssl on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/openssl/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/openssl/1.aboutcsr/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/openssl/1.aboutcsr/</guid><description>About Certificate Signing Requests (CSRs) # graph TB;
 subgraph Client;
 F{Infomation};
-PK1(&amp;quot;PrivateKey(*.key)&amp;quot;); PK2(&amp;quot;PublicKey(*.pub)&amp;quot;); DN(&amp;quot;DistinguisedName(DN)&amp;quot;)
-CSR(&amp;quot;CertificateSigningRequest(*.csr)&amp;quot;)
+PK1(&amp;#34;PrivateKey(*.key)&amp;#34;); PK2(&amp;#34;PublicKey(*.pub)&amp;#34;); DN(&amp;#34;DistinguisedName(DN)&amp;#34;)
+CSR(&amp;#34;CertificateSigningRequest(*.csr)&amp;#34;)
 F---PK1; F---PK2; F---DN;
 PK2--&amp;gt;CSR; DN--&amp;gt;CSR
-CRTclient(&amp;quot;ClientCertificate(*.crt)&amp;quot;)
+CRTclient(&amp;#34;ClientCertificate(*.crt)&amp;#34;)
 end
 subgraph CAroot;
-CRTroot(&amp;quot;CACertificate(*.crt)&amp;quot;)
+CRTroot(&amp;#34;CACertificate(*.crt)&amp;#34;)
 end
 CSR--&amp;gt;|request|CRTroot
-CRTroot--&amp;gt;|sign|CRTclient
-If you would like to obtain an SSL certificate from a certificate authority (CA), you must generate a certificate signing request (CSR). A CSR consists mainly of the public key of a key pair, and some additional information.
+CRTroot--&amp;gt;|sign|CRTclient If you would like to obtain an SSL certificate from a certificate authority (CA), you must generate a certificate signing request (CSR). A CSR consists mainly of the public key of a key pair, and some additional information.
 Whenever you generate a CSR, you will be prompted to provide information regarding the certificate.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/openssl/2.generatecsr/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/openssl/2.generatecsr/</guid><description>Generating CSRs # Generate a private key and a CSR # This command creates a 2048-bit private key (domain.key) and a CSR (domain.csr) from scratch:
 $ openssl req \ -newkey rsa:2048 -nodes -keyout domain.key \ -out domain.csr The -newkey rsa:2048 option specifies that the key should be 2048-bit, generated using the RSA algorithm.
 The -nodes option specifies that the private key should not be encrypted with a pass phrase.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/openssl/3.generatessl/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/openssl/3.generatessl/</guid><description>Generating SSL Certificates # If you would like to use an SSL certificate to secure a service but you do not require a CA-signed certificate, a valid (and free) solution is to sign your own certificates.
