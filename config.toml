@@ -10,3 +10,8 @@ theme = "book"
 
 [markup.tableOfContents]
   startLevel = 1
+
+
+[params]
+  BookRepo = 'https://github.com/shesl-meow/Note'
+  BookSearch = true
