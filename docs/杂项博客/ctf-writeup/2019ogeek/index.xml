@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>2019OGeek on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/ctf-writeup/2019ogeek/</link><description>Recent content in 2019OGeek on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/ctf-writeup/2019ogeek/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/ctf-writeup/2019ogeek/bookmanager/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/ctf-writeup/2019ogeek/bookmanager/</guid><description>写在前面 # 第一次比赛一个堆溢出题目快要做出来了，却因为环境配置问题（一直无法用给定版本的 libc.so 运行程序）。最后不得不再源码编译 glibc-2.23（坑太多了，系统被搞崩了一次），心态爆炸。
-指定版本的 libc 运行程序 # 总结一下到底应该如何使用一个给定的 glibc 库文件运行指定的可执行文件：
-第一步则是需要拿到指定的 ld.so 文件（用于链接 libc.so 与可执行文件的程序），将目标文件的链接程序地址指向本地的 ld.so 文件。
-这一步网上有 python 脚本，但是使用 patchelf 这个命令更快。
-第二步是设置 LD_PRELOAD 环境变量。
-比如说，这个程序需要运行 libc-2.23.so，我们就需要执行以下的两条命令：
-$ patchelf --set-interpreter /usr/local/glibc-2.23/lib/ld-2.23.so bookmanager $ export LD_PRELOAD=/usr/local/glibc-2.23/lib/libc-2.23.so 如果我们已经将可执行文件中，链接程序的地址设置好了，我们也可以再 pwntools 中这么运行：
-from pwn import * p = process([&amp;#34;./bookmanager&amp;#34;], env={&amp;#34;LD_PRELOAD&amp;#34;: &amp;#34;/usr/local/glibc-2.23/lib/libc-2.23.so&amp;#34;}) 编译指定版本的 libc # 但是上面我文件中的 ld.so 文件，题目是没有给的，于是我们就需要通过源码编译的方式得到这个文件。
-网上应该会有直接的资源下载，但是我太菜了，没有找到，只找到了源码的国内镜像 如果没有遇到任何问题，下面几条命令应该是一个完整的编译流程：</description></item></channel></rss>

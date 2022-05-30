@@ -1,0 +1,292 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>- shesl's blog</title><meta name=Description content="佘崧林同学的碎碎念博客"><meta property="og:title" content><meta property="og:description" content="lab 5-1 QUESTION 1 What is the address of DllMain? 我们用 Ida Pro 加载这个动态链接库，在左侧的函数窗口点击 Ctrl+F，输入函数名 DLLMain，即可搜索： 可见其入口地址是 .t"><meta property="og:type" content="article"><meta property="og:url" content="http://shesl-meow.github.io/book/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/05/lab5-1/"><meta property="og:image" content="http://shesl-meow.github.io/avatar.png"><meta property="article:section" content="book"><meta property="og:site_name" content="shesl's blog"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="http://shesl-meow.github.io/avatar.png"><meta name=twitter:title content><meta name=twitter:description content="lab 5-1 QUESTION 1 What is the address of DllMain? 我们用 Ida Pro 加载这个动态链接库，在左侧的函数窗口点击 Ctrl+F，输入函数名 DLLMain，即可搜索： 可见其入口地址是 .t"><meta name=application-name content="shesl's blog"><meta name=apple-mobile-web-app-title content="shesl's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://shesl-meow.github.io/book/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/05/lab5-1/><link rel=stylesheet href=/css/style.min.fa85115dce490a9d0bf009e2892b6d42439bdea75160d08cddcb0b97c8def676.css integrity="sha256-+oURXc5JCp0L8AniiSttQkOb3qdRYNCM3csLl8je9nY="><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/shesl-meow.github.io\/book\/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B\/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90\/05\/lab5-1\/"},"genre":"book","wordcount":2856,"url":"http:\/\/shesl-meow.github.io\/book\/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B\/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90\/05\/lab5-1\/","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"佘崧林"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>博客 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>博客</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster"></h1><div class=content id=content><h1 id=lab-5-1>lab 5-1</h1><h2 id=question-1>QUESTION 1</h2><blockquote><p>What is the address of <code>DllMain</code>?</p></blockquote><p>我们用 <code>Ida Pro</code> 加载这个动态链接库，在左侧的函数窗口点击 <code>Ctrl+F</code>，输入函数名 <code>DLLMain</code>，即可搜索：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../01.dll.q1.DLLMain.png data-srcset="../01.dll.q1.DLLMain.png, ../01.dll.q1.DLLMain.png 1.5x, ../01.dll.q1.DLLMain.png 2x" data-sizes=auto alt=../01.dll.q1.DLLMain.png title=01.dll.q1.DLLMain.png></p><p>可见其入口地址是 <code>.text:1000D02E</code>。</p><h2 id=question-2>QUESTION 2</h2><blockquote><p>Use the Imports window to browse to <code>gethostbyname</code>. Where is the import located?</p></blockquote><p>同样的方法在 <code>Import windows</code> 中点击 <code>Ctrl + F</code>，双击进入后：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>.idata:100163CC ; struct hostent *__stdcall gethostbyname(const char *name)
+</span></span><span class=line><span class=cl>.idata:100163CC                 extrn gethostbyname:dword
+</span></span></code></pre></td></tr></table></div></div><p>可见其地址是 <code>.idata:100163CC</code></p><h2 id=question-3>QUESTION 3</h2><blockquote><p>How many functions call <code>gethostbyname</code>?</p></blockquote><p>可以在 <code>Ida Pro</code> 中使用 <code>xrefs</code> 工具查看调用的函数，在上一题的函数定义位置右键可以选择 <code>list cross refrence to ...</code>：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../01.dll.q3.xref.gethostname.png data-srcset="../01.dll.q3.xref.gethostname.png, ../01.dll.q3.xref.gethostname.png 1.5x, ../01.dll.q3.xref.gethostname.png 2x" data-sizes=auto alt=../01.dll.q3.xref.gethostname.png title=01.dll.q3.xref.gethostname></p><p>可见这个函数调用了 18 次。按名称排序之后可以得到一共有 9 个不同的函数</p><h2 id=question-4>QUESTION 4</h2><blockquote><p>Focusing on the call to <code>gethostbyname</code> located at <code>0x10001757</code>, can you figure out which DNS request will be made?</p></blockquote><p>在 <code>0x10001757</code> 处的调用即上图函数 <code>sub_10001656</code> 在 <code>101</code> 行的调用：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>.text:1000174E                 mov     eax, off_10019040
+</span></span><span class=line><span class=cl>.text:10001753                 add     eax, 0Dh
+</span></span><span class=line><span class=cl>.text:10001756                 push    eax             ; name
+</span></span><span class=line><span class=cl>.text:10001757                 call    ds:gethostbyname
+</span></span></code></pre></td></tr></table></div></div><p>根据之前函数的定义的观察我们可以发现，<code>gethostname</code> 的参数是一个 <code>const char *</code>，于是我们知道这个 DNS 函数解析的是 <code>off_10019040</code> 这个位置的字符串：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>.data:10019040 off_10019040    dd offset aThisIsRdoPics_
+</span></span><span class=line><span class=cl>.data:10019040                                         ; DATA XREF: sub_10001656:loc_10001722r
+</span></span><span class=line><span class=cl>.data:10019040                                         ; sub_10001656+F8r ...
+</span></span><span class=line><span class=cl>.data:10019040                                         ; &#34;[This is RDO]pics.praticalmalwareanalys&#34;...
+</span></span></code></pre></td></tr></table></div></div><p>该处存储的也是一个地址，它指向 <code>10019040</code> 这个位置：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>.data:10019194 aThisIsRdoPics_ db &#39;[This is RDO]pics.praticalmalwareanalysis.com&#39;,0
+</span></span><span class=line><span class=cl>.data:10019194                                         ; DATA XREF: .data:off_10019040o
+</span></span></code></pre></td></tr></table></div></div><p>可见它要解析的是 <code>pics.praticalmalwareanalys.com</code></p><h2 id=question-5>QUESTION 5</h2><blockquote><p>How many local variables has IDA Pro recognized for the subroutine at <code>0x10001656</code>?</p></blockquote><p>在 <code>Ida Pro</code> 中按 <code>g</code>，输入地址 <code>0x10001656</code> 即可看到位于这个地址的子过程：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>.text:10001656
+</span></span><span class=line><span class=cl>.text:10001656 ; =============== S U B R O U T I N E =======================================
+</span></span><span class=line><span class=cl>.text:10001656
+</span></span><span class=line><span class=cl>.text:10001656
+</span></span><span class=line><span class=cl>.text:10001656 ; DWORD __stdcall sub_10001656(LPVOID lpThreadParameter)
+</span></span><span class=line><span class=cl>.text:10001656 sub_10001656    proc near               ; DATA XREF: DllMain(x,x,x)+C8o
+</span></span><span class=line><span class=cl>.text:10001656
+</span></span><span class=line><span class=cl>.text:10001656 var_675         = byte ptr -675h
+</span></span><span class=line><span class=cl>.text:10001656 var_674         = dword ptr -674h
+</span></span><span class=line><span class=cl>.text:10001656 hModule         = dword ptr -670h
+</span></span><span class=line><span class=cl>.text:10001656 timeout         = timeval ptr -66Ch
+</span></span><span class=line><span class=cl>.text:10001656 name            = sockaddr ptr -664h
+</span></span><span class=line><span class=cl>.text:10001656 var_654         = word ptr -654h
+</span></span><span class=line><span class=cl>.text:10001656 Dst             = dword ptr -650h
+</span></span><span class=line><span class=cl>.text:10001656 Str1            = byte ptr -644h
+</span></span><span class=line><span class=cl>.text:10001656 var_640         = byte ptr -640h
+</span></span><span class=line><span class=cl>.text:10001656 CommandLine     = byte ptr -63Fh
+</span></span><span class=line><span class=cl>.text:10001656 Str             = byte ptr -63Dh
+</span></span><span class=line><span class=cl>.text:10001656 var_638         = byte ptr -638h
+</span></span><span class=line><span class=cl>.text:10001656 var_637         = byte ptr -637h
+</span></span><span class=line><span class=cl>.text:10001656 var_544         = byte ptr -544h
+</span></span><span class=line><span class=cl>.text:10001656 var_50C         = dword ptr -50Ch
+</span></span><span class=line><span class=cl>.text:10001656 var_500         = byte ptr -500h
+</span></span><span class=line><span class=cl>.text:10001656 Buf2            = byte ptr -4FCh
+</span></span><span class=line><span class=cl>.text:10001656 readfds         = fd_set ptr -4BCh
+</span></span><span class=line><span class=cl>.text:10001656 buf             = byte ptr -3B8h
+</span></span><span class=line><span class=cl>.text:10001656 var_3B0         = dword ptr -3B0h
+</span></span><span class=line><span class=cl>.text:10001656 var_1A4         = dword ptr -1A4h
+</span></span><span class=line><span class=cl>.text:10001656 var_194         = dword ptr -194h
+</span></span><span class=line><span class=cl>.text:10001656 WSAData         = WSAData ptr -190h
+</span></span><span class=line><span class=cl>.text:10001656 lpThreadParameter= dword ptr  4
+</span></span><span class=line><span class=cl>.text:10001656
+</span></span><span class=line><span class=cl>.text:10001656                 sub     esp, 678h
+</span></span></code></pre></td></tr></table></div></div><p>地址小于栈帧地址的是局部变量，地址大于栈帧的是参数，因此一共有 23 个局部变量。</p><h2 id=question-6>QUESTION 6</h2><blockquote><p>How many parameters has IDA Pro recognized for the subroutine at <code>0x10001656</code>?</p></blockquote><p>跟第五题同样分析，有 1 个。</p><h2 id=question-7>QUESTION 7</h2><blockquote><p>Use the Strings window to locate the string <code>\cmd.exe /c</code> in the disassembly. Where is it located?</p></blockquote><p>在 <code>Ida Pro</code> 中 <code>shift + F12</code> 打开字符串窗口，按 <code>Ctrl + F</code> 搜索 <code>\cmd.exe /c</code> 这个字符串：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>xdoors_d:10095B34 0000000D C \\cmd.exe /c 
+</span></span></code></pre></td></tr></table></div></div><p>所以这个字符串位于 <code>xdoors_d:10095B34</code> 这个地址上。</p><h2 id=question-8>QUESTION 8</h2><blockquote><p>What is happening in the area of code that references <code>\cmd.exe /c</code>?</p></blockquote><p>我们首先寻找调用这个字符串的位置：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>Up o sub_1000FF58+278 push    offset aCmd_exeC; &#34;\\cmd.exe /c &#34;
+</span></span></code></pre></td></tr></table></div></div><p>可见调用的函数是 <code>sub_1000FF58+278</code>：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>.text:100101C8                 cmp     dword_1008E5C4, ebx
+</span></span><span class=line><span class=cl>.text:100101CE                 jz      short loc_100101D7
+</span></span><span class=line><span class=cl>.text:100101D0                 push    offset aCmd_exeC ; &#34;\\cmd.exe /c &#34;
+</span></span><span class=line><span class=cl>.text:100101D5                 jmp     short loc_100101DC
+</span></span><span class=line><span class=cl>.text:100101D7 ; ---------------------------------------------------------------------------
+</span></span><span class=line><span class=cl>.text:100101D7
+</span></span><span class=line><span class=cl>.text:100101D7 loc_100101D7:                           ; CODE XREF: sub_1000FF58+276j
+</span></span><span class=line><span class=cl>.text:100101D7                 push    offset aCommand_exeC ; &#34;\\command.exe /c &#34;
+</span></span><span class=line><span class=cl>.text:100101DC
+</span></span><span class=line><span class=cl>.text:100101DC loc_100101DC:                           ; CODE XREF: sub_1000FF58+27Dj
+</span></span><span class=line><span class=cl>.text:100101DC                 lea     eax, [ebp+CommandLine]
+</span></span></code></pre></td></tr></table></div></div><p>就这几行的代码看，应该是进行了一次 if 判断之后复制了一次字符串的操作。</p><h2 id=question-9>QUESTION 9</h2><blockquote><p>In the same area, at <code>0x100101C8</code>, it looks like <code>dword_1008E5C4</code> is a global variable that helps decide which path to take. How does the malware set <code>dword_1008E5C4</code>? (Hint: Use <code>dword_1008E5C4</code>’s cross-references.)</p></blockquote><p>我们根据以下的操作：</p><ol><li>双击进入这个变量存储的位置；</li><li>右键查找调用这个变量的位置，发现其中仅有一个 <code>mov</code> 的赋值指令；</li><li>双击进入这个位置，发现 <code>eax</code> 是一个函数的返回值，我们接着查看这个函数的汇编代码；</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>.text:100036C2 sub_10003695    endp
+</span></span><span class=line><span class=cl>.text:100036C2
+</span></span><span class=line><span class=cl>.text:100036C3
+</span></span><span class=line><span class=cl>.text:100036C3 ; =============== S U B R O U T I N E =======================================
+</span></span><span class=line><span class=cl>.text:100036C3
+</span></span><span class=line><span class=cl>.text:100036C3 ; Attributes: bp-based frame
+</span></span><span class=line><span class=cl>.text:100036C3
+</span></span><span class=line><span class=cl>.text:100036C3 sub_100036C3    proc near               ; CODE XREF: sub_10001656+27p
+</span></span><span class=line><span class=cl>.text:100036C3                                         ; PSLIST+Ap
+</span></span><span class=line><span class=cl>.text:100036C3
+</span></span><span class=line><span class=cl>.text:100036C3 VersionInformation= _OSVERSIONINFOA ptr -94h
+</span></span><span class=line><span class=cl>.text:100036C3
+</span></span><span class=line><span class=cl>.text:100036C3                 push    ebp
+</span></span><span class=line><span class=cl>.text:100036C4                 mov     ebp, esp
+</span></span><span class=line><span class=cl>.text:100036C6                 sub     esp, 94h
+</span></span><span class=line><span class=cl>.text:100036CC                 lea     eax, [ebp+VersionInformation]
+</span></span><span class=line><span class=cl>.text:100036D2                 mov     [ebp+VersionInformation.dwOSVersionInfoSize], 94h
+</span></span><span class=line><span class=cl>.text:100036DC                 push    eax             ; lpVersionInformation
+</span></span><span class=line><span class=cl>.text:100036DD                 call    ds:GetVersionExA
+</span></span><span class=line><span class=cl>.text:100036E3                 cmp     [ebp+VersionInformation.dwPlatformId], 2
+</span></span><span class=line><span class=cl>.text:100036EA                 jnz     short loc_100036FA
+</span></span><span class=line><span class=cl>.text:100036EC                 cmp     [ebp+VersionInformation.dwMajorVersion], 5
+</span></span><span class=line><span class=cl>.text:100036F3                 jb      short loc_100036FA
+</span></span><span class=line><span class=cl>.text:100036F5                 push    1
+</span></span><span class=line><span class=cl>.text:100036F7                 pop     eax
+</span></span><span class=line><span class=cl>.text:100036F8                 leave
+</span></span><span class=line><span class=cl>.text:100036F9                 retn
+</span></span><span class=line><span class=cl>.text:100036FA ; ---------------------------------------------------------------------------
+</span></span></code></pre></td></tr></table></div></div><p>大概是在比较系统的版本。</p><h2 id=question-10>QUESTION 10</h2><blockquote><p>A few hundred lines into the subroutine at <code>0x1000FF58</code>, a series of comparisons use <code>memcmp</code> to compare strings. What happens if the string comparison to robotwork is successful (when <code>memcmp</code> returns 0)?</p></blockquote><p><code>F5</code> 分析伪代码，搜索字符串 <code>robotwork</code>，可知若其值为 0，则会将查询注册表项 <code>HKET_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion 中的aWorktime</code> 和
+<code>aWorktimes</code> ,并将其值输出。</p><h2 id=question-11>QUESTION 11</h2><blockquote><p>What does the export <code>PSLIST</code> do?</p></blockquote><p>在 <code>export</code> 函数表中查找 <code>PSLIST</code>，分析其伪代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>int __stdcall PSLIST(int a1, int a2, char *Str, int a4)
+</span></span><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  int result; // eax
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  dword_1008E5BC = 1;
+</span></span><span class=line><span class=cl>  result = sub_100036C3();
+</span></span><span class=line><span class=cl>  if ( result )
+</span></span><span class=line><span class=cl>  {
+</span></span><span class=line><span class=cl>    if ( strlen(Str) )
+</span></span><span class=line><span class=cl>      result = sub_1000664C(0, Str);
+</span></span><span class=line><span class=cl>    else
+</span></span><span class=line><span class=cl>      result = sub_10006518(0);
+</span></span><span class=line><span class=cl>  }
+</span></span><span class=line><span class=cl>  dword_1008E5BC = 0;
+</span></span><span class=line><span class=cl>  return result;
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><p>其中 <code>sub_100036C3</code> 这个函数就是之前分析的判断系统版本号的函数，进一步观察 <code>sub_1000664</code> 的内容大概就是创建了一个给套接字创建了一个 <code>shell</code>。</p><h2 id=question-12>QUESTION 12</h2><blockquote><p>Use the graph mode to graph the cross-references from <code>sub_10004E79</code>. Which API functions could be called by entering this function? Based on the API functions alone, what could you rename this function?</p></blockquote><p>我们在左侧的函数窗口中找到 <code>sub_10004E79</code> 这个函数，然后在 hex view 中右键点击函数名然后查看 <code>xref greph from...</code>，查看函数的调用图可以得到下面的信息：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../01.dll.q12.xreffrom.png data-srcset="../01.dll.q12.xreffrom.png, ../01.dll.q12.xreffrom.png 1.5x, ../01.dll.q12.xreffrom.png 2x" data-sizes=auto alt=../01.dll.q12.xreffrom.png title=01.dll.q12.xreffrom></p><p>可见这个函数调用了 <code>GetSystemDefaultLangID</code> 这个函数，还调用了 <code>sub_100038EE</code> 这个函数，后者应该是一个自定义函数，根据这些信息我们猜测这个函数应该是获取系统语言的一个函数，我们将其命名为 <code>GetSystemLanguage</code>。</p><h2 id=question-13>QUESTION 13</h2><blockquote><p>How many Windows API functions does <code>DllMain</code> call directly? How many at a depth of 2?</p></blockquote><p>在 <code>Ida Pro</code> 中依次点击：<code>view-->graphs-->Users xrefs charts</code>，选择函数的调用栈深为 1 即为直接调用：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../01.dll.q13.depth1.png data-srcset="../01.dll.q13.depth1.png, ../01.dll.q13.depth1.png 1.5x, ../01.dll.q13.depth1.png 2x" data-sizes=auto alt=../01.dll.q13.depth1.png title=01.dll.q13.depth1></p><p>可见直接调用的函数有 7 个。</p><p>我们可以用同样的方式将函数调用深度设置为 2，发现函数太多了，根本数不过来。</p><h2 id=question-14>QUESTION 14</h2><blockquote><p>At <code>0x10001358</code>, there is a call to Sleep (an API function that takes one parameter containing the number of milliseconds to sleep). Looking backward through the code, how long will the program sleep if this code executes?</p></blockquote><p>在 <code>Ida Pro</code> 中按 g 然后输入地址 <code>.text:10001358</code>：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>.text:10001357                 push    eax             ; dwMilliseconds
+</span></span><span class=line><span class=cl>.text:10001358                 call    ds:Sleep
+</span></span><span class=line><span class=cl>.text:1000135E                 xor     ebp, ebp
+</span></span><span class=line><span class=cl>.text:10001360                 jmp     loc_100010B4
+</span></span></code></pre></td></tr></table></div></div><p>按 <code>F5</code> 查看伪代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>...
+</span></span><span class=line><span class=cl>v14 = atoi(off_10019020[0] + 13);
+</span></span><span class=line><span class=cl>Sleep(1000 * v14);
+</span></span><span class=line><span class=cl>...
+</span></span></code></pre></td></tr></table></div></div><p>然后对于 <code>off_10019020</code> 这个全局数据区的字符串：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>.data:10019020 off_10019020    dd offset aThisIsCti30  ; DATA XREF: sub_10001074:loc_10001341↑r
+</span></span><span class=line><span class=cl>.data:10019020                                         ; sub_10001365:loc_10001632↑r ...
+</span></span><span class=line><span class=cl>.data:10019020                                         ; &#34;[This is CTI]30&#34;
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>.data:100192AC aThisIsCti30    db &#39;[This is CTI]30&#39;,0  ; DATA XREF: .data:off_10019020↑o
+</span></span></code></pre></td></tr></table></div></div><p>所以观察程序逻辑我们知道 <code>v14 = 30</code>，所以 睡眠时间等于 <code>30 * 1000ms = 30s</code></p><h2 id=question-15>QUESTION 15</h2><blockquote><p>At 0x10001701 is a call to socket. What are the three parameters?</p></blockquote><p>按照同样的方法，我们先跳到 <code>0x10001701</code> 这个地址：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>.text:100016FB                 push    6               ; protocol
+</span></span><span class=line><span class=cl>.text:100016FD                 push    1               ; type
+</span></span><span class=line><span class=cl>.text:100016FF                 push    2               ; af
+</span></span><span class=line><span class=cl>.text:10001701                 call    ds:socket
+</span></span></code></pre></td></tr></table></div></div><p>据此我们已经知道 <code>push</code> 的三个内容，我们可以通过 <code>Google</code> 来查看它们对应的宏。</p><h2 id=question-16>QUESTION 16</h2><blockquote><p>Using the MSDN page for socket and the named symbolic constants functionality in IDA Pro, can you make the parameters more meaningful? What are the parameters after you apply changes?</p></blockquote><p>15 题中的常量被定义在 <code>winsock2.h</code> 中，<code>Google</code> 以下内容 <code>MSDN socket symbol</code> 即可搜到 MSDN 的网址：<a href=https://docs.microsoft.com/en-us/windows/desktop/api/winsock2/nf-winsock2-socket target=_blank rel="noopener noreffer">https://docs.microsoft.com/en-us/windows/desktop/api/winsock2/nf-winsock2-socket</a>。所以三个参数：</p><table><thead><tr><th style=text-align:center>af=2</th><th style=text-align:center>type=1</th><th style=text-align:center>protocol=6</th></tr></thead><tbody><tr><td style=text-align:center><code>AF_INET</code>（IPv4）</td><td style=text-align:center><code>SOCK_STREAM</code>（流）</td><td style=text-align:center><code>IPPROTOCOL_TCP</code>（TCP）</td></tr></tbody></table><h2 id=question-17>QUESTION 17</h2><blockquote><p>Search for usage of the <code>in</code> instruction (opcode 0xED). This instruction is used with a magic string <code>VMXh</code> to perform VMware detection. Is that in use in this malware? Using the cross-references to the function that executes the <code>in</code> instruction, is there further evidence of VMware detection?</p></blockquote><p>按 <code>alt+B</code> 之后输入指令 <code>in</code> 的 opcode <code>0xED</code> 可以在搜索结果中找到一个 <code>in</code> 指令：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>.text:100061DB	sub_10006196	in      eax, dx
+</span></span></code></pre></td></tr></table></div></div><p>我们查看这个调用位置的伪代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>char sub_10006196()
+</span></span><span class=line><span class=cl>{
+</span></span><span class=line><span class=cl>  unsigned __int32 v0; // eax
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  v0 = __indword(0x5658u);
+</span></span><span class=line><span class=cl>  return 0;
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><p>通过 <code>cross refrence</code> 查看这个函数的被调用位置，发现有三处被调用，我们查看其中第一个的伪代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>  if ( atoi(off_10019034[0] + 13) &amp;&amp; ((unsigned __int8)sub_10006119() || sub_10006196()) )
+</span></span><span class=line><span class=cl>  {
+</span></span><span class=line><span class=cl>    sub_10003592(unk_1008E5F0, v7);
+</span></span><span class=line><span class=cl>    sub_10003592(aFoundVirtualMa, v4);
+</span></span><span class=line><span class=cl>    result = sub_10005567(Format);
+</span></span><span class=line><span class=cl>  }
+</span></span></code></pre></td></tr></table></div></div><p>如果这个函数 <code>sub_10006196()</code> 调用了返回为真，则会调用：<code>Found Virtual Machine,Install Cancel.</code> 这个字符串，可见这个函数就是用于检测是否为虚拟机的函数。</p><h2 id=question-18>QUESTION 18</h2><blockquote><p>Jump your cursor to <code>0x1001D988</code>. What do you find?</p></blockquote><p>一个存储着看起来很随机的字符串：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>.data:1001D988 a1UUU7461Yu2u10 db &#39;-1::&#39;,27h,&#39;u&lt;&amp;u!=&lt;&amp;u746&gt;1::&#39;,27h,&#39;yu&amp;!&#39;,27h,&#39;&lt;;2u106:101u3:&#39;,27h,&#39;u&#39;
+</span></span></code></pre></td></tr></table></div></div><h2 id=question-19>QUESTION 19</h2><blockquote><p>If you have the IDA Python plug-in installed (included with the commercial version of IDA Pro), run <code>Lab05-01.py</code>, an IDA Pro Python script provided with the malware for this book. (Make sure the cursor is at 0x1001D988.) What happens after you run the script?</p></blockquote><p>在 <code>File-->Script</code> 中选择 <code>Lab05-01.py</code> 这个文件：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>.data:1001D988 a1UUU7461Yu2u10 db &#39;xdoor is this backdoor, string decoded for &#39;
+</span></span></code></pre></td></tr></table></div></div><p>可以看到 <code>0x1001D988</code> 这个地址的内容发生了变化。</p><h2 id=question-20>QUESTION 20</h2><blockquote><p>With the cursor in the same location, how do you turn this data into a single ASCII string?</p></blockquote><p>按下键盘上的 <code>A</code>。</p><h2 id=question-21>QUESTION 21</h2><blockquote><p>Open the script with a text editor. How does it work?</p></blockquote><p>打开：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>sea</span> <span class=o>=</span> <span class=n>ScreenEA</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mh>0x00</span><span class=p>,</span><span class=mh>0x50</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>b</span> <span class=o>=</span> <span class=n>Byte</span><span class=p>(</span><span class=n>sea</span><span class=o>+</span><span class=n>i</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>decoded_byte</span> <span class=o>=</span> <span class=n>b</span> <span class=o>^</span> <span class=mh>0x55</span>
+</span></span><span class=line><span class=cl>        <span class=n>PatchByte</span><span class=p>(</span><span class=n>sea</span><span class=o>+</span><span class=n>i</span><span class=p>,</span><span class=n>decoded_byte</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>ScreenEA()</code> 函数获取了光标所在的位置，<code>PatchByte()</code> 函数用于写入一个字节。</p><p>这个 python 脚本的作用是将光标之后的 <code>0x50</code> 个字节的内容与 <code>0x55</code> 做异或操作，并写入原来的位置。</p></div><div id=comments><div id=valine class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.</noscript></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://shesl-meow.github.io target=_blank>佘崧林</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/valine/valine.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/valine@1.4.18/dist/Valine.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:50},comment:{valine:{appId:"zDVJohJIQbD6f3W267xtaYRC-gzGzoHsz",appKey:"ewsfU9ocNOeuvt0MzONe6yKx",avatar:"mp",el:"#valine",emojiCDN:"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/",emojiMaps:{100:"1f4af.png",alien:"1f47d.png",anger:"1f4a2.png",angry:"1f620.png",anguished:"1f627.png",astonished:"1f632.png",black_heart:"1f5a4.png",blue_heart:"1f499.png",blush:"1f60a.png",bomb:"1f4a3.png",boom:"1f4a5.png",broken_heart:"1f494.png",brown_heart:"1f90e.png",clown_face:"1f921.png",cold_face:"1f976.png",cold_sweat:"1f630.png",confounded:"1f616.png",confused:"1f615.png",cry:"1f622.png",crying_cat_face:"1f63f.png",cupid:"1f498.png",dash:"1f4a8.png",disappointed:"1f61e.png",disappointed_relieved:"1f625.png",dizzy:"1f4ab.png",dizzy_face:"1f635.png",drooling_face:"1f924.png",exploding_head:"1f92f.png",expressionless:"1f611.png",face_vomiting:"1f92e.png",face_with_cowboy_hat:"1f920.png",face_with_hand_over_mouth:"1f92d.png",face_with_head_bandage:"1f915.png",face_with_monocle:"1f9d0.png",face_with_raised_eyebrow:"1f928.png",face_with_rolling_eyes:"1f644.png",face_with_symbols_on_mouth:"1f92c.png",face_with_thermometer:"1f912.png",fearful:"1f628.png",flushed:"1f633.png",frowning:"1f626.png",ghost:"1f47b.png",gift_heart:"1f49d.png",green_heart:"1f49a.png",grimacing:"1f62c.png",grin:"1f601.png",grinning:"1f600.png",hankey:"1f4a9.png",hear_no_evil:"1f649.png",heart:"2764-fe0f.png",heart_decoration:"1f49f.png",heart_eyes:"1f60d.png",heart_eyes_cat:"1f63b.png",heartbeat:"1f493.png",heartpulse:"1f497.png",heavy_heart_exclamation_mark_ornament:"2763-fe0f.png",hole:"1f573-fe0f.png",hot_face:"1f975.png",hugging_face:"1f917.png",hushed:"1f62f.png",imp:"1f47f.png",innocent:"1f607.png",japanese_goblin:"1f47a.png",japanese_ogre:"1f479.png",joy:"1f602.png",joy_cat:"1f639.png",kiss:"1f48b.png",kissing:"1f617.png",kissing_cat:"1f63d.png",kissing_closed_eyes:"1f61a.png",kissing_heart:"1f618.png",kissing_smiling_eyes:"1f619.png",laughing:"1f606.png",left_speech_bubble:"1f5e8-fe0f.png",love_letter:"1f48c.png",lying_face:"1f925.png",mask:"1f637.png",money_mouth_face:"1f911.png",nauseated_face:"1f922.png",nerd_face:"1f913.png",neutral_face:"1f610.png",no_mouth:"1f636.png",open_mouth:"1f62e.png",orange_heart:"1f9e1.png",partying_face:"1f973.png",pensive:"1f614.png",persevere:"1f623.png",pleading_face:"1f97a.png",pouting_cat:"1f63e.png",purple_heart:"1f49c.png",rage:"1f621.png",relaxed:"263a-fe0f.png",relieved:"1f60c.png",revolving_hearts:"1f49e.png",right_anger_bubble:"1f5ef-fe0f.png",robot_face:"1f916.png",rolling_on_the_floor_laughing:"1f923.png",scream:"1f631.png",scream_cat:"1f640.png",see_no_evil:"1f648.png",shushing_face:"1f92b.png",skull:"1f480.png",skull_and_crossbones:"2620-fe0f.png",sleeping:"1f634.png",sleepy:"1f62a.png",slightly_frowning_face:"1f641.png",slightly_smiling_face:"1f642.png",smile:"1f604.png",smile_cat:"1f638.png",smiley:"1f603.png",smiley_cat:"1f63a.png",smiling_face_with_3_hearts:"1f970.png",smiling_imp:"1f608.png",smirk:"1f60f.png",smirk_cat:"1f63c.png",sneezing_face:"1f927.png",sob:"1f62d.png",space_invader:"1f47e.png",sparkling_heart:"1f496.png",speak_no_evil:"1f64a.png",speech_balloon:"1f4ac.png","star-struck":"1f929.png",stuck_out_tongue:"1f61b.png",stuck_out_tongue_closed_eyes:"1f61d.png",stuck_out_tongue_winking_eye:"1f61c.png",sunglasses:"1f60e.png",sweat:"1f613.png",sweat_drops:"1f4a6.png",sweat_smile:"1f605.png",thinking_face:"1f914.png",thought_balloon:"1f4ad.png",tired_face:"1f62b.png",triumph:"1f624.png",two_hearts:"1f495.png",unamused:"1f612.png",upside_down_face:"1f643.png",weary:"1f629.png",white_frowning_face:"2639-fe0f.png",white_heart:"1f90d.png",wink:"1f609.png",woozy_face:"1f974.png",worried:"1f61f.png",yawning_face:"1f971.png",yellow_heart:"1f49b.png",yum:"1f60b.png",zany_face:"1f92a.png",zipper_mouth_face:"1f910.png",zzz:"1f4a4.png"},enableQQ:!1,highlight:!0,lang:"zh-CN",pageSize:10,placeholder:"你的评论 ...",recordIP:!0,serverURLs:"https://zdvjohji.lc-cn-n1-shared.com",visitor:!0}},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"",algoliaIndex:"",algoliaSearchKey:"",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:30,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.c1d5acc03abc8af9ee0a42aa4e942566a338a3e29d21b6c9f11536101f6914ad.js integrity="sha256-wdWswDq8ivnuCkKqTpQlZqM4o+KdIbbJ8RU2EB9pFK0="></script></body></html>

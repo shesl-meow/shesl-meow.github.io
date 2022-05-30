@@ -1,0 +1,339 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>- shesl's blog</title><meta name=Description content="佘崧林同学的碎碎念博客"><meta property="og:title" content><meta property="og:description" content="菜鸟教程 语言教程 计算机软件经历了数十年的发展，形成了多种学术流派，有面向过程编程、面向对象编程、函数式编程、面向消息编程等，这些思想究竟孰优"><meta property="og:type" content="article"><meta property="og:url" content="http://shesl-meow.github.io/book/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/golang/%E8%8F%9C%E9%B8%9F%E6%95%99%E7%A8%8B/"><meta property="og:image" content="http://shesl-meow.github.io/avatar.png"><meta property="article:section" content="book"><meta property="og:site_name" content="shesl's blog"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="http://shesl-meow.github.io/avatar.png"><meta name=twitter:title content><meta name=twitter:description content="菜鸟教程 语言教程 计算机软件经历了数十年的发展，形成了多种学术流派，有面向过程编程、面向对象编程、函数式编程、面向消息编程等，这些思想究竟孰优"><meta name=application-name content="shesl's blog"><meta name=apple-mobile-web-app-title content="shesl's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://shesl-meow.github.io/book/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/golang/%E8%8F%9C%E9%B8%9F%E6%95%99%E7%A8%8B/><link rel=next href=http://shesl-meow.github.io/book/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/golang/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/><link rel=stylesheet href=/css/style.min.fa85115dce490a9d0bf009e2892b6d42439bdea75160d08cddcb0b97c8def676.css integrity="sha256-+oURXc5JCp0L8AniiSttQkOb3qdRYNCM3csLl8je9nY="><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/shesl-meow.github.io\/book\/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3\/golang\/%E8%8F%9C%E9%B8%9F%E6%95%99%E7%A8%8B\/"},"genre":"book","wordcount":2605,"url":"http:\/\/shesl-meow.github.io\/book\/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3\/golang\/%E8%8F%9C%E9%B8%9F%E6%95%99%E7%A8%8B\/","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"佘崧林"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>博客 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>博客</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster"></h1><div class=content id=content><h1 id=菜鸟教程>菜鸟教程</h1><h2 id=语言教程>语言教程</h2><p>计算机软件经历了数十年的发展，形成了多种学术流派，有面向过程编程、面向对象编程、函数式编程、面向消息编程等，这些思想究竟孰优孰劣，众说纷纭。</p><p>除了 OOP 外，近年出现了一些小众的编程哲学，Go 语言对这些思想亦有所吸收。例如，Go 语言接受了函数式编程的一些想法，支持匿名函数与闭包。再如，Go语言接受了以 Erlang 语言为代表的面向消息编程思想，支持 goroutine 和通道，并推荐使用消息而不是共享内存来进行并发编程。总体来说，Go 语言是一个非常现代化的语言，精小但非常强大。</p><p>Go 语言最主要的特性：</p><ul><li>自动垃圾回收</li><li>更丰富的内置类型</li><li>函数多返回值</li><li>错误处理</li><li>匿名函数和闭包</li><li>类型和接口</li><li>并发编程</li><li>反射</li><li>语言交互性</li></ul><h2 id=语法基础>语法基础</h2><blockquote><p>仅仅列举一些值得注意的语法。</p></blockquote><h3 id=数据类型>数据类型</h3><p>使用 <code>fmt.Sprintf</code> 格式化字符串并赋值给新串：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>fmt</span><span class=p>.</span><span class=nf>Sprintf</span><span class=p>(</span><span class=s>&#34;Code=%d&amp;endDate=%s&#34;</span><span class=p>,</span> <span class=mi>123</span><span class=p>,</span> <span class=s>&#34;2020-12-31&#34;</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p>Go 中按类别大约有以下几种数据类型：</p><ul><li>”布尔型“、“数字型”、“字符串型”、“派生类型”；</li><li>其中“派生类型”有以下几种：指针类型、数组类型、struct 类型、channel 类型、函数类型、切片类型、interface 类型、Map 类型；</li></ul><h3 id=变量>变量</h3><p>变量声明有以下几种方式：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// 一次声明多个变量
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>var</span> <span class=nx>identifier</span> <span class=kd>type</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 根据值自行判定变量类型。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>var</span> <span class=nx>v_name</span> <span class=p>=</span> <span class=nx>value</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 省略 var，使用 := 定义。左侧如果没有声明新的变量，就产生编译错误
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>v_name</span> <span class=o>:=</span> <span class=nx>value</span>
+</span></span></code></pre></td></tr></table></div></div><p>声明多变量的方式：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>var</span> <span class=nx>vname1</span><span class=p>,</span> <span class=nx>vname2</span><span class=p>,</span> <span class=nx>vname3</span> <span class=kd>type</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=nx>vname1</span> <span class=nx>v_type1</span>
+</span></span><span class=line><span class=cl>    <span class=nx>vname2</span> <span class=nx>v_type2</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>vname1</span><span class=p>,</span> <span class=nx>vname2</span><span class=p>,</span> <span class=nx>vname3</span> <span class=p>=</span> <span class=nx>v1</span><span class=p>,</span> <span class=nx>v2</span><span class=p>,</span> <span class=nx>v3</span>
+</span></span><span class=line><span class=cl><span class=nx>vname1</span><span class=p>,</span> <span class=nx>vname2</span><span class=p>,</span> <span class=nx>vname3</span> <span class=o>:=</span> <span class=nx>v1</span><span class=p>,</span> <span class=nx>v2</span><span class=p>,</span> <span class=nx>v3</span> 
+</span></span></code></pre></td></tr></table></div></div><p>指定变量类型，如果没有初始化，则变量默认为零值：</p><ul><li><code>false</code>、<code>0</code>、<code>""</code>、<code>nil</code>；</li></ul><p>值类型、引用类型与 C++ 类似。</p><h3 id=常量>常量</h3><p>常量定义关键词是 <code>const</code>，与变量类似，它的定义格式如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>const</span> <span class=nx>identifier</span> <span class=p>[</span><span class=kd>type</span><span class=p>]</span> <span class=p>=</span> <span class=nx>value</span>
+</span></span></code></pre></td></tr></table></div></div><p>在 golang 常量中有一个特殊的语法 <code>iota</code>，下面是使用实例：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=s>&#34;fmt&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>const</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=nx>a</span> <span class=p>=</span> <span class=kc>iota</span>   <span class=c1>//0
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=nx>b</span>          <span class=c1>//1
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=nx>c</span>          <span class=c1>//2
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=nx>d</span> <span class=p>=</span> <span class=s>&#34;ha&#34;</span>   <span class=c1>//独立值，iota += 1
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=nx>e</span>          <span class=c1>//&#34;ha&#34;   iota += 1
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=nx>f</span> <span class=p>=</span> <span class=mi>100</span>    <span class=c1>//iota +=1
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=nx>g</span>          <span class=c1>//100  iota +=1
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=nx>h</span> <span class=p>=</span> <span class=kc>iota</span>   <span class=c1>//7,恢复计数
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=nx>i</span>          <span class=c1>//8
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>a</span><span class=p>,</span><span class=nx>b</span><span class=p>,</span><span class=nx>c</span><span class=p>,</span><span class=nx>d</span><span class=p>,</span><span class=nx>e</span><span class=p>,</span><span class=nx>f</span><span class=p>,</span><span class=nx>g</span><span class=p>,</span><span class=nx>h</span><span class=p>,</span><span class=nx>i</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=条件语句>条件语句</h3><p><code>if</code> 条件语句：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl>   <span class=cm>/* 使用 if 语句判断布尔表达式 */</span>
+</span></span><span class=line><span class=cl>   <span class=k>if</span> <span class=nx>a</span> <span class=p>&lt;</span> <span class=mi>20</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>       <span class=cm>/* 如果条件为 true 则执行以下语句 */</span>
+</span></span><span class=line><span class=cl>       <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;a 小于 20\n&#34;</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>   <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>switch</code> 条件语句（默认 <code>break</code>，使用 <code>fallthrough</code> 语句执行下一个 <code>case</code>）：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>   <span class=kd>var</span> <span class=nx>x</span> <span class=kd>interface</span><span class=p>{}</span>
+</span></span><span class=line><span class=cl>     
+</span></span><span class=line><span class=cl>   <span class=k>switch</span> <span class=nx>i</span> <span class=o>:=</span> <span class=nx>x</span><span class=p>.(</span><span class=kd>type</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=k>case</span> <span class=kc>nil</span><span class=p>:</span>  
+</span></span><span class=line><span class=cl>         <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34; x 的类型 :%T&#34;</span><span class=p>,</span><span class=nx>i</span><span class=p>)</span>                
+</span></span><span class=line><span class=cl>      <span class=k>case</span> <span class=kt>int</span><span class=p>:</span>  
+</span></span><span class=line><span class=cl>         <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;x 是 int 型&#34;</span><span class=p>)</span>                      
+</span></span><span class=line><span class=cl>      <span class=k>case</span> <span class=kt>float64</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>         <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;x 是 float64 型&#34;</span><span class=p>)</span>          
+</span></span><span class=line><span class=cl>      <span class=k>case</span> <span class=kd>func</span><span class=p>(</span><span class=kt>int</span><span class=p>)</span> <span class=kt>float64</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>         <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;x 是 func(int) 型&#34;</span><span class=p>)</span>                      
+</span></span><span class=line><span class=cl>      <span class=k>case</span> <span class=kt>bool</span><span class=p>,</span> <span class=kt>string</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>         <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;x 是 bool 或 string 型&#34;</span> <span class=p>)</span>      
+</span></span><span class=line><span class=cl>      <span class=k>default</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>         <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;未知型&#34;</span><span class=p>)</span>    
+</span></span><span class=line><span class=cl>   <span class=p>}</span>  
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>select</code> 语句来自于 Linux 中的 <code>select</code> 这一 IO 模式（现在常用的是 <code>epoll</code>），它是 Go 中的一个控制结构，类似于用于通信的 switch 语句。每个 case 必须是一个通信操作，要么是发送要么是接收。</p><p><code>select</code> 随机执行一个可运行的 case。如果没有 case 可运行，它将阻塞，直到有 case 可运行。一个默认的子句应该总是可运行的。</p><p>基本格式：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=k>select</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>case</span> <span class=nx>communication</span> <span class=nx>clause</span>  <span class=p>:</span>
+</span></span><span class=line><span class=cl>       <span class=nf>statement</span><span class=p>(</span><span class=nx>s</span><span class=p>);</span>      
+</span></span><span class=line><span class=cl>    <span class=k>case</span> <span class=nx>communication</span> <span class=nx>clause</span>  <span class=p>:</span>
+</span></span><span class=line><span class=cl>       <span class=nf>statement</span><span class=p>(</span><span class=nx>s</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=cm>/* 你可以定义任意数量的 case */</span>
+</span></span><span class=line><span class=cl>    <span class=k>default</span> <span class=p>:</span> <span class=cm>/* 可选 */</span>
+</span></span><span class=line><span class=cl>       <span class=nf>statement</span><span class=p>(</span><span class=nx>s</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=循环>循环</h3><p><code>go</code> 中只使用 <code>for</code> 这一个关键字进行循环，但是却可以执行 C 中所有关键字的功能：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=k>for</span> <span class=nx>init</span><span class=p>;</span> <span class=nx>condition</span><span class=p>;</span> <span class=nx>post</span> <span class=p>{</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=nx>condition</span> <span class=p>{</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=p>{</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=nx>key</span><span class=p>,</span> <span class=nx>value</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>oldMap</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>newMap</span><span class=p>[</span><span class=nx>key</span><span class=p>]</span> <span class=p>=</span> <span class=nx>value</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>其中 <code>range</code> 循环可以对字符串、数组、切片等进行迭代输出元素，下面举个例子：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=s>&#34;fmt&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>strings</span> <span class=o>:=</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{</span><span class=s>&#34;google&#34;</span><span class=p>,</span> <span class=s>&#34;runoob&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=nx>i</span><span class=p>,</span> <span class=nx>s</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>strings</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>i</span><span class=p>,</span> <span class=nx>s</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=nx>numbers</span> <span class=o>:=</span> <span class=p>[</span><span class=mi>6</span><span class=p>]</span><span class=kt>int</span><span class=p>{</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=mi>5</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=nx>i</span><span class=p>,</span><span class=nx>x</span><span class=o>:=</span> <span class=k>range</span> <span class=nx>numbers</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;第 %d 位 x 的值 = %d\n&#34;</span><span class=p>,</span> <span class=nx>i</span><span class=p>,</span><span class=nx>x</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>  
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>在循环语句中可以使用 <code>break</code>/<code>continue</code>/<code>goto</code> 进行控制。</p><h3 id=函数>函数</h3><p>Go 语言函数定义格式如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>function_name</span><span class=p>(</span> <span class=p>[</span><span class=nx>parameter</span> <span class=nx>list</span><span class=p>]</span> <span class=p>)</span> <span class=p>[</span><span class=nx>return_types</span><span class=p>]</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>   <span class=c1>// ...函数体
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>Go 语言的函数可以返回多个值：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=s>&#34;fmt&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>swap</span><span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span> <span class=kt>string</span><span class=p>)</span> <span class=p>(</span><span class=kt>string</span><span class=p>,</span> <span class=kt>string</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>   <span class=k>return</span> <span class=nx>y</span><span class=p>,</span> <span class=nx>x</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>   <span class=nx>a</span><span class=p>,</span> <span class=nx>b</span> <span class=o>:=</span> <span class=nf>swap</span><span class=p>(</span><span class=s>&#34;Google&#34;</span><span class=p>,</span> <span class=s>&#34;Runoob&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>   <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>a</span><span class=p>,</span> <span class=nx>b</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>Go 语言可以定义引用传值：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>swap</span><span class=p>(</span><span class=nx>x</span> <span class=o>*</span><span class=kt>int</span><span class=p>,</span> <span class=nx>y</span> <span class=o>*</span><span class=kt>int</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>   <span class=kd>var</span> <span class=nx>temp</span> <span class=kt>int</span>
+</span></span><span class=line><span class=cl>   <span class=nx>temp</span> <span class=p>=</span> <span class=o>*</span><span class=nx>x</span>    <span class=cm>/* 保持 x 地址上的值 */</span>
+</span></span><span class=line><span class=cl>   <span class=o>*</span><span class=nx>x</span> <span class=p>=</span> <span class=o>*</span><span class=nx>y</span>      <span class=cm>/* 将 y 值赋给 x */</span>
+</span></span><span class=line><span class=cl>   <span class=o>*</span><span class=nx>y</span> <span class=p>=</span> <span class=nx>temp</span>    <span class=cm>/* 将 temp 值赋给 y */</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=数据类型-1>数据类型</h2><h3 id=数组>数组</h3><p>声明数组语法：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>var</span> <span class=nx>variable_name</span> <span class=p>[</span><span class=nx>SIZE</span><span class=p>]</span> <span class=nx>variable_type</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>variable_name</span> <span class=p>[</span><span class=nx>SIZE1</span><span class=p>][</span><span class=nx>SIZE2</span><span class=p>]</span><span class=o>...</span><span class=p>[</span><span class=nx>SIZEN</span><span class=p>]</span> <span class=nx>variable_type</span> <span class=c1>// 多维数组
+</span></span></span></code></pre></td></tr></table></div></div><p>初始化数组的方式：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>var</span> <span class=nx>balance</span> <span class=p>=</span> <span class=p>[</span><span class=mi>5</span><span class=p>]</span><span class=kt>float32</span><span class=p>{</span><span class=mf>1000.0</span><span class=p>,</span> <span class=mf>2.0</span><span class=p>,</span> <span class=mf>3.4</span><span class=p>,</span> <span class=mf>7.0</span><span class=p>,</span> <span class=mf>50.0</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>balance</span> <span class=p>=</span> <span class=p>[</span><span class=o>...</span><span class=p>]</span><span class=kt>float32</span><span class=p>{</span><span class=mf>1000.0</span><span class=p>,</span> <span class=mf>2.0</span><span class=p>,</span> <span class=mf>3.4</span><span class=p>,</span> <span class=mf>7.0</span><span class=p>,</span> <span class=mf>50.0</span><span class=p>}</span> <span class=c1>// 自动推断数组长度
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=nx>a</span> <span class=o>:=</span> <span class=p>[</span><span class=mi>3</span><span class=p>][</span><span class=mi>4</span><span class=p>]</span><span class=kt>int</span><span class=p>{</span>  
+</span></span><span class=line><span class=cl> <span class=p>{</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>}</span> <span class=p>,</span>   <span class=cm>/*  第一行索引为 0 */</span>
+</span></span><span class=line><span class=cl> <span class=p>{</span><span class=mi>4</span><span class=p>,</span> <span class=mi>5</span><span class=p>,</span> <span class=mi>6</span><span class=p>,</span> <span class=mi>7</span><span class=p>}</span> <span class=p>,</span>   <span class=cm>/*  第二行索引为 1 */</span>
+</span></span><span class=line><span class=cl> <span class=p>{</span><span class=mi>8</span><span class=p>,</span> <span class=mi>9</span><span class=p>,</span> <span class=mi>10</span><span class=p>,</span> <span class=mi>11</span><span class=p>},</span>   <span class=cm>/* 第三行索引为 2 */</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=指针>指针</h3><p>声明指针的语法：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>var</span> <span class=nx>var_name</span> <span class=o>*</span><span class=kd>var</span><span class=o>-</span><span class=kd>type</span>
+</span></span></code></pre></td></tr></table></div></div><p>空指针的值为 <code>nil</code>。</p><p>定义指针数组（存储着指针的数组）通过以下的方式：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>var</span> <span class=nx>ptr</span> <span class=p>[</span><span class=nx>MAX</span><span class=p>]</span><span class=o>*</span><span class=kt>int</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=结构>结构</h3><p>与 C 语言中类似，声明的语法：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span> <span class=nx>struct_variable_type</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>   <span class=nx>member</span> <span class=nx>definition</span>
+</span></span><span class=line><span class=cl>   <span class=nx>member</span> <span class=nx>definition</span>
+</span></span><span class=line><span class=cl>   <span class=o>...</span>
+</span></span><span class=line><span class=cl>   <span class=nx>member</span> <span class=nx>definition</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=切片>切片</h3><p>对数组的抽象，因为数组的长度是固定的，使用范围有限，与数组相比切片的长度是不固定的，可以追加元素，在追加时可能使切片的容量增大。</p><p>定义切片：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>var</span> <span class=nx>identifier</span> <span class=p>[]</span><span class=kd>type</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>slice1</span> <span class=p>[]</span><span class=kd>type</span> <span class=p>=</span> <span class=nb>make</span><span class=p>([]</span><span class=kd>type</span><span class=p>,</span> <span class=nx>len</span><span class=p>,</span> <span class=nx>capacity</span><span class=p>)</span> <span class=c1>// capacity 是可选参数
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=范围>范围</h3><h3 id=集合>集合</h3><p>Map 是一种无序的键值对的集合。Map 最重要的一点是通过 key 来快速检索数据，key 类似于索引，指向数据的值。<code>Map</code> 的底层是通过哈希表实现的。</p><p>可以使用内建函数 <code>make</code> 也可以使用 <code>map</code> 关键字来定义 Map：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=cm>/* 声明变量，默认 map 是 nil */</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>map_variable</span> <span class=kd>map</span><span class=p>[</span><span class=nx>key_data_type</span><span class=p>]</span><span class=nx>value_data_type</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=cm>/* 使用 make 函数 */</span>
+</span></span><span class=line><span class=cl><span class=nx>map_variable</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>(</span><span class=kd>map</span><span class=p>[</span><span class=nx>key_data_type</span><span class=p>]</span><span class=nx>value_data_type</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=接口>接口</h3><p>Go 语言提供了另外一种数据类型即接口，它把所有的具有共性的方法定义在一起，任何其他类型只要实现了这些方法就是实现了这个接口。</p><p>例子：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=cm>/* 定义接口 */</span>
+</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>interface_name</span> <span class=kd>interface</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>   <span class=nx>method_name1</span> <span class=p>[</span><span class=nx>return_type</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>   <span class=nx>method_name2</span> <span class=p>[</span><span class=nx>return_type</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>   <span class=nx>method_name3</span> <span class=p>[</span><span class=nx>return_type</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>   <span class=o>...</span>
+</span></span><span class=line><span class=cl>   <span class=nx>method_namen</span> <span class=p>[</span><span class=nx>return_type</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=cm>/* 定义结构体 */</span>
+</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>struct_name</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>   <span class=cm>/* variables */</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=cm>/* 实现接口方法 */</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>struct_name_variable</span> <span class=nx>struct_name</span><span class=p>)</span> <span class=nf>method_name1</span><span class=p>()</span> <span class=p>[</span><span class=nx>return_type</span><span class=p>]</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>   <span class=cm>/* 方法实现 */</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=o>...</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>struct_name_variable</span> <span class=nx>struct_name</span><span class=p>)</span> <span class=nf>method_namen</span><span class=p>()</span> <span class=p>[</span><span class=nx>return_type</span><span class=p>]</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>   <span class=cm>/* 方法实现*/</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=并发>并发</h2><p>go 语言的核心优势在于并发的实现，所以 go 在工程意义上是一个更适合做“分布式系统”的后端语言，而不适合做科学计算。</p><h3 id=goroutine><code>goroutine</code></h3><p>我们可以用 <code>go</code> 关键词来开启一个 <code>goroutine</code>：</p><ul><li><code>goroutine</code> 是轻量级线程，<code>goroutine</code> 的调度是由 Golang 运行时进行管理的。</li><li>同一个程序中的所有 <code>goroutine</code> 共享同一个地址空间。</li></ul><p>语法格式如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=k>go</span> <span class=nx>函数名</span><span class=p>(</span> <span class=nx>参数列表</span> <span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=channel><code>channel</code></h3><p><code>goroutine</code> 是 go 语言中用于声明新的线程的方式，<code>channel</code> 则是 go 中用于进行线程间通信的方式。</p><ul><li>关键字 <strong><code>channel</code></strong>： 可用于两个 <code>goroutine</code> 之间通过传递一个指定类型的值来同步运行和通讯。</li><li>声明 <strong><code>make</code></strong>：声明一个变量使用 <code>make</code> 函数。比如 <code>make(chan int)</code> 声明了一个，可以用于传递 <code>int</code> 类型数据的管道。</li><li>操作符 <strong><code>&lt;-</code></strong>： 用于指定通道的方向，发送或接收。如果未指定方向，则为双向通道。</li><li>遍历通道，使用关键字 <strong><code>range</code></strong>：像遍历切片一样的 for 循环；</li><li>关闭管道，使用函数 <strong><code>close</code></strong>：如果有某个 <code>goroutine</code> 正在进行 <code>range</code> 遍历，它只有在管道关闭时才会结束，否则会一直阻塞。</li></ul><p>下面是一个声明并且使用的例子：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>ch</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>(</span><span class=kd>chan</span> <span class=kt>int</span><span class=p>)</span> <span class=c1>// 指定第二个参数可以指定缓冲区大小
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=nx>ch</span> <span class=o>&lt;-</span> <span class=nx>v</span>    <span class=c1>// 把 v 发送到通道 ch
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>v</span> <span class=o>:=</span> <span class=o>&lt;-</span><span class=nx>ch</span>  <span class=c1>// 从 ch 接收数据，并把值赋给 v
+</span></span></span></code></pre></td></tr></table></div></div><p>上面的 <code>make</code> 函数如果指定了第二个参数则指定了缓冲区大小。如果通道不带缓冲，在通道中有内容时，发送方会阻塞直到接收方从通道中接收了值。</p></div><div id=comments><div id=valine class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.</noscript></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://shesl-meow.github.io target=_blank>佘崧林</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/valine/valine.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/valine@1.4.18/dist/Valine.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:50},comment:{valine:{appId:"zDVJohJIQbD6f3W267xtaYRC-gzGzoHsz",appKey:"ewsfU9ocNOeuvt0MzONe6yKx",avatar:"mp",el:"#valine",emojiCDN:"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/",emojiMaps:{100:"1f4af.png",alien:"1f47d.png",anger:"1f4a2.png",angry:"1f620.png",anguished:"1f627.png",astonished:"1f632.png",black_heart:"1f5a4.png",blue_heart:"1f499.png",blush:"1f60a.png",bomb:"1f4a3.png",boom:"1f4a5.png",broken_heart:"1f494.png",brown_heart:"1f90e.png",clown_face:"1f921.png",cold_face:"1f976.png",cold_sweat:"1f630.png",confounded:"1f616.png",confused:"1f615.png",cry:"1f622.png",crying_cat_face:"1f63f.png",cupid:"1f498.png",dash:"1f4a8.png",disappointed:"1f61e.png",disappointed_relieved:"1f625.png",dizzy:"1f4ab.png",dizzy_face:"1f635.png",drooling_face:"1f924.png",exploding_head:"1f92f.png",expressionless:"1f611.png",face_vomiting:"1f92e.png",face_with_cowboy_hat:"1f920.png",face_with_hand_over_mouth:"1f92d.png",face_with_head_bandage:"1f915.png",face_with_monocle:"1f9d0.png",face_with_raised_eyebrow:"1f928.png",face_with_rolling_eyes:"1f644.png",face_with_symbols_on_mouth:"1f92c.png",face_with_thermometer:"1f912.png",fearful:"1f628.png",flushed:"1f633.png",frowning:"1f626.png",ghost:"1f47b.png",gift_heart:"1f49d.png",green_heart:"1f49a.png",grimacing:"1f62c.png",grin:"1f601.png",grinning:"1f600.png",hankey:"1f4a9.png",hear_no_evil:"1f649.png",heart:"2764-fe0f.png",heart_decoration:"1f49f.png",heart_eyes:"1f60d.png",heart_eyes_cat:"1f63b.png",heartbeat:"1f493.png",heartpulse:"1f497.png",heavy_heart_exclamation_mark_ornament:"2763-fe0f.png",hole:"1f573-fe0f.png",hot_face:"1f975.png",hugging_face:"1f917.png",hushed:"1f62f.png",imp:"1f47f.png",innocent:"1f607.png",japanese_goblin:"1f47a.png",japanese_ogre:"1f479.png",joy:"1f602.png",joy_cat:"1f639.png",kiss:"1f48b.png",kissing:"1f617.png",kissing_cat:"1f63d.png",kissing_closed_eyes:"1f61a.png",kissing_heart:"1f618.png",kissing_smiling_eyes:"1f619.png",laughing:"1f606.png",left_speech_bubble:"1f5e8-fe0f.png",love_letter:"1f48c.png",lying_face:"1f925.png",mask:"1f637.png",money_mouth_face:"1f911.png",nauseated_face:"1f922.png",nerd_face:"1f913.png",neutral_face:"1f610.png",no_mouth:"1f636.png",open_mouth:"1f62e.png",orange_heart:"1f9e1.png",partying_face:"1f973.png",pensive:"1f614.png",persevere:"1f623.png",pleading_face:"1f97a.png",pouting_cat:"1f63e.png",purple_heart:"1f49c.png",rage:"1f621.png",relaxed:"263a-fe0f.png",relieved:"1f60c.png",revolving_hearts:"1f49e.png",right_anger_bubble:"1f5ef-fe0f.png",robot_face:"1f916.png",rolling_on_the_floor_laughing:"1f923.png",scream:"1f631.png",scream_cat:"1f640.png",see_no_evil:"1f648.png",shushing_face:"1f92b.png",skull:"1f480.png",skull_and_crossbones:"2620-fe0f.png",sleeping:"1f634.png",sleepy:"1f62a.png",slightly_frowning_face:"1f641.png",slightly_smiling_face:"1f642.png",smile:"1f604.png",smile_cat:"1f638.png",smiley:"1f603.png",smiley_cat:"1f63a.png",smiling_face_with_3_hearts:"1f970.png",smiling_imp:"1f608.png",smirk:"1f60f.png",smirk_cat:"1f63c.png",sneezing_face:"1f927.png",sob:"1f62d.png",space_invader:"1f47e.png",sparkling_heart:"1f496.png",speak_no_evil:"1f64a.png",speech_balloon:"1f4ac.png","star-struck":"1f929.png",stuck_out_tongue:"1f61b.png",stuck_out_tongue_closed_eyes:"1f61d.png",stuck_out_tongue_winking_eye:"1f61c.png",sunglasses:"1f60e.png",sweat:"1f613.png",sweat_drops:"1f4a6.png",sweat_smile:"1f605.png",thinking_face:"1f914.png",thought_balloon:"1f4ad.png",tired_face:"1f62b.png",triumph:"1f624.png",two_hearts:"1f495.png",unamused:"1f612.png",upside_down_face:"1f643.png",weary:"1f629.png",white_frowning_face:"2639-fe0f.png",white_heart:"1f90d.png",wink:"1f609.png",woozy_face:"1f974.png",worried:"1f61f.png",yawning_face:"1f971.png",yellow_heart:"1f49b.png",yum:"1f60b.png",zany_face:"1f92a.png",zipper_mouth_face:"1f910.png",zzz:"1f4a4.png"},enableQQ:!1,highlight:!0,lang:"zh-CN",pageSize:10,placeholder:"你的评论 ...",recordIP:!0,serverURLs:"https://zdvjohji.lc-cn-n1-shared.com",visitor:!0}},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"",algoliaIndex:"",algoliaSearchKey:"",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:30,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.c1d5acc03abc8af9ee0a42aa4e942566a338a3e29d21b6c9f11536101f6914ad.js integrity="sha256-wdWswDq8ivnuCkKqTpQlZqM4o+KdIbbJ8RU2EB9pFK0="></script></body></html>

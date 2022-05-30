@@ -1,0 +1,301 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>- shesl's blog</title><meta name=Description content="佘崧林同学的碎碎念博客"><meta property="og:title" content><meta property="og:description" content="React 基础 从原生到 React 原生例子 一个 demo，如何用原生的 JavaScript 实现一个点赞按钮（即简单的点击一次更换一次图片）。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19"><meta property="og:type" content="article"><meta property="og:url" content="http://shesl-meow.github.io/book/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/javascript/reactjs/1.react%E5%9F%BA%E7%A1%80/"><meta property="og:image" content="http://shesl-meow.github.io/avatar.png"><meta property="article:section" content="book"><meta property="og:site_name" content="shesl's blog"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="http://shesl-meow.github.io/avatar.png"><meta name=twitter:title content><meta name=twitter:description content="React 基础 从原生到 React 原生例子 一个 demo，如何用原生的 JavaScript 实现一个点赞按钮（即简单的点击一次更换一次图片）。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19"><meta name=application-name content="shesl's blog"><meta name=apple-mobile-web-app-title content="shesl's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://shesl-meow.github.io/book/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/javascript/reactjs/1.react%E5%9F%BA%E7%A1%80/><link rel=prev href=http://shesl-meow.github.io/book/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/javascript/reactjs/2.react%E8%BF%9B%E9%98%B6/><link rel=stylesheet href=/css/style.min.fa85115dce490a9d0bf009e2892b6d42439bdea75160d08cddcb0b97c8def676.css integrity="sha256-+oURXc5JCp0L8AniiSttQkOb3qdRYNCM3csLl8je9nY="><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/shesl-meow.github.io\/book\/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3\/javascript\/reactjs\/1.react%E5%9F%BA%E7%A1%80\/"},"genre":"book","wordcount":4163,"url":"http:\/\/shesl-meow.github.io\/book\/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3\/javascript\/reactjs\/1.react%E5%9F%BA%E7%A1%80\/","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"佘崧林"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>博客 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>博客</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster"></h1><div class=content id=content><h1 id=react-基础>React 基础</h1><h2 id=从原生到-react>从原生到 React</h2><h3 id=原生例子>原生例子</h3><p>一个 demo，如何用原生的 JavaScript 实现一个点赞按钮（即简单的点击一次更换一次图片）。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 将点赞按钮可复用地组件化
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>class</span> <span class=nx>LikeStar</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>constructor</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>state</span> <span class=o>=</span> <span class=p>{</span> <span class=nx>isLiked</span><span class=o>:</span> <span class=kc>false</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>redStarSrc</span> <span class=o>=</span> <span class=nx>URL_OF_RED_STAR</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>whiteStarSrc</span> <span class=o>=</span> <span class=nx>URL_OF_WHITE_STAR</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=nx>changeStar</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>state</span><span class=p>.</span><span class=nx>isLiked</span> <span class=o>=</span> <span class=o>!</span><span class=k>this</span><span class=p>.</span><span class=nx>state</span><span class=p>.</span><span class=nx>isLiked</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>imgSrc</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>state</span><span class=p>.</span><span class=nx>isLiked</span> <span class=o>?</span> <span class=k>this</span><span class=p>.</span><span class=nx>redStarSrc</span> <span class=o>:</span> <span class=k>this</span><span class=p>.</span><span class=nx>whiteStarSrc</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>$star</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>el</span><span class=p>.</span><span class=nx>querySelector</span><span class=p>(</span><span class=s1>&#39;.js-star&#39;</span><span class=p>);</span>	<span class=c1>// 其中 js-star 是 img 标签的一个 class
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>$star</span><span class=p>.</span><span class=nx>setAttribute</span><span class=p>(</span><span class=s1>&#39;src&#39;</span><span class=p>,</span> <span class=nx>imgSrc</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=nx>render</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>el</span> <span class=o>=</span> <span class=nx>createDOMFromString</span><span class=p>(</span><span class=sb>`&lt;img class=&#34;js-star&#34;&gt; src=&#34;</span><span class=si>${</span><span class=k>this</span><span class=p>.</span><span class=nx>whiteStarSrc</span><span class=si>}</span><span class=sb>&#34;`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>el</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=k>this</span><span class=p>.</span><span class=nx>changeStar</span><span class=p>,</span> <span class=kc>false</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=k>this</span><span class=p>.</span><span class=nx>el</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 如何使用刚才定义的 LikeStar 类
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>$wrapper</span><span class=p>.</span><span class=nx>apppendChild</span><span class=p>(</span><span class=k>new</span> <span class=nx>LikeStar</span><span class=p>().</span><span class=nx>render</span><span class=p>());</span>
+</span></span></code></pre></td></tr></table></div></div><p>上面的例子使用了 <code>setAttribute</code>、<code>createDOMFromString</code>、<code>addEventListener</code> 这些原生的 js 方法，实现了一个 demo。</p><h3 id=原生存在的问题>原生存在的问题</h3><p>上面直接使用原生的方法实现的例子存在这样一些问题：</p><ol><li>复用性不是特别强：组件没有提供传入参数定制化的能力，复用性不强。</li><li>DOM 操作与组件方法耦和在一起：当我们的组件越来越复杂时，需要在组件内维护 DOM 的成本会越来越大，同时直接操作 DOM 也会有许多性能问题；它同时也是复用性不强的一种具体体现；</li></ol><p>第一个问题是比较好解决的，直接在 class 的构造方法中加入一个 <code>props</code> 参数即可。</p><p>对于第二个问题，我们则需要通过一定的抽象，将与 DOM 相关的操作从 <code>LikeStar</code> 中剥离出来：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>class</span> <span class=nx>DOMOperator</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>constructor</span><span class=p>(</span><span class=nx>props</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>state</span> <span class=o>=</span> <span class=p>{};</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>props</span> <span class=o>=</span> <span class=nx>props</span> <span class=o>||</span> <span class=p>{};</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=nx>setState</span> <span class=o>=</span> <span class=nx>state</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>state</span> <span class=o>=</span> <span class=nx>state</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>oldEle</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>el</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>el</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>renderDOM</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>updateUI</span> <span class=o>&amp;&amp;</span> <span class=k>this</span><span class=p>.</span><span class=nx>updateUI</span><span class=p>(</span><span class=nx>oldEle</span><span class=p>,</span> <span class=k>this</span><span class=p>.</span><span class=nx>el</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=nx>renderDOM</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>el</span> <span class=o>=</span> <span class=nx>createDOMFromString</span><span class=p>(</span><span class=k>this</span><span class=p>.</span><span class=nx>render</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>onClick</span> <span class=o>&amp;&amp;</span> <span class=k>this</span><span class=p>.</span><span class=nx>el</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=k>this</span><span class=p>.</span><span class=nx>onClick</span><span class=p>,</span> <span class=kc>false</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=k>this</span><span class=p>.</span><span class=nx>el</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>class</span> <span class=nx>LikeStar</span> <span class=kr>extends</span> <span class=nx>DOMOperator</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>constructor</span><span class=p>(</span><span class=nx>props</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>super</span><span class=p>(</span><span class=nx>props</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>state</span> <span class=o>=</span> <span class=p>{</span> <span class=nx>isLiked</span><span class=o>:</span> <span class=kc>false</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=nx>onClick</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>setState</span><span class=p>({</span> <span class=nx>isLiked</span><span class=o>:</span> <span class=o>!</span><span class=k>this</span><span class=p>.</span><span class=nx>state</span><span class=p>.</span><span class=nx>isLiked</span> <span class=p>})</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=nx>render</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=p>{</span> <span class=nx>isLiked</span> <span class=p>}</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>state</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=p>{</span> <span class=nx>className</span> <span class=p>}</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>props</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>imgSrc</span> <span class=o>=</span> <span class=nx>isLiked</span> <span class=o>?</span> <span class=nx>URL_OF_RED_STAR</span> <span class=o>:</span> <span class=nx>URL_OF_WHITE_STAR</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>createDOMFromString</span><span class=p>(</span><span class=sb>`&lt;img class=&#34;js-star </span><span class=si>${</span><span class=nx>className</span><span class=si>}</span><span class=sb>&#34;&gt; src=&#34;</span><span class=si>${</span><span class=nx>imgSrc</span><span class=si>}</span><span class=sb>&#34;`</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>renderDOM</span> <span class=o>=</span> <span class=p>(</span><span class=nx>instance</span><span class=p>,</span> <span class=nx>$parentDOM</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>instance</span><span class=p>.</span><span class=nx>updateUI</span> <span class=o>=</span> <span class=p>(</span><span class=nx>oldEle</span><span class=p>,</span> <span class=nx>newEle</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>$parentDOM</span><span class=p>.</span><span class=nx>insertBefore</span><span class=p>(</span><span class=nx>newEle</span><span class=p>,</span> <span class=nx>oldEle</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>		  <span class=nx>$parentDOM</span><span class=p>.</span><span class=nx>removeChild</span><span class=p>(</span><span class=nx>oldEle</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=nx>$parentDOM</span><span class=p>.</span><span class=nx>appendChild</span><span class=p>(</span><span class=nx>instance</span><span class=p>.</span><span class=nx>renderDOM</span><span class=p>());</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=nx>renderDOM</span><span class=p>(</span> <span class=k>new</span> <span class=nx>LikeStar</span><span class=p>(),</span> <span class=nx>$wrapper</span> <span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p>上面的例子通过将 <code>setState</code> 与 <code>updateDOM</code> 沉淀到基类中实现了一个 DOM 与组件隔离的设计模式。对于上面的设计模式，我们可以认为 UI 的一个更新流程的抽象过程：</p><ul><li>更新状态 <code>setState</code> => 更新抽象的 DOM => 更新 UI；</li></ul><h3 id=react-例子>React 例子</h3><p>同样的例子，用 React 是如何实现的呢？</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-react data-lang=react><span class=line><span class=cl><span class=kr>class</span> <span class=nx>LikeStar</span> <span class=kr>extends</span> <span class=nx>React</span><span class=p>.</span><span class=nx>Component</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>constructor</span><span class=p>(</span><span class=nx>props</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>super</span><span class=p>(</span><span class=nx>props</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>state</span> <span class=o>=</span> <span class=p>{</span> <span class=nx>isLiked</span><span class=o>:</span> <span class=kc>false</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=nx>onClick</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>setState</span><span class=p>(</span><span class=nx>prev</span> <span class=p>=&gt;</span> <span class=p>({</span> <span class=nx>isLiked</span><span class=o>:</span> <span class=o>!</span><span class=nx>prev</span><span class=p>.</span><span class=nx>isLiked</span> <span class=p>}));</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=nx>render</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=p>{</span> <span class=nx>isLiked</span> <span class=p>}</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>state</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=p>{</span> <span class=nx>className</span> <span class=p>}</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>props</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>imgSrc</span> <span class=o>=</span> <span class=nx>isLiked</span> <span class=o>?</span> <span class=nx>URL_OF_RED_STAR</span> <span class=o>:</span> <span class=nx>URL_OF_WHITE_STAR</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>img</span> <span class=na>className</span><span class=o>=</span><span class=p>{</span><span class=s1>&#39;heart &#39;</span> <span class=o>+</span> <span class=nx>className</span><span class=p>}</span> <span class=na>onClick</span><span class=o>=</span><span class=p>{</span><span class=k>this</span><span class=p>.</span><span class=nx>onClick</span><span class=p>}</span> <span class=na>src</span><span class=o>=</span><span class=p>{</span><span class=nx>imgSrc</span><span class=p>}</span> <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>而最后抽象出来的 <code>renderDOM</code> 方法则是由一个叫 <code>ReactDOM</code> 的第三方库实现的：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>ReactDOM</span><span class=p>.</span><span class=nx>render</span><span class=p>(</span> <span class=o>&lt;</span><span class=nx>LikeStar</span> <span class=o>/&gt;</span><span class=p>,</span> <span class=nx>$wrapper</span> <span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p>可以看到这个例子就与我们在第二个部门中优化后的代码几乎是一致的了，也就是说，React 相对于原生代码解决了以下的问题：</p><ol><li>使用面向对象的组件化的方式项目化地组织代码结构；</li><li>通过使用 <code>props</code>、<code>state</code> 这两个核心技术，实现组件的多态性，提高代码的复用性；</li><li>将 DOM 操作与组件的逻辑通过 <code>setState</code> 这个方法解耦，这个是 React 设计的核心优点，它有以下好处：<ol><li>解决了当组件过于庞大时大量处理 DOM 的问题，提高了代码的维护性；</li><li><code>React.js</code> 底层通过虚拟 DOM 的方式提高了 DOM 渲染的性能；</li><li>提供了一个组件的设计范式，优化了代码的编写方式；</li></ol></li><li>通过定义 <code>jsx</code> 语法，实现<code> js/html</code> 的高效嵌套编写（本质是 <code>React.createElement</code> 的语法糖）；</li></ol><h2 id=简介>简介</h2><p>什么是 React.js？</p><ul><li>React 是一个声明式，高效且灵活的用于构建用户界面的 JavaScript 库。</li><li>不同于框架，框架提供了一整套的解决方案，而 React 的定位只是一个轻量库。</li><li><code>React.js</code> 只有与 <code>Redux</code>、<code>react-router</code> 合起来才能称为一个框架。</li></ul><p>React.js 的特点：</p><ol><li><p>声明式的视图层：<strong>声明式</strong>侧重于描述一个组件的特点，而传统的<strong>命令式</strong>则侧重于具体的实现过程；</p></li><li><p>简单的更新流程：只需要调用 <code>setState</code> 即可，也就说 React 实现了<strong>数据更新到 UI 更新的单向更新机制</strong>；</p></li><li><p>灵活的渲染实现：<code>React.js</code> 通过<strong>虚拟 DOM 作为视图组件到 UI 的中介</strong>，React 不关心 虚拟 DOM 到更新 UI 的具体实现，这一过程需要通过第三方库具体地实现。比如：<code>react-dom</code> 用于浏览器渲染、<code>React-Native</code> 用于手机终端渲染；</p></li><li><p>高效的 DOM 操作：只操作 虚拟 DOM（一个 JavaScript 对象） 而非具体的 DOM，优异的 DOM diff 算法。</p></li></ol><h2 id=基本概念>基本概念</h2><h3 id=jsx-语法>jsx 语法</h3><p>标签类型：</p><ul><li>DOM 类型标签（首字母必须小写开头）：React.js 为了优化开发体验，使用了原生的 DOM 标签进行定义。实际上在 React.js 底层进行了一层处理；</li><li>React 组件类型标签（首字母必须大写开头）：jsx 使用不同的处理方式，因此需要于上者严格区分。</li></ul><p>jsx 中的 JavaScript 表达式：</p><ul><li>可以通过表达式给标签赋值，可以通过表达式定义子组件（比如定义循环）；</li><li>需要注意的一点是 jsx 是不支持多行表达式的，因此需要将表达式抽象成一个方法出来；</li></ul><p>DOM 标签属性：</p><ul><li><code>class => className</code>：为了避免与 ES6 的 class 发生冲突，DOM 中的 <code>class</code> 关键字在 <code>React</code> 中被命名为 <code>className</code>。</li><li><code>onclick => onClick</code>：为了保持编码风格的一致性，都改名为驼峰的命名方式，同理还有 <code>onFocus</code>、<code>onBlur</code> 等；</li><li>自定义标签属性：取决于组件的 <code>props</code>。<em>PS</em>：在 jsx 中使用 <code>'str'</code> 与 <code>{'str'}</code> 定义字符串都是合法的，建议使用前者；</li></ul><h3 id=组件>组件</h3><p>组件的类型：</p><ul><li>类组件（使用 ES6 的 <code>class</code> 语法），函数组件（接收 <code>props</code> 作为参数，返回一个 <code>ReactNode</code>，注意首字母需要大写）；</li><li>建议有状态组件使用类组件的定义方式，无状态组件使用函数组件的定义方式。</li></ul><p><code>props</code> 属性的校验：</p><ul><li><code>React.Component</code> 支持对 <code>props</code> 进行校验（校验结果是在控制台抛出 warning），校验的方式是通过定义一个 <code>static</code> 的成员对象 <code>propTypes</code>，React 支持的所有组件都定义在一个叫 <code>prop-types</code> 的第三方库中。</li><li>另外，我们还可以通过定义 <code>static</code> 的成员对象 <code>defaultProps</code> 给每个 prop 赋予一个默认值。</li></ul><p>下面给出一个 <code>props</code> 属性校验的例子：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-react data-lang=react><span class=line><span class=cl><span class=kr>import</span> <span class=nx>PropTypes</span> <span class=nx>from</span> <span class=s1>&#39;prop-types&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>class</span> <span class=nx>CommentItems</span> <span class=kr>extends</span> <span class=nx>React</span><span class=p>.</span><span class=nx>Component</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>static</span> <span class=nx>propTypes</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>userImg</span><span class=o>:</span> <span class=nx>PropTypes</span><span class=p>.</span><span class=nx>string</span><span class=p>.</span><span class=nx>isRequired</span><span class=p>,</span> <span class=c1>// 必选字符串项
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>likeIcon</span><span class=o>:</span> <span class=nx>PropTypes</span><span class=p>.</span><span class=nx>number</span><span class=p>,</span>						<span class=c1>// 数字类型
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=kr>static</span> <span class=nx>defaultProps</span> <span class=o>=</span> <span class=p>{</span> <span class=nx>userImg</span><span class=o>:</span> <span class=s1>&#39;&#39;</span><span class=p>,</span> <span class=nx>likeIcon</span><span class=o>:</span> <span class=mi>0</span><span class=p>,</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>state</code> 更新：</p><ul><li><code>state</code> 更新不能直接赋值，需要使用 <code>setState</code> 方法进行更新；</li><li><code>setState</code> 方法有两种调用方式，一种是直接传入对象，一种是传入以 <code>(prevState, props)</code> 为函数的一个参数；</li><li><code>setState</code> 调用后并不会立即更新，而是在一个组件生命之后将所有更改批量更新，函数的第二个参数就是 callback 函数。</li></ul><p>组件样式的编写：</p><ul><li>React 提供了使用 <code>className</code>（可以使用第三方库 <code>classnames</code>） 和 css-in-js 两种方式对组件样式进行更新；</li><li>官方推荐使用 <code>className</code> 这种简单方式进行样式编写，css-in-js 应该只在特定场景下使用；</li></ul><h3 id=元素>元素</h3><p>元素：</p><ul><li>元素是 React 中最小的组成单元，它直接描述了希望看到的内容，可以通过第三方库直接渲染成一个 DOM 元素；</li><li>React 中的元素是<strong>不可变对象</strong>，这意味着它和它的子元素都是不可变的，在更新时使用创建一个新的元素的策略进行更新；</li></ul><p>组合和元素（<code>React.Component</code> 与 <code>React.Element</code>）：</p><ul><li>组件最核心的作用是返回 React 元素。</li><li><code>class</code> 类型的组件中的 <code>render</code> 方法返回的就是元素，function 本身返回的也是元素。</li></ul><p>一个区别二者的例子：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-jsx data-lang=jsx><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>Parent</span><span class=p>&gt;</span> <span class=p>&lt;</span><span class=nt>Children</span><span class=p>&gt;</span><span class=nx>我是子组件</span><span class=p>&lt;/</span><span class=nt>Children</span><span class=p>&gt;</span> <span class=p>&lt;/</span><span class=nt>Parent</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>我们知道 <code>children</code> 会被持有在 <code>parent</code> 的 <code>props</code> 中：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-react data-lang=react><span class=line><span class=cl><span class=kr>import</span> <span class=nx>Children</span> <span class=nx>from</span> <span class=s1>&#39;./Children&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>class</span> <span class=nx>Parent</span> <span class=kr>extends</span> <span class=nx>React</span><span class=p>.</span><span class=nx>Component</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=cm>/* 正确的编写方式 1 */</span>
+</span></span><span class=line><span class=cl>  <span class=nx>render</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=p>{</span> <span class=nx>tip</span> <span class=p>}</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>props</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>&lt;</span><span class=nt>Children</span> <span class=na>tip</span><span class=o>=</span><span class=p>{</span><span class=nx>tip</span><span class=p>}</span> <span class=p>/&gt;</span>					<span class=c1>/// =&gt; 因为 Children 是组件
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=cm>/* 错误的编写方式 2 */</span>
+</span></span><span class=line><span class=cl>  <span class=nx>render</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=p>{</span> <span class=nx>tip</span><span class=p>,</span> <span class=nx>children</span> <span class=p>}</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>props</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>&lt;</span><span class=nt>children</span> <span class=na>tip</span><span class=o>=</span><span class=p>{</span><span class=nx>tip</span><span class=p>}</span> <span class=p>/&gt;</span>					<span class=c1>/// =&gt; 因为 children 是元素
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=cm>/* 正确的编写方式 3 */</span>
+</span></span><span class=line><span class=cl>  <span class=nx>render</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=p>{</span> <span class=nx>tip</span><span class=p>,</span> <span class=nx>children</span> <span class=p>}</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>props</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>React</span><span class=p>.</span><span class=nx>cloneElement</span><span class=p>(</span><span class=nx>children</span><span class=p>,</span> <span class=p>{</span> <span class=nx>tip</span> <span class=p>});</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=生命周期与事件处理>生命周期与事件处理</h2><h3 id=挂载阶段>挂载阶段</h3><p>下述方法从上往下以此调用：</p><table><thead><tr><th>方法</th><th>一般作用</th><th>调用时机与效果</th></tr></thead><tbody><tr><td><code>constructor(props)</code></td><td>1. <code>state</code> 的初始化，直接赋值而非使用 <code>setState</code>；<br>2. 通过 <code>bind</code> 进行方法绑定；</td><td>ES6 class 的初始化方法</td></tr><tr><td><code>static getDerivdStateProps(props, state) => obj or null</code></td><td>让组件在 <code>props</code> 变化时更新 <code>state</code>。</td><td>每次执行渲染前都会调用。<br>如果返回值设为 <code>obj</code> 那么执行之后组件的 <code>state</code> 会被设置为 <code>{...this.state, ...obj}</code>；</td></tr><tr><td><code>render</code>：唯一必须要实现的方法。</td><td>描述希望在页面上看到的 UI 效果</td><td>返回类型：元素、数组/<code>fragments</code>、<code>Porrtals</code>、字符串或数值、布尔型或 null。</td></tr><tr><td><code>componentDidMount</code></td><td>1. 依赖于 DOM 节点的初始化的任务；<br>2. 需要通过网络请求获取数据；</td><td>在组件挂载（即插入 DOM 树）之后立即调用。</td></tr></tbody></table><h3 id=更新阶段>更新阶段</h3><p>组件的更新需要外部的触发，一般有以下三种方式：<code>props</code> 更新、<code>setState</code> 方法调用、<code>forceUpdate</code> 方法调用。</p><p>在组件更新触发时，下面的方法从上往下依次调用：</p><table><thead><tr><th>方法</th><th>一般作用</th><th>调用时机与效果</th></tr></thead><tbody><tr><td><code>static getDerivdStateProps(props, state) => obj or null</code></td><td></td><td>注意参数是更新之后的值</td></tr><tr><td><code>shouldComponentUpdate(nextProps, nextState) => bool</code></td><td>决定组件是否继续执行更新过程</td><td>返回的值如果是 <code>false</code>，则组件不会继续执行后续函数的更新过程（<code>forceUpdate</code> 时会跳过这个函数的执行）</td></tr><tr><td><code>render</code></td><td></td><td></td></tr><tr><td><code>getSnapshotBeforeUpdate(prevProps, prevState) => snapshot or null</code></td><td>需要在更新 DOM 前保存当前 DOM 一些状态值时使用</td><td>在最近一次渲染输出（即提交到 DOM 节点）前调用</td></tr><tr><td><code>componentDidUpdate(prevProps, prevState, snapshot) => void</code></td><td>对更新后的 DOM 进行操作</td><td>在更新后会被立即调用</td></tr></tbody></table><h3 id=卸载阶段>卸载阶段</h3><p>执行一个 <code>componentWillUnmount</code> 方法。</p><h3 id=事件处理>事件处理</h3><p>React 事件与原生 DOM 事件：</p><ul><li>React 事件命名统一使用小驼峰式，而不是纯小写；</li><li>React 事件在 jsx 语法中需要传入一个 js 的函数而不是一个字符串；</li><li>React 中的事件时合成事件，并不是原生的 DOM 事件，如有需要，可以使用 <code>e.nativeEvent</code> 访问；</li><li>要阻止事件的默认行为，在 React 中必须显示地调用 <code>preventDefault</code> 方法；</li></ul><p><code>this</code> 的处理：ES6 并不会将函数自动绑定到当前定义的对象中，因此在使用需要调用 <code>this</code> 的函数作为事件处理函数时，需要对 <code>this</code> 进行特殊的处理。React 中主要有以下三种处理方式：</p><ol><li>箭头函数，比如：<code>(e) => this.handleEvent(e)</code>；</li><li>函数绑定，在 <code>constructor</code> 中将函数通过 <code>bind</code> 函数绑定到当前对象，比如：<code>this.handleEvent = this.handleEvent.bind(this)</code>；</li><li><code>class field</code> 还处于草案阶段，需要引入 <code>babel</code> 的插件，比如 <code>handleEvent = () => {}</code>；</li></ol><h2 id=列表与表单>列表与表单</h2><h3 id=列表>列表</h3><p>React 使用 <code>key</code> 属性来标记列表中的每个元素，当列表数据发生变化时，React 就可以通过 <code>key</code> 知道哪些元素发生了变化，从而只渲染发生变化的元素，<strong>提高渲染效率</strong>。</p><p><code>key</code> 的制定原则：</p><ul><li><code>key</code> 应该放在就近的数组上下文中，指定给最上层的标签的属性；</li><li>数组元素中使用 <code>key</code> 只在其兄弟节点中是独一无二的；</li><li>不建议使用索引来作为 <code>key</code> 值，因为这样会导致性能变差，还可能引起组件状态问题；</li></ul><h3 id=受控表单>受控表单</h3><p>一个表单的值是由 React 来进行管理的，那么它就是一个受控组件。</p><p>具体实现：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-react data-lang=react><span class=line><span class=cl><span class=kr>class</span> <span class=nx>NameForm</span> <span class=kr>extends</span> <span class=nx>React</span><span class=p>.</span><span class=nx>Component</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>handleChange</span> <span class=o>=</span> <span class=nx>event</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>this</span><span class=p>.</span><span class=nx>setState</span><span class=p>({</span> <span class=nx>value</span><span class=o>:</span> <span class=nx>event</span><span class=p>.</span><span class=nx>target</span><span class=p>.</span><span class=nx>value</span> <span class=p>});</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>render</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span> <span class=p>&lt;</span><span class=nt>input</span> <span class=na>onChange</span><span class=o>=</span><span class=p>{</span><span class=k>this</span><span class=p>.</span><span class=nx>handleChange</span><span class=p>}</span> <span class=p>/&gt;</span>		<span class=cm>/* 交由 NameForm 处理 */</span> <span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=非受控表单>非受控表单</h3><p>如果一个表单的状态仍然由表单元素自己管理，而不是交给 React.js 组件管理，那么他就是一个非受控组件。</p><p>下面是一个非受控组件的例子：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-react data-lang=react><span class=line><span class=cl><span class=kr>class</span> <span class=nx>FlavorForm</span> <span class=kr>extends</span> <span class=nx>React</span><span class=p>.</span><span class=nx>Component</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>constructor</span> <span class=p>(</span><span class=nx>props</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>this</span><span class=p>.</span><span class=nx>inputMangoRef</span> <span class=o>=</span> <span class=nx>React</span><span class=p>.</span><span class=nx>createRef</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=nx>handleSubmit</span> <span class=o>=</span> <span class=nx>event</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>event</span><span class=p>.</span><span class=nx>preventDefault</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=k>this</span><span class=p>.</span><span class=nx>inputMangoRef</span><span class=p>.</span><span class=nx>current</span><span class=p>.</span><span class=nx>checked</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=nx>render</span> <span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;</span><span class=nt>form</span> <span class=na>onSubmit</span><span class=o>=</span><span class=p>{</span><span class=k>this</span><span class=p>.</span><span class=nx>handleSubmit</span><span class=p>}&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>input</span> <span class=na>type</span><span class=o>=</span><span class=s>&#34;checkbox&#34;</span> <span class=na>value</span><span class=o>=</span><span class=s>&#34;mango&#34;</span> <span class=na>name</span><span class=o>=</span><span class=s>&#34;mango&#34;</span> <span class=na>ref</span><span class=o>=</span><span class=p>{</span><span class=k>this</span><span class=p>.</span><span class=nx>inputMangoRef</span><span class=p>}</span> <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>      <span class=p>&lt;/</span><span class=nt>form</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=refs>refs</h3><p>Refs 是 React 中访问 DOM 节点，获取 render 方法中创建的 React 元素的一种方法。</p><p>Refs 有以下两种使用方式：</p><ol><li><code>React.createRef</code>：上面“非受控表单”的例子就是使用的这种方式进行创建的；</li><li>回调函数：给 <code>ref</code> 属性值设置为一个函数，它会以 <code>ref</code> 为参数调用这个函数（注意：如果是以匿名函数的方式定义这个函数，那么每次更新时他会被执行两次，其中第一次是 <code>null</code>，所以为出于性能考虑不建议这么定义）</li></ol><p>注意事项：</p><ol><li>函数组件不能使用 <code>refs</code>；</li><li>切勿过度使用 <code>refs</code>；</li></ol></div><div id=comments><div id=valine class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.</noscript></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://shesl-meow.github.io target=_blank>佘崧林</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/valine/valine.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/valine@1.4.18/dist/Valine.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:50},comment:{valine:{appId:"zDVJohJIQbD6f3W267xtaYRC-gzGzoHsz",appKey:"ewsfU9ocNOeuvt0MzONe6yKx",avatar:"mp",el:"#valine",emojiCDN:"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/",emojiMaps:{100:"1f4af.png",alien:"1f47d.png",anger:"1f4a2.png",angry:"1f620.png",anguished:"1f627.png",astonished:"1f632.png",black_heart:"1f5a4.png",blue_heart:"1f499.png",blush:"1f60a.png",bomb:"1f4a3.png",boom:"1f4a5.png",broken_heart:"1f494.png",brown_heart:"1f90e.png",clown_face:"1f921.png",cold_face:"1f976.png",cold_sweat:"1f630.png",confounded:"1f616.png",confused:"1f615.png",cry:"1f622.png",crying_cat_face:"1f63f.png",cupid:"1f498.png",dash:"1f4a8.png",disappointed:"1f61e.png",disappointed_relieved:"1f625.png",dizzy:"1f4ab.png",dizzy_face:"1f635.png",drooling_face:"1f924.png",exploding_head:"1f92f.png",expressionless:"1f611.png",face_vomiting:"1f92e.png",face_with_cowboy_hat:"1f920.png",face_with_hand_over_mouth:"1f92d.png",face_with_head_bandage:"1f915.png",face_with_monocle:"1f9d0.png",face_with_raised_eyebrow:"1f928.png",face_with_rolling_eyes:"1f644.png",face_with_symbols_on_mouth:"1f92c.png",face_with_thermometer:"1f912.png",fearful:"1f628.png",flushed:"1f633.png",frowning:"1f626.png",ghost:"1f47b.png",gift_heart:"1f49d.png",green_heart:"1f49a.png",grimacing:"1f62c.png",grin:"1f601.png",grinning:"1f600.png",hankey:"1f4a9.png",hear_no_evil:"1f649.png",heart:"2764-fe0f.png",heart_decoration:"1f49f.png",heart_eyes:"1f60d.png",heart_eyes_cat:"1f63b.png",heartbeat:"1f493.png",heartpulse:"1f497.png",heavy_heart_exclamation_mark_ornament:"2763-fe0f.png",hole:"1f573-fe0f.png",hot_face:"1f975.png",hugging_face:"1f917.png",hushed:"1f62f.png",imp:"1f47f.png",innocent:"1f607.png",japanese_goblin:"1f47a.png",japanese_ogre:"1f479.png",joy:"1f602.png",joy_cat:"1f639.png",kiss:"1f48b.png",kissing:"1f617.png",kissing_cat:"1f63d.png",kissing_closed_eyes:"1f61a.png",kissing_heart:"1f618.png",kissing_smiling_eyes:"1f619.png",laughing:"1f606.png",left_speech_bubble:"1f5e8-fe0f.png",love_letter:"1f48c.png",lying_face:"1f925.png",mask:"1f637.png",money_mouth_face:"1f911.png",nauseated_face:"1f922.png",nerd_face:"1f913.png",neutral_face:"1f610.png",no_mouth:"1f636.png",open_mouth:"1f62e.png",orange_heart:"1f9e1.png",partying_face:"1f973.png",pensive:"1f614.png",persevere:"1f623.png",pleading_face:"1f97a.png",pouting_cat:"1f63e.png",purple_heart:"1f49c.png",rage:"1f621.png",relaxed:"263a-fe0f.png",relieved:"1f60c.png",revolving_hearts:"1f49e.png",right_anger_bubble:"1f5ef-fe0f.png",robot_face:"1f916.png",rolling_on_the_floor_laughing:"1f923.png",scream:"1f631.png",scream_cat:"1f640.png",see_no_evil:"1f648.png",shushing_face:"1f92b.png",skull:"1f480.png",skull_and_crossbones:"2620-fe0f.png",sleeping:"1f634.png",sleepy:"1f62a.png",slightly_frowning_face:"1f641.png",slightly_smiling_face:"1f642.png",smile:"1f604.png",smile_cat:"1f638.png",smiley:"1f603.png",smiley_cat:"1f63a.png",smiling_face_with_3_hearts:"1f970.png",smiling_imp:"1f608.png",smirk:"1f60f.png",smirk_cat:"1f63c.png",sneezing_face:"1f927.png",sob:"1f62d.png",space_invader:"1f47e.png",sparkling_heart:"1f496.png",speak_no_evil:"1f64a.png",speech_balloon:"1f4ac.png","star-struck":"1f929.png",stuck_out_tongue:"1f61b.png",stuck_out_tongue_closed_eyes:"1f61d.png",stuck_out_tongue_winking_eye:"1f61c.png",sunglasses:"1f60e.png",sweat:"1f613.png",sweat_drops:"1f4a6.png",sweat_smile:"1f605.png",thinking_face:"1f914.png",thought_balloon:"1f4ad.png",tired_face:"1f62b.png",triumph:"1f624.png",two_hearts:"1f495.png",unamused:"1f612.png",upside_down_face:"1f643.png",weary:"1f629.png",white_frowning_face:"2639-fe0f.png",white_heart:"1f90d.png",wink:"1f609.png",woozy_face:"1f974.png",worried:"1f61f.png",yawning_face:"1f971.png",yellow_heart:"1f49b.png",yum:"1f60b.png",zany_face:"1f92a.png",zipper_mouth_face:"1f910.png",zzz:"1f4a4.png"},enableQQ:!1,highlight:!0,lang:"zh-CN",pageSize:10,placeholder:"你的评论 ...",recordIP:!0,serverURLs:"https://zdvjohji.lc-cn-n1-shared.com",visitor:!0}},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"",algoliaIndex:"",algoliaSearchKey:"",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:30,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.c1d5acc03abc8af9ee0a42aa4e942566a338a3e29d21b6c9f11536101f6914ad.js integrity="sha256-wdWswDq8ivnuCkKqTpQlZqM4o+KdIbbJ8RU2EB9pFK0="></script></body></html>

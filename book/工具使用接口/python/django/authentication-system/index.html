@@ -1,0 +1,321 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>- shesl's blog</title><meta name=Description content="佘崧林同学的碎碎念博客"><meta property="og:title" content><meta property="og:description" content="学习网址： https://www.jianshu.com/p/17d4c2182ef7 http://www.liujiangblog.com/course/django/178 https://docs.djangoproject.com/en/1.11/topics/auth/ https://juejin.im/post/5987f51e51882549475a916d 官方的参考文档：https://docs.djangoproject.com/zh-hans/2.1/ref/contri"><meta property="og:type" content="article"><meta property="og:url" content="http://shesl-meow.github.io/book/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/python/django/authentication-system/"><meta property="og:image" content="http://shesl-meow.github.io/avatar.png"><meta property="article:section" content="book"><meta property="og:site_name" content="shesl's blog"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="http://shesl-meow.github.io/avatar.png"><meta name=twitter:title content><meta name=twitter:description content="学习网址： https://www.jianshu.com/p/17d4c2182ef7 http://www.liujiangblog.com/course/django/178 https://docs.djangoproject.com/en/1.11/topics/auth/ https://juejin.im/post/5987f51e51882549475a916d 官方的参考文档：https://docs.djangoproject.com/zh-hans/2.1/ref/contri"><meta name=application-name content="shesl's blog"><meta name=apple-mobile-web-app-title content="shesl's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://shesl-meow.github.io/book/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/python/django/authentication-system/><link rel=prev href=http://shesl-meow.github.io/book/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/python/django/guardian/><link rel=next href=http://shesl-meow.github.io/book/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/python/django/admin-site/><link rel=stylesheet href=/css/style.min.fa85115dce490a9d0bf009e2892b6d42439bdea75160d08cddcb0b97c8def676.css integrity="sha256-+oURXc5JCp0L8AniiSttQkOb3qdRYNCM3csLl8je9nY="><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/shesl-meow.github.io\/book\/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3\/python\/django\/authentication-system\/"},"genre":"book","wordcount":2535,"url":"http:\/\/shesl-meow.github.io\/book\/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3\/python\/django\/authentication-system\/","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"佘崧林"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>博客 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>博客</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster"></h1><div class=content id=content><blockquote><p>学习网址：</p><ul><li><a href=https://www.jianshu.com/p/17d4c2182ef7 target=_blank rel="noopener noreffer">https://www.jianshu.com/p/17d4c2182ef7</a></li><li><a href=http://www.liujiangblog.com/course/django/178 target=_blank rel="noopener noreffer">http://www.liujiangblog.com/course/django/178</a></li><li><a href=https://docs.djangoproject.com/en/1.11/topics/auth/ target=_blank rel="noopener noreffer">https://docs.djangoproject.com/en/1.11/topics/auth/</a></li><li><a href=https://juejin.im/post/5987f51e51882549475a916d target=_blank rel="noopener noreffer">https://juejin.im/post/5987f51e51882549475a916d</a></li></ul><p>官方的参考文档：https://docs.djangoproject.com/zh-hans/2.1/ref/contrib/auth/</p></blockquote><h1 id=authentication-system>Authentication System</h1><h2 id=using-the-django-authentication-system>Using the Django authentication system</h2><h3 id=user-object>User Object</h3><p>User 是 Django 提供的一个对象，默认对象的主要属性是：<code>username</code>，<code>password</code>，<code>email</code>，<code>first_name</code>，<code>last_name</code>。参阅<a href=https://www.rddoc.com/doc/Django/1.10.5/zh/ref/contrib/auth/#django.contrib.auth.models.User target=_blank rel="noopener noreffer">完整的文档</a>：</p><ul><li><p>关于 User 模块的操作（比如：使用 <code>create_user()</code> 函数创建对象）</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.contrib.auth</span> <span class=kn>import</span> <span class=n>get_user_model</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.contribute.auth.models</span> <span class=kn>import</span> <span class=n>User</span>
+</span></span><span class=line><span class=cl><span class=c1># 导入 User 这个模块有以上两种方法</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>User</span> <span class=o>=</span> <span class=n>get_user_model</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=c1># 该行获得 User 这个模块，与导入的 User 指向同一个模块</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>Rookie_User</span> <span class=o>=</span> <span class=n>User</span><span class=o>.</span><span class=n>objects</span><span class=o>.</span><span class=n>create_user</span><span class=p>(</span><span class=s1>&#39;Rookie&#39;</span><span class=p>,</span> <span class=s1>&#39;email@e.com&#39;</span><span class=p>,</span> <span class=s1>&#39;passwd&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>Rookie_User</span> <span class=o>=</span> <span class=n>User</span><span class=o>.</span><span class=n>objects</span><span class=o>.</span><span class=n>create</span><span class=p>(</span><span class=n>username</span><span class=o>=</span><span class=s2>&#34;Rookie001&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1># 创建一个名为 ‘Rookie001’ 的 User 对象，返回该对象</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>User</span><span class=o>.</span><span class=n>objects</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>username</span><span class=o>=</span><span class=s2>&#34;Rookie001&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1># 查找一个满足特定条件的 User 类的对象</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>Rookie_User</span><span class=o>.</span><span class=n>last_name</span> <span class=o>=</span> <span class=s1>&#39;Smith&#39;</span> <span class=c1># 动态设置对象的其他成员</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>user</span><span class=o>.</span><span class=n>save</span><span class=p>()</span> <span class=c1># 将对象保存到数据库</span>
+</span></span></code></pre></td></tr></table></div></div></li><li><p>创建超级用户：使用 <code>createsuperuser</code> 命令：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ python manage.py createsuperuser --username<span class=o>=</span>john --email<span class=o>=</span>email@e.com
+</span></span></code></pre></td></tr></table></div></div></li><li><p>更改密码：以下两种方法：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ python manage.py changepassword &lt;username&gt;
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.contrib.auth.models</span> <span class=kn>import</span> <span class=n>User</span>
+</span></span><span class=line><span class=cl><span class=n>Rookie_User</span> <span class=o>=</span> <span class=n>User</span><span class=o>.</span><span class=n>objects</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>username</span><span class=o>=</span><span class=s1>&#39;john&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>Rookie_User</span><span class=o>.</span><span class=n>set_password</span><span class=p>(</span><span class=s1>&#39;new_passwd&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>Rookie_User</span><span class=o>.</span><span class=n>save</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div></li><li><p>验证用户，<code>authenticate</code> 函数如果后端有效则返回 User 对象，若无效或引发 <code>PermissionDenies</code> 则返回 <code>None</code>，例如：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.contrib.auth</span> <span class=kn>import</span> <span class=n>authenticate</span>
+</span></span><span class=line><span class=cl><span class=n>user</span> <span class=o>=</span> <span class=n>authenticate</span><span class=p>(</span><span class=n>username</span><span class=o>=</span><span class=s1>&#39;john&#39;</span><span class=p>,</span> <span class=n>password</span><span class=o>=</span><span class=s1>&#39;secret&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=n>user</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1># A backend authenticated the credentials</span>
+</span></span><span class=line><span class=cl><span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1># No backend authenticated the credentials</span>
+</span></span></code></pre></td></tr></table></div></div></li></ul><h3 id=permission-and-authorization>Permission and Authorization</h3><p>默认情况下，使用 <code>python manage.py migrate</code> 命令时，Django 会给每个已经存在的 model 添加默认的权限。假设有个叫 foo 的应用中有个叫 bar 的模块，可以使用以下的命令查看权限：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>user</span><span class=o>.</span><span class=n>has_perm</span><span class=p>(</span><span class=s1>&#39;foo.add_bar&#39;</span><span class=p>)</span> <span class=c1># 查看用户 user 是否有添加 bar 这个模块对象的权限</span>
+</span></span><span class=line><span class=cl><span class=n>user</span><span class=o>.</span><span class=n>has_perm</span><span class=p>(</span><span class=s1>&#39;foo.change_bar&#39;</span><span class=p>)</span> <span class=c1># 查看用户 user 是否有更改 bar 这个模块对象的权限</span>
+</span></span><span class=line><span class=cl><span class=n>user</span><span class=o>.</span><span class=n>has_perm</span><span class=p>(</span><span class=s1>&#39;foo.delete_bar&#39;</span><span class=p>)</span> <span class=c1># 查看用户 user 是否有删除 bar 这个模块对象的权限</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=group-object>Group Object</h3><p>Django提供了一个 <code>django.contrib.auth.models.Group</code> 模型，该model可用于给用户分组，实现批量管理。用户和组属于多对多的关系。用法实例如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.contrib.auth.models</span> <span class=kn>import</span> <span class=n>Group</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>Rookie_Group</span> <span class=o>=</span> <span class=n>Group</span><span class=o>.</span><span class=n>objects</span><span class=o>.</span><span class=n>create</span><span class=p>(</span><span class=n>name</span><span class=o>=</span><span class=s2>&#34;Rookie&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1># 创建一个名为 ‘Rookie’ 的 Group 对象，返回该对象</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>Rookie_User</span><span class=o>.</span><span class=n>groups</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>Rookie_Group</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1># 将 Rookie_User 这个用户加入 Rookie_Group 这个用户组</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>Rookie_Group</span><span class=o>.</span><span class=n>user_set</span><span class=o>.</span><span class=n>all</span><span class=p>()</span> <span class=c1># 获取该用户组内的全部用户构成的一个列表</span>
+</span></span></code></pre></td></tr></table></div></div><p>Group 模块中有成员：Permissions 模块的一个对象，用于管理用户的权限，其使用方法如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>group</span><span class=o>.</span><span class=n>permissions</span><span class=o>.</span><span class=n>set</span><span class=p>([</span><span class=n>permission_list</span><span class=p>])</span> <span class=c1># 用于设置用户组的权限</span>
+</span></span><span class=line><span class=cl><span class=n>group</span><span class=o>.</span><span class=n>permissions</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>permission1</span><span class=p>,</span> <span class=n>permission2</span><span class=p>,</span> <span class=o>...</span><span class=p>)</span> <span class=c1># 给用户组添加权限</span>
+</span></span><span class=line><span class=cl><span class=n>group</span><span class=o>.</span><span class=n>permissions</span><span class=o>.</span><span class=n>remove</span><span class=p>(</span><span class=n>permission1</span><span class=p>,</span> <span class=n>permission2</span><span class=p>,</span> <span class=o>...</span><span class=p>)</span> <span class=c1># 移除用户组中的某些权限</span>
+</span></span><span class=line><span class=cl><span class=n>group</span><span class=o>.</span><span class=n>permissions</span><span class=o>.</span><span class=n>clear</span><span class=p>()</span> <span class=c1># 清空该用户组的所有权限</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>Permission</code> 也可以通过以下的方式进行自定义，下面给出一个用法实例：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>myapp.models</span> <span class=kn>import</span> <span class=n>BlogPost</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.contrib.auth</span><span class=p>,</span><span class=n>models</span> <span class=kn>import</span> <span class=nn>Permission</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.contrib.contenttypes.models</span> <span class=kn>import</span> <span class=n>ContentType</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>content_type</span> <span class=o>=</span> <span class=n>ContentType</span><span class=o>.</span><span class=n>objects</span><span class=o>.</span><span class=n>get_for_models</span><span class=p>(</span><span class=n>BlogPost</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>permisstion</span> <span class=o>=</span> <span class=n>Permission</span><span class=o>.</span><span class=n>objects</span><span class=o>.</span><span class=n>create</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=n>codename</span><span class=o>=</span><span class=s1>&#39;can_publish&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>name</span><span class=o>=</span><span class=s1>&#39;Can Publish Posts&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>content_type</span><span class=o>=</span><span class=n>content_type</span><span class=p>,</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>你可以通过 User 模型的 <code>user_permissions</code> 属性或者 Group 模型的 <code>permissions</code> 属性为用户添加该权限。</p><p>权限检查后，会被缓存在用户对象中，只有当对象再次被加载，权限才会更新。</p><h2 id=authentication-in-web-requests>Authentication in Web requests</h2><p>Django 在请求对象中使用 <code>sessions</code> 和中间关联请求进行用户登录认证。</p><p>每一次请求中都包含一个 <code>request.user</code> 属性，表示当前用户。如果该用户未登陆，该属性的值是一个 <code>AnonymousUser</code> 实例（匿名用户），如果已经登录，该属性就是一个User模型的实例。</p><p>可以使用 <code>is_authenticated</code> 进行判断，若是匿名用户，则返回 <code>False</code>。</p><h3 id=how-to-log-a-user-in>How to log a user in?</h3><p>使用认证系统提供的 <code>login()</code> 方法登录用户。它接收一个 <code>HttpRequest</code> 参数和一个 <code>User</code> 对象参数。该方法会把用户的 ID 保存在 Django 的 session 中。下面是一个认证和登陆的例子：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.contrib.auth</span> <span class=kn>import</span> <span class=n>authenticate</span><span class=p>,</span> <span class=n>login</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>my_view</span><span class=p>(</span><span class=n>request</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>username</span> <span class=o>=</span> <span class=n>request</span><span class=o>.</span><span class=n>POST</span><span class=p>[</span><span class=s1>&#39;username&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=n>password</span> <span class=o>=</span> <span class=n>request</span><span class=o>.</span><span class=n>POST</span><span class=p>[</span><span class=s1>&#39;password&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=n>user</span> <span class=o>=</span> <span class=n>authenticate</span><span class=p>(</span><span class=n>username</span><span class=o>=</span><span class=n>username</span><span class=p>,</span> <span class=n>password</span><span class=o>=</span><span class=n>password</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>user</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>login</span><span class=p>(</span><span class=n>request</span><span class=p>,</span> <span class=n>user</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=c1># 跳转到成功页面</span>
+</span></span><span class=line><span class=cl>        <span class=o>...</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=c1># 返回一个非法登录的错误页面</span>
+</span></span><span class=line><span class=cl>        <span class=o>...</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=how-to-log-a-user-out>How to log a user out？</h3><p>同样可以使用 Django 系统提供的函数：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.contrib.auth</span> <span class=kn>import</span> <span class=n>logout</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>logout_view</span><span class=p>(</span><span class=n>request</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>logout</span><span class=p>(</span><span class=n>request</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 跳转到成功的页面</span>
+</span></span></code></pre></td></tr></table></div></div><p>注意，被logout的用户如何没登录，不会抛出错误。 一旦logout，当前请求中的session数据都会被清空。</p><h3 id=limiting-access-to-logged-in-users>Limiting access to logged-in users</h3><p>主要是以下几种方法：</p><ol><li><p>原始方法，将用户重定向到登录页面：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.conf</span> <span class=kn>import</span> <span class=n>settings</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.shortcuts</span> <span class=kn>import</span> <span class=n>redirect</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>my_view</span><span class=p>(</span><span class=n>request</span><span class=p>):</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=ow>not</span> <span class=n>request</span><span class=o>.</span><span class=n>user</span><span class=o>.</span><span class=n>is_authenticated</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=n>redirect</span><span class=p>(</span><span class=s1>&#39;</span><span class=si>%s</span><span class=s1>?next=</span><span class=si>%s</span><span class=s1>&#39;</span> <span class=o>%</span> <span class=p>(</span><span class=n>settings</span><span class=o>.</span><span class=n>LOGIN_URL</span><span class=p>,</span> <span class=n>request</span><span class=o>.</span><span class=n>path</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=c1># ...</span>
+</span></span></code></pre></td></tr></table></div></div></li><li><p>使用装饰器，被装饰的 views 只有用户登录后才可以访问。原型为：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>login_required</span><span class=p>(</span><span class=n>redirect_field_name</span><span class=o>=</span><span class=s1>&#39;next&#39;</span><span class=p>,</span> <span class=n>login_url</span><span class=o>=</span><span class=kc>None</span><span class=p>)[</span><span class=n>source</span><span class=p>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>使用方法大致如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.contrib.auth.decorators</span> <span class=kn>import</span> <span class=n>login_required</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@login_required</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>my_view</span><span class=p>(</span><span class=n>request</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=o>...</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>login_required</code> 装饰器会判断当前用户是否已经登录：如果已经登录，执行正常的视图；如果没有登录，则会重定向到 <code>settings.LOGIN_URL</code> 指向的 <code>urlpatern</code>，并将当前访问的绝对路径作为 <code>url</code> 的 <code>next</code> 参数。</p><p>如果你想使用自定义的参数，可以修改 <code>login_required()</code> 的 <code>redirect_field_name</code> 参数；如果你想修改重定向到的登录 URL，可以修改 <code>login_url</code> 参数。</p></li><li><p>使用 <code>LoginRquired</code> Mixin。通过继承 <code>LoginRequiredMixin</code> 类的方式限制用户。在多重继承时，该类必须是继承关系最左边的父类。一个实例如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.contrib.auth.mixins</span> <span class=kn>import</span> <span class=n>LoginRequiredMixin</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>MyView</span><span class=p>(</span><span class=n>LoginRequiredMixin</span><span class=p>,</span> <span class=n>View</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>login_url</span> <span class=o>=</span> <span class=s1>&#39;/login/&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=n>redirect_field_name</span> <span class=o>=</span> <span class=s1>&#39;redirect_to&#39;</span>
+</span></span></code></pre></td></tr></table></div></div></li><li><p>进行测试，根据测试结果确定动作。比如根据邮箱地址判断用户权限：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.shortcuts</span> <span class=kn>import</span> <span class=n>redirect</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>my_view</span><span class=p>(</span><span class=n>request</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>request</span><span class=o>.</span><span class=n>user</span><span class=o>.</span><span class=n>email</span><span class=o>.</span><span class=n>endswith</span><span class=p>(</span><span class=s1>&#39;@example.com&#39;</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>redirect</span><span class=p>(</span><span class=s1>&#39;/login/?next=</span><span class=si>%s</span><span class=s1>&#39;</span> <span class=o>%</span> <span class=n>request</span><span class=o>.</span><span class=n>path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1># ...</span>
+</span></span></code></pre></td></tr></table></div></div></li><li><p>使用权限需求修饰器，Django 内置的装饰器 <code>permission_required</code> 会根据用户权限，决定视图的访问权限。权限的格式为：<code>&lt;app label>.&lt;permission codename></code>，同 <code>login_required</code>，该装饰器还有一个可选的 <code>login_url</code> 参数，无权限用户会跳转到该 url。一个使用的例子如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.contrib.auth.decorators</span> <span class=kn>import</span> <span class=n>permission_required</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@permission_required</span><span class=p>(</span><span class=s1>&#39;polls.can_vote&#39;</span><span class=p>,</span> <span class=n>login_url</span><span class=o>=</span><span class=s1>&#39;/loginpage/&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>my_view</span><span class=p>(</span><span class=n>request</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=o>...</span>
+</span></span></code></pre></td></tr></table></div></div></li></ol><h2 id=extending-the-existing-user-model>Extending the existing <code>User</code> model</h2><p>Django 用户认证系统提供的内置的 User 对象仅包含以下一些主要的属性：</p><ul><li>username, password, email, first_name, last_name</li></ul><p>对于一些网站来说，用户可能还包含有昵称、头像、个性签名等等其它属性，因此仅仅使用 Django 内置的 User 模型是不够。好在 Django 用户系统遵循可拓展的设计原则，我们可以方便地拓展 User 模型。</p><p>我们可以通过以下两种方法扩展我们的 <code>User</code> 模型。</p><h3 id=use-a-onetoonefield>use a OneToOneField</h3><p>这适用于只希望存储与 <code>User</code> 相关联的用户模型，通常命名为<code>Profile</code>，<code>models</code> 定义如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.contrib.auth.models</span> <span class=kn>import</span> <span class=n>User</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Employee</span><span class=p>(</span><span class=n>models</span><span class=o>.</span><span class=n>Model</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>user</span> <span class=o>=</span> <span class=n>models</span><span class=o>.</span><span class=n>OneToOneField</span><span class=p>(</span><span class=n>User</span><span class=p>,</span> <span class=n>on_delete</span><span class=o>=</span><span class=n>models</span><span class=o>.</span><span class=n>CASCADE</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>department</span> <span class=o>=</span> <span class=n>models</span><span class=o>.</span><span class=n>CharField</span><span class=p>(</span><span class=n>max_length</span><span class=o>=</span><span class=mi>100</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>可以通过以下的方式获取相关的信息：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>u</span> <span class=o>=</span> <span class=n>User</span><span class=o>.</span><span class=n>objects</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>username</span><span class=o>=</span><span class=s2>&#34;a_username&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>a_department</span><span class=o>=</span> <span class=n>u</span><span class=o>.</span><span class=n>employee</span><span class=o>.</span><span class=n>department</span>
+</span></span></code></pre></td></tr></table></div></div><p>为了在 Admin 的界面管理我们的模型，需要在 <code>admin.py</code> 文件中添加以下模板：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.contrib</span> <span class=kn>import</span> <span class=n>admin</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.contrib.auth.admin</span> <span class=kn>import</span> <span class=n>UserAdmin</span> <span class=k>as</span> <span class=n>BaseUserAdmin</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.contrib.auth.models</span> <span class=kn>import</span> <span class=n>User</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>my_user_profile_app.models</span> <span class=kn>import</span> <span class=n>Employee</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 为 Employee 定义一个内联的管理员描述</span>
+</span></span><span class=line><span class=cl><span class=c1># Employee 和 User 表就会看起来像一张表一样</span>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>EmployeeInline</span><span class=p>(</span><span class=n>admin</span><span class=o>.</span><span class=n>StackedInline</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>model</span> <span class=o>=</span> <span class=n>Employee</span>
+</span></span><span class=line><span class=cl>    <span class=n>can_delete</span> <span class=o>=</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>    <span class=n>verbose_name_plural</span> <span class=o>=</span> <span class=s1>&#39;employee&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>UserAdmin</span><span class=p>(</span><span class=n>BaseUserAdmin</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>inlines</span> <span class=o>=</span> <span class=p>(</span><span class=n>EmployeeInline</span><span class=p>,)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>admin</span><span class=o>.</span><span class=n>site</span><span class=o>.</span><span class=n>unregister</span><span class=p>(</span><span class=n>User</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>admin</span><span class=o>.</span><span class=n>site</span><span class=o>.</span><span class=n>register</span><span class=p>(</span><span class=n>User</span><span class=p>,</span> <span class=n>UserAdmin</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>为了将我们定义的新 <code>User</code> 提交到 Django，令其可以识别，需要在 <code>settings</code> 中添加以下代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>AUTH_USER_MODEL</span> <span class=o>=</span> <span class=s1>&#39;myapp.MyUser&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><p>并且将 <code>User</code> 所在的应用添加到 <code>INSTALLED_APPS</code> 中。</p><h3 id=using-a-custom-user-model>Using a custom user model</h3><p>Django 强烈推荐我们使用 <code>AbstractUser</code> 来派生我们自己定义的 User 对象。事实上，系统定义的 <code>User</code> 对象实际上也是继承自 <code>AbstracUser</code> 的抽象基类，仅仅是继承，没有做任何拓展，源码如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.db</span> <span class=kn>import</span> <span class=n>models</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.contrib.auth.models</span> <span class=kn>import</span> <span class=n>AbstractUser</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>User</span><span class=p>(</span><span class=n>AbstractUser</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>    Users within the Django authentication system are represented by this
+</span></span></span><span class=line><span class=cl><span class=s2>    model.
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>    Username, password and email are required. Other fields are optional.
+</span></span></span><span class=line><span class=cl><span class=s2>    &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>class</span> <span class=nc>Meta</span><span class=p>(</span><span class=n>AbstractUser</span><span class=o>.</span><span class=n>Meta</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>swappable</span> <span class=o>=</span> <span class=s1>&#39;AUTH_USER_MODEL&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><p>所以，如果我们通过继承 <code>AbstractUser</code>，将获得 <code>User</code> 的全部特性，而且还可以根据自己的需求进行拓展。</p><p><em>PostScript</em>：不要忘记像前一种方法一样在 <code>setting.py</code> 中添加 <code>AUTH_USER_MODEL</code> 与 <code>INSTALLED_APPS</code> 设置。</p><p>一个实例如下：</p><ol><li><p>在 <code>users/models.py</code> 中写下如下代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.db</span> <span class=kn>import</span> <span class=n>models</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.contrib.auth.models</span> <span class=kn>import</span> <span class=n>AbstractUser</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>User</span><span class=p>(</span><span class=n>AbstractUser</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>	<span class=n>nickname</span> <span class=o>=</span> <span class=n>models</span><span class=o>.</span><span class=n>CharField</span><span class=p>(</span><span class=n>max_length</span><span class=o>=</span><span class=mi>50</span><span class=p>,</span> <span class=n>blank</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>class</span> <span class=nc>Meta</span><span class=p>(</span><span class=n>AbstractUser</span><span class=o>.</span><span class=n>Meta</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>pass</span>
+</span></span></code></pre></td></tr></table></div></div></li><li><p>在 <code>settings.py</code> 中添加以下代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>AUTH_USER_MODEL</span> <span class=o>=</span> <span class=s1>&#39;users.User&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>LANGUAGE_CODE</span> <span class=o>=</span> <span class=s1>&#39;zh-hans&#39;</span>
+</span></span><span class=line><span class=cl><span class=n>TIME_ZONE</span> <span class=o>=</span> <span class=s1>&#39;Asia/Shanghai&#39;</span>
+</span></span></code></pre></td></tr></table></div></div></li><li><p>运行以下的两行代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ python manage.py makemigrations
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ python manage.py migrate
+</span></span></code></pre></td></tr></table></div></div></li></ol></div><div id=comments><div id=valine class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.</noscript></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://shesl-meow.github.io target=_blank>佘崧林</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/valine/valine.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/valine@1.4.18/dist/Valine.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:50},comment:{valine:{appId:"zDVJohJIQbD6f3W267xtaYRC-gzGzoHsz",appKey:"ewsfU9ocNOeuvt0MzONe6yKx",avatar:"mp",el:"#valine",emojiCDN:"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/",emojiMaps:{100:"1f4af.png",alien:"1f47d.png",anger:"1f4a2.png",angry:"1f620.png",anguished:"1f627.png",astonished:"1f632.png",black_heart:"1f5a4.png",blue_heart:"1f499.png",blush:"1f60a.png",bomb:"1f4a3.png",boom:"1f4a5.png",broken_heart:"1f494.png",brown_heart:"1f90e.png",clown_face:"1f921.png",cold_face:"1f976.png",cold_sweat:"1f630.png",confounded:"1f616.png",confused:"1f615.png",cry:"1f622.png",crying_cat_face:"1f63f.png",cupid:"1f498.png",dash:"1f4a8.png",disappointed:"1f61e.png",disappointed_relieved:"1f625.png",dizzy:"1f4ab.png",dizzy_face:"1f635.png",drooling_face:"1f924.png",exploding_head:"1f92f.png",expressionless:"1f611.png",face_vomiting:"1f92e.png",face_with_cowboy_hat:"1f920.png",face_with_hand_over_mouth:"1f92d.png",face_with_head_bandage:"1f915.png",face_with_monocle:"1f9d0.png",face_with_raised_eyebrow:"1f928.png",face_with_rolling_eyes:"1f644.png",face_with_symbols_on_mouth:"1f92c.png",face_with_thermometer:"1f912.png",fearful:"1f628.png",flushed:"1f633.png",frowning:"1f626.png",ghost:"1f47b.png",gift_heart:"1f49d.png",green_heart:"1f49a.png",grimacing:"1f62c.png",grin:"1f601.png",grinning:"1f600.png",hankey:"1f4a9.png",hear_no_evil:"1f649.png",heart:"2764-fe0f.png",heart_decoration:"1f49f.png",heart_eyes:"1f60d.png",heart_eyes_cat:"1f63b.png",heartbeat:"1f493.png",heartpulse:"1f497.png",heavy_heart_exclamation_mark_ornament:"2763-fe0f.png",hole:"1f573-fe0f.png",hot_face:"1f975.png",hugging_face:"1f917.png",hushed:"1f62f.png",imp:"1f47f.png",innocent:"1f607.png",japanese_goblin:"1f47a.png",japanese_ogre:"1f479.png",joy:"1f602.png",joy_cat:"1f639.png",kiss:"1f48b.png",kissing:"1f617.png",kissing_cat:"1f63d.png",kissing_closed_eyes:"1f61a.png",kissing_heart:"1f618.png",kissing_smiling_eyes:"1f619.png",laughing:"1f606.png",left_speech_bubble:"1f5e8-fe0f.png",love_letter:"1f48c.png",lying_face:"1f925.png",mask:"1f637.png",money_mouth_face:"1f911.png",nauseated_face:"1f922.png",nerd_face:"1f913.png",neutral_face:"1f610.png",no_mouth:"1f636.png",open_mouth:"1f62e.png",orange_heart:"1f9e1.png",partying_face:"1f973.png",pensive:"1f614.png",persevere:"1f623.png",pleading_face:"1f97a.png",pouting_cat:"1f63e.png",purple_heart:"1f49c.png",rage:"1f621.png",relaxed:"263a-fe0f.png",relieved:"1f60c.png",revolving_hearts:"1f49e.png",right_anger_bubble:"1f5ef-fe0f.png",robot_face:"1f916.png",rolling_on_the_floor_laughing:"1f923.png",scream:"1f631.png",scream_cat:"1f640.png",see_no_evil:"1f648.png",shushing_face:"1f92b.png",skull:"1f480.png",skull_and_crossbones:"2620-fe0f.png",sleeping:"1f634.png",sleepy:"1f62a.png",slightly_frowning_face:"1f641.png",slightly_smiling_face:"1f642.png",smile:"1f604.png",smile_cat:"1f638.png",smiley:"1f603.png",smiley_cat:"1f63a.png",smiling_face_with_3_hearts:"1f970.png",smiling_imp:"1f608.png",smirk:"1f60f.png",smirk_cat:"1f63c.png",sneezing_face:"1f927.png",sob:"1f62d.png",space_invader:"1f47e.png",sparkling_heart:"1f496.png",speak_no_evil:"1f64a.png",speech_balloon:"1f4ac.png","star-struck":"1f929.png",stuck_out_tongue:"1f61b.png",stuck_out_tongue_closed_eyes:"1f61d.png",stuck_out_tongue_winking_eye:"1f61c.png",sunglasses:"1f60e.png",sweat:"1f613.png",sweat_drops:"1f4a6.png",sweat_smile:"1f605.png",thinking_face:"1f914.png",thought_balloon:"1f4ad.png",tired_face:"1f62b.png",triumph:"1f624.png",two_hearts:"1f495.png",unamused:"1f612.png",upside_down_face:"1f643.png",weary:"1f629.png",white_frowning_face:"2639-fe0f.png",white_heart:"1f90d.png",wink:"1f609.png",woozy_face:"1f974.png",worried:"1f61f.png",yawning_face:"1f971.png",yellow_heart:"1f49b.png",yum:"1f60b.png",zany_face:"1f92a.png",zipper_mouth_face:"1f910.png",zzz:"1f4a4.png"},enableQQ:!1,highlight:!0,lang:"zh-CN",pageSize:10,placeholder:"你的评论 ...",recordIP:!0,serverURLs:"https://zdvjohji.lc-cn-n1-shared.com",visitor:!0}},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"",algoliaIndex:"",algoliaSearchKey:"",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:30,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.c1d5acc03abc8af9ee0a42aa4e942566a338a3e29d21b6c9f11536101f6914ad.js integrity="sha256-wdWswDq8ivnuCkKqTpQlZqM4o+KdIbbJ8RU2EB9pFK0="></script></body></html>

@@ -1,0 +1,193 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>- shesl's blog</title><meta name=Description content="佘崧林同学的碎碎念博客"><meta property="og:title" content><meta property="og:description" content="基本语法 基本类型 布尔型 布尔型主要有两种使用方式： 1 2 3 BOOL v1 = YES; // 常用的布尔型使用方式，两个取值分别是 YES, NO bool v2 = false; // 两个取值分别是 true, false 上面的两"><meta property="og:type" content="article"><meta property="og:url" content="http://shesl-meow.github.io/book/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/ios/objective-csdk/1.%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/"><meta property="og:image" content="http://shesl-meow.github.io/avatar.png"><meta property="article:section" content="book"><meta property="og:site_name" content="shesl's blog"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="http://shesl-meow.github.io/avatar.png"><meta name=twitter:title content><meta name=twitter:description content="基本语法 基本类型 布尔型 布尔型主要有两种使用方式： 1 2 3 BOOL v1 = YES; // 常用的布尔型使用方式，两个取值分别是 YES, NO bool v2 = false; // 两个取值分别是 true, false 上面的两"><meta name=application-name content="shesl's blog"><meta name=apple-mobile-web-app-title content="shesl's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://shesl-meow.github.io/book/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/ios/objective-csdk/1.%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/><link rel=prev href=http://shesl-meow.github.io/book/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/ios/objective-csdk/10.%E6%95%B0%E7%BB%84%E4%B8%8E%E5%AD%97%E5%85%B8/><link rel=stylesheet href=/css/style.min.fa85115dce490a9d0bf009e2892b6d42439bdea75160d08cddcb0b97c8def676.css integrity="sha256-+oURXc5JCp0L8AniiSttQkOb3qdRYNCM3csLl8je9nY="><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/shesl-meow.github.io\/book\/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3\/ios\/objective-csdk\/1.%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95\/"},"genre":"book","wordcount":1749,"url":"http:\/\/shesl-meow.github.io\/book\/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3\/ios\/objective-csdk\/1.%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95\/","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"佘崧林"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>博客 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>博客</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster"></h1><div class=content id=content><h1 id=基本语法>基本语法</h1><h2 id=基本类型>基本类型</h2><h3 id=布尔型>布尔型</h3><p>布尔型主要有两种使用方式：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=kt>BOOL</span> <span class=n>v1</span> <span class=o>=</span> <span class=nb>YES</span><span class=p>;</span>		<span class=c1>// 常用的布尔型使用方式，两个取值分别是 YES, NO
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=kt>bool</span> <span class=n>v2</span> <span class=o>=</span> <span class=nb>false</span><span class=p>;</span>	<span class=c1>// 两个取值分别是 true, false
+</span></span></span></code></pre></td></tr></table></div></div><p>上面的两种方式不是等价的，前者是通过下面的方式实现的：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=cp>#if (TARGET_OS_IPHONE &amp;&amp; __LP64__) || TARGET_OS_WATCH
+</span></span></span><span class=line><span class=cl><span class=cp></span>	<span class=cp>#define OBJC_BOOL_IS_BOOL 1
+</span></span></span><span class=line><span class=cl><span class=cp></span>	<span class=k>typedef</span> <span class=kt>bool</span> <span class=n>BOOL</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=cp>#else
+</span></span></span><span class=line><span class=cl><span class=cp></span>	<span class=cp>#define OBJC_BOOL_IS_CHAR 1
+</span></span></span><span class=line><span class=cl><span class=cp></span>	<span class=k>typedef</span> <span class=kt>unsigned</span> <span class=kt>char</span> <span class=n>BOOL</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=cp>#endif
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=整数型>整数型</h3><p>除了 C 中实现的整数和无符号整数，OC 同样也实现了两个整数类型：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=n>NSInteger</span> <span class=n>v1</span> <span class=o>=</span> <span class=mi>8</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>NSUInteger</span> <span class=n>v2</span> <span class=o>=</span> <span class=mi>9</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 无符号和有符号都是：32 位类型为 int, 64 位类型为 long
+</span></span></span></code></pre></td></tr></table></div></div><p>同样也可以看看他们的实现方式：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=cp>#if __LP64__ || 0 || NS_BUILD_32_LIKE_64
+</span></span></span><span class=line><span class=cl><span class=cp></span>	<span class=k>typedef</span> <span class=kt>long</span> <span class=n>NSInteger</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>typedef</span> <span class=kt>unsigned</span> <span class=kt>long</span> <span class=n>NSUInteger</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=cp>#else
+</span></span></span><span class=line><span class=cl><span class=cp></span>	<span class=k>typedef</span> <span class=kt>int</span> <span class=n>NSInteger</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>typedef</span> <span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>NSUInteger</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=cp>#endif
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=数字封装>数字封装</h3><p><code>Objective-C</code> 对数字进行了一个类的封装 <code>NSNumber</code>。</p><ul><li>在 c/c++ 中，当需要使用数字的时候，我们通常使用简单数据类型，如：<code>int</code>、<code>long</code>、<code>float</code>。</li><li>然而，在实际开发过程中，我们经常会遇到需要使用对象的场景。所以 <code>Objective-C</code> 中提供了<code>NSNumber</code> 类用来包装简单数字类型。</li></ul><p>它封装了一些比较有用的创建方法，下面是一些例子：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=n>NSNumber</span> <span class=o>*</span><span class=n>num1</span> <span class=o>=</span> <span class=p>[</span><span class=n>NSNumber</span> <span class=nl>numberWithShort</span><span class=p>:</span><span class=mi>1</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=n>NSNumber</span> <span class=o>*</span><span class=n>num2</span> <span class=o>=</span> <span class=p>[</span><span class=n>NSNumber</span> <span class=nl>numberWithInt</span><span class=p>:</span><span class=mi>2</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=n>NSNumber</span> <span class=o>*</span><span class=n>num3</span> <span class=o>=</span> <span class=p>[</span><span class=n>NSNumber</span> <span class=nl>numberWithLong</span><span class=p>:</span><span class=mi>3</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=n>NSNumber</span> <span class=o>*</span><span class=n>num4</span> <span class=o>=</span> <span class=p>[</span><span class=n>NSNumber</span> <span class=nl>numberWithFloat</span><span class=p>:</span><span class=mi>4</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=n>NSNumber</span> <span class=o>*</span><span class=n>num5</span> <span class=o>=</span> <span class=p>[</span><span class=n>NSNumber</span> <span class=nl>numberWithBool</span><span class=p>:</span><span class=nb>YES</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=n>NSNumber</span> <span class=o>*</span><span class=n>num6</span> <span class=o>=</span> <span class=p>[</span><span class=n>NSNumber</span> <span class=nl>numberWithInteger</span><span class=p>:</span><span class=mi>5</span><span class=p>];</span>
+</span></span></code></pre></td></tr></table></div></div><p>重载了 <code>@</code> 符号进行赋值（语法糖）：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=n>NSNumber</span> <span class=o>*</span><span class=n>num1</span> <span class=o>=</span> <span class=mi>@1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>NSNumber</span> <span class=o>*</span><span class=n>num2</span> <span class=o>=</span> <span class=p>@</span><span class=n>INT_MAX</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>NSNumber</span> <span class=o>*</span><span class=n>num3</span> <span class=o>=</span> <span class=p>@</span><span class=n>LONG_MAX</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>NSNumber</span> <span class=o>*</span><span class=n>num4</span> <span class=o>=</span> <span class=mf>@4.0f</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>NSNumber</span> <span class=o>*</span><span class=n>num5</span> <span class=o>=</span> <span class=m>@YES</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>NSNumber</span> <span class=o>*</span><span class=n>num6</span> <span class=o>=</span> <span class=p>@</span><span class=n>NSIntegerMax</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=n>a</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>NSNumber</span> <span class=o>*</span><span class=n>num7</span> <span class=o>=</span> <span class=l>@(</span><span class=n>a</span><span class=l>)</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>NSNumber</span> <span class=o>*</span><span class=n>num8</span> <span class=o>=</span> <span class=l>@(</span><span class=mi>1</span> <span class=o>+</span> <span class=mi>2</span><span class=l>)</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p><em>PostScript</em>：</p><ul><li><code>NSNumber</code> 这个类不能进行数值运算。</li></ul><h3 id=字符串>字符串</h3><p><code>Objective-C</code> 作为同样也是支持 C 中的字符串定义语法（单引号指定单个字符，双引号指定字符串），然而大部分 <code>Objective-C</code> 程序是使用一个字符串类的封装：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=n>NSString</span> <span class=o>*</span><span class=n>myString1</span> <span class=o>=</span> <span class=s>@&#34;Hello World&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>NSString</span> <span class=o>*</span><span class=n>myString2</span> <span class=o>=</span> <span class=p>[</span><span class=n>NSString</span> <span class=nl>stringWithFormat</span><span class=p>:</span><span class=s>@&#34;%d %s&#34;</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=s>@&#34;String&#34;</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// convert from a c-style string
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>NSString</span> <span class=o>*</span><span class=n>fromCString</span> <span class=o>=</span> <span class=p>[</span><span class=n>NSString</span> <span class=nl>stringWithCString</span><span class=p>:</span><span class=s>&#34;A C string&#34;</span> <span class=nl>encoding</span><span class=p>:</span><span class=n>NSASCIIStringEncoding</span><span class=p>];</span>
+</span></span></code></pre></td></tr></table></div></div><p>可以看到声名一个字面量的字符串类型要做的事情，只是在字符串之前加上一个 <code>@</code> 符号。</p><h3 id=枚举类型>枚举类型</h3><blockquote><p>参考资料：https://www.jianshu.com/p/994dc9f4958d</p></blockquote><p>在传统的 c 枚举类型中，使用 <code>typedef</code> 可以使枚举变量的声明更加简单：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=k>typedef</span> <span class=k>enum</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>FlyStateOne</span><span class=p>,</span> <span class=n>FlyStateTwo</span><span class=p>,</span> <span class=n>FlyStateThree</span>
+</span></span><span class=line><span class=cl><span class=p>}</span><span class=n>state</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 它与下面的这种声明方式是等价的
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>enum</span> <span class=n>FlyTypeState</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>FlyTypeOne</span><span class=p>,</span> <span class=n>FlyTypeTwo</span><span class=p>,</span> <span class=n>FlyTypeThree</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=n>FlyState</span> <span class=n>state</span><span class=err>；</span>
+</span></span><span class=line><span class=cl><span class=k>typedef</span> <span class=k>enum</span>  <span class=n>FlyTypeState</span> <span class=n>state</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>c++11 标准中对枚举类型标准进行了扩充，可以指明枚举的底层数据类型。比如：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=k>enum</span> <span class=nl>FlyState</span><span class=p>:</span><span class=n>NSInteger</span><span class=p>{</span> <span class=c1>//设置底层数据类型为NSInteger
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>FlyStateOne</span><span class=p>,</span> <span class=n>FlyStateTwo</span><span class=p>,</span> <span class=n>FlyStateThree</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><p>问题是这种标准并不支持使用上面描述的 <code>typedef</code> 语法。</p><p><code>Objective-C</code> 最常用的枚举数据类型 <code>NS_ENUM</code> 与 <code>NS_OPTION</code> 为了解决这个问题诞生：</p><ol><li><p><code>NS_ENUM</code> 是一个宏，是对 c++ 中的枚举类型的上层封装。比如下面的一个 <code>NS_ENUM</code> 使用实例：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=k>typedef</span> <span class=nf>NS_ENUM</span><span class=p>(</span><span class=n>NSInteger</span><span class=p>,</span> <span class=n>UIViewAnimationTransition</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>UIViewAnimationTransitionNone</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>UIViewAnimationTransitionFlipFromLeft</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>UIViewAnimationTransitionFlipFromRight</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>UIViewAnimationTransitionCurlUp</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>UIViewAnimationTransitionCurlDown</span><span class=p>,</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>UIViewAnimationTransition</span> <span class=n>trans</span> <span class=o>=</span> <span class=n>UIViewAnimationTransitionNone</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>如果编译器支持新标准枚举则上面的定义，展开之后形成下面的代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=k>typedef</span> <span class=k>enum</span> <span class=nl>UIViewAnimationTransition</span><span class=p>:</span><span class=n>NSInteger</span> <span class=n>UIViewAnimationTransition</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>enum</span> <span class=nl>UIViewAnimationTransition</span><span class=p>:</span> <span class=n>NSInteger</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>UIViewAnimationTransitionNone</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>UIViewAnimationTransitionFlipFromLeft</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>UIViewAnimationTransitionFlipFromRight</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>UIViewAnimationTransitionCurlUp</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>UIViewAnimationTransitionCurlDown</span><span class=p>,</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><p>如果编译器不支持这种语法，那么这种声明与最开始列举的 <code>typedef</code> 是一样的。</p></li><li><p><code>NS_OPTIONS</code> 也是一个枚举类型，它可以用于将特征存储在整数的不同比特位上。比如下面这个：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=k>typedef</span> <span class=nf>NS_OPTIONS</span><span class=p>(</span><span class=n>NSUInteger</span><span class=p>,</span> <span class=n>UIViewAutoresizing</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>UIViewAutoresizingNone</span>                 <span class=o>=</span> <span class=mi>0</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>UIViewAutoresizingFlexibleLeftMargin</span>   <span class=o>=</span> <span class=mi>1</span> <span class=o>&lt;&lt;</span> <span class=mi>0</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>UIViewAutoresizingFlexibleWidth</span>        <span class=o>=</span> <span class=mi>1</span> <span class=o>&lt;&lt;</span> <span class=mi>1</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>UIViewAutoresizingFlexibleRightMargin</span>  <span class=o>=</span> <span class=mi>1</span> <span class=o>&lt;&lt;</span> <span class=mi>2</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>UIViewAutoresizingFlexibleTopMargin</span>    <span class=o>=</span> <span class=mi>1</span> <span class=o>&lt;&lt;</span> <span class=mi>3</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>UIViewAutoresizingFlexibleHeight</span>       <span class=o>=</span> <span class=mi>1</span> <span class=o>&lt;&lt;</span> <span class=mi>4</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>UIViewAutoresizingFlexibleBottomMargin</span> <span class=o>=</span> <span class=mi>1</span> <span class=o>&lt;&lt;</span> <span class=mi>5</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>NSUInteger</span> <span class=n>resize</span> <span class=o>=</span> <span class=n>UIViewAutoresizingFlexibleWidth</span> <span class=o>|</span> <span class=n>UIViewAutoresizingFlexibleHeight</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div></li></ol><p><em>PostScript</em>:</p><ul><li>在 <code>Objective-C 2.0</code> 中，提供了 <code>for-in</code> 循环遍历枚举类型，称为快速枚举。</li></ul><h3 id=其他基本数据类型>其他基本数据类型</h3><p>其他数据类型基本与 c 中的语法一样。比如：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=kt>float</span> <span class=n>var3</span> <span class=o>=</span> <span class=mf>3.0f</span><span class=p>;</span><span class=c1>//单精度浮点数
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>double</span> <span class=n>var4</span> <span class=o>=</span> <span class=mf>4.0</span><span class=p>;</span><span class=c1>//双精度浮点数
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>long</span> <span class=kt>long</span> <span class=n>var5</span> <span class=o>=</span> <span class=mi>5</span><span class=p>;</span><span class=c1>//64位整数
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>char</span> <span class=n>var6</span> <span class=o>=</span> <span class=sc>&#39;a&#39;</span><span class=p>;</span><span class=c1>//单个字符
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=类相关数据类型>类相关数据类型</h3><p>在引入类的概念的时候，不同于 c++ 的一些特殊的类型：</p><ol><li><code>instancetype</code>：是 <code>clang</code> 关键字，使方法返回所在类的类型，只能用作方法返回类型。</li><li><code>id</code>：指代任何位置类型的 <code>NSObject</code> 对象，类似于 <code>void*</code>。</li><li><code>nil</code>：表示指向的对象指针为空，类似于 c++ 中的 <code>nullptr</code>。</li></ol><h2 id=控制流>控制流</h2><p>循环、条件跳转，都与 c 中的相同。</p><h2 id=消息传递>消息传递</h2><p><code>Objective-C</code> 里，与其说对象互相调用方法，不如说对象之间互相传递消息更为精确。此二种风格的主要差异在于 <strong>调用方法/消息传递</strong> 这个动作：</p><ul><li>C++ 里类别与方法的关系严格清楚，一个方法必定属于一个类别，而且在编译时（compile time）就已经紧密绑定，不可能调用一个不存在类别里的方法。</li><li>但在Objective-C，类别与消息的关系比较松散，调用方法视为对对象发送消息，所有方法都被视为对消息的回应。所有消息处理直到运行时（runtime）才会动态决定，并交由类别自行决定如何处理收到的消息。也就是说，一个类别不保证一定会回应收到的消息，如果类别收到了一个无法处理的消息，程序只会抛出异常，不会出错或崩溃。</li></ul><p>比如 C++ 里，送一个消息给对象（或者说调用一个方法）的语法如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=n>obj</span><span class=p>.</span><span class=n>method</span><span class=p>(</span><span class=n>argument</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>Objective-C</code> 中则写成：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=p>[</span><span class=n>obj</span> <span class=nl>method</span><span class=p>:</span> <span class=n>argument</span><span class=p>];</span>
+</span></span></code></pre></td></tr></table></div></div><p>此二者并不仅仅是语法上的差异，还有基本行为上的不同。</p></div><div id=comments><div id=valine class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.</noscript></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://shesl-meow.github.io target=_blank>佘崧林</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/valine/valine.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/valine@1.4.18/dist/Valine.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:50},comment:{valine:{appId:"zDVJohJIQbD6f3W267xtaYRC-gzGzoHsz",appKey:"ewsfU9ocNOeuvt0MzONe6yKx",avatar:"mp",el:"#valine",emojiCDN:"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/",emojiMaps:{100:"1f4af.png",alien:"1f47d.png",anger:"1f4a2.png",angry:"1f620.png",anguished:"1f627.png",astonished:"1f632.png",black_heart:"1f5a4.png",blue_heart:"1f499.png",blush:"1f60a.png",bomb:"1f4a3.png",boom:"1f4a5.png",broken_heart:"1f494.png",brown_heart:"1f90e.png",clown_face:"1f921.png",cold_face:"1f976.png",cold_sweat:"1f630.png",confounded:"1f616.png",confused:"1f615.png",cry:"1f622.png",crying_cat_face:"1f63f.png",cupid:"1f498.png",dash:"1f4a8.png",disappointed:"1f61e.png",disappointed_relieved:"1f625.png",dizzy:"1f4ab.png",dizzy_face:"1f635.png",drooling_face:"1f924.png",exploding_head:"1f92f.png",expressionless:"1f611.png",face_vomiting:"1f92e.png",face_with_cowboy_hat:"1f920.png",face_with_hand_over_mouth:"1f92d.png",face_with_head_bandage:"1f915.png",face_with_monocle:"1f9d0.png",face_with_raised_eyebrow:"1f928.png",face_with_rolling_eyes:"1f644.png",face_with_symbols_on_mouth:"1f92c.png",face_with_thermometer:"1f912.png",fearful:"1f628.png",flushed:"1f633.png",frowning:"1f626.png",ghost:"1f47b.png",gift_heart:"1f49d.png",green_heart:"1f49a.png",grimacing:"1f62c.png",grin:"1f601.png",grinning:"1f600.png",hankey:"1f4a9.png",hear_no_evil:"1f649.png",heart:"2764-fe0f.png",heart_decoration:"1f49f.png",heart_eyes:"1f60d.png",heart_eyes_cat:"1f63b.png",heartbeat:"1f493.png",heartpulse:"1f497.png",heavy_heart_exclamation_mark_ornament:"2763-fe0f.png",hole:"1f573-fe0f.png",hot_face:"1f975.png",hugging_face:"1f917.png",hushed:"1f62f.png",imp:"1f47f.png",innocent:"1f607.png",japanese_goblin:"1f47a.png",japanese_ogre:"1f479.png",joy:"1f602.png",joy_cat:"1f639.png",kiss:"1f48b.png",kissing:"1f617.png",kissing_cat:"1f63d.png",kissing_closed_eyes:"1f61a.png",kissing_heart:"1f618.png",kissing_smiling_eyes:"1f619.png",laughing:"1f606.png",left_speech_bubble:"1f5e8-fe0f.png",love_letter:"1f48c.png",lying_face:"1f925.png",mask:"1f637.png",money_mouth_face:"1f911.png",nauseated_face:"1f922.png",nerd_face:"1f913.png",neutral_face:"1f610.png",no_mouth:"1f636.png",open_mouth:"1f62e.png",orange_heart:"1f9e1.png",partying_face:"1f973.png",pensive:"1f614.png",persevere:"1f623.png",pleading_face:"1f97a.png",pouting_cat:"1f63e.png",purple_heart:"1f49c.png",rage:"1f621.png",relaxed:"263a-fe0f.png",relieved:"1f60c.png",revolving_hearts:"1f49e.png",right_anger_bubble:"1f5ef-fe0f.png",robot_face:"1f916.png",rolling_on_the_floor_laughing:"1f923.png",scream:"1f631.png",scream_cat:"1f640.png",see_no_evil:"1f648.png",shushing_face:"1f92b.png",skull:"1f480.png",skull_and_crossbones:"2620-fe0f.png",sleeping:"1f634.png",sleepy:"1f62a.png",slightly_frowning_face:"1f641.png",slightly_smiling_face:"1f642.png",smile:"1f604.png",smile_cat:"1f638.png",smiley:"1f603.png",smiley_cat:"1f63a.png",smiling_face_with_3_hearts:"1f970.png",smiling_imp:"1f608.png",smirk:"1f60f.png",smirk_cat:"1f63c.png",sneezing_face:"1f927.png",sob:"1f62d.png",space_invader:"1f47e.png",sparkling_heart:"1f496.png",speak_no_evil:"1f64a.png",speech_balloon:"1f4ac.png","star-struck":"1f929.png",stuck_out_tongue:"1f61b.png",stuck_out_tongue_closed_eyes:"1f61d.png",stuck_out_tongue_winking_eye:"1f61c.png",sunglasses:"1f60e.png",sweat:"1f613.png",sweat_drops:"1f4a6.png",sweat_smile:"1f605.png",thinking_face:"1f914.png",thought_balloon:"1f4ad.png",tired_face:"1f62b.png",triumph:"1f624.png",two_hearts:"1f495.png",unamused:"1f612.png",upside_down_face:"1f643.png",weary:"1f629.png",white_frowning_face:"2639-fe0f.png",white_heart:"1f90d.png",wink:"1f609.png",woozy_face:"1f974.png",worried:"1f61f.png",yawning_face:"1f971.png",yellow_heart:"1f49b.png",yum:"1f60b.png",zany_face:"1f92a.png",zipper_mouth_face:"1f910.png",zzz:"1f4a4.png"},enableQQ:!1,highlight:!0,lang:"zh-CN",pageSize:10,placeholder:"你的评论 ...",recordIP:!0,serverURLs:"https://zdvjohji.lc-cn-n1-shared.com",visitor:!0}},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"",algoliaIndex:"",algoliaSearchKey:"",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:30,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.c1d5acc03abc8af9ee0a42aa4e942566a338a3e29d21b6c9f11536101f6914ad.js integrity="sha256-wdWswDq8ivnuCkKqTpQlZqM4o+KdIbbJ8RU2EB9pFK0="></script></body></html>
