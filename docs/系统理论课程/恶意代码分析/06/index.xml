@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>06 on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/06/</link><description>Recent content in 06 on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/06/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/06/lab6-1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/06/lab6-1/</guid><description>lab 6-1 # QUESTION 1 # What is the major code construct found in the only subroutine called by main?
+在左侧的函数列表中选择 _main ，然后在右侧可以看到 _main 函数的汇编代码：
+.text:00401040 ; int __cdecl main(int argc, const char **argv, const char **envp)
+.text:00401040 _main proc near ; CODE XREF: start+AFp
+.text:00401040
+.text:00401040 var_4 = dword ptr -4
+.text:00401040 argc = dword ptr 8
+.text:00401040 argv = dword ptr 0Ch
+.text:00401040 envp = dword ptr 10h
+.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/06/lab6-2/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/06/lab6-2/</guid><description>lab 6-2 # QUESTION 1 # What operation does the first subroutine called by main perform?
+查看 _main 的汇编代码：
+.text:00401130 ; =============== S U B R O U T I N E =======================================
+.text:00401130
+.text:00401130 ; Attributes: bp-based frame
+.text:00401130
+.text:00401130 ; int __cdecl main(int argc, const char **argv, const char **envp)
+.text:00401130 _main proc near ; CODE XREF: start+AFp
+.text:00401130
+.text:00401130 var_8 = byte ptr -8
+.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/06/lab6-3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/06/lab6-3/</guid><description>lab 6-3 # QUESTION 1 # Compare the calls in main to Lab 6-2’s main method. What is the new function called from main?
+后面多出了 sub_401130 这个函数。
+QUESTION 2 # What parameters does this new function take?
+Ida Pro 将函数声明生成了以下的伪代码：
+int __cdecl sub_401130(char, LPCSTR lpExistingFileName) 其传入的参数是一个字符型的变量，一个指向文件名的字符指针。
+QUESTION 3 # What major code construct does this function contain?
+主要是一个 switch case 语句：</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/06/lab6-4/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/06/lab6-4/</guid><description>lab 6-4 # QUESTION 1 # What is the difference between the calls made from the main method in Labs 6-3 and 6-4?
+分别考虑下面的函数：
+sub_401000：这个函数在两个 lab 中是相同的，都是用于检测网络的连通性； sub_401040：也是相同的，下载网页的文件然后解析其中的内容； sub_401050：就是在 lab3 中的 sub_401130 这个函数，通过传入一个字符执行不同的命令； sub_4012B5：在 lab2 中分析的可能是 printf 的函数。 QUESTION 2 # What new code construct has been added to main?
+在检测了网络的连通性之后，添加了一个 for 循环。其代码结构是 cmp 和 jge 组成的：
+loc_40125A:
+cmp [ebp+var_C], 5A0h
+jge short loc_4012AF 另外还在 for 循环结束添加了 sleep 函数：</description></item></channel></rss>

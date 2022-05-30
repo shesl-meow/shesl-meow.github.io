@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Kali on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/kali/</link><description>Recent content in Kali on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/kali/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/kali/mysql%E7%88%86%E7%A0%B4/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/kali/mysql%E7%88%86%E7%A0%B4/</guid><description>​ 学习地址：
+https://xz.aliyun.com/t/1652 MYSQL 爆破 # 使用 metasploit # 启动 metasploit：
+$ msfconsole 使用 auxiliary/scanner/mysql/mysql_login 模块进行：
+可以单一扫描验证登录验证：
+use auxiliary/scanner/mysql/mysql_login set rhosts &amp;lt;ip-address&amp;gt; set username root set password 11111111 run 使用某个字典进行爆破：
+use auxiliary/scanner/mysql/mysql_login set RHOSTS &amp;lt;ip-address&amp;gt; set pass_file “/root/top10000pwd.txt” set username root run nmap 扫描 # 可以查看所有与 mysql 相关的脚本：
+$ ls -al /usr/share/nmap/scripts/mysql* 先查看是否开启了端口
+$ nmap &amp;lt;ip-address&amp;gt; 扫描空口令：
+$ nmap -p3306 --script=mysql-empty-password.nse 192.168.137.130 扫描已知口令：</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/kali/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/kali/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/</guid><description>学习途径：
+https://bbs.pediy.com/thread-215178.htm 信息收集 # 到最后还是 nmap 最好用。
+DNS 域名解析 # 解析一个域名的 IP 地址：
+$ host www.example.com 或者使用以下的方式详细列举包括 DNS 服务器的信息：
+$ nslookup www.example.com 使用以下命令列举 DNS 请求的详细信息：
+$ dig www.example.com 枚举子域名：
+$ dnsmap example.com 服务枚举 # 我们将要研究 DNS 枚举和 SNMP 枚举技术。
+DNS 枚举 # DNS 枚举是定位某个组织的所有 DNS 服务器和 DNS 条目的过程。DNS 枚举允许我们收集有关该组织的重要信息，例如用户名、计算机名称、IP 地址以及其它。为了完成这些任务我们会使用 DNSenum。
+我们可以使用以下的命令进行 DNS 枚举：
+$ dnsenum --enum &amp;lt;domain-name&amp;gt; 我们可以使用一些额外的选项来运行 DNSenum，它们包括这些东西：</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/kali/%E6%BC%8F%E6%B4%9E%E8%AF%84%E4%BC%B0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/kali/%E6%BC%8F%E6%B4%9E%E8%AF%84%E4%BC%B0/</guid><description>漏洞评估 # Nessus # 使用 Nessus 这个工具，使用教程：https://cloud.tencent.com/developer/article/1076409
+发现本地漏洞 # 发现网络漏洞 # 在 Policies → Add → Web Application 中选择 Web Application Tests 新建一个自己的 Policies。 在 My Scan → New Scan 中通过之前定义的 Policies 定义一个新的 Scan 在 My Scan 界面启动新的 Scan OpenVAS # OpenVAS，即开放漏洞评估系统，是一个用于评估目标漏洞的杰出框架。它是 Nessus 项目的分支。不像 Nessus，OpenVAS提供了完全免费的版本。由于 OpenVAS 在Kali Linux中成为标准，我们将会以配置开始。</description></item></channel></rss>

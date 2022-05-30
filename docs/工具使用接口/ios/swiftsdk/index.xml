@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Swift&amp;SDK on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/ios/swiftsdk/</link><description>Recent content in Swift&amp;SDK on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/ios/swiftsdk/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/ios/swiftsdk/1.%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/ios/swiftsdk/1.%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/</guid><description>基本语法 # 符号概念 # 引入 # Swift 中的引入关键字是 import。
+值得注意的是，这个语句可以用来引入任何 Objective-C/C 的库到 Swift 程序中来。
+分号 # Swift 不要求在每行语句的结尾使用分号。
+但当你在同一行书写多条语句时，必须用分号隔开。
+空格 # Swift 并不是像 C/C++，Java 那样完全忽视空格，Swift 对空格的使用有一定的要求，但是又不像 Python 对缩进的要求那么严格。
+在 Swift 中，运算符不能直接跟在变量或常量的后面。例如下面的代码会报错：
+/// error: prefix/postfix &amp;#39;=&amp;#39; is reserved let a= 1 + 2 /// error: consecutive statements on a line must be separated by &amp;#39;;&amp;#39; let a = 1+ 2 第二个报错比较奇怪，这是因为Swift认为到1+这个语句就结束了，2就是下一个语句了。只有这样写才不会报错：
+let a = 1 + 2; // 编码规范推荐使用这种写法 let b = 3+4 // 这样也是OK的 数据类型 # 数据类型基础 # 内置数据类型：语言中内置了以下的几种数据类型：</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/ios/swiftsdk/2.%E5%86%85%E7%BD%AE%E7%B1%BB%E5%9E%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/ios/swiftsdk/2.%E5%86%85%E7%BD%AE%E7%B1%BB%E5%9E%8B/</guid><description>内置类型 # 字符串 # Swift 字符串是一系列字符的集合。例如 &amp;ldquo;Hello, World!&amp;rdquo; 这样的有序的字符类型的值的集合，它的数据类型为 String。
+字符串内嵌变量：
+import Cocoa var varA = 20 let constA = 100 var varC:Float = 20.0 var stringA = &amp;#34;\(varA)乘于 \(constA)等于 \(varC * 100)&amp;#34; 字符串判空：String.isEmpty：
+字符串连接：+
+字符串长度：Swift2: String.count; Swift3: String.characters.count
+字符串比较：==
+字符串分割（python 中的 split）：
+let fullName = &amp;#34;First Last&amp;#34; let fullNameArr = fullName.characters.split{$0 == &amp;#34; &amp;#34;}.map(String.init) 字符 # 数据类型为 Character。
+遍历字符串中的字符：
+// swift 3 for ch in &amp;#34;Runoob&amp;#34;.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/ios/swiftsdk/3.%E5%87%BD%E6%95%B0%E4%B8%8E%E7%BB%93%E6%9E%84/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/ios/swiftsdk/3.%E5%87%BD%E6%95%B0%E4%B8%8E%E7%BB%93%E6%9E%84/</guid><description>函数与结构 # 函数 # Swift 使用一个统一的语法来表示简单的 C 语言风格的函数到复杂的 Objective-C 语言风格的方法。
+函数定义：func
+func runoob(site: String) -&amp;gt; String { return (site) } 函数调用：
+print(runoob(site: &amp;#34;www.runoob.com&amp;#34;)) 函数参数：
+参数被包含在函数的括号之中，以逗号分隔。 函数参数都有一个外部参数名（外部调用时指定）和一个局部参数名（内部使用时使用），比如： func test(firstArg a: Int, secondArg b: Int) -&amp;gt; Int { var res = a print(b) return a; } test(firstArg:5, secondArg:3) 使用 inout 关键字定义，使用 &amp;amp; 调用，可以传递引用参数。如果缺少 &amp;amp; 会报错类型不符，如果缺少 inout 会报错将 var 赋值给 let。例子： func swapTwoInts(_ a: inout Int, _ b: inout Int) { let temporaryA = a a = b b = temporaryA } swapTwoInts(&amp;amp;x, &amp;amp;y) 返回元组：</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/ios/swiftsdk/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/ios/swiftsdk/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/</guid><description>问题记录 # 可选项遵照 LogicValue 协议，因此可以出现在布尔环境中。在这种情况下，如果可选类型 T? 包含类型为 T 的任何值（也就是说它的值是 Optional.Some(T) ），这个可选类型等于 true，反之为 false； 没看出来 ! 声明与 ? 声明的区别； 创建数组的两种方式的差异； 字典的底层实现；</description></item></channel></rss>

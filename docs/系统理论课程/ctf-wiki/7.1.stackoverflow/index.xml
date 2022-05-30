@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>7.1.StackOverflow on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/ctf-wiki/7.1.stackoverflow/</link><description>Recent content in 7.1.StackOverflow on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/ctf-wiki/7.1.stackoverflow/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/ctf-wiki/7.1.stackoverflow/1.canary/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/ctf-wiki/7.1.stackoverflow/1.canary/</guid><description>学习资料：
+https://ctf-wiki.github.io/ctf-wiki/pwn/linux/mitigation/Canary/ https://blog.csdn.net/Virtual_Func/article/details/48789947 http://blog.fourthbit.com/2014/12/23/traffic-analysis-of-an-ssl-slash-tls-session 学习内容：
+Linux-Pwn，安全保护机制 Canary # 由于 stack overflow 而引发的攻击非常普遍也非常古老，相应地一种叫做 canary 的 mitigation 技术很早就出现在 glibc 里，直到现在也作为系统安全的第一道防线存在。
+PostScript：glibc：The GNU C Library, commonly known as glibc, is the GNU Project&amp;rsquo;s implementation of the C standard library. 原理 # canary 不管是实现还是设计思想都比较简单高效，就是插入一个值，在 stack overflow 发生的 高危区域的尾部，当函数返回之时检测 canary 的值是否经过了改变，以此来判断 stack/buffer overflow 是否发生。
+PostScript：gcc 中使用：
+$ gcc -fstack-protector test.c # 启用保护，不过只为局部变量中含有数组的函数插入保护 $ gcc -fstack-protector-all test.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/ctf-wiki/7.1.stackoverflow/2.protection/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/ctf-wiki/7.1.stackoverflow/2.protection/</guid><description>参考：
+https://ctf-wiki.github.io/ctf-wiki/pwn/linux/stackoverflow/stack-intro-zh/
+https://ctf-wiki.github.io/ctf-wiki/pwn/linux/stackoverflow/stackoverflow-basic-zh/
+https://introspelliam.github.io/2017/09/30/linux程序的常用保护机制/
+保护手段 # Canary # 简单地说：
+函数在调用时，在返回地址与局部变量之间设置了一个用户不可知的 Canary； 在函数结束调用时，函数检查这个 Canary 是否被修改，否则抛出异常； gcc 在编译时可以控制以下的几个参数控制栈的保护程度：
+# 禁用栈帧保护 $ gcc -fno-stack-protector a.c # 开启栈帧保护 $ gcc -fstack-protector a.c # 启用栈帧保护，为所有函数插入保护代码 $ gcc -fstack-protector-all a.c Fortify # Fortify 是 gcc 的一个检测工具，它会在编译时检测危险的字符串操作函数，比如 memcpy、strcpy 等。
+它有弱强两种使用模式：
+D_FORTIFY_SOURCE 设置为 1 进行较弱的检查：
+程序编译时就会进行检查，但是不会改变程序的功能； 程序仅仅在编译时进行检查，运行时不会检查； $ gcc -D_FORTIFY_SOURCE=1 t.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/ctf-wiki/7.1.stackoverflow/3.rop/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/ctf-wiki/7.1.stackoverflow/3.rop/</guid><description>ROP 技术 # 基本 ROP # ret2text # ret2text 即控制程序执行程序本身已有的的代码 (.text)。例子
+ret2shellcode # ret2shellcode，即控制程序执行 shellcode 代码。一般来说，shellcode 需要我们自己填充。例子
+ret2syscall # ret2syscall，即控制程序执行系统调用，获取 shell。例子
+此时就需要用到 ROP 链了，得到 ROP 链可以使用 ROPgadget 这个工具，见 TIPS
+ret2libc # ret2libc 即控制函数的执行 libc 中的函数，通常是返回至某个函数的 plt 处或者函数的具体位置 (即函数对应的 got 表项的内容)。
+一般情况下，我们会选择执行 system(&amp;quot;/bin/sh&amp;quot;)，故而此时我们需要知道 system 函数的地址。
+中级 ROP # ret2csu # 在 64 位程序中，函数的前 6 个参数是通过寄存器传递的，但是大多数时候，我们很难找到每一个寄存器对应的 gadgets。 这时候，我们可以利用 x64 下的 __libc_csu_init 中的 gadgets。
+这个函数是用来对 libc 进行初始化操作的，而一般的程序都会调用 libc 函数，所以这个函数一定会存在。</description></item></channel></rss>

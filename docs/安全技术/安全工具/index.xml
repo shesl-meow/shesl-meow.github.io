@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/</link><description>Recent content on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/tips/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/tips/</guid><description>TIPS # PWN # 记录一些命令：
-命令行工具 # 检查安全性（已经安装了 pwntools，在 peda 等 gdb 插件中也支持）：
-$ checksec &amp;lt;program&amp;gt; 代码段全部汇编代码（objdump）：
-$ objdump -d &amp;lt;program&amp;gt; ROPgadget 得到指定的指令链或字符串：
-# pop-ret 指令链 $ ROPgadget --binary &amp;lt;program&amp;gt; --only &amp;#39;pop|ret&amp;#39; # /bin/sh 字符串 $ ROPgadget --binary &amp;lt;program&amp;gt; --string &amp;#39;/bin/sh&amp;#39; gdb # 列出程序中的所有变量名（gdb）：
-(gdb) info variables 列出程序中的所有函数名（gdb）：
-(gdb) info functions 列出一个函数的汇编代码（gdb）：</description></item></channel></rss>

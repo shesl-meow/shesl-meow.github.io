@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux-Command on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/</link><description>Recent content in Linux-Command on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/awk/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/awk/</guid><description>Awk # Brief Introduction # 学习网址：https://www.tecmint.com/use-linux-awk-command-to-filter-text-string-in-files/
+The general syntax of awk is:
+$ awk &amp;#39;script&amp;#39; filename # &amp;#39;script&amp;#39; format =&amp;gt; &amp;#39;/pattern/ action&amp;#39; Where 'script' is a set of commands that are understood by awk and execute on file, filename.
+It works by reading a given line in the file, makes a copy of the line and then executes the script on the line. This is repeated on all the lines in the file.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/command/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/command/</guid><description>Question: How to check if a program exists from a Bash script?
+Answer: three possible method:
+POSIX compatible:
+$ command -v &amp;lt;the_command&amp;gt; For bash specific environments:
+$ hash &amp;lt;the_command&amp;gt; # For regular commands. Or... $ type &amp;lt;the_command&amp;gt; # To check built-ins and keywords Many operating systems have a which that doesn&amp;rsquo;t even set an exit status, meaning the if which foo won&amp;rsquo;t even work there and will always report that foo exists, even if it doesn&amp;rsquo;t (note that some POSIX shells appear to do this for hash too).</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/crontab/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/crontab/</guid><description>学习网址：
+https://www.marksanborn.net/linux/learning-cron-by-example/ http://www.unixgeeks.org/security/newbie/unix/cron-1.html CRON # If you are using a Linux system and want to schedule a task to run in the future you will probably need to know cron. Cron is much like Window’s Scheduled Tasks. The only difference is that cron is conifgured by a simple text file.
+Now obviously cron is very dependent and sensitive to the time. If you want accurate results from cron you are going to want to setup your computer to sync its clock via NTP.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/du/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/du/</guid><description>du # 用于计算文件或文件夹大小的命令，若要计算一个文件夹的大小：
+$ du -h &amp;lt;your-folder&amp;gt; 若要只显示一个文件夹大小的总和：
+$ du -hcs &amp;lt;your-folder&amp;gt;</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/fold/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/fold/</guid><description>Fold # fold:
+manual:
+Usage: fold [OPTION]&amp;hellip; [FILE]&amp;hellip; Wrap input lines in each FILE, writing to standard output.
+example:
+$ echo &amp;#34;Hello&amp;#34; &amp;gt; t1 $ echo &amp;#34;World&amp;#34; &amp;gt; t2 $ fold t1 t2 Hello World</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/gdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/gdb/</guid><description>gdb # Quick Manual # 常用命令:
+列出程序中的所有变量名（gdb）：
+(gdb) info variables 列出程序中的所有函数名（gdb）：
+(gdb) info functions 列出一个函数的汇编代码（gdb）：
+(gdb) disas main 查看指定地址内的字符串（gdb）：
+(gdb) x /s &amp;lt;memory_address&amp;gt; 查看各个程序段的读写执行权限（gdb：gef 插件或 peda 插件都支持）
+(gdb-peda) vmmap 查看堆的信息以及按结构解析堆：
+(gdb-peda) heapinfo (gdb-peda) parseheap PEDA # 插件 PEDA（Python Exploit Development Assistance for GDB）
+使用以下命令安装：
+$ git clone https://github.com/longld/peda $ echo &amp;#34;souce `pwd`/peda/peda.py&amp;#34; &amp;gt;&amp;gt; ~/.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/grep/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/grep/</guid><description>grep # Example # https://stackoverflow.com/questions/16956810/how-do-i-find-all-files-containing-specific-text-on-linux
+Find all files containing specific text:
+$ grep -rnw &amp;#39;/path/to/somewhere/&amp;#39; -e &amp;#39;pattern&amp;#39; -r or -R is recursive, -n is line number, and -w stands for match the whole word. -l (lower-case L) can be added to just give the file name of matching files. Along with these, --exclude, --include, --exclude-dir flags could be used for efficient searching:
+This will only search through those files which have .</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/iptables/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/iptables/</guid><description>学习网址：
+https://www.jianshu.com/p/c2aee2ff7bd8 https://www.jianshu.com/p/62028875d53e 一个关于转发的教程：
+https://www.91yun.co/archives/3042 iptables 防火墙 # 用于实现Linux下访问控制的功能的，它分为硬件的或者软件的防火墙两种。无论是在哪个网络中，防火墙工作的地方一定是在网络的边缘。
+工作机制 # iptables 是工作在用户空间中，定义规则的工具，本身并不算是防火墙。
+它定义的规则，可以让在内核空间当中的 netfilter 来读取，并且实现让防火墙工作。所以这些规则放入内核的地方必须要是特定的位置，必须是 tcp/ip 的协议栈经过的地方，这个 tcp/ip 协议栈必须经过且可以实现读取规则的地方就叫做 netfilter（网络过滤器）。这些特定的位置包括：
+内核空间中：从一个网络接口进来，到另一个网络接口去的位置 数据包从内核流入用户空间的位置 数据包从用户空间流出的位置 进入/离开本机的外网接口 进入/离开本机的内网接口 由上我们知道了 iptables 选择了 5 个位置来作为控制的地方。
+但是你有没有发现，其实前三个位置已经基本上能将路径彻底封锁了，但是为什么已经在进出的口设置了关卡之后还要在内部卡呢？ 由于数据包尚未进行路由决策，还不知道数据要走向哪里，所以在进出口是没办法实现数据过滤的。所以要在内核空间里设置转发的关卡，进入用户空间的关卡，从用户空间出去的关卡。
+那么，既然他们没什么用，那我们为什么还要放置他们呢？因为我们在做 NAT 和 DNAT 的时候，目标地址转换必须在路由之前转换。所以我们必须在外网而后内网的接口处进行设置关卡。
+这五个位置放置了五个钩子函数（hook functions）,也叫五个规则链:
+PREROUTING （路由前）
+INPUT （数据包流入口）
+FORWARD （转发管卡）
+OUTPUT（数据包流出口）
+POSTROUTING（路由后）
+这是 netfilter 规定的五个规则链，任何一个数据包，只要经过本机，必将经过这五个链中的其中一个链。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/netstat/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/netstat/</guid><description>学习地址：
+https://linuxtechlab.com/learn-use-netstat-with-examples/ learn netstat with example.
+netstat # Netstat is a command line utility that tells us about all the tcp/udp/unix socket connections on our system. It provides list of all connections that are currently established or are in waiting state. This tool is extremely useful in identifying the port numbers on which an application is working and we can also make sure if an application is working or not on the port it is supposed to work.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/patch/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/patch/</guid><description>patch # Linux 中的 patch 命令与 diff 命令是一对命令。
+如果我们将 diff 命令的输出导入到一个文件中，这个文件就可以称作一个 “补丁”，利用 patch 命令就可以将变化 apply 到每一个具体的文件中。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/tmux/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/tmux/</guid><description> https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/vim/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/vim/</guid><description>学习地址：vimtutor
+vimtutor 是一个由 vim 官方提供的教程，在 bash 界面直接运行 vimtutor 即可查看。
+vimtutor # Lesson 1 # 移动光标：
+^
+k
+&amp;lt; h l &amp;gt;
+j
+v HINT：
+h 的键位于左边，每次按下就会向左移动。 l 的键位于右边，每次按下就会向右移动。 j 键看起来很象一支尖端方向朝下的箭头。 vim 的退出：
+输入 :q!&amp;lt;Enter&amp;gt; 会退出编辑器并且丢弃进入编辑器之后的所有改动。 按下 :wq&amp;lt;Enter&amp;gt;保存并退出 vim 删除光标所在位置的字符：可以按下 x 键来删除光标所在位置的字符。
+插入文本：可以按下 i 键来插入字符。
+添加文本：可以按下 A 键来添加文本（光标会定位到行末）
+Lesson 2 # 删除类命令：</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/wc/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/linux-command/wc/</guid><description>学习地址：
+https://www.tecmint.com/wc-command-examples/ wc # The wc(word count) command in Unix/Linux operating systems is used to find out number of newline count, word count, byte and characters count in a files specified by the file arguments.
+The syntax of wc command as shown below:
+$ wc [options] filenames The following are the options and usage provided by the command:
+wc -l : Prints the number of lines in a file.</description></item></channel></rss>

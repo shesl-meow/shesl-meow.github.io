@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>2.进程与线程 on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/2.%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/</link><description>Recent content in 2.进程与线程 on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/2.%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/2.%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/3.%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/2.%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/3.%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/</guid><description>进程间通信 # 进程间需要通信，我们需要设计一了良好的结构，不使用中断的方式实现。在本节中将讨论进程间通信（Inter Process Comminucation, IPC）的问题。
+竞争条件 # 什么是竞争条件？
+竞争条件 (race condition)：两个或多个进程共同读写某些共享资源，而最后的执行解决取决于进行运行时间的精确时序时，这种情况称为竞争条件。 怎样避免竞争条件？
+互斥 (mutual exclusion)：以某种手段确保当一个进程在使用一个资源时，其他进程就不能对资源的做同样的操作； 我们把共享的内存进行访问的程序片段称作临界区域 (critical region)。如果我们通过合适的安排使得两个进程不可能同时处于临界区，就能够避免竞争条件。 忙等待的互斥 # 下面列举的这些实现互斥的方案，绝对性地禁止了两个进程共享一个资源：
+屏蔽中断：顾名思义，一个进程或线程进入临界区域之后立即屏蔽所有中断，离开之前再打开中断；
+锁变量：一种软件层面的解决方案。即设置一个共享的锁变量，其初始值为 0：
+一个线程想要进入临界区之前需要先测试锁变量的值，为 1 则继续等待； 如果为 0，则线程进入这个临界区，并且将锁变量的值设置为 1，离开时重置； 显然，但其实这种方法仍然会有概率导致多个线程同时进入临界区。
+严格轮换法：设置一个变量用于记录当前可以进入临界区的线程，各个线程连续测试这个变量是否出现给定的值。这种方式称为忙等待 (busy waiting)，忙于等待的锁称为自旋锁 (spin lock)。
+由于这种方式是浪费 CPU 时间的，通常会避免。只有在有理由认为等待时间非常短的情况下，才使用。
+Peterson 解法：荷兰数学家 T.Dekker 提出的一种不需要严格轮换的软件互斥算法。后来 Peterson 发现了一种更简单的互斥算法。
+这个算法的核心是 enter_region 与 leave_rigion 这样两个函数，比如我们有 2 个线程：</description></item></channel></rss>

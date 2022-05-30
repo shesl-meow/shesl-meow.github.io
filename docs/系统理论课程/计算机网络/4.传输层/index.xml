@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>4.传输层 on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/4.%E4%BC%A0%E8%BE%93%E5%B1%82/</link><description>Recent content in 4.传输层 on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/4.%E4%BC%A0%E8%BE%93%E5%B1%82/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/4.%E4%BC%A0%E8%BE%93%E5%B1%82/ssl/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/4.%E4%BC%A0%E8%BE%93%E5%B1%82/ssl/</guid><description>学习网址：
+https://www.cnblogs.com/bhlsheji/p/4586597.html SSL # 协议工作过程 # 分层结构 # SSL 位于应用层和传输层之间，它能够为不论什么基于 TCP 等可靠连接的应用层协议提供安全性保证。SSL 协议本身分为两层：
+上层为 SSL 握手协议 (SSL handshake protocol)、SSLpassword 变化协议 (SSL change cipher spec protocol) 和 SSL 警告协议 (SSL alert protocol)。
+底层为 SSL 记录协议 (SSL record protocol)。
+当中：
+SSL 握手协议：是 SSL 协议很重要的组成部分。用来协商通信过程中使用的加密套件(加密算法、密钥交换算法和 MAC 算法等)、在 server 和 client 之间安全地交换密钥、实现 server 和 client 的身份验证。
+SSLpassword 变化协议：client 和 server 端通过 password 变化协议通知对端。随后的报文都将使用新协商的加密套件和密钥进行保护和传输。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/4.%E4%BC%A0%E8%BE%93%E5%B1%82/tcp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/4.%E4%BC%A0%E8%BE%93%E5%B1%82/tcp/</guid><description> 学习网址：
+https://blog.csdn.net/a19881029/article/details/38091243</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/4.%E4%BC%A0%E8%BE%93%E5%B1%82/%E8%BF%90%E8%BE%93%E5%B1%82/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/4.%E4%BC%A0%E8%BE%93%E5%B1%82/%E8%BF%90%E8%BE%93%E5%B1%82/</guid><description>学习地址：
+《计算机网路，自顶向下的方法》 运输层 # 无连接运输：UDP # UDP stands for User Data Protocol.
+报文结构 # UDP 首部只有四个字段，每个字段首部由两个字节组成。
+UDP 的报文段结构如下图所示，它由 RFC 768 定义：
+UDP 校验和 # 伪协议头：
+用于计算 checksum 包括源 IP 地址和目的 IP 地址。 NOTICE：
+UDP 校验和是可选项，IPv6 中将变成强制性的（UDP 校验和覆盖的范围超出了 UDP 数据报本身）
+使用伪首部的目的是检验 UDP 数据报是否真正到达目的地。正确的目的地包括了特定的主机和该主机上特定的端口
+伪首部不随用户数据报一起传输
+接收方需自己形成伪首部进行校验
+伪首部的使用破坏了层次划分的基本前提，即每一层的功能独立
+目的主机的 IP 地址 UDP 通常知道，源 IP 的使用需要通过路由选择决定</description></item></channel></rss>

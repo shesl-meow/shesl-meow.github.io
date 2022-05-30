@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>2.结构型模式 on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/</link><description>Recent content in 2.结构型模式 on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/10.%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/10.%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/</guid><description>装饰器模式 # 装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。
+这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下，提供了额外的功能。
+介绍 # 意图：
+动态地给一个对象添加一些额外的职责。就增加功能来说，装饰器模式相比生成子类更为灵活。
+当我们不想增加很多子类的情况下扩展类，使用装饰器。它将具体功能职责划分，同时继承装饰者模式。
+优点：
+装饰类和被装饰类可以独立发展，不会相互耦合，装饰模式是继承的一个替代模式，装饰模式可以动态扩展一个实现类的功能。 缺点：
+多层装饰比较复杂。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/11.%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/11.%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/</guid><description>外观模式 # 外观模式（Facade Pattern）隐藏系统的复杂性，并向客户端提供了一个客户端可以访问系统的接口。
+介绍 # 意图：
+为子系统中的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。 当你不需要客户端知道系统内部的复杂联系时，你需要设计一个外观模式的系统。 优点：
+减少系统相互依赖。 提高灵活性。 提高了安全性。 缺点：
+不符合开闭原则，如果要改东西很麻烦，继承重写都不合适。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/12.%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/12.%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/</guid><description>享元模式 # 享元模式（Flyweight Pattern）主要用于减少创建对象的数量，以减少内存占用和提高性能。这种类型的设计模式属于结构型模式，它提供了减少对象数量从而改善应用所需的对象结构的方式。
+享元模式尝试重用现有的同类对象，如果未找到匹配的对象，则创建新对象。
+介绍 # 意图：
+运用共享技术有效地支持大量细粒度的对象。 在有大量对象时，有可能会造成内存溢出，我们把其中共同的部分抽象出来，如果有相同的业务请求，直接返回在内存中已有的对象，避免重新创建。 应用实例：
+JAVA 中的 String，如果有则返回，如果没有则创建一个字符串保存在字符串缓存池里面。 数据库的数据池。 优点：
+大大减少对象的创建，降低系统的内存，使效率提高。 缺点：
+提高了系统的复杂度，需要分离出外部状态和内部状态。 而且外部状态具有固有化的性质，不应该随着内部状态的变化而变化，否则会造成系统的混乱。 PostScript：
+注意划分外部状态和内部状态，否则可能会引起线程安全问题。 这些类必须有一个工厂对象加以控制。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/13.%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/13.%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</guid><description>代理模式 # 在代理模式（Proxy Pattern）中，一个类代表另一个类的功能。
+介绍 # 意图：
+为其他对象提供一种代理以控制对这个对象的访问。
+主要解决在直接访问对象时带来的问题，
+比如说：要访问的对象在远程的机器上。在面向对象系统中，有些对象由于某些原因（比如对象创建开销很大，或者某些操作需要安全控制，或者需要进程外的访问），直接访问会给使用者或者系统结构带来很多麻烦，我们可以在访问此对象时加上一个对此对象的访问层。
+应用实例：
+Windows 里面的快捷方式。 买火车票不一定在火车站买，也可以去代售点。 优点：
+职责清晰、高扩展性、智能化。 缺点：
+由于在客户端和真实主题之间增加了代理对象，因此有些类型的代理模式可能会造成请求的处理速度变慢。 实现代理模式需要额外的工作，有些代理模式的实现非常复杂。 PostScript：
+和适配器模式的区别：适配器模式主要改变所考虑对象的接口，而代理模式不能改变所代理类的接口。 和装饰器模式的区别：装饰器模式为了增强功能，而代理模式是为了加以控制。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/6.%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/6.%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</guid><description>适配器模式 # 适配器模式（Adapter Pattern）是作为两个不兼容的接口之间的桥梁。这种类型的设计模式属于结构型模式，它结合了两个独立接口的功能。
+举个真实的例子，读卡器是作为内存卡和笔记本之间的适配器。您将内存卡插入读卡器，再将读卡器插入笔记本，这样就可以通过笔记本来读取内存卡。
+介绍 # 意图：
+将一个类的接口转换成客户希望的另外一个接口。适配器模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。
+概括的说，它主要有以下的应用场景：
+系统需要使用现有的类，而此类的接口不符合系统的需要 想要建立一个可以重复使用的类，用于与一些彼此之间没有太大关联的一些类，包括一些可能在将来引进的类一起工作，这些源类不一定有一致的接口。 通过接口转换，将一个类插入另一个类系中。（比如老虎和飞禽，现在多了一个飞虎，在不增加实体的需求下，增加一个适配器，在里面包容一个虎对象，实现飞的接口。） 优点：
+可以让任何两个没有关联的类一起运行。 提高了类的复用。 增加了类的透明度。 灵活性好。 缺点：
+过多地使用适配器，会让系统非常零乱，不易整体进行把握。一个系统如果太多出现这种情况，无异于一场灾难。因此如果不是很有必要，可以不使用适配器，而是直接对系统进行重构。 由于 JAVA 至多继承一个类，所以至多只能适配一个适配者类，而且目标类必须是抽象类。 PostScript：
+有动机地修改一个正常运行的系统的接口，这时应该考虑使用适配器模式。
+适配器不是在详细设计时添加的，而是解决正在服役的项目的问题。
+例子 # 比如下面的例子：
+原本：我们有一个 MediaPlayer 的接口，一个实现了这个接口的类 AudioPlayer。它只能播放 mp3。格式的音频文件； 原本：我们还有一个 AdvancedMediaPlayer 的接口，实现了这个接口的类 VlcPlayer、Mp4Player。该类可以播放 vlc 和 mp4 格式的音频文件。 现在我们需要：AudioPlayer 这个类可以播放其他格式的音频文件。 为了实现这个功能：我们创建了一个实现了 AdvancedMediaPlayer 的一个适配器类 MediaAdapter，并使用这个接口定义的方法播所需要的格式。 这些类的结构图大致如下：</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/7.%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/7.%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/</guid><description>桥接模式 # 桥接模式（Bridge Pattern）是用于把抽象化与实现化解耦，使得二者可以独立变化。
+介绍 # 意图：
+将抽象部分与实现部分分离，使它们都可以独立的变化。
+在有多种可能会变化的情况下，用继承会造成类爆炸问题，扩展起来不灵活。
+优点：
+抽象和实现的分离。 优秀的扩展能力。 实现细节对客户透明。 缺点：
+桥接模式的引入会增加系统的理解与设计难度，由于聚合关联关系建立在抽象层，要求开发者针对抽象进行设计与编程。 例子 # 我们以前端中常见的功能绘图为例：
+假设我们希望：对外统一提供一个类 Shape 用于绘制图形； 为了实现不同形状的绘制，我们需要：用于指定形状的类，一定要实现某些函数或满足一定的规则，于是我们定义了一个 DrawAPI 接口，传入不同的类需要实现这个接口； 比如我们可以完成绘制 RedCircle、GreenCircle，则其依赖图如下：</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/8.%E8%BF%87%E6%BB%A4%E5%99%A8%E6%A8%A1%E5%BC%8F/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/8.%E8%BF%87%E6%BB%A4%E5%99%A8%E6%A8%A1%E5%BC%8F/</guid><description>过滤器模式 # 过滤器模式（Filter Pattern）或标准模式（Criteria Pattern）是一种设计模式，这种模式允许开发人员使用不同的标准来过滤一组对象，通过逻辑运算以解耦的方式把它们连接起来。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/9.%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/9.%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/</guid><description>组合模式 # 组合模式（Composite Pattern），又叫部分整体模式，是用于把一组相似的对象当作一个单一的对象。组合模式依据树形结构来组合对象，用来表示部分以及整体层次。这种类型的设计模式属于结构型模式，它创建了对象组的树形结构。
+介绍 # 意图：
+将对象组合成树形结构以表示&amp;quot;部分-整体&amp;quot;的层次结构。组合模式使得用户对单个对象和组合对象的使用具有一致性。 当你有以下想法时，你可以使用组合模式： 您想表示对象的部分-整体层次结构（树形结构）。 您希望用户忽略组合对象与单个对象的不同，用户将统一地使用组合结构中的所有对象。 应用实例：
+算术表达式包括操作数、操作符和另一个操作数，其中，另一个操作符也可以是操作数、操作符和另一个操作数。 在 JAVA AWT 和 SWING 中，对于 Button 和 Checkbox 是树叶，Container 是树枝。 优点：
+高层模块调用简单。 节点自由增加。 缺点：
+在使用组合模式时，其叶子和树枝的声明都是实现类，而不是接口，违反了依赖倒置原则。 实现 # 以公司的雇员举例子：
+我们首先用一个类 Employee 表示公司中的所有雇员，它的所有属性足以满足需求； 然后为了表示公司雇员之间的层级关系，我们令每一个雇员持有一个下属的列表。 依赖关系如下图所示：</description></item></channel></rss>

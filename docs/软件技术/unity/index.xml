@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Unity on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/unity/</link><description>Recent content in Unity on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/unity/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/unity/blending/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/unity/blending/</guid><description>https://docs.unity3d.com/Manual/SL-Blend.html
-Blending # 概念 # 当图形渲染时，Shader 都执行完、Textures 都渲染完之后，被渲染出的像素就需要被写入屏幕中。
-屏幕中已经存在的像素与新的像素点混合的方式，就被称为 Blend。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/unity/%E7%89%B9%E6%95%88%E7%B3%BB%E7%BB%9F/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/unity/%E7%89%B9%E6%95%88%E7%B3%BB%E7%BB%9F/</guid><description>Unity3D 特效系统 # 概述 # 特效系统主要由以下几个部分组成：
-粒子系统：最常见的特效系统，可以实现风雨雷电、烟雾、火焰等； 拖尾组件：用来实现一些模型在移动时的拖尾效果； 线性组件：可以实现飞机发射的激光炮等； 镜头炫光组件：一般用来实现太阳的镜头映射效果； 光晕组件：放在灯光周围实现光晕效果； 投影组件：投影效果、移动平台上的阴影效果； 屏幕后效：运动模糊、全屏辉光等许多效果； 扩展知识 粒子系统 # 在 Unity 中的位置 Component-&amp;gt;Effects-&amp;gt;Partical System。
-在一个粒子系统被创建之后，可以在右侧的 Inspector 中看到粒子系统的所有子模块的属性。
-下面只记录一些有可能会遇到坑的点：
-默认粒子的颜色是粉色，并不表示这是他的默认颜色，这表示它丢失了材质。
-粒子的材质可以在 Renderer 这个子模块的 Material 这个属性中选择；
-Play On Awake 置 true 表示会自动进行播放，若该属性为 false 则需要我们手动调用 play 方法进行播放。</description></item></channel></rss>

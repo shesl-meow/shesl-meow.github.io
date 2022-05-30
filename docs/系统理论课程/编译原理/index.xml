@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>编译原理 on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/</link><description>Recent content in 编译原理 on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/0.%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/0.%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C/</guid><description>参考网址：
+http://www.ntu.edu.sg/home/ehchua/programming/cpp/gcc_make.html https://linux.die.net/man/1/gcc https://sourceware.org/ml/binutils/2009-08/msg00193.html https://web.stanford.edu/class/cs193d/handouts/make.pdf 编译器的工作 # 编译器的主要流程 # .img{width: 100%}
+一个现代编译器的主要流程如下：（以 gcc 为例）
+另外，使用以下命令可以查看 gcc 使用的所有命令：
+$ gcc -v example.c 该命令的输出会打印在 stderr 上，若希望在文件中阅读该信息，可以使用以下命令：
+$ gcc -v example.c 2&amp;gt; verbose_gcc.txt 预处理器的工作 # 从维基百科上的定义：预处理器是程序中处理输入数据，产生能用来输入到其他程序的数据的程序。输出被称为输入数据预处理过的形式，常用在之后的程序比如编译器中。C 预处理器是最常见的预处理器。
+C 预处理器 # C 预处理器不是编译器的组成部分，但是它是编译过程中一个单独的步骤。简言之，C 预处理器只不过是一个文本替换工具而已，它们会指示编译器在实际编译之前完成所需的预处理。
+所有的预处理器命令都是以井号（#）开头。它必须是第一个非空字符，为了增强可读性，预处理器指令应从第一列开始。像我们常用的 define，include 等都是 C 预处理器的预处理指令。
+预定义宏 # ANSI C 定义了许多宏。在编程中您可以使用这些宏，但是不能直接修改这些预定义的宏。
+宏 描述 __DATE__ 当前日期，一个以 &amp;quot;MMM DD YYYY&amp;quot; 格式表示的字符常量。 __TIME__ 当前时间，一个以 &amp;quot;HH:MM:SS&amp;quot; 格式表示的字符常量。 __FILE__ 这会包含当前文件名，一个字符串常量。 __LINE__ 这会包含当前行号，一个十进制常量。 __STDC__ 当编译器以 ANSI 标准编译时，则定义为 1。 预处理器运算符 # 运算符 作用 宏延续运算符（\） 一个宏通常写在一个单行上。但是如果宏太长，一个单行容纳不下，则使用宏延续运算符（\）。 字符串常量化运算符（#） 在宏定义中，当需要把一个宏的参数转换为字符串常量时，则使用字符串常量化运算符（#）。在宏中使用的该运算符有一个特定的参数或参数列表。 标记粘贴运算符（##） 宏定义内的标记粘贴运算符（##）会合并两个参数。它允许在宏定义中两个独立的标记被合并为一个标记。 gcc 的工作 # 从 Linux gcc manual 上，我们知道 gcc 编译有这样一个选项：-E：</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1.%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1.%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/</guid><description>学习地址：
+国防科技大学编译原理 MOOC 课程 词法分析 # 词法分析器 # 任务 # 词法分析的任务：
+从左到右逐个字符地对源程序进行扫描，产生一个单词符号序列
+执行词法分析任务的叫做词法分析器（Lexical Analyzer）
+功能 # 词法分析器的功能：
+输入源程序、输出单词符号
+单词符号种类：
+基本字，或关键字：
+标识符：用来表示各种用户定义的名字
+常数
+运算符：+、-、*、/
+分界符：,、;&amp;hellip;
+词法分析器的输出：
+输出的单词符号的表示形式 → 单词种别、单词自身的值 与语法分析 # 体现了 分解 和 权衡 两种计算思维。
+结构 # 预处理子程序：剔除无用的空白、跳格等编辑性字符。放入扫描缓冲区。
+扫描器通过 起点指示器 和 搜索指示器 两个指针对扫描缓冲区进行扫描。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/3.%E5%B1%9E%E6%80%A7%E6%96%87%E6%B3%95%E5%92%8C%E8%AF%AD%E6%B3%95%E5%88%B6%E5%AF%BC%E7%BF%BB%E8%AF%91/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/3.%E5%B1%9E%E6%80%A7%E6%96%87%E6%B3%95%E5%92%8C%E8%AF%AD%E6%B3%95%E5%88%B6%E5%AF%BC%E7%BF%BB%E8%AF%91/</guid><description>学习地址：
+国防科技大学中国大学 MOOC 属性文法 # 概念 # 属性文法：
+也称作属性翻译文法 以上下文无关文法为基础 为每个文法符号（终结符或非终结符）配备若干相关的 “值”（称为属性），代表与文法符号相关的信息，如类型、值、代码序列、符号表内容等。 对于文法的每个产生式都配备了一组属性的语义规则，对属性进行计算和传递。 综合属性：
+自下而上传递信息 从语法规则角度看：根据右部候选式中的符号的属性计算左部被定义符号的综合属性 从语法树角度看：根据子节点的属性和父节点自身的属性计算父节点的综合属性 继承属性：
+自上而下传递信息。 从语法规则角度看：根据右部候选式中的符号的属性和左部被定义符号的属性计算右部候选式。 从语法树角度看：根据父节点和兄弟结点的属性计算子节点的继承属性。 属性依赖 # 属性依赖：
+对于没和产生式 $$A \rightarrow \alpha $$ 都有一套与之相关联的语义规则，每条规则的形式为：$$b := f(c_1, c_2, &amp;hellip; c_k)$$，则我们说：属性 b 依赖于属性 $$c_1, c_2, &amp;hellip;, c_k$$。其中有两种可能性：
+b 是 A 的一个综合属性并且 $$c_1, c_2, &amp;hellip;, c_k$$ 是产生式右边文法符号的属性</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/4.%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E5%92%8C%E4%B8%AD%E9%97%B4%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/4.%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E5%92%8C%E4%B8%AD%E9%97%B4%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90/</guid><description>学习地址：
+国防科技大学中国大学 MOOC 语义分析和中间代码生成 # 中间语言 # 特点：
+独立于机器 复杂性介于源语言和目标语言之间 常用的中间语言：
+后缀式，逆波兰式表示
+图表示：抽象语法树（AST）、有向无环图（DAG）
+三地址代码：三元式、四元式、间接三元式
+后缀式 # Lukasiewicz 发明的一种表达式的方法，又称逆波兰表示法。
+一个表达式 E 的后缀形式可以如下定义：
+如果 E 是一个常量或变量，则 E 的后缀式是 E 自身。 如果 E 是 $$E_1\ op\ E_2$$ 形式的表达式，其中 op 是任何二元操作符，则 E 的后缀形式为 $$E_1’ E_2&amp;rsquo; op$$，其中 $$E_1&amp;rsquo;$$ 和 $$E_2&amp;rsquo;$$ 分别是 $$E_1$$ 和 $$E_2$$ 的后缀形式。 如果 E 是 $$(E_1)$$ 形式的表达式，那么 $$E_1$$ 的后缀式就是 E 的后缀式。 图表示 # 有向无环图（Directed acyclic Graph，简称 DAG）:</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/5.%E7%AC%A6%E5%8F%B7%E8%A1%A8/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/5.%E7%AC%A6%E5%8F%B7%E8%A1%A8/</guid><description/></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/6.%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E7%BB%84%E7%BB%87/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/6.%E8%BF%90%E8%A1%8C%E6%97%B6%E7%9A%84%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E7%BB%84%E7%BB%87/</guid><description>学习途径：
+国防科技大学中国大学 MOOC 运行时存储空间组织 # 参数传递 # 参数传递主要有四种传递方式：
+传地址； 得结果：传地址的变形。 每个形参对应两个形式单元：第一个存放实参地址；第二个存放值。 在过程体中的任何引用或赋值都看作对它的第二个单元的直接访问。 过程完成返回之前，把第二个单元的值存放到第一的单元所指向中。 传值； 传名：不常见。 在进入被调用过程之前不对实在参数预先进行计值，而是让过程提中每当使用到相应的形式参数时才祝词对它实行计值（或计算地址）。 通常把实在参数处理成一个子程序（称为参数子程序），每当过程体中使用到相应的形式参数时就调用这个子程序。 运行时存储器的划分 # 一个目标程序运行时所需的存储空间包括：
+存储目标代码的空间 $$\Rightarrow$$ 算法
+存放数据项目的空间 $$\Rightarrow$$ 数据结构
+存放程序运行的控制或连接数据所需要的单元
+编译程序组织存储空间须考虑的问题：
+过程是否允许递归？ 当控制从一个过程的活动返回时，对局部名称的值如何处理？ 过程是否允许引用非局部名称？ 过程调用时如何传递参数？“过程”是否可以做为参数被传递和作为结果返回？ 存储空间可否在程序控制下进行动态分配？ 存储空间是否必须显式地释放？ 存储分配策略 # 主要有两种分配策略：
+静态分配策略：在编译时能确定数据空间的大小，并且为每个数据项目确定出在运行时刻的存储空间中的位置。比如：FORTRAN 语言。
+动态分配策略：在编译时不能确定运行时数据空间的大小，允许递归过程和动态申请释放内存。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/7.%E4%BC%98%E5%8C%96/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/7.%E4%BC%98%E5%8C%96/</guid><description> 学习途径：
+国防科技大学中国大学 MOOC 优化 # 优化的种类：
+删除多余运算（删除公用子表达式） 合并已知量 复写传播 删除无用赋值 代码外提 强度消弱 变换循环控制条件 优化的级别：
+局部优化 循环优化 全局优化 局部优化 # 基本块的划分 # 基本块：
+程序中以顺序执行的语句序列； 其中只有一个入口和一个出口。入口就是其中的第一个语句，出口就是其中的最后一个语句。 划分算法：
+找到中间语句（三地址语句）程序中的各个基本快的入口语句。它可能是
+程序的第一个语句； 能够由条件转移语句或无条件转移语句转移到的语句； 紧跟在条件转移语句后面的语句。 对以上求出的每个入口语句，确定其所属的基本快。
+它是由该入口语句 A 到下一入口语句 B（不包括 B）、或到一转移语句 B（包括 B）、或停语句 B（包括 B）之间的语句序列组成的。
+凡未被纳入某一基本块中的语句，可以从程序中删除。</description></item></channel></rss>

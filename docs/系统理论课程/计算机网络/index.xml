@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>计算机网络 on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link><description>Recent content in 计算机网络 on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0/</guid><description>通过西电的在线 MOOC 学习网络安全：
+https://www.icourse163.org/learn/UESTC-235006?tid=272013#/learn/content?type=detail&amp;id=1004490139&amp;sm=1 计算机网络 # 三种工作方式：
+单工：数据只能在一个方向上传输
+半双工：数据可以在两个方向上传输，但是一次只允许数据在一个方向传输
+全双工：允许数据同时在两个方向上传输
+IPv4 三类地址：
+见：https://tools.ietf.org/html/rfc3330
+A类地址 1.0.0.1-126.255.255.254，第一段第一位二进制位以 0 开头，最后三段表示主机地址；
+B类地址 128.1.0.1-191.255.255.254，第一段前两位二进制位为 10 开头，最后两段表示主机地址；
+C类地址 192.0.1.1-223.255.255.254，第一段前三位二进制位为 110 开头，最后一段表示主机地址；
+D 类地址（群播地址） ,第一段前四位为 1110 开头。
+IP 协议中的生存时间：
+生存时间（TTL，time-to-live）是Internet协议（IP）包中的一个值，它告知路由器该包是否在网络中时间过长而应该被丢弃。
+双绞线的双绞原因：
+绞合可以减少对相邻导线的电磁干扰。
+关于 10BASE-T：
+10 代表数据传输率，BASE 基带传输，T 代表双绞线。F 为光纤
+网络冲突：
+IEEE802.3 协议采用 CSMA/CD 协议，一定会发生冲突；
+802.4 和 802.5 则不会。
+路由选择协议：
+RIP 协议：AS 内部的路由选择协议，采用距离向量算法，限制最大为 15 的跳度；</description></item></channel></rss>

@@ -1,4 +1,26 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>杂项博客 on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/</link><description>Recent content in 杂项博客 on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/cpp%E6%9D%82%E6%8A%80/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/cpp%E6%9D%82%E6%8A%80/</guid><description>cpp 杂技 # __builtin_expect：一个 if 分支极大可能不会执行，使用这个编译，附近的，编译器会将极大概率连续执行的代码编译为连续的二进制。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/ethereum%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/ethereum%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</guid><description>概念 # KDF：彩虹表攻击
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>杂项博客 on shesl-meow's note site</title><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/</link><description>Recent content in 杂项博客 on shesl-meow's note site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><atom:link href="http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/api%E8%AE%BE%E8%AE%A1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/api%E8%AE%BE%E8%AE%A1/</guid><description>API 设计 # RESTful # For TypeScript: https://github.com/thiagobustamante/typescript-rest
+REST: Representational state transfer.
+RESTful 是一种面向资源的过时 API 设计理念，他基于 http 协议，没有单独定义自己的一套协议，只是一种 API 设计范式。
+它提供了四个指导原则：
+Resource-Base 基于资源的：一个 uri 单独对应于一个资源； Manipulation Through Representations 动作表示：对资源的不同动作通过方法或参数表示； Self-Descriptive Message 自描述信息：每条请求都能没有上下文地无状态地，唯一执行一个动作； Hypermedia as the Engine of Application State (HATEOAS)：用高级的请求体来表示状态； GraphQL # For TypeScript: https://github.com/MichalLytek/type-graphql, https://typegraphql.com/
+Official Website: https://graphql.org/
+GraphQL: Graph Query Language.
+介绍：GraphQL 是 Facebook 为了解决 RESTful 设计模式在系统庞大之后出现的各种问题应运而生的接口描述语言。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/cpp%E6%9D%82%E6%8A%80/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/cpp%E6%9D%82%E6%8A%80/</guid><description>cpp 杂技 # __builtin_expect：一个 if 分支极大可能不会执行，使用这个编译，附近的，编译器会将极大概率连续执行的代码编译为连续的二进制。
+__attribute__ 相关（查看 GNU 官方文档 ）：
+unused: 显式地指定一个变量不会被使用，-Wall 编译时不会抛出警告，比如：int main(int argc __attribute__((unused)), char **argv)；
+format: 传递 printf 类似的参数时进行参数校验，比如：extern void printfBy(int flag, const char *format, ...) __attribute__((format(printf, 2, 3)));
+noreturn: 显式地告诉编译器对应的函数不会调用 exit 或 abort 等函数；
+如何定义一个只能分配在栈（堆）上的类（参考博客）：
+将析构函数定义为私有函数，编译器无法在栈分配时调用析构方法。对象将只能被定义在堆上；
+重载 new() 与 delete()，对象无法被动态分配。对象将只能被定义在栈上；
+用纯 C 实现 C++ 类继承中的动态虚函数特性（参考博客），实现虚函数表。
+定义结构体编译对齐方法，比如按四字节对齐：
+#pragma pack(push) #pragma pack(4) .</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/cpp%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E6%A2%B3%E7%90%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/cpp%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E6%A2%B3%E7%90%86/</guid><description>复习地址:
+https://github.com/huihut/interview C++ 知识结构系统梳理 # 关键字 # 零碎知识 # 面向对象 # 智能指针 # 智能指针定义在头文件 memory 中。
+强制类型转换 # STL # Deque 的全称是 double ended queue，两端结束队列；
+它是 stack 与 queque 的底层存储结构，它的实现基于 vector 的实现，它结构大致如下：
+可以看到这样存储的优点是：
+仍然可以通过接近与 O(1) 常数级别的时间复杂度进行访问； 在两端的插入删除复杂度仍然为 O(1)； 对于 stack 与 queue 这样的仅仅在双端有插入删除访问操作的数据结构，是一个合适的基类；</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/ethereum%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/ethereum%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</guid><description>概念 # KDF：彩虹表攻击
 重入攻击
 数字货币的双重支付问题
 递归长度前缀 Recursive Length Prefix (RLP)
@@ -7,7 +29,8 @@ Merkle Patricia Tree
 ÐΞVp2p
 智能合约；
 外部账户（EOA）和合约账户；
-代码、项目、实践 # 运行这些程序：Ethereum、web3js(Whisper)、Swarm、Solidity（IDE：Remix）、Parity、Go-Ethereum； 使用 MetaMask 体验以太坊； 尝试运行一个完整的以太坊客户端节点；</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/latexmanual/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/latexmanual/</guid><description>Latex Command # Command on Linux # 使用 latex 编译的命令（详细的帮助文档可以使用 --help 参数查看）：
+代码、项目、实践 # 运行这些程序：Ethereum、web3js(Whisper)、Swarm、Solidity（IDE：Remix）、Parity、Go-Ethereum； 使用 MetaMask 体验以太坊； 尝试运行一个完整的以太坊客户端节点；</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/git%E6%96%87%E4%BB%B6%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/git%E6%96%87%E4%BB%B6%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84/</guid><description>Git Advance # Git 文件系统 # 概述 # 我们在一个 git init 结果的空仓库中，简述一下各个部分的作用：
+.git ├── HEAD // 指示当前被检出的分支 ├── branches // 废弃 ├── config // 项目内的配置文件 ├── description // 供GitWeb程序使用 ├── hooks // 存储钩子脚本 │ ├── applypatch-msg.sample │ ... ├── info // 目录包含一个全局性排除(global exclude)文件， │ └── exclude // 用以放置那些不希望被记录在 .gitignore 文件中的忽略模式(ignored patterns) ├── objects // 存储所有数据内容 │ ├── info // 仓库的额外信息 │ └── pack // 压缩后的包文件 └── refs // 存储指向分支的提交对象的指针 ├── heads // 分支 └── tags // 标签 执行以下命令可以查看 Git 目录结构说明：</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/latexmanual/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/latexmanual/</guid><description>Latex Command # Command on Linux # 使用 latex 编译的命令（详细的帮助文档可以使用 --help 参数查看）：
 $ latexmk --help 使用 MikTex 编译的命令（详细的帮助文档可以使用 --help 参数查看）：
 $ telatex --help Latex 安装包目录管理命令（详细的帮助文档可以使用 --help 参数查看）：
 $ kpsewhich --help 手动安装到一个安装目录之后，需要使用以下命令更新 LaTex 的安装包搜索路径：
@@ -17,15 +40,76 @@ $ sudo apt-get install iptables 添加规则。比如以下命令打开 8000 端
 $ iptables -A INPUT -p tcp --dport 8000 -j ACCEPT 删除此条添加的规则则使用下面的命令：
 $ iptables -D INPUT -p tcp --dport 8000 -j ACCEPT 保存规则
 $ iptables-save 持续化规则。安装 iptables-persistent 支持：
-$ sudo apt-get install iptables-persistent 使用进行持续化规则：</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/tsdb%E5%AD%A6%E4%B9%A0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/tsdb%E5%AD%A6%E4%B9%A0/</guid><description>TSDB 学习 # 时序数据的特点：
+$ sudo apt-get install iptables-persistent 使用进行持续化规则：</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/mongdb%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/mongdb%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/</guid><description>原理介绍 # 参考资料：https://zhuanlan.zhihu.com/p/87722764
+简介 # MongoDB 是最受欢迎的 NoSQL 数据库，文档数据库排名第一位，在所有数据库引擎中排名第五位（Oracle、MySQL、Microsoft-SQL-Server、Postgre SQL）。
+了解 MongoDB 的发展历史可以查看 这篇文章。
+特性 # 以下是 MongoDB 的一些特性：
+面向文档存储，基于 JSON/BSON 可表示灵活的数据结构。因此与 javascript 有天生的兼容性，nodejs 服务则倾向于使用 mongodb 作为其底层数据结构；
+动态 DDL 能力，没有强 Schema 约束，支持快速迭代。同样也于 javascript 脚本语言的变量无类型性吻合。
+高性能计算，提供基于内存的快速数据查询；
+容易扩展，利用数据分片可以支持海量数据存储；
+丰富的功能集，支持二级索引、强大的聚合管道功能，为开发者量身定做的功能，如数据自动老化、固定集合等等。
+跨平台版本、支持多语言SDK。
+基本模型 # 基本概念与操作 # MongoDB 是最像关系型数据库的文档型数据库，为了实现关系型数据库的一些模型，MongoDB 自己定义了一些概念。
+RDBMS 概念 MongoDB 概念 database database。与 RDB 相同，表示表的集合。 table collection：一个 collection 可以存放多个文档。 不同之处在于 collection 的 schema 是动态的，不需要预先声明一个严格的表结构。更重要的是，默认情况下 MongoDB 并不会对写入的数据做任何schema 的校验。 row document：相当于 RDB 中的“行”，一个文档由多个字段（列）组成，并采用bson 格式表示（下面阐述）。 column field：相当于 RDB 中的“列”，相比普通column的差别在于field的类型可以更加灵活，比如支持嵌套的文档、数组。 view view：在 MongoDB3.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/mysql%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/mysql%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</guid><description>性能优化 # 查询优化 # 查询语句使用原则：
+范围查询的列放到索引列的最后面：MySQL 会一直向右利用索引匹配直到遇到范围查询（&amp;gt;、&amp;lt;、between、like）就停止匹配，所以如果将范围放在前面，后面的索引将无法使用。
+PS：这里的范围查询是不包括 in 的，in 是指多个等值条件查询，不对联合索引的匹配造成影响。但是通过 explain 分析执行计划时无法区别范围查询和多个等值查询（统一显示为 range）
+= 和 in 可以乱序：MySQL 的查询优化器会帮你优化成索引可以识别的形式。根据经验是将业务中使用到的查询里最常用的列放在前面，这样可以尽量使用到该索引。
+字符串通配符尽量后置：Like 查询如果使用 %s% 这种格式，非最左前缀匹配将无法使用到索引。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/sagemath%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/sagemath%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/</guid><description>SageMath 快速使用手册 # 基于 python2 的数学教学工具 sage-math。
+Quick Manual:
+比特流转换为整数：
+ZZ([1,1,0,1],base=2) 这种方式与 int('1101',2) 转换的结果相反，它等价于 int('1011', 2)
+整数转化为比特流：
+Integer(15).binary() 在 sage 中，通过多项式建立一个有限域：
+sage: FF = GF(2**8, name=&amp;#39;x&amp;#39;, modulus=x^8 + x^4 + x^3 + x + 1) 在这个有限域中，整数与多项式相互转化：
+# 整数转化为多项式 sage: FF.fetch_int(5) x^2 + 1 # 多项式转化为整数 sage: FF(x^2 + 1).integer_representation() 5</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/svntutorial/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/svntutorial/</guid><description>学习网址：
+https://www.tutorialspoint.com/svn/svn_environment.htm SVN # SVN is a Version Control System.
+Life Cycle # Create Repository: create operation is used to create a new repository. Checkout: Checkout operation is used to create a working copy from the repository. Update: update operation is used to update working copy. Perform Changes: Rename operation changes the name of the file/directory. Move operation is used to move files/directories from one place to another in a repository tree.</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/tsdb%E5%AD%A6%E4%B9%A0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/tsdb%E5%AD%A6%E4%B9%A0/</guid><description>TSDB 学习 # 时序数据的特点：
 数据按照时间严格单调排序； Append Only：只能向后插入数据，不能更新； 写数量远大于读数量：大于 90% 的数据从未被读取； 数据量级特别大，但是相对比较稳定； 随着时间的推移，数据的价值减小，最近数据的价值高于历史数据； 通常与 tag 聚合在一起，根据时间范围进行查询； Metrics 是字节跳动实现 tsdb 的解决方案，很多平台的数据源都来自 Metrics：
 alarm、grafana、metro-fe、argos； Metrics 系统架构分为三级：
 SDK 侧：通过 SDK 将日志信息发送到 agent，agent 通过 producer 发送到消息队列中； 核心逻辑：consimer/preshuffle 两个消费逻辑链路，分别将数据存储到冷热存储的两个不同数据库中； 数据存储：速度快的“热存储”TSDC、速度较慢的“冷存储”mstore； Open Source：
-在业界有很多开源的解决方案：Influxdb、Opentsdb、Druid、Elasticsearch、Beringei 等；</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8/</guid><description>在实习过程中，在字节跳动内部分享上学习的东西
+在业界有很多开源的解决方案：Influxdb、Opentsdb、Druid、Elasticsearch、Beringei 等；</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84%E7%AE%97%E6%B3%95%E5%B0%8F%E8%AE%B0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84%E7%AE%97%E6%B3%95%E5%B0%8F%E8%AE%B0/</guid><description>一些常见的算法小记 # Fisher–Yates shuffle 洗牌算法：https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+Boyer-Moore 多数投票算法：https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_majority_vote_algorithm
+func majorityElement(nums []int) int { iter, most := 0, 0 for _,num := range nums { if iter == 0 { most, iter = num, iter+1 } else if most == num { iter += 1 } else { iter -= 1 } } count, sz := 0, len(nums) for _,num := range nums { if num == most { count += 1 } if count * 2 &amp;gt; sz { return most } } return -1 }</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8/</guid><description>在实习过程中，在字节跳动内部分享上学习的东西
 :floppy_disk:客户端本地存储 # 作用 # 客户端本地存储主要有以下的几个作用：
 作为网络 IO 的缓存：缓存图片、缓存接口的 Response； 保存配置或者数据：配置信息、状态信息、日志信息、Crash 信息等； 作为内存的 Backing Store：暂存大文件、征用扩展内存； 常见存储方案分析 # 如何分析各种存储方案，主要考虑以下几个特性：
 读写性能：平均读写性能、最坏读写性能； 并发性能：是否线程安全、读写操作互相并发的能力； 数据完整性：数据损失或丢失的概率； 空间性能：存储相同的数据，需要的磁盘与内存空间； Plist # plist 是一种 xml 格式，是 iOS 中最常用的配置存储数据格式，下面是一个例子：
-&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;!DOCTYPE plist PUBLIC &amp;#34;-//Apple//DTD PLIST 1.0//EN&amp;#34; &amp;#34;http://www.apple.com/DTDs/PropertyList-1.0.dtd&amp;#34;&amp;gt; &amp;lt;plist version=&amp;#34;1.0&amp;#34;&amp;gt; &amp;lt;dict&amp;gt; &amp;lt;key&amp;gt;quiz&amp;lt;/key&amp;gt; &amp;lt;dict&amp;gt; &amp;lt;key&amp;gt;question&amp;lt;/key&amp;gt; &amp;lt;array&amp;gt; &amp;lt;dict&amp;gt; &amp;lt;key&amp;gt;text&amp;lt;/key&amp;gt; &amp;lt;string&amp;gt;What does &amp;#39;API&amp;#39; stand for?</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/%E7%94%A8%E6%88%B7%E7%B3%BB%E7%BB%9F/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/%E7%94%A8%E6%88%B7%E7%B3%BB%E7%BB%9F/</guid><description>参考：
+&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;!DOCTYPE plist PUBLIC &amp;#34;-//Apple//DTD PLIST 1.0//EN&amp;#34; &amp;#34;http://www.apple.com/DTDs/PropertyList-1.0.dtd&amp;#34;&amp;gt; &amp;lt;plist version=&amp;#34;1.0&amp;#34;&amp;gt; &amp;lt;dict&amp;gt; &amp;lt;key&amp;gt;quiz&amp;lt;/key&amp;gt; &amp;lt;dict&amp;gt; &amp;lt;key&amp;gt;question&amp;lt;/key&amp;gt; &amp;lt;array&amp;gt; &amp;lt;dict&amp;gt; &amp;lt;key&amp;gt;text&amp;lt;/key&amp;gt; &amp;lt;string&amp;gt;What does &amp;#39;API&amp;#39; stand for?</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/%E5%B8%B8%E8%A7%81%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E6%B1%87%E6%80%BB/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/%E5%B8%B8%E8%A7%81%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E6%B1%87%E6%80%BB/</guid><description>常见安全工具汇总 # 关于各种工具的用途总结：
+WEB 工具 # shodan：
+# 安装 $ pip install shodan # 初始化 $ shodan init &amp;lt;API KEY&amp;gt; # 详细见：https://cli.shodan.io/ sqlmap：
+# 安装 $ pip install sqlmap # 使用 $ sqlmap -u &amp;lt;target website&amp;gt; 密码学工具 # z3，pycrypto，sagemath
+PE Portable Executable # VirusTotal：一个分析病毒文件的在线网站。
+pefile：一个静态分析 PE 文件的 python 库。源代码
+capstone、keystone-enginne：一个处理反汇编程序的库和一个处理汇编程序的库，可以使用 python、c++ 等语言编写。源代码</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A6%82%E5%BF%B5%E5%85%A5%E9%97%A8/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A6%82%E5%BF%B5%E5%85%A5%E9%97%A8/</guid><description>微服务概念入门 # 服务发现 # https://zhuanlan.zhihu.com/p/161277955
+使用一个名字服务器进行服务发现。解决分布式微服务的网络调用结构问题。
+服务限流 # https://zhuanlan.zhihu.com/p/65900436
+服务限流算法：
+计数器算法、漏桶算法、令牌算法 服务雪崩降级熔断 # 服务雪崩：
+一个服务失败，导致整条链路的服务都失败的情形，我们称之为服务雪崩。 服务熔断：
+当下游的服务因为某种原因突然变得不可用或响应过慢，上游服务为了保证自己整体服务的可用性，不再继续调用目标服务，直接返回，快速释放资源。 服务降级：
+当下游的服务因为某种原因响应过慢，下游服务主动停掉一些不太重要的业务，释放出服务器资源，增加响应速度。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</guid><description>数据库基本概念 # 什么是 NOSQL？
+NoSQL(NoSQL = Not Only SQL )，意即&amp;quot;不仅仅是SQL&amp;quot;。 ACID 理论 # 关系型数据库有事务（transaction）的概念，事务遵循 ACID 原则：
+A (Atomicity 原子性)：事务里的所有操作要么全部做完，要么都不做，事务成功的条件是事务里的所有操作都成功，只要有一个操作失败，整个事务就失败，需要回滚。 C (Consistency 一致性)： I (Isolation 独立性)： D (Durability 持久性)： 分布式系统 # 什么是分布式系统？
+简单的来说，一个分布式系统是一组计算机系统一起工作，在终端用户看来，就像一台计算机在工作一样。这组一起工作的计算机，拥有共享的状态，他们同时运行，独立机器的故障不会影响整个系统的正常运行。 分布式系统的优点：
+**可靠性（容错） ：**分布式计算系统中的一个重要的优点是可靠性。一台服务器的系统崩溃并不影响到其余的服务器。
+**可扩展性：**在分布式计算系统可以根据需要增加更多的机器。
+**资源共享：**共享数据是必不可少的应用，如银行，预订系统。
+**灵活性：**由于该系统是非常灵活的，它很容易安装，实施和调试新的服务。
+**更快的速度：**分布式计算系统可以有多台计算机的计算能力，使得它比其他系统有更快的处理速度。
+**开放系统：**由于它是开放的系统，本地或者远程都可以访问到该服务。
+**更高的性能：**相较于集中式计算机网络集群可以提供更高的性能（及更好的性价比）。
+分布式系统的缺点：
+**故障排除：**故障排除和诊断问题。</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/</guid><description>版本控制 # 现在流行的版本系统主要分为集中式版本系统、分布式版本系统 2 大类。
+集中式版本系统 # 主要的集中式版本控制系统：
+CVS (Concurrent Versions System) free software，以 GNU 版权发行，许多老的 GNU 项目都用 CVS，2008 年后更新不活跃。 Subversion (Apache Subversion) Apache License，top-level Apache project，兼容 CVS。 SVN 则是最著名的集中式版本控制系统。 SVN 的主要特点：
+SVN 需要一个中心服务器，用来保存所有文件的所有修订版本。
+客户端只保存最新的版本或者设置为检出某一个历史版本，客户端必须在连接到中心服务器之后才能做出检出某个版本、查询文件修改历史、提交更新等操作。
+每一次 commit 之前，都需要连接中心服务器获取最新的文件版本，如果中心服务器宕机，则你无法提交任何更新，也无法将项目回溯到历史版本。
+如果中心服务器发生磁盘故障，而你又没有做任何备份，你将会丢失当前和历史的所有数据。
+对 分支 的支持较弱，SVN 的分支就是一个完整、独立的文件夹，分支的创建和合并代价都非常高（实际可能会通过硬连接的方式节省空间）；
+无法追踪目录文件的变化，变更目录需要使用 SVN 命令。
+管理员能够轻松掌握每一个开发者的权限（Git 自身不支持分支保护）。
+分布式版本系统 # 主要的分布式管理系统：</description></item><item><title/><link>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/%E7%94%A8%E6%88%B7%E7%B3%BB%E7%BB%9F/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://shesl-meow.github.io/docs/%E6%9D%82%E9%A1%B9%E5%8D%9A%E5%AE%A2/%E7%94%A8%E6%88%B7%E7%B3%BB%E7%BB%9F/</guid><description>参考：
 https://sherryhsu.medium.com/session-vs-token-based-authentication-11a6c5ac45e4 https://jwt.io/introduction https://stackoverflow.com/questions/43452896/authentication-jwt-usage-vs-session https://en.wikipedia.org/wiki/OAuth 用户系统 # Session Base Authentication # 流程简介 # 最传统的用户系统，django 的默认实现，用户登陆时后服务端会为当前会话创建一个 session 并且将 sessionID 作为 cookie 设置到客户端上，用户每次需要访问敏感资源时需要带上 sessionID，服务端通过 session 判断用户是否登陆成功。简单流程如下：
 JWT (Json Web Token) # 格式 # JWT 是一种被写入 RFC7519 的协议标准。一个 JWT 的格式由 Base64 加密的 “Header”、“Payload”、“Signature” 三个部分由 . 字符拼接而成：
 上图中可以看出三部分的作用：
