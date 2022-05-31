@@ -50,7 +50,14 @@ enableEmoji = true
     name = "分类"
     url = "/categories/"
     title = ""
-
+  [[menu.main]]
+    weight = 4
+    identifier = "note"
+    pre = ""
+    post = ""
+    name = "笔记"
+    url = "/note/"
+    title = ""
 
 [params]
   # site default theme ["auto", "light", "dark"]
