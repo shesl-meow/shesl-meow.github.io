@@ -1,0 +1,343 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>NSObject - shesl's blog</title><meta name=Description content="佘崧林同学的碎碎念博客"><meta property="og:title" content="NSObject"><meta property="og:description" content="参考： https://halfrost.com/objc_runtime_isa_class/ http://www.cocoawithlove.com/2010/01/what-is-meta-class-in-objective-c.html https://draveness.me/method-struct NSObject 协议中定义的多种方法，是 OC 代码与 Runtime 发生交互的重要位置。 NSObject 基类 这个类与 NSObject 协议定义在了一个文件 Public Headers/NSObjects.h 中： 1 2 3 4 5 OBJC_ROOT_CLASS OBJC_EXPORT @interface NSObject <NSObject> { Class isa OBJC_ISA_AVAILABILITY;"><meta property="og:type" content="article"><meta property="og:url" content="http://shesl-meow.github.io/note/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/ios/runtime/2.%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><meta property="og:image" content="http://shesl-meow.github.io/avatar.png"><meta property="article:section" content="note"><meta property="article:published_time" content="2019-12-15T11:04:38+08:00"><meta property="article:modified_time" content="2019-12-15T11:04:38+08:00"><meta property="og:site_name" content="shesl's blog"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="http://shesl-meow.github.io/avatar.png"><meta name=twitter:title content="NSObject"><meta name=twitter:description content="参考： https://halfrost.com/objc_runtime_isa_class/ http://www.cocoawithlove.com/2010/01/what-is-meta-class-in-objective-c.html https://draveness.me/method-struct NSObject 协议中定义的多种方法，是 OC 代码与 Runtime 发生交互的重要位置。 NSObject 基类 这个类与 NSObject 协议定义在了一个文件 Public Headers/NSObjects.h 中： 1 2 3 4 5 OBJC_ROOT_CLASS OBJC_EXPORT @interface NSObject <NSObject> { Class isa OBJC_ISA_AVAILABILITY;"><meta name=application-name content="shesl's blog"><meta name=apple-mobile-web-app-title content="shesl's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://shesl-meow.github.io/note/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/ios/runtime/2.%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/><link rel=prev href=http://shesl-meow.github.io/note/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/ios/runtime/3.%E7%BC%96%E8%AF%91%E7%BB%93%E6%9E%9C/><link rel=next href=http://shesl-meow.github.io/note/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/ios/runtime/swizzling/><link rel=stylesheet href=/css/style.min.fa85115dce490a9d0bf009e2892b6d42439bdea75160d08cddcb0b97c8def676.css integrity="sha256-+oURXc5JCp0L8AniiSttQkOb3qdRYNCM3csLl8je9nY="><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"NSObject","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/shesl-meow.github.io\/note\/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3\/ios\/runtime\/2.%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84\/"},"genre":"note","keywords":"","wordcount":2272,"url":"http:\/\/shesl-meow.github.io\/note\/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3\/ios\/runtime\/2.%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84\/","datePublished":"2019-12-15T11:04:38+08:00","dateModified":"2019-12-15T11:04:38+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"佘崧林"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>博客 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/note/>笔记 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>博客</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/note/ title>笔记</a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">NSObject</h1><div class=content id=content><blockquote><p>参考：</p><ul><li><a href=https://halfrost.com/objc_runtime_isa_class/ target=_blank rel="noopener noreffer">https://halfrost.com/objc_runtime_isa_class/</a></li><li><a href=http://www.cocoawithlove.com/2010/01/what-is-meta-class-in-objective-c.html target=_blank rel="noopener noreffer">http://www.cocoawithlove.com/2010/01/what-is-meta-class-in-objective-c.html</a></li><li><a href=https://draveness.me/method-struct target=_blank rel="noopener noreffer">https://draveness.me/method-struct</a></li></ul></blockquote><p><code>NSObject</code> 协议中定义的多种方法，是 OC 代码与 Runtime 发生交互的重要位置。</p><h2 id=nsobject-基类>NSObject 基类</h2><p>这个类与 <code>NSObject</code> 协议定义在了一个文件 <code>Public Headers/NSObjects.h</code> 中：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=n>OBJC_ROOT_CLASS</span>
+</span></span><span class=line><span class=cl><span class=n>OBJC_EXPORT</span>
+</span></span><span class=line><span class=cl><span class=k>@interface</span> <span class=nc>NSObject</span> <span class=o>&lt;</span><span class=n>NSObject</span><span class=o>&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>Class</span> <span class=n>isa</span>  <span class=n>OBJC_ISA_AVAILABILITY</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>其中：</p><ul><li><p><code>OBJC_ROOT_CLASS</code> 是一个宏：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=cp>#if !defined(OBJC_ROOT_CLASS)
+</span></span></span><span class=line><span class=cl><span class=cp>#   if __has_attribute(objc_root_class)
+</span></span></span><span class=line><span class=cl><span class=cp>#       define OBJC_ROOT_CLASS __attribute__((objc_root_class))
+</span></span></span><span class=line><span class=cl><span class=cp>#   else
+</span></span></span><span class=line><span class=cl><span class=cp>#       define OBJC_ROOT_CLASS
+</span></span></span><span class=line><span class=cl><span class=cp>#   endif
+</span></span></span><span class=line><span class=cl><span class=cp>#endif
+</span></span></span></code></pre></td></tr></table></div></div><p>它为 <code>NSObject</code> 这个类附加了 <code>objc_root_class</code> 这个属性，这是 GNU C 的特性，见：<a href=../../Cplusplus/attribute.md rel>Attribute</a></p></li><li><p><code>OBJC_EXPORT</code> 也是一个宏，它标记了这个类可以被任意外部位置访问到；</p></li><li><p><code>isa</code> 是一个变量名，<code>Class</code> 是一个变量类型，<code>OBJC_ISA_AVAILABILITY</code> 也是一个宏，在 ObjC2 版本以后，<code>isa</code> 这个变量被标记为过期的属性，具体在 <code>objc_object</code> 中实现（下面详细解释）。</p></li></ul><p><code>Class</code> 与 <code>id</code> 的定义在 <code>Public Headers/objc.h</code> 这个文件中：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=cp>#if !OBJC_TYPES_DEFINED
+</span></span></span><span class=line><span class=cl><span class=cp></span><span class=c1>/// An opaque type that represents an Objective-C class.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>typedef</span> <span class=k>struct</span> <span class=n>objc_class</span> <span class=o>*</span><span class=n>Class</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>/// Represents an instance of a class.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>struct</span> <span class=n>objc_object</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>Class</span> <span class=n>isa</span>  <span class=n>OBJC_ISA_AVAILABILITY</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>/// A pointer to an instance of a class.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>typedef</span> <span class=k>struct</span> <span class=n>objc_object</span> <span class=o>*</span><span class=n>id</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=cp>#endif
+</span></span></span></code></pre></td></tr></table></div></div><h2 id=objc_class-或-class><code>objc_class</code> 或 <code>Class</code></h2><p>这个类是所有<strong>Objective-C 类的夫类</strong>。</p><p>在 Objc2 之前，该类的定义在 <code>Public Headers/runtime.h</code> 中，参考意义不大就不列举了，就是一个简单的字段组合。在 2006 年苹果公司发布 Objcive-C 2.0 之后，该类的定义在 <code>Public Headers/objc-runtime-new.h</code> 这个文件中：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=k>struct</span> <span class=nl>objc_class</span> <span class=p>:</span> <span class=n>objc_object</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// Class ISA;
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kt>Class</span> <span class=n>superclass</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>cache_t</span> <span class=n>cache</span><span class=p>;</span>             <span class=c1>// formerly cache pointer and vtable
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>class_data_bits_t</span> <span class=n>bits</span><span class=p>;</span>    <span class=c1>// class_rw_t * plus custom rr/alloc flags
+</span></span></span><span class=line><span class=cl><span class=c1></span>		
+</span></span><span class=line><span class=cl>  	<span class=n>class_rw_t</span> <span class=o>*</span><span class=nf>data</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      	<span class=k>return</span> <span class=n>bits</span><span class=p>.</span><span class=n>data</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>  	<span class=kt>void</span> <span class=nf>setData</span><span class=p>(</span><span class=n>clas_rw_t</span> <span class=o>*</span><span class=n>newData</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      	<span class=n>bits</span><span class=p>.</span><span class=n>setData</span><span class=p>(</span><span class=n>newData</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>		<span class=c1>// 此处有省略一些类方法...
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><code>superclass</code> 是用于指向夫类的指针（<code>NSObject</code> 中也有一个同名的类方法）；</li><li><code>cache</code> 是方法缓存；</li><li><code>class_data_bits_t</code> 是一个封装了比特位的类，<code>bits</code> 是这个类对应实例的方法链表。</li></ul><p>这个类主要封装了与面向对象相关的方法，比如继承、哈希化等。</p><h2 id=objc_object-或-id><code>objc_object</code> 或 <code>id</code></h2><p>这个类是<strong>包括 <code>object_class</code> 在内的所有实例对象的夫类</strong>。</p><p>它定义在了文件 <code>Project Headers/objc-private.h</code>，是一个不对外暴露的私有类（对外暴露为 <code>id</code>）：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=k>struct</span> <span class=n>objc_object</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=nl>private</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>isa_t</span> <span class=n>isa</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  	<span class=c1>// 此处有省略一些类方法...
+</span></span></span><span class=line><span class=cl><span class=c1></span>  
+</span></span><span class=line><span class=cl><span class=nl>public</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>  	<span class=n>Class</span> <span class=n>ISA</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>  	<span class=n>Class</span> <span class=nf>getIsa</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>isa</code> 这个变量是这个类最核心的功能，它用于指定实例实现的类。观察函数也会发现，它主要实现 <code>dealloc</code> / <code>retain</code> / <code>release</code> 等析构、初始化、内存管理相关的工作。</p><h2 id=小结metaclass>小结：<em>MetaClass</em></h2><p>由上面的分析我们得出一个重要的结论：<strong>Objective-C 中类也是一个对象</strong>，这个对象是单例模式。实际上这些单例模式的对象是在 main 函数执行之前，从 <code>dyld</code> 到 <code>runtime</code> 这期间创建的。</p><p>既然 OC 类派生自 <code>objc_object</code>，它就一定有 <code>isa</code> 这个成员，那么 OC 类的 <code>isa</code> 指针应该指向哪里呢？</p><p>这就牵涉到 <code>isa</code> 最重要的作用：消息传递。这里简单介绍一下消息传递的流程：</p><ol><li>当源代码向一个对象发送消息时，会首先查找这个这个对象的 <code>isa</code> 参数；</li><li><code>isa</code> 参数指向一个类，Runtime 查找这个类的方法链表中查找并执行这个方法；</li></ol><p>因此为了使 <code>Objective-C</code> 中的类也可以同样接受消息，<code>Objective-C</code> 将类方法分离了出去，称作元类（即 Meta Class）。Instance、Class、Meta-Class 三者的关系大致如下图：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../InstanceClassMetaclass.png data-srcset="../InstanceClassMetaclass.png, ../InstanceClassMetaclass.png 1.5x, ../InstanceClassMetaclass.png 2x" data-sizes=auto alt=../InstanceClassMetaclass.png title=InstanceClassMetaclass></p><p>其中的 superclass 为 <code>nil</code> 的 Root class 即为 <code>NSObject</code>。<code>NSObject</code> 本质是 <code>objc_class</code> 这个类的单例。</p><h2 id=isa_t><code>isa_t</code></h2><p>之前也提到了，在 Objective-C 中比较核心的 <code>isa</code>，它的类型为 <code>isa_t</code>。它的实现如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=k>union</span> <span class=n>isa_t</span> 
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>isa_t</span><span class=p>()</span> <span class=p>{</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=n>isa_t</span><span class=p>(</span><span class=n>uintptr_t</span> <span class=n>value</span><span class=p>)</span> <span class=o>:</span> <span class=n>bits</span><span class=p>(</span><span class=n>value</span><span class=p>)</span> <span class=p>{</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>Class</span> <span class=n>cls</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>uintptr_t</span> <span class=n>bits</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl><span class=cp>#if defined(ISA_BITFIELD)
+</span></span></span><span class=line><span class=cl><span class=cp></span>  	<span class=k>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      	<span class=n>ISA_BITFIELD</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=cp>#endif
+</span></span></span><span class=line><span class=cl><span class=cp></span>		<span class=c1>// 下面分别为 __arm64__ 与 __x86_64__ 定义了两个文件...
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=class_data_bits_t><code>class_data_bits_t</code></h2><p><code>objc_class</code> 的一个成员的类型为 <code>class_data_bits_t</code>，它的声明如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=k>struct</span> <span class=n>class_data_bits_t</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// Values are the FAST_ flags above.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>uintptr_t</span> <span class=n>bits</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nl>private</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>  	<span class=c1>// 一些成员方法...
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nl>public</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>  	<span class=n>class_rw_t</span><span class=o>*</span> <span class=n>data</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=p>(</span><span class=n>class_rw_t</span> <span class=o>*</span><span class=p>)(</span><span class=n>bits</span> <span class=o>&amp;</span> <span class=n>FAST_DATA_MASK</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=kt>void</span> <span class=n>setData</span><span class=p>(</span><span class=n>class_rw_t</span> <span class=o>*</span><span class=n>newData</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>assert</span><span class=p>(</span><span class=o>!</span><span class=n>data</span><span class=p>()</span>  <span class=o>||</span>  <span class=p>(</span><span class=n>newData</span><span class=o>-&gt;</span><span class=n>flags</span> <span class=o>&amp;</span> <span class=p>(</span><span class=n>RW_REALIZING</span> <span class=o>|</span> <span class=n>RW_FUTURE</span><span class=p>)));</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// Set during realization or construction only. No locking needed.
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=n>bits</span> <span class=o>=</span> <span class=p>(</span><span class=n>bits</span> <span class=o>&amp;</span> <span class=o>~</span><span class=n>FAST_DATA_MASK</span><span class=p>)</span> <span class=o>|</span> <span class=p>(</span><span class=n>uintptr_t</span><span class=p>)</span><span class=n>newData</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>		<span class=c1>// 一些成员方法...
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>这个结构体只有一个 64 位的成员变量 <code>bits</code>。而它最重要的两个类方法也列举了出来：<code>data</code>、<code>setData</code>。</p><p><code>bits</code> 的内存布局可以用下面的示意图表示：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../class_data_bits_t.bits-mmlayout.png data-srcset="../class_data_bits_t.bits-mmlayout.png, ../class_data_bits_t.bits-mmlayout.png 1.5x, ../class_data_bits_t.bits-mmlayout.png 2x" data-sizes=auto alt=../class_data_bits_t.bits-mmlayout.png title=class_data_bits_t.bits-mmlayout></p><ul><li><code>is_swift</code>：指示持有它的 <code>objc_class</code> 是不是一个 swift 语言的类；</li><li><code>has_default_rr</code>：指示持有它的 <code>objc_class</code> 有没有默认实现 <code>retain/release/autorelease</code> 等方法；</li></ul><h2 id=class_rw_t-与-class_ro_t><code>class_rw_t</code> 与 <code>class_ro_t</code></h2><p>一个 <code>objc_class</code> 类中的属性、方法还有遵循的协议信息都保存在了 <code>class_rw_t</code> 中：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=k>struct</span> <span class=n>class_rw_t</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>uint32_t</span> <span class=n>flags</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>uint32_t</span> <span class=n>version</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>const</span> <span class=n>class_ro_t</span> <span class=o>*</span><span class=n>ro</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>method_array_t</span> <span class=n>methods</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>property_array_t</span> <span class=n>properties</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>protocol_array_t</span> <span class=n>protocols</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kt>Class</span> <span class=n>firstSubclass</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>Class</span> <span class=n>nextSiblingClass</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><p>其中还有一个类型为 <code>class_ro_t</code> 指向常量的指针 <code>ro</code>，其中存储了<strong>当前类在编译期就已经确定的属性、方法以及遵循的协议</strong>：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=k>struct</span> <span class=n>class_ro_t</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>uint32_t</span> <span class=n>flags</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>uint32_t</span> <span class=n>instanceStart</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>uint32_t</span> <span class=n>instanceSize</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>uint32_t</span> <span class=n>reserved</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>const</span> <span class=n>uint8_t</span> <span class=o>*</span> <span class=n>ivarLayout</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span> <span class=n>name</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>method_list_t</span> <span class=o>*</span> <span class=n>baseMethodList</span><span class=p>;</span>		<span class=c1>// 持有这个类的 实例方法列表
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>protocol_list_t</span> <span class=o>*</span> <span class=n>baseProtocols</span><span class=p>;</span>	<span class=c1>// 持有这个类的 实例协议列表
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>const</span> <span class=n>ivar_list_t</span> <span class=o>*</span> <span class=n>ivars</span><span class=p>;</span>				<span class=c1>// 持有这个类的 实例变量列表
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>    <span class=k>const</span> <span class=n>uint8_t</span> <span class=o>*</span> <span class=n>weakIvarLayout</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>property_list_t</span> <span class=o>*</span><span class=n>baseProperties</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p>在编译之后，<code>class_data_bits_t.data</code> 直接指向 <code>class_ro_t</code>，</p><p>也就是说 <strong><code>class_ro_t</code> 是编译时产生的</strong>；</p></li><li><p>在 Runtime 加载了对应的 <code>objc_class</code> 之后，<code>class_data_bits_t.data</code> 与 <code>class_ro_t</code> 的指向关系中插入了 <code>class_rw_t</code> 这个类，</p><p>也就是说 <strong><code>class_rw_t</code> 是运行时产生的</strong>；</p></li></ul><h2 id=iva_t--method_t--protocol_t><code>iva_t</code> && <code>method_t</code> && <code>protocol_t</code></h2><p><code>class_rw_t</code> 与 <code>class_ro_t</code> 两个类最要的三个成员变量：实例方法列表、实例协议列表、实例变量列表。</p><p>这三个列表都是三个基本类型的列表：</p><ol><li><p><code>ivar_t</code> 表示的是一个实例变量，其关键字段是 <code>字段起始位置的相对地址</code>、<code>字段名称</code>、<code>字段类型</code>：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=k>struct</span> <span class=n>ivar_t</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>int32_t</span> <span class=o>*</span><span class=n>offset</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>name</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>type</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// alignment is sometimes -1; use alignment() instead
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>uint32_t</span> <span class=n>alignment_raw</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>uint32_t</span> <span class=n>size</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>uint32_t</span> <span class=nf>alignment</span><span class=p>()</span> <span class=k>const</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=n>alignment_raw</span> <span class=o>==</span> <span class=o>~</span><span class=p>(</span><span class=n>uint32_t</span><span class=p>)</span><span class=mi>0</span><span class=p>)</span> <span class=k>return</span> <span class=mi>1U</span> <span class=o>&lt;&lt;</span> <span class=n>WORD_SHIFT</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=mi>1</span> <span class=o>&lt;&lt;</span> <span class=n>alignment_raw</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div></li><li><p><code>method_t</code> 是表示一个实例方法，其关键字段是 <code>方法选择器</code>、<code>方法名称</code>、<code>方法实现</code> 三个：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=k>struct</span> <span class=n>method_t</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>SEL</span> <span class=n>name</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>types</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>IMP</span> <span class=n>imp</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>struct</span> <span class=nl>SortBySELAddress</span> <span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>public</span> <span class=n>std</span><span class=o>::</span><span class=n>binary_function</span><span class=o>&lt;</span><span class=k>const</span> <span class=n>method_t</span><span class=o>&amp;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                                    <span class=k>const</span> <span class=n>method_t</span><span class=o>&amp;</span><span class=p>,</span> <span class=kt>bool</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kt>bool</span> <span class=n>operator</span><span class=p>()</span> <span class=p>(</span><span class=k>const</span> <span class=n>method_t</span><span class=o>&amp;</span> <span class=n>lhs</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                         <span class=k>const</span> <span class=n>method_t</span><span class=o>&amp;</span> <span class=n>rhs</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span> <span class=k>return</span> <span class=n>lhs</span><span class=p>.</span><span class=n>name</span> <span class=o>&lt;</span> <span class=n>rhs</span><span class=p>.</span><span class=n>name</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><p>其中：</p><ol><li><code>IMP</code> 的底层，实际上就是一个函数的地址，编译结果是 <code>void *</code> 类型；</li><li><code>binary_function</code> 是 c++ 的语言：<a href=https://en.cppreference.com/w/cpp/utility/functional/binary_function target=_blank rel="noopener noreffer">binary_function</a></li></ol></li><li><p><code>protocol_t</code> 是一个协议的类型，它的结构就比较复杂了：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=k>struct</span> <span class=nl>protocol_t</span> <span class=p>:</span> <span class=n>objc_object</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>mangledName</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>struct</span> <span class=n>protocol_list_t</span> <span class=o>*</span><span class=n>protocols</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>method_list_t</span> <span class=o>*</span><span class=n>instanceMethods</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>method_list_t</span> <span class=o>*</span><span class=n>classMethods</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>method_list_t</span> <span class=o>*</span><span class=n>optionalInstanceMethods</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>method_list_t</span> <span class=o>*</span><span class=n>optionalClassMethods</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>property_list_t</span> <span class=o>*</span><span class=n>instanceProperties</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>uint32_t</span> <span class=n>size</span><span class=p>;</span>   <span class=c1>// sizeof(protocol_t)
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>uint32_t</span> <span class=n>flags</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// Fields below this point are not always present on disk.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>const</span> <span class=kt>char</span> <span class=o>**</span><span class=n>extendedMethodTypes</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>_demangledName</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=nf>demangledName</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=nf>nameForLogging</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>demangledName</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kt>bool</span> <span class=nf>isFixedUp</span><span class=p>()</span> <span class=k>const</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>void</span> <span class=nf>setFixedUp</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kt>bool</span> <span class=nf>hasExtendedMethodTypesField</span><span class=p>()</span> <span class=k>const</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>size</span> <span class=o>&gt;=</span> <span class=p>(</span><span class=n>offsetof</span><span class=p>(</span><span class=n>protocol_t</span><span class=p>,</span> <span class=n>extendedMethodTypes</span><span class=p>)</span> 
+</span></span><span class=line><span class=cl>                        <span class=o>+</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>extendedMethodTypes</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=kt>bool</span> <span class=nf>hasExtendedMethodTypes</span><span class=p>()</span> <span class=k>const</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>hasExtendedMethodTypesField</span><span class=p>()</span> <span class=o>&amp;&amp;</span> <span class=n>extendedMethodTypes</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div></li></ol><h2 id=总结类派生图>总结：类派生图</h2><p>上面列举的这些类，它们在代码中体现的派生结构，可以用下面的图表示：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../runtime-struct-summary.png data-srcset="../runtime-struct-summary.png, ../runtime-struct-summary.png 1.5x, ../runtime-struct-summary.png 2x" data-sizes=auto alt=../runtime-struct-summary.png title=runtime-struct-summary></p></div><div id=comments><div id=valine class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.</noscript></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://shesl-meow.github.io target=_blank>佘崧林</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/valine/valine.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/valine@1.4.18/dist/Valine.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:50},comment:{valine:{appId:"zDVJohJIQbD6f3W267xtaYRC-gzGzoHsz",appKey:"ewsfU9ocNOeuvt0MzONe6yKx",avatar:"mp",el:"#valine",emojiCDN:"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/",emojiMaps:{100:"1f4af.png",alien:"1f47d.png",anger:"1f4a2.png",angry:"1f620.png",anguished:"1f627.png",astonished:"1f632.png",black_heart:"1f5a4.png",blue_heart:"1f499.png",blush:"1f60a.png",bomb:"1f4a3.png",boom:"1f4a5.png",broken_heart:"1f494.png",brown_heart:"1f90e.png",clown_face:"1f921.png",cold_face:"1f976.png",cold_sweat:"1f630.png",confounded:"1f616.png",confused:"1f615.png",cry:"1f622.png",crying_cat_face:"1f63f.png",cupid:"1f498.png",dash:"1f4a8.png",disappointed:"1f61e.png",disappointed_relieved:"1f625.png",dizzy:"1f4ab.png",dizzy_face:"1f635.png",drooling_face:"1f924.png",exploding_head:"1f92f.png",expressionless:"1f611.png",face_vomiting:"1f92e.png",face_with_cowboy_hat:"1f920.png",face_with_hand_over_mouth:"1f92d.png",face_with_head_bandage:"1f915.png",face_with_monocle:"1f9d0.png",face_with_raised_eyebrow:"1f928.png",face_with_rolling_eyes:"1f644.png",face_with_symbols_on_mouth:"1f92c.png",face_with_thermometer:"1f912.png",fearful:"1f628.png",flushed:"1f633.png",frowning:"1f626.png",ghost:"1f47b.png",gift_heart:"1f49d.png",green_heart:"1f49a.png",grimacing:"1f62c.png",grin:"1f601.png",grinning:"1f600.png",hankey:"1f4a9.png",hear_no_evil:"1f649.png",heart:"2764-fe0f.png",heart_decoration:"1f49f.png",heart_eyes:"1f60d.png",heart_eyes_cat:"1f63b.png",heartbeat:"1f493.png",heartpulse:"1f497.png",heavy_heart_exclamation_mark_ornament:"2763-fe0f.png",hole:"1f573-fe0f.png",hot_face:"1f975.png",hugging_face:"1f917.png",hushed:"1f62f.png",imp:"1f47f.png",innocent:"1f607.png",japanese_goblin:"1f47a.png",japanese_ogre:"1f479.png",joy:"1f602.png",joy_cat:"1f639.png",kiss:"1f48b.png",kissing:"1f617.png",kissing_cat:"1f63d.png",kissing_closed_eyes:"1f61a.png",kissing_heart:"1f618.png",kissing_smiling_eyes:"1f619.png",laughing:"1f606.png",left_speech_bubble:"1f5e8-fe0f.png",love_letter:"1f48c.png",lying_face:"1f925.png",mask:"1f637.png",money_mouth_face:"1f911.png",nauseated_face:"1f922.png",nerd_face:"1f913.png",neutral_face:"1f610.png",no_mouth:"1f636.png",open_mouth:"1f62e.png",orange_heart:"1f9e1.png",partying_face:"1f973.png",pensive:"1f614.png",persevere:"1f623.png",pleading_face:"1f97a.png",pouting_cat:"1f63e.png",purple_heart:"1f49c.png",rage:"1f621.png",relaxed:"263a-fe0f.png",relieved:"1f60c.png",revolving_hearts:"1f49e.png",right_anger_bubble:"1f5ef-fe0f.png",robot_face:"1f916.png",rolling_on_the_floor_laughing:"1f923.png",scream:"1f631.png",scream_cat:"1f640.png",see_no_evil:"1f648.png",shushing_face:"1f92b.png",skull:"1f480.png",skull_and_crossbones:"2620-fe0f.png",sleeping:"1f634.png",sleepy:"1f62a.png",slightly_frowning_face:"1f641.png",slightly_smiling_face:"1f642.png",smile:"1f604.png",smile_cat:"1f638.png",smiley:"1f603.png",smiley_cat:"1f63a.png",smiling_face_with_3_hearts:"1f970.png",smiling_imp:"1f608.png",smirk:"1f60f.png",smirk_cat:"1f63c.png",sneezing_face:"1f927.png",sob:"1f62d.png",space_invader:"1f47e.png",sparkling_heart:"1f496.png",speak_no_evil:"1f64a.png",speech_balloon:"1f4ac.png","star-struck":"1f929.png",stuck_out_tongue:"1f61b.png",stuck_out_tongue_closed_eyes:"1f61d.png",stuck_out_tongue_winking_eye:"1f61c.png",sunglasses:"1f60e.png",sweat:"1f613.png",sweat_drops:"1f4a6.png",sweat_smile:"1f605.png",thinking_face:"1f914.png",thought_balloon:"1f4ad.png",tired_face:"1f62b.png",triumph:"1f624.png",two_hearts:"1f495.png",unamused:"1f612.png",upside_down_face:"1f643.png",weary:"1f629.png",white_frowning_face:"2639-fe0f.png",white_heart:"1f90d.png",wink:"1f609.png",woozy_face:"1f974.png",worried:"1f61f.png",yawning_face:"1f971.png",yellow_heart:"1f49b.png",yum:"1f60b.png",zany_face:"1f92a.png",zipper_mouth_face:"1f910.png",zzz:"1f4a4.png"},enableQQ:!1,highlight:!0,lang:"zh-CN",pageSize:10,placeholder:"你的评论 ...",recordIP:!0,serverURLs:"https://zdvjohji.lc-cn-n1-shared.com",visitor:!0}},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"",algoliaIndex:"",algoliaSearchKey:"",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:30,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.c1d5acc03abc8af9ee0a42aa4e942566a338a3e29d21b6c9f11536101f6914ad.js integrity="sha256-wdWswDq8ivnuCkKqTpQlZqM4o+KdIbbJ8RU2EB9pFK0="></script></body></html>

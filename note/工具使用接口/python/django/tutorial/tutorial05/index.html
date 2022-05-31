@@ -1,0 +1,411 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Tutorial05 - shesl's blog</title><meta name=Description content="佘崧林同学的碎碎念博客"><meta property="og:title" content="Tutorial05"><meta property="og:description" content="参考资料：Tutorial05 Introducing automated testing 自动化测试： 测试可以节省你的时间 测试不仅仅可以发现问题，还能防止问题 测试使你的代码更受欢迎 测试有助于团队"><meta property="og:type" content="article"><meta property="og:url" content="http://shesl-meow.github.io/note/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/python/django/tutorial/tutorial05/"><meta property="og:image" content="http://shesl-meow.github.io/avatar.png"><meta property="article:section" content="note"><meta property="article:published_time" content="2019-03-27T12:06:27+08:00"><meta property="article:modified_time" content="2019-03-27T12:06:27+08:00"><meta property="og:site_name" content="shesl's blog"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="http://shesl-meow.github.io/avatar.png"><meta name=twitter:title content="Tutorial05"><meta name=twitter:description content="参考资料：Tutorial05 Introducing automated testing 自动化测试： 测试可以节省你的时间 测试不仅仅可以发现问题，还能防止问题 测试使你的代码更受欢迎 测试有助于团队"><meta name=application-name content="shesl's blog"><meta name=apple-mobile-web-app-title content="shesl's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://shesl-meow.github.io/note/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/python/django/tutorial/tutorial05/><link rel=prev href=http://shesl-meow.github.io/note/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3/python/django/tutorial/tutorial01/><link rel=stylesheet href=/css/style.min.fa85115dce490a9d0bf009e2892b6d42439bdea75160d08cddcb0b97c8def676.css integrity="sha256-+oURXc5JCp0L8AniiSttQkOb3qdRYNCM3csLl8je9nY="><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Tutorial05","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/shesl-meow.github.io\/note\/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3\/python\/django\/tutorial\/tutorial05\/"},"genre":"note","keywords":"","wordcount":1718,"url":"http:\/\/shesl-meow.github.io\/note\/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%8E%A5%E5%8F%A3\/python\/django\/tutorial\/tutorial05\/","datePublished":"2019-03-27T12:06:27+08:00","dateModified":"2019-03-27T12:06:27+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"佘崧林"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>博客 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/note/>笔记 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>博客</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/note/ title>笔记</a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">Tutorial05</h1><div class=content id=content><blockquote><p>参考资料：<a href=https://docs.djangoproject.com/en/2.1/intro/tutorial05/ target=_blank rel="noopener noreffer">Tutorial05</a></p></blockquote><h2 id=introducing-automated-testing>Introducing automated testing</h2><p>自动化测试：</p><ul><li>测试可以节省你的时间</li><li>测试不仅仅可以发现问题，还能防止问题</li><li>测试使你的代码更受欢迎</li><li>测试有助于团队合作</li></ul><h2 id=writing-our-first-test>Writing our first test</h2><h3 id=1-identify-a-bug>1. identify a bug</h3><p>onfirm the bug by using the <a href=https://docs.djangoproject.com/en/2.1/ref/django-admin/#django-admin-shell target=_blank rel="noopener noreffer"><code>shell</code></a> to check the method on a question whose date lies in the future:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ python manage.py shell
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=kn>import</span> <span class=nn>datetime</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=kn>from</span> <span class=nn>django.utils</span> <span class=kn>import</span> <span class=n>timezone</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=kn>from</span> <span class=nn>polls.models</span> <span class=kn>import</span> <span class=n>Question</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=c1># create a Question instance with pub_date 30 days in the future</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>future_question</span> <span class=o>=</span> <span class=n>Question</span><span class=p>(</span><span class=n>pub_date</span><span class=o>=</span><span class=n>timezone</span><span class=o>.</span><span class=n>now</span><span class=p>()</span> <span class=o>+</span> <span class=n>datetime</span><span class=o>.</span><span class=n>timedelta</span><span class=p>(</span><span class=n>days</span><span class=o>=</span><span class=mi>30</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=c1># was it published recently?</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>future_question</span><span class=o>.</span><span class=n>was_published_recently</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=kc>True</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=2-create-a-test-to-expose-the-bug>2. create a test to expose the bug</h3><p>通常，我们会把测试代码放在应用的<code>tests.py</code>文件中，测试系统将自动地从任何名字以test开头的文件中查找测试程序。每个app在创建的时候，都会自动创建一个<code>tests.py</code>文件，就像<code>views.py</code>等文件一样。</p><p>将下面的代码输入投票应用的<code>polls/tests.py</code>文件中：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>datetime</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.utils</span> <span class=kn>import</span> <span class=n>timezone</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.test</span> <span class=kn>import</span> <span class=n>TestCase</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>.models</span> <span class=kn>import</span> <span class=n>Question</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>QuestionMethodTests</span><span class=p>(</span><span class=n>TestCase</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>test_was_published_recently_with_future_question</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>        在将来发布的问卷应该返回False
+</span></span></span><span class=line><span class=cl><span class=s2>        &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=n>time</span> <span class=o>=</span> <span class=n>timezone</span><span class=o>.</span><span class=n>now</span><span class=p>()</span> <span class=o>+</span> <span class=n>datetime</span><span class=o>.</span><span class=n>timedelta</span><span class=p>(</span><span class=n>days</span><span class=o>=</span><span class=mi>30</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>future_question</span> <span class=o>=</span> <span class=n>Question</span><span class=p>(</span><span class=n>pub_date</span><span class=o>=</span><span class=n>time</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>assertIs</span><span class=p>(</span><span class=n>future_question</span><span class=o>.</span><span class=n>was_published_recently</span><span class=p>(),</span> <span class=kc>False</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>我们在这里创建了一个<code>django.test.TestCase</code>的子类，它具有一个方法，该方法创建一个<code>pub_date</code>在未来的Question实例。最后我们检查<code>was_published_recently()</code>的输出，它应该是 False。</p><h3 id=3-running-tests>3. Running tests</h3><p>在终端中，运行下面的命令，</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ python manage.py <span class=nb>test</span> polls
+</span></span></code></pre></td></tr></table></div></div><p>你将看到结果如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>Creating <span class=nb>test</span> database <span class=k>for</span> <span class=nb>alias</span> <span class=s1>&#39;default&#39;</span>...
+</span></span><span class=line><span class=cl><span class=nv>F</span>
+</span></span><span class=line><span class=cl><span class=o>======================================================================</span>
+</span></span><span class=line><span class=cl>FAIL: test_was_published_recently_with_future_question <span class=o>(</span>polls.tests.QuestionMethodTests<span class=o>)</span>
+</span></span><span class=line><span class=cl>----------------------------------------------------------------------
+</span></span><span class=line><span class=cl>Traceback <span class=o>(</span>most recent call last<span class=o>)</span>:
+</span></span><span class=line><span class=cl>File <span class=s2>&#34;/path/to/mysite/polls/tests.py&#34;</span>, line 16, in test_was_published_recently_with_future_question
+</span></span><span class=line><span class=cl>self.assertIs<span class=o>(</span>future_question.was_published_recently<span class=o>()</span>, False<span class=o>)</span>
+</span></span><span class=line><span class=cl>AssertionError: True is not False
+</span></span><span class=line><span class=cl>----------------------------------------------------------------------
+</span></span><span class=line><span class=cl>Ran <span class=m>1</span> <span class=nb>test</span> in 0.001s
+</span></span><span class=line><span class=cl>FAILED <span class=o>(</span><span class=nv>failures</span><span class=o>=</span>1<span class=o>)</span>
+</span></span><span class=line><span class=cl>Destroying <span class=nb>test</span> database <span class=k>for</span> <span class=nb>alias</span> <span class=s1>&#39;default&#39;</span>...
+</span></span></code></pre></td></tr></table></div></div><p>这其中都发生了些什么？：</p><ul><li><code>python manage.py test polls</code> 命令会查找 <code>polls</code> 应用中所有的测试程序</li><li>发现一个 <code>django.test.TestCase</code> 的子类</li><li>为测试创建一个专用的数据库</li><li>查找名字以 <code>test</code> 开头的测试方法</li><li>在 <code>test_was_published_recently_with_future_question</code> 方法中，创建一个 Question 实例，该实例的 pub_data 字段的值是30天后的未来日期。</li><li>然后利用 <code>assertIs()</code> 方法，它发现 <code>was_published_recently()</code> 返回了True，而不是我们希望的 False。</li></ul><p>最后，测试程序会通知我们哪个测试失败了，错误出现在哪一行。</p><p>整个测试用例基本上和 Python 内置的 <code>unittest</code> 非常相似，大家可以参考 Python 教程中测试相关的章节。</p><h3 id=4-fix-the-bug>4. Fix the bug</h3><p>修改源代码，具体如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># polls/models.py</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>was_published_recently</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>now</span> <span class=o>=</span> <span class=n>timezone</span><span class=o>.</span><span class=n>now</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>now</span> <span class=o>-</span> <span class=n>datetime</span><span class=o>.</span><span class=n>timedelta</span><span class=p>(</span><span class=n>days</span><span class=o>=</span><span class=mi>1</span><span class=p>)</span> <span class=o>&lt;=</span> <span class=bp>self</span><span class=o>.</span><span class=n>pub_date</span> <span class=o>&lt;=</span> <span class=n>now</span>
+</span></span></code></pre></td></tr></table></div></div><p>再次运行测试程序：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ python manage.py <span class=nb>test</span> polls
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>Creating <span class=nb>test</span> database <span class=k>for</span> <span class=nb>alias</span> <span class=s1>&#39;default&#39;</span>...
+</span></span><span class=line><span class=cl>.
+</span></span><span class=line><span class=cl>----------------------------------------------------------------------
+</span></span><span class=line><span class=cl>Ran <span class=m>1</span> <span class=nb>test</span> in 0.001s
+</span></span><span class=line><span class=cl>OK
+</span></span><span class=line><span class=cl>Destroying <span class=nb>test</span> database <span class=k>for</span> <span class=nb>alias</span> <span class=s1>&#39;default&#39;</span>...
+</span></span></code></pre></td></tr></table></div></div><p>可以看到 bug 已经没有了。</p><h3 id=5-more-comprehensive-tests>5. More comprehensive tests</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>test_was_published_recently_with_old_question</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>    was_published_recently() returns False for questions whose pub_date
+</span></span></span><span class=line><span class=cl><span class=s2>    is older than 1 day.
+</span></span></span><span class=line><span class=cl><span class=s2>    &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>time</span> <span class=o>=</span> <span class=n>timezone</span><span class=o>.</span><span class=n>now</span><span class=p>()</span> <span class=o>-</span> <span class=n>datetime</span><span class=o>.</span><span class=n>timedelta</span><span class=p>(</span><span class=n>days</span><span class=o>=</span><span class=mi>1</span><span class=p>,</span> <span class=n>seconds</span><span class=o>=</span><span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>old_question</span> <span class=o>=</span> <span class=n>Question</span><span class=p>(</span><span class=n>pub_date</span><span class=o>=</span><span class=n>time</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=bp>self</span><span class=o>.</span><span class=n>assertIs</span><span class=p>(</span><span class=n>old_question</span><span class=o>.</span><span class=n>was_published_recently</span><span class=p>(),</span> <span class=kc>False</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>test_was_published_recently_with_recent_question</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>    was_published_recently() returns True for questions whose pub_date
+</span></span></span><span class=line><span class=cl><span class=s2>    is within the last day.
+</span></span></span><span class=line><span class=cl><span class=s2>    &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>time</span> <span class=o>=</span> <span class=n>timezone</span><span class=o>.</span><span class=n>now</span><span class=p>()</span> <span class=o>-</span> <span class=n>datetime</span><span class=o>.</span><span class=n>timedelta</span><span class=p>(</span><span class=n>hours</span><span class=o>=</span><span class=mi>23</span><span class=p>,</span> <span class=n>minutes</span><span class=o>=</span><span class=mi>59</span><span class=p>,</span> <span class=n>seconds</span><span class=o>=</span><span class=mi>59</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>recent_question</span> <span class=o>=</span> <span class=n>Question</span><span class=p>(</span><span class=n>pub_date</span><span class=o>=</span><span class=n>time</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=bp>self</span><span class=o>.</span><span class=n>assertIs</span><span class=p>(</span><span class=n>recent_question</span><span class=o>.</span><span class=n>was_published_recently</span><span class=p>(),</span> <span class=kc>True</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=test-a-view>Test a view</h2><h3 id=the-django-test-client>The Django test client</h3><p>Django provides a test <a href=https://docs.djangoproject.com/en/2.1/topics/testing/tools/#django.test.Client target=_blank rel="noopener noreffer"><code>Client</code></a> to simulate a user interacting with the code at the view level. We can use it in <code>tests.py</code> or even in the <a href=https://docs.djangoproject.com/en/2.1/ref/django-admin/#django-admin-shell target=_blank rel="noopener noreffer"><code>shell</code></a>.</p><p>We will start again with the <a href=https://docs.djangoproject.com/en/2.1/ref/django-admin/#django-admin-shell target=_blank rel="noopener noreffer"><code>shell</code></a>, where we need to do a couple of things that won’t be necessary in <code>tests.py</code>. The first is to set up the test environment in the <a href=https://docs.djangoproject.com/en/2.1/ref/django-admin/#django-admin-shell target=_blank rel="noopener noreffer"><code>shell</code></a>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ python manage.py shell
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=kn>from</span> <span class=nn>django.test.utils</span> <span class=kn>import</span> <span class=n>setup_test_environment</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>setup_test_environment</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><p><a href=https://docs.djangoproject.com/en/2.1/topics/testing/advanced/#django.test.utils.setup_test_environment target=_blank rel="noopener noreffer"><code>setup_test_environment()</code></a> installs a template renderer which will allow us to examine some additional attributes on responses such as <code>response.context</code> that otherwise wouldn’t be available.</p><p>Next we need to import the test client class:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=kn>from</span> <span class=nn>django.test</span> <span class=kn>import</span> <span class=n>Client</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=c1># create an instance of the client for our use</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>client</span> <span class=o>=</span> <span class=n>Client</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><p>With that ready, we can ask the client to do some work for us:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=c1># get a response from &#39;/&#39;</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>response</span> <span class=o>=</span> <span class=n>client</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s1>&#39;/&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>Not</span> <span class=n>Found</span><span class=p>:</span> <span class=o>/</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=c1># we should expect a 404 from that address; if you instead see an</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=c1># &#34;Invalid HTTP_HOST header&#34; error and a 400 response, you probably</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=c1># omitted the setup_test_environment() call described earlier.</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>response</span><span class=o>.</span><span class=n>status_code</span>
+</span></span><span class=line><span class=cl><span class=mi>404</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=c1># on the other hand we should expect to find something at &#39;/polls/&#39;</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=c1># we&#39;ll use &#39;reverse()&#39; rather than a hardcoded URL</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=kn>from</span> <span class=nn>django.urls</span> <span class=kn>import</span> <span class=n>reverse</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>response</span> <span class=o>=</span> <span class=n>client</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>reverse</span><span class=p>(</span><span class=s1>&#39;polls:index&#39;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>response</span><span class=o>.</span><span class=n>status_code</span>
+</span></span><span class=line><span class=cl><span class=mi>200</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>response</span><span class=o>.</span><span class=n>content</span>
+</span></span><span class=line><span class=cl><span class=sa>b</span><span class=s1>&#39;</span><span class=se>\n</span><span class=s1>    &lt;ul&gt;</span><span class=se>\n</span><span class=s1>    </span><span class=se>\n</span><span class=s1>        &lt;li&gt;&lt;a href=&#34;/polls/1/&#34;&gt;What&amp;#39;s up?&lt;/a&gt;&lt;/li&gt;</span><span class=se>\n</span><span class=s1>    </span><span class=se>\n</span><span class=s1>    &lt;/ul&gt;</span><span class=se>\n\n</span><span class=s1>&#39;</span>
+</span></span><span class=line><span class=cl><span class=o>&gt;&gt;&gt;</span> <span class=n>response</span><span class=o>.</span><span class=n>context</span><span class=p>[</span><span class=s1>&#39;latest_question_list&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=o>&lt;</span><span class=n>QuerySet</span> <span class=p>[</span><span class=o>&lt;</span><span class=n>Question</span><span class=p>:</span> <span class=n>What</span><span class=s1>&#39;s up?&gt;]&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=improving-our-view>Improving our view</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># polls/views.py</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.utils</span> <span class=kn>import</span> <span class=n>timezone</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>IndexView</span><span class=p>(</span><span class=n>generic</span><span class=o>.</span><span class=n>ListView</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>template_name</span> <span class=o>=</span> <span class=s1>&#39;polls/index.html&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=n>context_object_name</span> <span class=o>=</span> <span class=s1>&#39;latest_question_list&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>get_queryset</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>        Return the last five published questions (not including those set to be
+</span></span></span><span class=line><span class=cl><span class=s2>        published in the future).
+</span></span></span><span class=line><span class=cl><span class=s2>        &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>Question</span><span class=o>.</span><span class=n>objects</span><span class=o>.</span><span class=n>filter</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=n>pub_date__lte</span><span class=o>=</span><span class=n>timezone</span><span class=o>.</span><span class=n>now</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=p>)</span><span class=o>.</span><span class=n>order_by</span><span class=p>(</span><span class=s1>&#39;-pub_date&#39;</span><span class=p>)[:</span><span class=mi>5</span><span class=p>]</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=test-our-new-view>Test our new view</h3><p>Add the following to <code>polls/tests.py</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>django.urls</span> <span class=kn>import</span> <span class=n>reverse</span>
+</span></span></code></pre></td></tr></table></div></div><p>and we’ll create a shortcut function to create questions as well as a new test class:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>create_question</span><span class=p>(</span><span class=n>question_text</span><span class=p>,</span> <span class=n>days</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>    Create a question with the given `question_text` and published the
+</span></span></span><span class=line><span class=cl><span class=s2>    given number of `days` offset to now (negative for questions published
+</span></span></span><span class=line><span class=cl><span class=s2>    in the past, positive for questions that have yet to be published).
+</span></span></span><span class=line><span class=cl><span class=s2>    &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>time</span> <span class=o>=</span> <span class=n>timezone</span><span class=o>.</span><span class=n>now</span><span class=p>()</span> <span class=o>+</span> <span class=n>datetime</span><span class=o>.</span><span class=n>timedelta</span><span class=p>(</span><span class=n>days</span><span class=o>=</span><span class=n>days</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>Question</span><span class=o>.</span><span class=n>objects</span><span class=o>.</span><span class=n>create</span><span class=p>(</span><span class=n>question_text</span><span class=o>=</span><span class=n>question_text</span><span class=p>,</span> <span class=n>pub_date</span><span class=o>=</span><span class=n>time</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>QuestionIndexViewTests</span><span class=p>(</span><span class=n>TestCase</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>test_no_questions</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>        If no questions exist, an appropriate message is displayed.
+</span></span></span><span class=line><span class=cl><span class=s2>        &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=n>response</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>client</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>reverse</span><span class=p>(</span><span class=s1>&#39;polls:index&#39;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>assertEqual</span><span class=p>(</span><span class=n>response</span><span class=o>.</span><span class=n>status_code</span><span class=p>,</span> <span class=mi>200</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>assertContains</span><span class=p>(</span><span class=n>response</span><span class=p>,</span> <span class=s2>&#34;No polls are available.&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>assertQuerysetEqual</span><span class=p>(</span><span class=n>response</span><span class=o>.</span><span class=n>context</span><span class=p>[</span><span class=s1>&#39;latest_question_list&#39;</span><span class=p>],</span> <span class=p>[])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>test_past_question</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>        Questions with a pub_date in the past are displayed on the
+</span></span></span><span class=line><span class=cl><span class=s2>        index page.
+</span></span></span><span class=line><span class=cl><span class=s2>        &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=n>create_question</span><span class=p>(</span><span class=n>question_text</span><span class=o>=</span><span class=s2>&#34;Past question.&#34;</span><span class=p>,</span> <span class=n>days</span><span class=o>=-</span><span class=mi>30</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>response</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>client</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>reverse</span><span class=p>(</span><span class=s1>&#39;polls:index&#39;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>assertQuerysetEqual</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=n>response</span><span class=o>.</span><span class=n>context</span><span class=p>[</span><span class=s1>&#39;latest_question_list&#39;</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>            <span class=p>[</span><span class=s1>&#39;&lt;Question: Past question.&gt;&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>test_future_question</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>        Questions with a pub_date in the future aren&#39;t displayed on
+</span></span></span><span class=line><span class=cl><span class=s2>        the index page.
+</span></span></span><span class=line><span class=cl><span class=s2>        &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=n>create_question</span><span class=p>(</span><span class=n>question_text</span><span class=o>=</span><span class=s2>&#34;Future question.&#34;</span><span class=p>,</span> <span class=n>days</span><span class=o>=</span><span class=mi>30</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>response</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>client</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>reverse</span><span class=p>(</span><span class=s1>&#39;polls:index&#39;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>assertContains</span><span class=p>(</span><span class=n>response</span><span class=p>,</span> <span class=s2>&#34;No polls are available.&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>assertQuerysetEqual</span><span class=p>(</span><span class=n>response</span><span class=o>.</span><span class=n>context</span><span class=p>[</span><span class=s1>&#39;latest_question_list&#39;</span><span class=p>],</span> <span class=p>[])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>test_future_question_and_past_question</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>        Even if both past and future questions exist, only past questions
+</span></span></span><span class=line><span class=cl><span class=s2>        are displayed.
+</span></span></span><span class=line><span class=cl><span class=s2>        &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=n>create_question</span><span class=p>(</span><span class=n>question_text</span><span class=o>=</span><span class=s2>&#34;Past question.&#34;</span><span class=p>,</span> <span class=n>days</span><span class=o>=-</span><span class=mi>30</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>create_question</span><span class=p>(</span><span class=n>question_text</span><span class=o>=</span><span class=s2>&#34;Future question.&#34;</span><span class=p>,</span> <span class=n>days</span><span class=o>=</span><span class=mi>30</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>response</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>client</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>reverse</span><span class=p>(</span><span class=s1>&#39;polls:index&#39;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>assertQuerysetEqual</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=n>response</span><span class=o>.</span><span class=n>context</span><span class=p>[</span><span class=s1>&#39;latest_question_list&#39;</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>            <span class=p>[</span><span class=s1>&#39;&lt;Question: Past question.&gt;&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>test_two_past_questions</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>        The questions index page may display multiple questions.
+</span></span></span><span class=line><span class=cl><span class=s2>        &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=n>create_question</span><span class=p>(</span><span class=n>question_text</span><span class=o>=</span><span class=s2>&#34;Past question 1.&#34;</span><span class=p>,</span> <span class=n>days</span><span class=o>=-</span><span class=mi>30</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>create_question</span><span class=p>(</span><span class=n>question_text</span><span class=o>=</span><span class=s2>&#34;Past question 2.&#34;</span><span class=p>,</span> <span class=n>days</span><span class=o>=-</span><span class=mi>5</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>response</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>client</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>reverse</span><span class=p>(</span><span class=s1>&#39;polls:index&#39;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>assertQuerysetEqual</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=n>response</span><span class=o>.</span><span class=n>context</span><span class=p>[</span><span class=s1>&#39;latest_question_list&#39;</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>            <span class=p>[</span><span class=s1>&#39;&lt;Question: Past question 2.&gt;&#39;</span><span class=p>,</span> <span class=s1>&#39;&lt;Question: Past question 1.&gt;&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=testing-the-detailview>Testing the <code>DetailView</code></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># polls/views.py</span>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>DetailView</span><span class=p>(</span><span class=n>generic</span><span class=o>.</span><span class=n>DetailView</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=o>...</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>get_queryset</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>        Excludes any questions that aren&#39;t published yet.
+</span></span></span><span class=line><span class=cl><span class=s2>        &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>Question</span><span class=o>.</span><span class=n>objects</span><span class=o>.</span><span class=n>filter</span><span class=p>(</span><span class=n>pub_date__lte</span><span class=o>=</span><span class=n>timezone</span><span class=o>.</span><span class=n>now</span><span class=p>())</span>
+</span></span></code></pre></td></tr></table></div></div><p>And of course, we will add some tests, to check that a <code>Question</code> whose <code>pub_date</code> is in the past can be displayed, and that one with a <code>pub_date</code> in the future is not:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># polls/tests.py</span>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>QuestionDetailViewTests</span><span class=p>(</span><span class=n>TestCase</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>test_future_question</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>        The detail view of a question with a pub_date in the future
+</span></span></span><span class=line><span class=cl><span class=s2>        returns a 404 not found.
+</span></span></span><span class=line><span class=cl><span class=s2>        &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=n>future_question</span> <span class=o>=</span> <span class=n>create_question</span><span class=p>(</span><span class=n>question_text</span><span class=o>=</span><span class=s1>&#39;Future question.&#39;</span><span class=p>,</span> <span class=n>days</span><span class=o>=</span><span class=mi>5</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>url</span> <span class=o>=</span> <span class=n>reverse</span><span class=p>(</span><span class=s1>&#39;polls:detail&#39;</span><span class=p>,</span> <span class=n>args</span><span class=o>=</span><span class=p>(</span><span class=n>future_question</span><span class=o>.</span><span class=n>id</span><span class=p>,))</span>
+</span></span><span class=line><span class=cl>        <span class=n>response</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>client</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>url</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>assertEqual</span><span class=p>(</span><span class=n>response</span><span class=o>.</span><span class=n>status_code</span><span class=p>,</span> <span class=mi>404</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>test_past_question</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>        The detail view of a question with a pub_date in the past
+</span></span></span><span class=line><span class=cl><span class=s2>        displays the question&#39;s text.
+</span></span></span><span class=line><span class=cl><span class=s2>        &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=n>past_question</span> <span class=o>=</span> <span class=n>create_question</span><span class=p>(</span><span class=n>question_text</span><span class=o>=</span><span class=s1>&#39;Past Question.&#39;</span><span class=p>,</span> <span class=n>days</span><span class=o>=-</span><span class=mi>5</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>url</span> <span class=o>=</span> <span class=n>reverse</span><span class=p>(</span><span class=s1>&#39;polls:detail&#39;</span><span class=p>,</span> <span class=n>args</span><span class=o>=</span><span class=p>(</span><span class=n>past_question</span><span class=o>.</span><span class=n>id</span><span class=p>,))</span>
+</span></span><span class=line><span class=cl>        <span class=n>response</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>client</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>url</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>assertContains</span><span class=p>(</span><span class=n>response</span><span class=p>,</span> <span class=n>past_question</span><span class=o>.</span><span class=n>question_text</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div></div><div id=comments><div id=valine class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.</noscript></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://shesl-meow.github.io target=_blank>佘崧林</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/valine/valine.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/valine@1.4.18/dist/Valine.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:50},comment:{valine:{appId:"zDVJohJIQbD6f3W267xtaYRC-gzGzoHsz",appKey:"ewsfU9ocNOeuvt0MzONe6yKx",avatar:"mp",el:"#valine",emojiCDN:"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/",emojiMaps:{100:"1f4af.png",alien:"1f47d.png",anger:"1f4a2.png",angry:"1f620.png",anguished:"1f627.png",astonished:"1f632.png",black_heart:"1f5a4.png",blue_heart:"1f499.png",blush:"1f60a.png",bomb:"1f4a3.png",boom:"1f4a5.png",broken_heart:"1f494.png",brown_heart:"1f90e.png",clown_face:"1f921.png",cold_face:"1f976.png",cold_sweat:"1f630.png",confounded:"1f616.png",confused:"1f615.png",cry:"1f622.png",crying_cat_face:"1f63f.png",cupid:"1f498.png",dash:"1f4a8.png",disappointed:"1f61e.png",disappointed_relieved:"1f625.png",dizzy:"1f4ab.png",dizzy_face:"1f635.png",drooling_face:"1f924.png",exploding_head:"1f92f.png",expressionless:"1f611.png",face_vomiting:"1f92e.png",face_with_cowboy_hat:"1f920.png",face_with_hand_over_mouth:"1f92d.png",face_with_head_bandage:"1f915.png",face_with_monocle:"1f9d0.png",face_with_raised_eyebrow:"1f928.png",face_with_rolling_eyes:"1f644.png",face_with_symbols_on_mouth:"1f92c.png",face_with_thermometer:"1f912.png",fearful:"1f628.png",flushed:"1f633.png",frowning:"1f626.png",ghost:"1f47b.png",gift_heart:"1f49d.png",green_heart:"1f49a.png",grimacing:"1f62c.png",grin:"1f601.png",grinning:"1f600.png",hankey:"1f4a9.png",hear_no_evil:"1f649.png",heart:"2764-fe0f.png",heart_decoration:"1f49f.png",heart_eyes:"1f60d.png",heart_eyes_cat:"1f63b.png",heartbeat:"1f493.png",heartpulse:"1f497.png",heavy_heart_exclamation_mark_ornament:"2763-fe0f.png",hole:"1f573-fe0f.png",hot_face:"1f975.png",hugging_face:"1f917.png",hushed:"1f62f.png",imp:"1f47f.png",innocent:"1f607.png",japanese_goblin:"1f47a.png",japanese_ogre:"1f479.png",joy:"1f602.png",joy_cat:"1f639.png",kiss:"1f48b.png",kissing:"1f617.png",kissing_cat:"1f63d.png",kissing_closed_eyes:"1f61a.png",kissing_heart:"1f618.png",kissing_smiling_eyes:"1f619.png",laughing:"1f606.png",left_speech_bubble:"1f5e8-fe0f.png",love_letter:"1f48c.png",lying_face:"1f925.png",mask:"1f637.png",money_mouth_face:"1f911.png",nauseated_face:"1f922.png",nerd_face:"1f913.png",neutral_face:"1f610.png",no_mouth:"1f636.png",open_mouth:"1f62e.png",orange_heart:"1f9e1.png",partying_face:"1f973.png",pensive:"1f614.png",persevere:"1f623.png",pleading_face:"1f97a.png",pouting_cat:"1f63e.png",purple_heart:"1f49c.png",rage:"1f621.png",relaxed:"263a-fe0f.png",relieved:"1f60c.png",revolving_hearts:"1f49e.png",right_anger_bubble:"1f5ef-fe0f.png",robot_face:"1f916.png",rolling_on_the_floor_laughing:"1f923.png",scream:"1f631.png",scream_cat:"1f640.png",see_no_evil:"1f648.png",shushing_face:"1f92b.png",skull:"1f480.png",skull_and_crossbones:"2620-fe0f.png",sleeping:"1f634.png",sleepy:"1f62a.png",slightly_frowning_face:"1f641.png",slightly_smiling_face:"1f642.png",smile:"1f604.png",smile_cat:"1f638.png",smiley:"1f603.png",smiley_cat:"1f63a.png",smiling_face_with_3_hearts:"1f970.png",smiling_imp:"1f608.png",smirk:"1f60f.png",smirk_cat:"1f63c.png",sneezing_face:"1f927.png",sob:"1f62d.png",space_invader:"1f47e.png",sparkling_heart:"1f496.png",speak_no_evil:"1f64a.png",speech_balloon:"1f4ac.png","star-struck":"1f929.png",stuck_out_tongue:"1f61b.png",stuck_out_tongue_closed_eyes:"1f61d.png",stuck_out_tongue_winking_eye:"1f61c.png",sunglasses:"1f60e.png",sweat:"1f613.png",sweat_drops:"1f4a6.png",sweat_smile:"1f605.png",thinking_face:"1f914.png",thought_balloon:"1f4ad.png",tired_face:"1f62b.png",triumph:"1f624.png",two_hearts:"1f495.png",unamused:"1f612.png",upside_down_face:"1f643.png",weary:"1f629.png",white_frowning_face:"2639-fe0f.png",white_heart:"1f90d.png",wink:"1f609.png",woozy_face:"1f974.png",worried:"1f61f.png",yawning_face:"1f971.png",yellow_heart:"1f49b.png",yum:"1f60b.png",zany_face:"1f92a.png",zipper_mouth_face:"1f910.png",zzz:"1f4a4.png"},enableQQ:!1,highlight:!0,lang:"zh-CN",pageSize:10,placeholder:"你的评论 ...",recordIP:!0,serverURLs:"https://zdvjohji.lc-cn-n1-shared.com",visitor:!0}},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"",algoliaIndex:"",algoliaSearchKey:"",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:30,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.c1d5acc03abc8af9ee0a42aa4e942566a338a3e29d21b6c9f11536101f6914ad.js integrity="sha256-wdWswDq8ivnuCkKqTpQlZqM4o+KdIbbJ8RU2EB9pFK0="></script></body></html>

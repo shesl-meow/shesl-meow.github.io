@@ -1,0 +1,185 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>lab 3-1 - shesl's blog</title><meta name=Description content="佘崧林同学的碎碎念博客"><meta property="og:title" content="lab 3-1"><meta property="og:description" content="QUESTION 1 What are this malware’s imports and strings? 通过 PEiD 这个软件分析这个病毒： 发现这个病毒使用了 PEncrypt 3.1 加壳了。所以我们并不知道它实际的导入函数。 于是我们通过 strings"><meta property="og:type" content="article"><meta property="og:url" content="http://shesl-meow.github.io/note/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03/lab3-1/"><meta property="og:image" content="http://shesl-meow.github.io/avatar.png"><meta property="article:section" content="note"><meta property="article:published_time" content="2019-05-08T07:14:48+08:00"><meta property="article:modified_time" content="2019-05-08T07:14:48+08:00"><meta property="og:site_name" content="shesl's blog"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="http://shesl-meow.github.io/avatar.png"><meta name=twitter:title content="lab 3-1"><meta name=twitter:description content="QUESTION 1 What are this malware’s imports and strings? 通过 PEiD 这个软件分析这个病毒： 发现这个病毒使用了 PEncrypt 3.1 加壳了。所以我们并不知道它实际的导入函数。 于是我们通过 strings"><meta name=application-name content="shesl's blog"><meta name=apple-mobile-web-app-title content="shesl's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://shesl-meow.github.io/note/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03/lab3-1/><link rel=prev href=http://shesl-meow.github.io/note/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03/lab3-2/><link rel=next href=http://shesl-meow.github.io/note/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/03/lab3-3/><link rel=stylesheet href=/css/style.min.fa85115dce490a9d0bf009e2892b6d42439bdea75160d08cddcb0b97c8def676.css integrity="sha256-+oURXc5JCp0L8AniiSttQkOb3qdRYNCM3csLl8je9nY="><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"lab 3-1","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/shesl-meow.github.io\/note\/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B\/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90\/03\/lab3-1\/"},"genre":"note","keywords":"","wordcount":1776,"url":"http:\/\/shesl-meow.github.io\/note\/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B\/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90\/03\/lab3-1\/","datePublished":"2019-05-08T07:14:48+08:00","dateModified":"2019-05-08T07:14:48+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"佘崧林"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>博客 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/note/>笔记 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>博客</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/note/ title>笔记</a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">lab 3-1</h1><div class=content id=content><h2 id=question-1>QUESTION 1</h2><blockquote><p>What are this malware’s imports and strings?</p></blockquote><p>通过 <code>PEiD</code> 这个软件分析这个病毒：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../01.exe.PEiD.png data-srcset="../01.exe.PEiD.png, ../01.exe.PEiD.png 1.5x, ../01.exe.PEiD.png 2x" data-sizes=auto alt=../01.exe.PEiD.png title=01.exe.PEiD></p><p>发现这个病毒使用了 <code>PEncrypt 3.1</code> 加壳了。所以我们并不知道它实际的导入函数。</p><p>于是我们通过 <code>strings</code> 命令分析里面的可见字符串：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ strings Lab03-01.exe
+</span></span><span class=line><span class=cl>!This program cannot be run in DOS mode.
+</span></span><span class=line><span class=cl>Rich
+</span></span><span class=line><span class=cl>.text
+</span></span><span class=line><span class=cl><span class=sb>`</span>.data
+</span></span><span class=line><span class=cl>ExitProcess
+</span></span><span class=line><span class=cl>kernel32.dll
+</span></span><span class=line><span class=cl>ws2_32
+</span></span><span class=line><span class=cl><span class=c1># ...</span>
+</span></span><span class=line><span class=cl>CONNECT %s:%i HTTP/1.0
+</span></span><span class=line><span class=cl><span class=c1># ...</span>
+</span></span><span class=line><span class=cl>QQVP
+</span></span><span class=line><span class=cl>advpack
+</span></span><span class=line><span class=cl>StubPath
+</span></span><span class=line><span class=cl>SOFTWARE<span class=se>\C</span>lasses<span class=se>\h</span>ttp<span class=se>\s</span>hell<span class=se>\o</span>pen<span class=se>\c</span>ommandV
+</span></span><span class=line><span class=cl>Software<span class=se>\M</span>icrosoft<span class=se>\A</span>ctive Setup<span class=se>\I</span>nstalled Components<span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span><span class=nb>test</span>
+</span></span><span class=line><span class=cl> www.practicalmalwareanalysis.com
+</span></span><span class=line><span class=cl>admin
+</span></span><span class=line><span class=cl>VideoDriver
+</span></span><span class=line><span class=cl>WinVMX32-
+</span></span><span class=line><span class=cl>vmx32to64.exe
+</span></span><span class=line><span class=cl>SOFTWARE<span class=se>\M</span>icrosoft<span class=se>\W</span>indows<span class=se>\C</span>urrentVersion<span class=se>\R</span>un
+</span></span><span class=line><span class=cl>SOFTWARE<span class=se>\M</span>icrosoft<span class=se>\W</span>indows<span class=se>\C</span>urrentVersion<span class=se>\E</span>xplorer<span class=se>\S</span>hell Folders
+</span></span><span class=line><span class=cl>AppData
+</span></span><span class=line><span class=cl>V%X_
+</span></span></code></pre></td></tr></table></div></div><p>可见加壳后还有一些注册表位置、域名等字符串。</p><h2 id=question-2>QUESTION 2</h2><blockquote><p>What are the malware’s host-based indicators?</p></blockquote><p>下面将通过动态技术分析这个病毒的网络状态，因此我们需要将虚拟机的网络设置为主机模式：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../01.vmware.host-only.png data-srcset="../01.vmware.host-only.png, ../01.vmware.host-only.png 1.5x, ../01.vmware.host-only.png 2x" data-sizes=auto alt=../01.vmware.host-only.png title=01.vmware.host-only></p><p>在主机中扫描局域网，可以看到虚拟机的网络号：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-cmd data-lang=cmd><span class=line><span class=cl>$ nmap -sP 192.168.122.0/24
+</span></span><span class=line><span class=cl>Starting Nmap 7.70 ( https://nmap.org ) at 2019-05-03 13:57 ?D1ú±ê×?ê±??
+</span></span><span class=line><span class=cl>Nmap scan report for 192.168.122.254
+</span></span><span class=line><span class=cl>Host is up (0.00s latency).
+</span></span><span class=line><span class=cl>MAC Address: 00:50:56:E8:EC:7F (VMware)
+</span></span><span class=line><span class=cl>Nmap scan report for 192.168.122.1
+</span></span><span class=line><span class=cl>Host is up.
+</span></span><span class=line><span class=cl>Nmap done: 256 IP addresses (2 hosts up) scanned in 12.31 seconds
+</span></span></code></pre></td></tr></table></div></div><p>先使用 <code>Process Explorer</code> 这个工具分析这个病毒。分析这个病毒导入的 <code>dll</code> 中，我们发现了与网络相关的动态链接库 <code>mswsock.dll</code>：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../01.exe.Procexp.ImportDll.png data-srcset="../01.exe.Procexp.ImportDll.png, ../01.exe.Procexp.ImportDll.png 1.5x, ../01.exe.Procexp.ImportDll.png 2x" data-sizes=auto alt=../01.exe.Procexp.ImportDll.png title=01.exe.Procexp.ImportDll></p><p>我们恢复虚拟机快照，重启虚拟机再在虚拟机中打开 <code>Procmon</code>，添加 <code>Process Name - is - lab03-01.exe</code> 的过滤器，然后运行这个病毒，我们可以在 <code>Procmon</code> 中检测到病毒的行为特征：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../01.exe.Procmon.all.png data-srcset="../01.exe.Procmon.all.png, ../01.exe.Procmon.all.png 1.5x, ../01.exe.Procmon.all.png 2x" data-sizes=auto alt=../01.exe.Procmon.all.png title=01.exe.Procmon.all></p><p>可见在 <code>Operation</code> 一栏中，在 <code>Procmon</code> 记录了从 <code>Process Start</code> 开始病毒调用的所有 API 函数。分析这一栏调用的 API 函数，发现这个病毒大量地调用了 <code>CreateFile</code> 函数和 <code>RegOpenKey</code> 这两个 API 函数。并没有发现与网络请求相关的函数调用。</p><p>所以被感染的主机会有以上分析出的不寻常文件的创建、以上注册表项的更改、可能与 <code>www.practicalmalwareanalysis.com</code> 建立了连接这些特征。</p><h2 id=question-3>QUESTION 3</h2><blockquote><p>Are there any useful network-based signatures for this malware? If so, what are they?</p></blockquote><h3 id=apatedns>ApateDNS</h3><p>为了分析这个病毒的网络请求，使用 <code>ApateDNS</code> 这个工具，可以用于劫持本地的所有 DNS 请求，<a href=https://www.aldeid.com/wiki/Mandiant-ApateDNS target=_blank rel="noopener noreffer">下载以及介绍地址</a>。</p><p>但是这个工具似乎并不可以在 Windows XP 虚拟机上运行（年代久远的系统还有很多网络不兼容的问题），于是我在南开大学<a href=http://ca.nankai.edu.cn/ target=_blank rel="noopener noreffer">正版软件</a>上下载了 <code>Windows 7</code> 的镜像。然后在虚拟机上运行 <code>ApateDNS</code> 劫持本地的所有 DNS 请求，打开浏览器测试：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../01.ApateDNS.test.png data-srcset="../01.ApateDNS.test.png, ../01.ApateDNS.test.png 1.5x, ../01.ApateDNS.test.png 2x" data-sizes=auto alt=../01.ApateDNS.test.png title=01.ApateDNS.test></p><p><strong>但是这个病毒竟然无法在 <code>Windows 7</code> 上运行</strong>。</p><p>于是我决定同时打开 <code>Windows XP</code> 和 <code>Windows 7</code> 系统，使用 <code>vmware</code> 中的 NAT 中，使得两个虚拟机位于同一局域网中，关闭 <code>Windows 7</code> 的防火墙，让 <code>Windows XP</code> 的 <code>DNS</code> 流量流向 <code>Windos 7</code>。同时，为了处理病毒可能会请求的 <code>HTTP</code> 流量，我们打开 <code>Kali Linux</code>，也用同样的方式至于局域网中。我们先通过 <code>nmap & ipconfig</code> 查看 <code>DHCP</code> 服务器分配给三个虚拟机的 <code>IP</code>：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-cmd data-lang=cmd><span class=line><span class=cl>$ nmap -sP 192.168.32.0/24
+</span></span><span class=line><span class=cl>Starting Nmap 7.70 ( https://nmap.org ) at 2019-05-05 08:55 ?D1ú±ê×?ê±??
+</span></span><span class=line><span class=cl>Nmap scan report for 192.168.32.128     # ===<span class=p>&gt;</span> Windows XP (病毒)
+</span></span><span class=line><span class=cl>Host is up (0.0010s latency).
+</span></span><span class=line><span class=cl>MAC Address: 00:0C:29:07:DB:FB (VMware)
+</span></span><span class=line><span class=cl>Nmap scan report for 192.168.32.129     # ===<span class=p>&gt;</span> Windows 7 (DNS 服务器)
+</span></span><span class=line><span class=cl>Host is up (0.0050s latency).
+</span></span><span class=line><span class=cl>MAC Address: 00:0C:29:62:3E:4E (VMware)
+</span></span><span class=line><span class=cl>Nmap scan report for 192.168.32.130
+</span></span><span class=line><span class=cl>Host is up (0.0010s latency).           # ===<span class=p>&gt;</span> Kali Linux (WEB 服务器)
+</span></span><span class=line><span class=cl>MAC Address: 00:0C:29:62:3E:4E (VMware)
+</span></span><span class=line><span class=cl>Nmap scan report for 192.168.32.254
+</span></span><span class=line><span class=cl>Host is up (0.00s latency).
+</span></span><span class=line><span class=cl>MAC Address: 00:50:56:F6:6C:A8 (VMware)
+</span></span><span class=line><span class=cl>Nmap scan report for 192.168.32.1       # ===<span class=p>&gt;</span> 主机
+</span></span><span class=line><span class=cl>Host is up.
+</span></span><span class=line><span class=cl>Nmap done: 256 IP addresses (4 hosts up) scanned in 9.63 seconds
+</span></span></code></pre></td></tr></table></div></div><p>这其中 <code>192.168.32.128</code> 是 <code>Windows XP</code> 的局域网 IP、<code>192.168.32.129</code> 是 <code>Windows 7</code> 的局域网 <code>IP</code>。我们保持 <code>Windows 7</code> 的 <code>ApateDNS</code> 处于运行状态，并且设置 <code>Windows XP</code> 的 <code>DNS</code> 地址：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../01.XP.setDNS.png data-srcset="../01.XP.setDNS.png, ../01.XP.setDNS.png 1.5x, ../01.XP.setDNS.png 2x" data-sizes=auto alt=../01.XP.setDNS.png title=01.XP.setDNS></p><p>使用 <code>nslookup</code> 以确定我们已经正确地设置了 <code>DNS</code> 地址：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-cmd data-lang=cmd><span class=line><span class=cl>$ nslookup www.baidu.com
+</span></span><span class=line><span class=cl>Server:  129.32.168.192.in-addr.arpa
+</span></span><span class=line><span class=cl>Address:  192.168.32.129
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Non-authoritative answer:
+</span></span><span class=line><span class=cl>Name:    www.baidu.com.localdomain
+</span></span><span class=line><span class=cl>Address:  127.0.0.1
+</span></span></code></pre></td></tr></table></div></div><p>很显然这个 <code>127.0.0.1</code> 的应答是我们的 <code>Win7</code> 系统给出的。为了避免病毒直接通过 IP 访问，我们简单地把主机的网络切断。至此我们已经设置好了 <code>DNS</code> 的环境，于是我们可以愉快地分析病毒了。</p><p>运行病毒，我们再 <code>Windows 7</code> 上发现，这个病毒尝试解析 <code>www.practicalmalwareanalysis.com</code> 这个域名：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../01.exe.DNSresolve.png data-srcset="../01.exe.DNSresolve.png, ../01.exe.DNSresolve.png 1.5x, ../01.exe.DNSresolve.png 2x" data-sizes=auto alt=../01.exe.DNSresolve.png title=01.exe.DNSresolve></p><h3 id=python-httphttps>Python HTTP&HTTPS</h3><p>接着我们在 <code>Kali Linux</code> 搭建一个简单的 WEB 服务器：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ iptables -A INPUT -p tcp --dport <span class=m>80</span> -j ACCEPT
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ iptables-save
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ mkdir /var/www/malware
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ <span class=nb>cd</span> /var/www/malware
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ python3 -m http.server <span class=m>80</span>
+</span></span><span class=line><span class=cl>Serving HTTP on 0.0.0.0 port <span class=m>80</span> <span class=o>(</span>http://0.0.0.0:80/<span class=o>)</span> ...
+</span></span></code></pre></td></tr></table></div></div><p>然后我们呢在 <code>Win7</code> 中，把 <code>DNS</code> 解析的结果指向 <code>Kali</code>，然后再在 <code>XP</code> 中运行病毒：我们发现 <code>Win7</code> 中有 <code>DNS</code> 的解析结果，但是 <code>Kali</code> 中却没有来自病毒的访问记录。</p><p>于是开始怀疑病毒访问的不是标准端口，因为 <code>Kali</code> 是默认安装了 <code>wireshark</code> 的，我们使用下面的过滤器直接使用 <code>wireshark</code> 抓包：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=n>ip</span><span class=p>.</span><span class=n>addr</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=mi>192</span><span class=p>.</span><span class=mi>168</span><span class=p>.</span><span class=mi>32</span><span class=p>.</span><span class=mi>128</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p><img class=lazyload src=/svg/loading.min.svg data-src=../01.kali.wireshark.port.png data-srcset="../01.kali.wireshark.port.png, ../01.kali.wireshark.port.png 1.5x, ../01.kali.wireshark.port.png 2x" data-sizes=auto alt=../01.kali.wireshark.port.png title=01.kali.wireshark.port></p><p>如上图，我们发现它竟然访问的是 <code>443</code> 端口，于是我们先尝试把 <code>HTTP</code> 服务部署在 <code>443</code> 端口：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../01.kali.wireshark.ssl.png data-srcset="../01.kali.wireshark.ssl.png, ../01.kali.wireshark.ssl.png 1.5x, ../01.kali.wireshark.ssl.png 2x" data-sizes=auto alt=../01.kali.wireshark.ssl.png title=01.kali.wireshark.ssl></p><p>发现这个病毒是真实使用的 <code>HTTPS</code> 服务进行访问。我们再搭建一个简单的 <code>HTTPS</code> 服务：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days <span class=m>365</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ cat <span class=s>&lt;&lt; _EOF_ &gt; httpsserver.py
+</span></span></span><span class=line><span class=cl><span class=s>from http.server import HTTPServer, BaseHTTPRequestHandler
+</span></span></span><span class=line><span class=cl><span class=s>import ssl
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>httpd = HTTPServer((&#39;localhost&#39;, 4443), BaseHTTPRequestHandler)
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>httpd.socket = ssl.wrap_socket (httpd.socket, 
+</span></span></span><span class=line><span class=cl><span class=s>    keyfile=&#34;./key.pem&#34;, certfile=&#39;path/to/cert.pem&#39;, server_side=True)
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>httpd.serve_forever()
+</span></span></span><span class=line><span class=cl><span class=s>_EOF_</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>$ python3 httpsserver.py
+</span></span></code></pre></td></tr></table></div></div><p>再用 <code>wireshark</code> 抓包，发现服务器拒绝了病毒的连接申请：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../01.kali.wireshark.refuse.png data-srcset="../01.kali.wireshark.refuse.png, ../01.kali.wireshark.refuse.png 1.5x, ../01.kali.wireshark.refuse.png 2x" data-sizes=auto alt=../01.kali.wireshark.refuse.png title=01.kali.wireshark.refuse></p><p>这说明病毒访问的根本不是真正的 <code>HTTPS</code> 服务，但是 <code>HTTP</code> 同样也无法处理这个请求。</p><h3 id=inetsim>INetSim</h3><p>我们也可以用 <code>INetSim</code> 这个工具在 <code>Kali Linux</code> 中部署一个 WEB 服务（这个工具在 Kali 是默认安装的）。因为这个工具默认开启在本地端口，因此需要更改 <code>/etc/inetsim/inetsim.conf</code> 这个配置文件，加入下面的配置：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>service_bind_address = 0.0.0.0
+</span></span></code></pre></td></tr></table></div></div><p>然后运行以下命令：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ inetsim
+</span></span></code></pre></td></tr></table></div></div><p>在日志文件 <code>/usr/share/inetsim/log/service.log</code> 中可以查看访问的所有访问的日志记录。</p><h3 id=结论>结论</h3><p>病毒运行之后首先会请求解析 <code>www.practicalmalwareanalysis.com</code> 的 IP，与目标主机建立了 <code>TCP</code> 连接之后，以一个非 <code>HTTPS & HTTP</code> 协议访问目标服务器的 443 端口。</p></div><div id=comments><div id=valine class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.</noscript></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://shesl-meow.github.io target=_blank>佘崧林</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/valine/valine.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/valine@1.4.18/dist/Valine.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:50},comment:{valine:{appId:"zDVJohJIQbD6f3W267xtaYRC-gzGzoHsz",appKey:"ewsfU9ocNOeuvt0MzONe6yKx",avatar:"mp",el:"#valine",emojiCDN:"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/",emojiMaps:{100:"1f4af.png",alien:"1f47d.png",anger:"1f4a2.png",angry:"1f620.png",anguished:"1f627.png",astonished:"1f632.png",black_heart:"1f5a4.png",blue_heart:"1f499.png",blush:"1f60a.png",bomb:"1f4a3.png",boom:"1f4a5.png",broken_heart:"1f494.png",brown_heart:"1f90e.png",clown_face:"1f921.png",cold_face:"1f976.png",cold_sweat:"1f630.png",confounded:"1f616.png",confused:"1f615.png",cry:"1f622.png",crying_cat_face:"1f63f.png",cupid:"1f498.png",dash:"1f4a8.png",disappointed:"1f61e.png",disappointed_relieved:"1f625.png",dizzy:"1f4ab.png",dizzy_face:"1f635.png",drooling_face:"1f924.png",exploding_head:"1f92f.png",expressionless:"1f611.png",face_vomiting:"1f92e.png",face_with_cowboy_hat:"1f920.png",face_with_hand_over_mouth:"1f92d.png",face_with_head_bandage:"1f915.png",face_with_monocle:"1f9d0.png",face_with_raised_eyebrow:"1f928.png",face_with_rolling_eyes:"1f644.png",face_with_symbols_on_mouth:"1f92c.png",face_with_thermometer:"1f912.png",fearful:"1f628.png",flushed:"1f633.png",frowning:"1f626.png",ghost:"1f47b.png",gift_heart:"1f49d.png",green_heart:"1f49a.png",grimacing:"1f62c.png",grin:"1f601.png",grinning:"1f600.png",hankey:"1f4a9.png",hear_no_evil:"1f649.png",heart:"2764-fe0f.png",heart_decoration:"1f49f.png",heart_eyes:"1f60d.png",heart_eyes_cat:"1f63b.png",heartbeat:"1f493.png",heartpulse:"1f497.png",heavy_heart_exclamation_mark_ornament:"2763-fe0f.png",hole:"1f573-fe0f.png",hot_face:"1f975.png",hugging_face:"1f917.png",hushed:"1f62f.png",imp:"1f47f.png",innocent:"1f607.png",japanese_goblin:"1f47a.png",japanese_ogre:"1f479.png",joy:"1f602.png",joy_cat:"1f639.png",kiss:"1f48b.png",kissing:"1f617.png",kissing_cat:"1f63d.png",kissing_closed_eyes:"1f61a.png",kissing_heart:"1f618.png",kissing_smiling_eyes:"1f619.png",laughing:"1f606.png",left_speech_bubble:"1f5e8-fe0f.png",love_letter:"1f48c.png",lying_face:"1f925.png",mask:"1f637.png",money_mouth_face:"1f911.png",nauseated_face:"1f922.png",nerd_face:"1f913.png",neutral_face:"1f610.png",no_mouth:"1f636.png",open_mouth:"1f62e.png",orange_heart:"1f9e1.png",partying_face:"1f973.png",pensive:"1f614.png",persevere:"1f623.png",pleading_face:"1f97a.png",pouting_cat:"1f63e.png",purple_heart:"1f49c.png",rage:"1f621.png",relaxed:"263a-fe0f.png",relieved:"1f60c.png",revolving_hearts:"1f49e.png",right_anger_bubble:"1f5ef-fe0f.png",robot_face:"1f916.png",rolling_on_the_floor_laughing:"1f923.png",scream:"1f631.png",scream_cat:"1f640.png",see_no_evil:"1f648.png",shushing_face:"1f92b.png",skull:"1f480.png",skull_and_crossbones:"2620-fe0f.png",sleeping:"1f634.png",sleepy:"1f62a.png",slightly_frowning_face:"1f641.png",slightly_smiling_face:"1f642.png",smile:"1f604.png",smile_cat:"1f638.png",smiley:"1f603.png",smiley_cat:"1f63a.png",smiling_face_with_3_hearts:"1f970.png",smiling_imp:"1f608.png",smirk:"1f60f.png",smirk_cat:"1f63c.png",sneezing_face:"1f927.png",sob:"1f62d.png",space_invader:"1f47e.png",sparkling_heart:"1f496.png",speak_no_evil:"1f64a.png",speech_balloon:"1f4ac.png","star-struck":"1f929.png",stuck_out_tongue:"1f61b.png",stuck_out_tongue_closed_eyes:"1f61d.png",stuck_out_tongue_winking_eye:"1f61c.png",sunglasses:"1f60e.png",sweat:"1f613.png",sweat_drops:"1f4a6.png",sweat_smile:"1f605.png",thinking_face:"1f914.png",thought_balloon:"1f4ad.png",tired_face:"1f62b.png",triumph:"1f624.png",two_hearts:"1f495.png",unamused:"1f612.png",upside_down_face:"1f643.png",weary:"1f629.png",white_frowning_face:"2639-fe0f.png",white_heart:"1f90d.png",wink:"1f609.png",woozy_face:"1f974.png",worried:"1f61f.png",yawning_face:"1f971.png",yellow_heart:"1f49b.png",yum:"1f60b.png",zany_face:"1f92a.png",zipper_mouth_face:"1f910.png",zzz:"1f4a4.png"},enableQQ:!1,highlight:!0,lang:"zh-CN",pageSize:10,placeholder:"你的评论 ...",recordIP:!0,serverURLs:"https://zdvjohji.lc-cn-n1-shared.com",visitor:!0}},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"",algoliaIndex:"",algoliaSearchKey:"",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:30,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.c1d5acc03abc8af9ee0a42aa4e942566a338a3e29d21b6c9f11536101f6914ad.js integrity="sha256-wdWswDq8ivnuCkKqTpQlZqM4o+KdIbbJ8RU2EB9pFK0="></script></body></html>

@@ -1,0 +1,195 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>exe4 - shesl's blog</title><meta name=Description content="佘崧林同学的碎碎念博客"><meta property="og:title" content="exe4"><meta property="og:description" content="分析 bootloader 加载 ELF 格式的 OS 的过程 bootmian.c 让我们简单地翻译一下这个文件的注释： 磁盘内存布局： 这个程序是一个启动加载器 (bootloader)，它应该在磁盘"><meta property="og:type" content="article"><meta property="og:url" content="http://shesl-meow.github.io/note/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab1/exe4/"><meta property="og:image" content="http://shesl-meow.github.io/avatar.png"><meta property="article:section" content="note"><meta property="article:published_time" content="2019-10-06T23:25:31+08:00"><meta property="article:modified_time" content="2019-10-06T23:25:31+08:00"><meta property="og:site_name" content="shesl's blog"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="http://shesl-meow.github.io/avatar.png"><meta name=twitter:title content="exe4"><meta name=twitter:description content="分析 bootloader 加载 ELF 格式的 OS 的过程 bootmian.c 让我们简单地翻译一下这个文件的注释： 磁盘内存布局： 这个程序是一个启动加载器 (bootloader)，它应该在磁盘"><meta name=application-name content="shesl's blog"><meta name=apple-mobile-web-app-title content="shesl's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://shesl-meow.github.io/note/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab1/exe4/><link rel=prev href=http://shesl-meow.github.io/note/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab1/exe1/><link rel=next href=http://shesl-meow.github.io/note/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/homework/lab1/exe3/><link rel=stylesheet href=/css/style.min.fa85115dce490a9d0bf009e2892b6d42439bdea75160d08cddcb0b97c8def676.css integrity="sha256-+oURXc5JCp0L8AniiSttQkOb3qdRYNCM3csLl8je9nY="><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"exe4","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/shesl-meow.github.io\/note\/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B\/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F\/homework\/lab1\/exe4\/"},"genre":"note","keywords":"","wordcount":1584,"url":"http:\/\/shesl-meow.github.io\/note\/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B\/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F\/homework\/lab1\/exe4\/","datePublished":"2019-10-06T23:25:31+08:00","dateModified":"2019-10-06T23:25:31+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"佘崧林"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>博客 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/note/>笔记 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>博客</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/note/ title>笔记</a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">exe4</h1><div class=content id=content><blockquote><p>分析 bootloader 加载 ELF 格式的 OS 的过程</p></blockquote><h2 id=bootmianc><code>bootmian.c</code></h2><p><del>让我们简单地翻译一下这个文件的注释：</del></p><p>磁盘内存布局：</p><ul><li>这个程序是一个启动加载器 (<code>bootloader</code>)，它应该在磁盘的第一个扇区上；</li><li>紧接着的第二个扇区存储着内核的镜像，它必须是一个 ELF 格式的文件。</li></ul><p>启动的流程：</p><ol><li>当 CPU 启动时，它首先将 BIOS 加载进内存中，然后执行它；</li><li>然后 BIOS 会初始化中断周期，然后取出启动程序的第一个选区然后跳转到它；</li><li>如果启动加载器存储在第一个扇区，控制权就转移到了这个文件中的代码（具体是在 <code>bootasm.S</code> 这个文件中调用的 <code>bootmain()</code> 这个函数）；</li><li>当这个文件中的函数执行完毕之后，内核会被读入，控制权会被转移给内核。</li></ol><h2 id=问题一>问题一</h2><blockquote><p>Boot loader 如何读取硬盘扇区的？</p></blockquote><p>我们看文件中函数 <code>readsect</code> 的注释，就知道用来读取硬盘扇区的是这个函数，我们来逐行解释这个函数：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=cm>/* readsect - read a single sector at @secno into @dst */</span>
+</span></span><span class=line><span class=cl><span class=k>static</span> <span class=kt>void</span>
+</span></span><span class=line><span class=cl><span class=nf>readsect</span><span class=p>(</span><span class=kt>void</span> <span class=o>*</span><span class=n>dst</span><span class=p>,</span> <span class=kt>uint32_t</span> <span class=n>secno</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// wait for disk to be ready
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>waitdisk</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>outb</span><span class=p>(</span><span class=mh>0x1F2</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>                         <span class=c1>// count = 1
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>outb</span><span class=p>(</span><span class=mh>0x1F3</span><span class=p>,</span> <span class=n>secno</span> <span class=o>&amp;</span> <span class=mh>0xFF</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=n>outb</span><span class=p>(</span><span class=mh>0x1F4</span><span class=p>,</span> <span class=p>(</span><span class=n>secno</span> <span class=o>&gt;&gt;</span> <span class=mi>8</span><span class=p>)</span> <span class=o>&amp;</span> <span class=mh>0xFF</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=n>outb</span><span class=p>(</span><span class=mh>0x1F5</span><span class=p>,</span> <span class=p>(</span><span class=n>secno</span> <span class=o>&gt;&gt;</span> <span class=mi>16</span><span class=p>)</span> <span class=o>&amp;</span> <span class=mh>0xFF</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=n>outb</span><span class=p>(</span><span class=mh>0x1F6</span><span class=p>,</span> <span class=p>((</span><span class=n>secno</span> <span class=o>&gt;&gt;</span> <span class=mi>24</span><span class=p>)</span> <span class=o>&amp;</span> <span class=mh>0xF</span><span class=p>)</span> <span class=o>|</span> <span class=mh>0xE0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=n>outb</span><span class=p>(</span><span class=mh>0x1F7</span><span class=p>,</span> <span class=mh>0x20</span><span class=p>);</span>                      <span class=c1>// cmd 0x20 - read sectors
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>    <span class=c1>// wait for disk to be ready
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>waitdisk</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// read a sector
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>insl</span><span class=p>(</span><span class=mh>0x1F0</span><span class=p>,</span> <span class=n>dst</span><span class=p>,</span> <span class=n>SECTSIZE</span> <span class=o>/</span> <span class=mi>4</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li>看文件前的注释可知，函数两个参数的含义：<code>dst</code> 是目标句柄，<code>secno</code> 是扇区标示；</li><li>根据<a href=https://blog.csdn.net/henrykobe/article/details/7483530 target=_blank rel="noopener noreffer">参考资料</a>，后面的几行是通过 24-bit LBA 的方式读取磁盘（下面进行详细解析）；</li><li>后面的 <code>insl</code> 函数则是读取四个字节到 <code>dst</code> 这个句柄中；</li></ul><p>那么 <code>outb</code> 那几行的具体原理是什么呢，首先我们在 <a href=http://man7.org/linux/man-pages/man2/outb.2.html target=_blank rel="noopener noreffer">Linux manual</a> 上找到了函数原型：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=kt>void</span> <span class=nf>outb</span><span class=p>(</span><span class=kt>unsigned</span> <span class=kt>char</span> <span class=n>value</span><span class=p>,</span> <span class=kt>unsigned</span> <span class=kt>short</span> <span class=kt>int</span> <span class=n>port</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p>它通过 port 这个 IO 技术与磁盘进行通信，这个技术被简称为 <strong>PIO</strong>。关于这个技术我找到一个中文的相关博客：<a href=https://www.cnblogs.com/sunsky303/p/8962628.html target=_blank rel="noopener noreffer">网络 IO 与磁盘 IO 详解</a>，其中是这样描述的：</p><ul><li>PIO：我们拿磁盘来说，很早以前，磁盘和内存之间的数据传输是需要 CPU 控制的，也就是说如果我们读取磁盘文件到内存中，数据要经过 CPU 存储转发，这种方式称为 PIO。显然这种方式非常不合理，需要占用大量的 CPU 时间来读取文件，造成文件访问时系统几乎停止响应。</li><li>DMA：后来，DMA（直接内存访问，Direct Memory Access）取代了 PIO，它可以不经过 CPU 而直接进行磁盘和内存的数据交换。在 DMA 模式下，CPU 只需要向 DMA 控制器下达指令，让 DMA 控制器来处理数据的传送即可，DMA 控制器通过系统总线来传输数据，传送完毕再通知 CPU，这样就在很大程度上降低了 CPU占有率，大大节省了系统资源，而它的传输速度与 PIO 的差异其实并不十分明显，因为这主要取决于慢速设备的速度。</li><li>可以肯定的是，PIO 模式的计算机我们现在已经很少见到了。</li></ul><p>在 <a href=http://www.scs.stanford.edu/15wi-cs140/notes/devices.pdf target=_blank rel="noopener noreffer">Stanford 的课件</a>中，我们找到了 24-bit LBA 模式读取磁盘，有更完整注释的代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>IDE_ReadSector(int disk, int off, void *buf) {
+</span></span><span class=line><span class=cl>  outb(0x1F6, disk == 0 ? 0xE0 : 0xF0); 	// Select Drive
+</span></span><span class=line><span class=cl>  IDEWait();
+</span></span><span class=line><span class=cl>  outb(0x1F2, 512); 											// Read length (512 B)
+</span></span><span class=line><span class=cl>  outb(0x1F3, off); 											// LBA Low
+</span></span><span class=line><span class=cl>  outb(0x1F4, off &gt;&gt; 8); 									// LBA Mid
+</span></span><span class=line><span class=cl>  outb(0x1F5, off &gt;&gt; 16); 								// LBA High
+</span></span><span class=line><span class=cl>  outb(0x1F7, 0x20); 											// Read Command
+</span></span><span class=line><span class=cl>  insw(0x1F0, buf, 256); 									// Read 256 Words
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><h2 id=问题二>问题二</h2><blockquote><p>Boot loader 是如何加载 ELF 格式的 OS？</p></blockquote><p>略读代码发现，读取并解析 ELF 文件字节的是 <code>bootmain</code> 函数在进行的工作：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=cm>/* bootmain - the entry of bootloader */</span>
+</span></span><span class=line><span class=cl><span class=kt>void</span>
+</span></span><span class=line><span class=cl><span class=nf>bootmain</span><span class=p>(</span><span class=kt>void</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// read the 1st page off disk
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>readseg</span><span class=p>((</span><span class=n>uintptr_t</span><span class=p>)</span><span class=n>ELFHDR</span><span class=p>,</span> <span class=n>SECTSIZE</span> <span class=o>*</span> <span class=mi>8</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// is this a valid ELF?
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>if</span> <span class=p>(</span><span class=n>ELFHDR</span><span class=o>-&gt;</span><span class=n>e_magic</span> <span class=o>!=</span> <span class=n>ELF_MAGIC</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>goto</span> <span class=n>bad</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>struct</span> <span class=n>proghdr</span> <span class=o>*</span><span class=n>ph</span><span class=p>,</span> <span class=o>*</span><span class=n>eph</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// load each program segment (ignores ph flags)
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>ph</span> <span class=o>=</span> <span class=p>(</span><span class=k>struct</span> <span class=n>proghdr</span> <span class=o>*</span><span class=p>)((</span><span class=n>uintptr_t</span><span class=p>)</span><span class=n>ELFHDR</span> <span class=o>+</span> <span class=n>ELFHDR</span><span class=o>-&gt;</span><span class=n>e_phoff</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=n>eph</span> <span class=o>=</span> <span class=n>ph</span> <span class=o>+</span> <span class=n>ELFHDR</span><span class=o>-&gt;</span><span class=n>e_phnum</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=p>(;</span> <span class=n>ph</span> <span class=o>&lt;</span> <span class=n>eph</span><span class=p>;</span> <span class=n>ph</span> <span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>readseg</span><span class=p>(</span><span class=n>ph</span><span class=o>-&gt;</span><span class=n>p_va</span> <span class=o>&amp;</span> <span class=mh>0xFFFFFF</span><span class=p>,</span> <span class=n>ph</span><span class=o>-&gt;</span><span class=n>p_memsz</span><span class=p>,</span> <span class=n>ph</span><span class=o>-&gt;</span><span class=n>p_offset</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// call the entry point from the ELF header
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>// note: does not return
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>((</span><span class=kt>void</span> <span class=p>(</span><span class=o>*</span><span class=p>)(</span><span class=kt>void</span><span class=p>))(</span><span class=n>ELFHDR</span><span class=o>-&gt;</span><span class=n>e_entry</span> <span class=o>&amp;</span> <span class=mh>0xFFFFFF</span><span class=p>))();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nl>bad</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>outw</span><span class=p>(</span><span class=mh>0x8A00</span><span class=p>,</span> <span class=mh>0x8A00</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=n>outw</span><span class=p>(</span><span class=mh>0x8A00</span><span class=p>,</span> <span class=mh>0x8E00</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=cm>/* do nothing */</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=p>(</span><span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li>它首先将磁盘的第一页读取了进来，然后通过文件幻数检查它是否为一个合法的 ELF 文件；</li><li>程序循环性地调用 <code>readseg</code> 函数，通过 <code>proghdr</code> 结构的参数读取 ELF 文件的内容（此处涉及到 <code>resadseg</code> 函数的具体实现与 <code>proghdr</code> 的结构）；</li><li>然后程序调用 ELF 的入口函数；</li></ul><p>在 <a href=https://stackoverflow.com/questions/29320615/reading-the-program-header-contents-of-an-elf-file target=_blank rel="noopener noreffer">Stack Overflow</a> 上可以找到结构的具体实现（没什么特别的）：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=k>struct</span> <span class=n>Proghdr</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kt>uint32_t</span> <span class=n>p_type</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=kt>uint32_t</span> <span class=n>p_offset</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=kt>uint32_t</span> <span class=n>p_va</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=kt>uint32_t</span> <span class=n>p_pa</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=kt>uint32_t</span> <span class=n>p_filesz</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=kt>uint32_t</span> <span class=n>p_memsz</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=kt>uint32_t</span> <span class=n>p_flags</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>        <span class=kt>uint32_t</span> <span class=n>p_align</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><p>而 <code>readseg</code> 函数具体实现就是同一个文件中：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=cm>/* *
+</span></span></span><span class=line><span class=cl><span class=cm> * readseg - read @count bytes at @offset from kernel into virtual address @va,
+</span></span></span><span class=line><span class=cl><span class=cm> * might copy more than asked.
+</span></span></span><span class=line><span class=cl><span class=cm> * */</span>
+</span></span><span class=line><span class=cl><span class=k>static</span> <span class=kt>void</span>
+</span></span><span class=line><span class=cl><span class=nf>readseg</span><span class=p>(</span><span class=n>uintptr_t</span> <span class=n>va</span><span class=p>,</span> <span class=kt>uint32_t</span> <span class=n>count</span><span class=p>,</span> <span class=kt>uint32_t</span> <span class=n>offset</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>uintptr_t</span> <span class=n>end_va</span> <span class=o>=</span> <span class=n>va</span> <span class=o>+</span> <span class=n>count</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// round down to sector boundary
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>va</span> <span class=o>-=</span> <span class=n>offset</span> <span class=o>%</span> <span class=n>SECTSIZE</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// translate from bytes to sectors; kernel starts at sector 1
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kt>uint32_t</span> <span class=n>secno</span> <span class=o>=</span> <span class=p>(</span><span class=n>offset</span> <span class=o>/</span> <span class=n>SECTSIZE</span><span class=p>)</span> <span class=o>+</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// If this is too slow, we could read lots of sectors at a time.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>// We&#39;d write more to memory than asked, but it doesn&#39;t matter --
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>// we load in increasing order.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>for</span> <span class=p>(;</span> <span class=n>va</span> <span class=o>&lt;</span> <span class=n>end_va</span><span class=p>;</span> <span class=n>va</span> <span class=o>+=</span> <span class=n>SECTSIZE</span><span class=p>,</span> <span class=n>secno</span> <span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>readsect</span><span class=p>((</span><span class=kt>void</span> <span class=o>*</span><span class=p>)</span><span class=n>va</span><span class=p>,</span> <span class=n>secno</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>逻辑也相当清晰，注释也很完整，这里就不解释了。</p></div><div id=comments><div id=valine class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.</noscript></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://shesl-meow.github.io target=_blank>佘崧林</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/valine/valine.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/valine@1.4.18/dist/Valine.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:50},comment:{valine:{appId:"zDVJohJIQbD6f3W267xtaYRC-gzGzoHsz",appKey:"ewsfU9ocNOeuvt0MzONe6yKx",avatar:"mp",el:"#valine",emojiCDN:"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/",emojiMaps:{100:"1f4af.png",alien:"1f47d.png",anger:"1f4a2.png",angry:"1f620.png",anguished:"1f627.png",astonished:"1f632.png",black_heart:"1f5a4.png",blue_heart:"1f499.png",blush:"1f60a.png",bomb:"1f4a3.png",boom:"1f4a5.png",broken_heart:"1f494.png",brown_heart:"1f90e.png",clown_face:"1f921.png",cold_face:"1f976.png",cold_sweat:"1f630.png",confounded:"1f616.png",confused:"1f615.png",cry:"1f622.png",crying_cat_face:"1f63f.png",cupid:"1f498.png",dash:"1f4a8.png",disappointed:"1f61e.png",disappointed_relieved:"1f625.png",dizzy:"1f4ab.png",dizzy_face:"1f635.png",drooling_face:"1f924.png",exploding_head:"1f92f.png",expressionless:"1f611.png",face_vomiting:"1f92e.png",face_with_cowboy_hat:"1f920.png",face_with_hand_over_mouth:"1f92d.png",face_with_head_bandage:"1f915.png",face_with_monocle:"1f9d0.png",face_with_raised_eyebrow:"1f928.png",face_with_rolling_eyes:"1f644.png",face_with_symbols_on_mouth:"1f92c.png",face_with_thermometer:"1f912.png",fearful:"1f628.png",flushed:"1f633.png",frowning:"1f626.png",ghost:"1f47b.png",gift_heart:"1f49d.png",green_heart:"1f49a.png",grimacing:"1f62c.png",grin:"1f601.png",grinning:"1f600.png",hankey:"1f4a9.png",hear_no_evil:"1f649.png",heart:"2764-fe0f.png",heart_decoration:"1f49f.png",heart_eyes:"1f60d.png",heart_eyes_cat:"1f63b.png",heartbeat:"1f493.png",heartpulse:"1f497.png",heavy_heart_exclamation_mark_ornament:"2763-fe0f.png",hole:"1f573-fe0f.png",hot_face:"1f975.png",hugging_face:"1f917.png",hushed:"1f62f.png",imp:"1f47f.png",innocent:"1f607.png",japanese_goblin:"1f47a.png",japanese_ogre:"1f479.png",joy:"1f602.png",joy_cat:"1f639.png",kiss:"1f48b.png",kissing:"1f617.png",kissing_cat:"1f63d.png",kissing_closed_eyes:"1f61a.png",kissing_heart:"1f618.png",kissing_smiling_eyes:"1f619.png",laughing:"1f606.png",left_speech_bubble:"1f5e8-fe0f.png",love_letter:"1f48c.png",lying_face:"1f925.png",mask:"1f637.png",money_mouth_face:"1f911.png",nauseated_face:"1f922.png",nerd_face:"1f913.png",neutral_face:"1f610.png",no_mouth:"1f636.png",open_mouth:"1f62e.png",orange_heart:"1f9e1.png",partying_face:"1f973.png",pensive:"1f614.png",persevere:"1f623.png",pleading_face:"1f97a.png",pouting_cat:"1f63e.png",purple_heart:"1f49c.png",rage:"1f621.png",relaxed:"263a-fe0f.png",relieved:"1f60c.png",revolving_hearts:"1f49e.png",right_anger_bubble:"1f5ef-fe0f.png",robot_face:"1f916.png",rolling_on_the_floor_laughing:"1f923.png",scream:"1f631.png",scream_cat:"1f640.png",see_no_evil:"1f648.png",shushing_face:"1f92b.png",skull:"1f480.png",skull_and_crossbones:"2620-fe0f.png",sleeping:"1f634.png",sleepy:"1f62a.png",slightly_frowning_face:"1f641.png",slightly_smiling_face:"1f642.png",smile:"1f604.png",smile_cat:"1f638.png",smiley:"1f603.png",smiley_cat:"1f63a.png",smiling_face_with_3_hearts:"1f970.png",smiling_imp:"1f608.png",smirk:"1f60f.png",smirk_cat:"1f63c.png",sneezing_face:"1f927.png",sob:"1f62d.png",space_invader:"1f47e.png",sparkling_heart:"1f496.png",speak_no_evil:"1f64a.png",speech_balloon:"1f4ac.png","star-struck":"1f929.png",stuck_out_tongue:"1f61b.png",stuck_out_tongue_closed_eyes:"1f61d.png",stuck_out_tongue_winking_eye:"1f61c.png",sunglasses:"1f60e.png",sweat:"1f613.png",sweat_drops:"1f4a6.png",sweat_smile:"1f605.png",thinking_face:"1f914.png",thought_balloon:"1f4ad.png",tired_face:"1f62b.png",triumph:"1f624.png",two_hearts:"1f495.png",unamused:"1f612.png",upside_down_face:"1f643.png",weary:"1f629.png",white_frowning_face:"2639-fe0f.png",white_heart:"1f90d.png",wink:"1f609.png",woozy_face:"1f974.png",worried:"1f61f.png",yawning_face:"1f971.png",yellow_heart:"1f49b.png",yum:"1f60b.png",zany_face:"1f92a.png",zipper_mouth_face:"1f910.png",zzz:"1f4a4.png"},enableQQ:!1,highlight:!0,lang:"zh-CN",pageSize:10,placeholder:"你的评论 ...",recordIP:!0,serverURLs:"https://zdvjohji.lc-cn-n1-shared.com",visitor:!0}},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"",algoliaIndex:"",algoliaSearchKey:"",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:30,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.c1d5acc03abc8af9ee0a42aa4e942566a338a3e29d21b6c9f11536101f6914ad.js integrity="sha256-wdWswDq8ivnuCkKqTpQlZqM4o+KdIbbJ8RU2EB9pFK0="></script></body></html>

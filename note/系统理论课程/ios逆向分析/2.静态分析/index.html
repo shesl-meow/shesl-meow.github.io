@@ -1,0 +1,205 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>静态分析 - shesl's blog</title><meta name=Description content="佘崧林同学的碎碎念博客"><meta property="og:title" content="静态分析"><meta property="og:description" content="iOS 的静态分析工具主要有 Hopper/IDA Pro。 Hopper IDA Pro 下面是一些 IDA Pro 的常用功能与快捷键： 字符串搜索：Alt+T (Windows)；Option+T (Mac OS)；"><meta property="og:type" content="article"><meta property="og:url" content="http://shesl-meow.github.io/note/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/ios%E9%80%86%E5%90%91%E5%88%86%E6%9E%90/2.%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90/"><meta property="og:image" content="http://shesl-meow.github.io/avatar.png"><meta property="article:section" content="note"><meta property="article:published_time" content="2020-10-30T11:44:45+08:00"><meta property="article:modified_time" content="2020-10-30T11:44:45+08:00"><meta property="og:site_name" content="shesl's blog"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="http://shesl-meow.github.io/avatar.png"><meta name=twitter:title content="静态分析"><meta name=twitter:description content="iOS 的静态分析工具主要有 Hopper/IDA Pro。 Hopper IDA Pro 下面是一些 IDA Pro 的常用功能与快捷键： 字符串搜索：Alt+T (Windows)；Option+T (Mac OS)；"><meta name=application-name content="shesl's blog"><meta name=apple-mobile-web-app-title content="shesl's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://shesl-meow.github.io/note/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/ios%E9%80%86%E5%90%91%E5%88%86%E6%9E%90/2.%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90/><link rel=prev href=http://shesl-meow.github.io/note/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/ios%E9%80%86%E5%90%91%E5%88%86%E6%9E%90/1.%E6%AD%A3%E5%90%91%E5%9F%BA%E7%A1%80/><link rel=stylesheet href=/css/style.min.fa85115dce490a9d0bf009e2892b6d42439bdea75160d08cddcb0b97c8def676.css integrity="sha256-+oURXc5JCp0L8AniiSttQkOb3qdRYNCM3csLl8je9nY="><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"静态分析","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/shesl-meow.github.io\/note\/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B\/ios%E9%80%86%E5%90%91%E5%88%86%E6%9E%90\/2.%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90\/"},"genre":"note","keywords":"","wordcount":1603,"url":"http:\/\/shesl-meow.github.io\/note\/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B\/ios%E9%80%86%E5%90%91%E5%88%86%E6%9E%90\/2.%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90\/","datePublished":"2020-10-30T11:44:45+08:00","dateModified":"2020-10-30T11:44:45+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"佘崧林"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>博客 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/note/>笔记 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>博客</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/note/ title>笔记</a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">静态分析</h1><div class=content id=content><p>iOS 的静态分析工具主要有 Hopper/IDA Pro。</p><h2 id=hopper>Hopper</h2><h2 id=ida-pro>IDA Pro</h2><p>下面是一些 IDA Pro 的常用功能与快捷键：</p><ol><li>字符串搜索：Alt+T (Windows)；Option+T (Mac OS)；</li><li>跳转地址：在 IDA 中按 &ldquo;G&rdquo;，输入指定的跳转地址即可跳转；</li><li>编写注释：<ol><li>可重复注释：按 &ldquo;;&rdquo; 分号，可以添加可重复注释，这种注释会同时出现在其交叉引用的地方；</li><li>非重复注释：按 &ldquo;:&rdquo; 冒号，可添加重复注释，优先级大于前者，不过不会出现在交叉引用的位置；</li><li>伪代码注释：直接按 &ldquo;/&rdquo; 分号，可以为伪代码添加注释；</li></ol></li><li>变量重命名：单击目标变量，按 &ldquo;N&rdquo; 进行重命名；</li><li>查看交叉引用：选中函数/变量，按 &ldquo;X&rdquo; 可以查看当前位置被哪些地方引用了；</li><li>进制转换：伪代码展示的数字默认进制是十进制，可以按 &ldquo;H&rdquo; 进行进制转换；</li><li>类型声明：变量类型/方法参数签名等，如果 IDA 默认识别有问题，可以按 &ldquo;Y&rdquo; 进行重声明；</li><li>格式转化：<ol><li>在被解析为数据的位置按 &ldquo;C&rdquo; 可以解析为代码，反之按 &ldquo;D&rdquo;；</li><li>对于一连串的 ASCII 字符，按 &ldquo;A&rdquo; 可以将一连串地址的字符转化为字符串；</li><li>按 &ldquo;U&rdquo; 可以取消对数据段的解析；</li></ol></li></ol><h2 id=静态分析实践>静态分析实践</h2><h3 id=产物分析>产物分析</h3><p>我们使用 XCode 默认建立的工程，在 viewDidLoad 里面编写了一段代码，看看这写代码是如何实现的：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=cp>#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+</span></span></span><span class=line><span class=cl><span class=cp>#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+</span></span></span><span class=line><span class=cl><span class=cp>#define TEXT_WIDTH 100
+</span></span></span><span class=line><span class=cl><span class=cp>#define TEXT_HEIGHT 100
+</span></span></span><span class=line><span class=cl><span class=cp></span>
+</span></span><span class=line><span class=cl><span class=k>@implementation</span> <span class=nc>ViewController</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>-</span> <span class=p>(</span><span class=kt>void</span><span class=p>)</span><span class=nf>viewDidLoad</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>CGPoint</span> <span class=n>origin</span> <span class=o>=</span> <span class=n>CGPointMake</span><span class=p>((</span><span class=n>SCREEN_WIDTH</span> <span class=o>-</span> <span class=n>TEXT_WIDTH</span><span class=p>)</span> <span class=o>/</span> <span class=mi>2</span><span class=p>,</span> <span class=p>(</span><span class=n>SCREEN_HEIGHT</span> <span class=o>-</span> <span class=n>TEXT_HEIGHT</span><span class=p>)</span> <span class=o>/</span> <span class=mi>2</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=n>UITextView</span> <span class=o>*</span><span class=n>customTextView</span> <span class=o>=</span> <span class=p>[[</span><span class=n>UITextView</span> <span class=n>alloc</span><span class=p>]</span> <span class=nl>initWithFrame</span><span class=p>:</span><span class=n>CGRectMake</span><span class=p>(</span><span class=n>origin</span><span class=p>.</span><span class=n>x</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                                                                        <span class=n>origin</span><span class=p>.</span><span class=n>y</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                                                                        <span class=n>TEXT_WIDTH</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                                                                        <span class=n>TEXT_HEIGHT</span><span class=p>)];</span>
+</span></span><span class=line><span class=cl>    <span class=n>customTextView</span><span class=p>.</span><span class=n>text</span> <span class=o>=</span> <span class=s>@&#34;Westworld.&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>customTextView</span><span class=p>.</span><span class=n>scrollEnabled</span> <span class=o>=</span> <span class=nb>YES</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>customTextView</span><span class=p>.</span><span class=n>editable</span> <span class=o>=</span> <span class=nb>NO</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span><span class=nb>self</span><span class=p>.</span><span class=n>view</span> <span class=nl>addSubview</span><span class=p>:</span><span class=n>customTextView</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>@end</span>
+</span></span></code></pre></td></tr></table></div></div><p>在 Product 文件夹中，找到 <code>.app</code> 后缀的产物文件夹，放入 IDA。在左侧窗口注意到这个方法：<code>- [ViewController viewDidLoad]</code>：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=kt>void</span> <span class=kr>__cdecl</span> <span class=o>-</span><span class=p>[</span><span class=n>ViewController</span> <span class=n>viewDidLoad</span><span class=p>](</span><span class=n>ViewController</span> <span class=o>*</span><span class=n>self</span><span class=p>,</span> <span class=n>SEL</span> <span class=n>a2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=o>*</span><span class=n>v2</span><span class=p>;</span> <span class=c1>// rax
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>void</span> <span class=o>*</span><span class=n>v3</span><span class=p>;</span> <span class=c1>// r15
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>void</span> <span class=o>*</span><span class=n>v4</span><span class=p>;</span> <span class=c1>// rax
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>void</span> <span class=o>*</span><span class=n>v5</span><span class=p>;</span> <span class=c1>// rbx
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>  <span class=n>v2</span> <span class=o>=</span> <span class=p>(</span><span class=kt>void</span> <span class=o>*</span><span class=p>)</span><span class=n>objc_alloc</span><span class=p>((</span><span class=kr>__int64</span><span class=p>)</span><span class=o>&amp;</span><span class=n>OBJC_CLASS___UITextView</span><span class=p>,</span> <span class=p>(</span><span class=kr>__int64</span><span class=p>)</span><span class=n>a2</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=n>v3</span> <span class=o>=</span> <span class=n>objc_msgSend</span><span class=p>(</span><span class=n>v2</span><span class=p>,</span> <span class=s>&#34;initWithFrame:&#34;</span><span class=p>,</span> <span class=n>xmmword_100002460</span><span class=p>,</span> <span class=n>xmmword_100002470</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=n>objc_msgSend</span><span class=p>(</span><span class=n>v3</span><span class=p>,</span> <span class=s>&#34;setText:&#34;</span><span class=p>,</span> <span class=n>CFSTR</span><span class=p>(</span><span class=s>&#34;Westworld.&#34;</span><span class=p>),</span> <span class=n>xmmword_100002460</span><span class=p>,</span> <span class=n>xmmword_100002470</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=n>v4</span> <span class=o>=</span> <span class=n>objc_msgSend</span><span class=p>(</span><span class=n>self</span><span class=p>,</span> <span class=s>&#34;view&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=n>v5</span> <span class=o>=</span> <span class=p>(</span><span class=kt>void</span> <span class=o>*</span><span class=p>)</span><span class=n>objc_retainAutoreleasedReturnValue</span><span class=p>((</span><span class=kr>__int64</span><span class=p>)</span><span class=n>v4</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=n>objc_msgSend</span><span class=p>(</span><span class=n>v5</span><span class=p>,</span> <span class=s>&#34;addSubview:&#34;</span><span class=p>,</span> <span class=n>v3</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=n>objc_release</span><span class=p>(</span><span class=n>v5</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=n>objc_release</span><span class=p>(</span><span class=n>v3</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>上面的伪代码结果可以让我们对 OC 的局部变量的工作机制有一定的了解，有关 <code>objc_alloc</code> / <code>objc_msgSend</code> 等函数的实现，我们使用现在的 <code>.app</code> 产物文件包，暂时是看不到的。</p><h3 id=包大小优化案例----block-优化>包大小优化案例 &ndash; Block 优化</h3><p>一个经典的包大小优化方式是 Block 优化，为什么对 Block 的优化可以优化包大小呢？</p><p>我编写了下面一个测试程序：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=p>-</span> <span class=p>(</span><span class=kt>void</span><span class=p>)</span><span class=nf>normalSet</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span><span class=nb>self</span><span class=p>.</span><span class=n>testWithMap</span> <span class=nl>setMapMsgWithBlock</span><span class=p>:</span><span class=o>^</span><span class=p>(</span><span class=n>NSMutableDictionary</span> <span class=o>*</span> <span class=n>_Nonnull</span> <span class=n>map</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>map</span><span class=p>[</span><span class=s>@&#34;hello1&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=s>@&#34;hello1&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>map</span><span class=p>[</span><span class=s>@&#34;hello2&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=s>@&#34;hello2&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>map</span><span class=p>[</span><span class=s>@&#34;hello3&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=s>@&#34;hello3&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>map</span><span class=p>[</span><span class=s>@&#34;hello4&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=s>@&#34;hello4&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}];</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>-</span> <span class=p>(</span><span class=kt>void</span><span class=p>)</span><span class=nf>optimizeSet</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>NSMutableDictionary</span> <span class=o>*</span><span class=n>map</span> <span class=o>=</span> <span class=nb>self</span><span class=p>.</span><span class=n>testWithMap</span><span class=p>.</span><span class=n>testMap</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>map</span><span class=p>[</span><span class=s>@&#34;hello1&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=s>@&#34;hello1&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>map</span><span class=p>[</span><span class=s>@&#34;hello2&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=s>@&#34;hello2&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>map</span><span class=p>[</span><span class=s>@&#34;hello3&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=s>@&#34;hello3&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>map</span><span class=p>[</span><span class=s>@&#34;hello4&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=s>@&#34;hello4&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>在 IDA Pro 中分析后可以得到使用两种方法对内存的增量改变：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../BlockAnalysis_TextSegmentSize.png data-srcset="../BlockAnalysis_TextSegmentSize.png, ../BlockAnalysis_TextSegmentSize.png 1.5x, ../BlockAnalysis_TextSegmentSize.png 2x" data-sizes=auto alt=../BlockAnalysis_TextSegmentSize.png title=BlockAnalysis_TextSegmentSize></p><p>除此之外，前者还在数据端保存了一份 block 的结构体：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=k>struct</span> <span class=n>__block_impl</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=o>*</span><span class=n>isa</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>  <span class=kt>int</span> <span class=n>Flags</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>  <span class=kt>int</span> <span class=n>Reserved</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=o>*</span><span class=n>FuncPtr</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><p><img class=lazyload src=/svg/loading.min.svg data-src=/Users/shesonglin/Program/Note/%e5%ae%89%e5%85%a8%e6%8a%80%e6%9c%af/iOS%e9%80%86%e5%90%91%e5%88%86%e6%9e%90/BlockAnalysis_DataSegmentSize.png data-srcset="/Users/shesonglin/Program/Note/%e5%ae%89%e5%85%a8%e6%8a%80%e6%9c%af/iOS%e9%80%86%e5%90%91%e5%88%86%e6%9e%90/BlockAnalysis_DataSegmentSize.png, /Users/shesonglin/Program/Note/%e5%ae%89%e5%85%a8%e6%8a%80%e6%9c%af/iOS%e9%80%86%e5%90%91%e5%88%86%e6%9e%90/BlockAnalysis_DataSegmentSize.png 1.5x, /Users/shesonglin/Program/Note/%e5%ae%89%e5%85%a8%e6%8a%80%e6%9c%af/iOS%e9%80%86%e5%90%91%e5%88%86%e6%9e%90/BlockAnalysis_DataSegmentSize.png 2x" data-sizes=auto alt=/Users/shesonglin/Program/Note/安全技术/iOS逆向分析/BlockAnalysis_DataSegmentSize.png title=image-20201029214818695></p><p>用更直观的图表示：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../BlockAnalysis_Reason.svg data-srcset="../BlockAnalysis_Reason.svg, ../BlockAnalysis_Reason.svg 1.5x, ../BlockAnalysis_Reason.svg 2x" data-sizes=auto alt=../BlockAnalysis_Reason.svg title=BlockAnalysis_Reason></p><p>这也就是说：</p><ul><li><code>normalSet</code> 方法占用字节大小：<code>0x60 + 0xC8 + 0x18 = 0x140</code></li><li><code>optimizeSet</code> 方法占用的字节大小：<code>0xF8</code></li><li>二者占用内存的差值是：<code>0x140 - 0xF8 = 0x48</code></li></ul><h3 id=包大小优化案例----类方法转-c-方法>包大小优化案例 &ndash; 类方法转 C 方法</h3><p>同样的，我们也来研究一下，为什么类方法转 C 方法会可以对内存进行优化。</p><p>测试程序：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=kt>void</span> <span class=nf>iteratorC</span><span class=p>(</span><span class=kt>void</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>100</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>NSLog</span><span class=p>(</span><span class=s>@&#34;%d</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>,</span> <span class=n>i</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>@implementation</span> <span class=nc>TestClass</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>+</span> <span class=p>(</span><span class=kt>void</span><span class=p>)</span><span class=nf>iteratorClass</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>100</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>NSLog</span><span class=p>(</span><span class=s>@&#34;%d</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>,</span> <span class=n>i</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>@end</span>
+</span></span></code></pre></td></tr></table></div></div><p>在 IDA Pro 中，可以分析这两者之间的函数二进制主体的大小：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../CClassAnalysis_CalleeSize.png data-srcset="../CClassAnalysis_CalleeSize.png, ../CClassAnalysis_CalleeSize.png 1.5x, ../CClassAnalysis_CalleeSize.png 2x" data-sizes=auto alt=../CClassAnalysis_CalleeSize.png title=CClassAnalysis_CalleeSize></p><p>可以看出它们的函数主体大约有 0x8 个字节的差异，这并不是很大的差异，我们看看他们的汇编代码可以看出这个差异在哪里：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>mov     [rbp+var_8], rdi
+</span></span><span class=line><span class=cl>mov     [rbp+var_10], rsi
+</span></span></code></pre></td></tr></table></div></div><p>这是后者相对于前者多出的两行汇编代码，恰好 8 个字节：</p><ul><li>后者是 OC 的方法，默认带有 <code>TestClass_meta *self, SEL a2</code> 两个参数；</li><li>上面的两行汇编代码是把这两个参数复制寄存器中的代码；</li><li>这两行代码在函数主体中没有使用到，是没有意义的编译器产生的冗余代码，很有可能在开启了编译选项后被优化；</li></ul><p>那么是否有更有意义的优化呢？我们再编写一段调用方的代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-objective-c data-lang=objective-c><span class=line><span class=cl><span class=p>-</span> <span class=p>(</span><span class=kt>void</span><span class=p>)</span><span class=nf>callC</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>iteratorC</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>-</span> <span class=p>(</span><span class=kt>void</span><span class=p>)</span><span class=nf>callClass</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=p>[</span><span class=n>TestClass</span> <span class=n>iteratorClass</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>在 IDA Pro 中，分析这二者的二进制函数主体大小：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../CClassAnalysis_CallerSize.png data-srcset="../CClassAnalysis_CallerSize.png, ../CClassAnalysis_CallerSize.png 1.5x, ../CClassAnalysis_CallerSize.png 2x" data-sizes=auto alt=../CClassAnalysis_CallerSize.png title=CClassAnalysis_CallerSize></p><p>它们的函数主体大约有 0x12 个字节的差异，同样的我们可以在汇编中看出这一差异来自于：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># callClass 传递参数的代码贡献了 0x11 个字节的代码增量。
+</span></span><span class=line><span class=cl>mov     rax, cs:classRef_TestClass
+</span></span><span class=line><span class=cl>mov     rsi, cs:selRef_iteratorClass ; char *
+</span></span><span class=line><span class=cl>mov     rdi, rax        ; void *
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 两者调用方案本身的汇编代码也有一个字节的差异
+</span></span><span class=line><span class=cl>call    _iteratorC # 5 Bytes
+</span></span><span class=line><span class=cl>call    cs:_objc_msgSend_ptr ; +[TestClass iteratorClass] # 6 Bytes
+</span></span></code></pre></td></tr></table></div></div><p>总结起来，后者与前者的差异，可以用下面的图表示：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../CClassAnalysis_Reason.svg data-srcset="../CClassAnalysis_Reason.svg, ../CClassAnalysis_Reason.svg 1.5x, ../CClassAnalysis_Reason.svg 2x" data-sizes=auto alt=../CClassAnalysis_Reason.svg title=CClassAnalysis_Reason></p><p>在这个具体的例子中，通过这个方式优化的内存为：</p><ul><li><code>callee</code> 方优化：<code>0x8</code>；</li><li><code>caller</code> 方优化：<code>0x12 + 0x8 + 0xD = 0x2D</code>；</li></ul><p>这种优化方式显然没有前者高效；</p></div><div id=comments><div id=valine class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.</noscript></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://shesl-meow.github.io target=_blank>佘崧林</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/valine/valine.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/valine@1.4.18/dist/Valine.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:50},comment:{valine:{appId:"zDVJohJIQbD6f3W267xtaYRC-gzGzoHsz",appKey:"ewsfU9ocNOeuvt0MzONe6yKx",avatar:"mp",el:"#valine",emojiCDN:"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/",emojiMaps:{100:"1f4af.png",alien:"1f47d.png",anger:"1f4a2.png",angry:"1f620.png",anguished:"1f627.png",astonished:"1f632.png",black_heart:"1f5a4.png",blue_heart:"1f499.png",blush:"1f60a.png",bomb:"1f4a3.png",boom:"1f4a5.png",broken_heart:"1f494.png",brown_heart:"1f90e.png",clown_face:"1f921.png",cold_face:"1f976.png",cold_sweat:"1f630.png",confounded:"1f616.png",confused:"1f615.png",cry:"1f622.png",crying_cat_face:"1f63f.png",cupid:"1f498.png",dash:"1f4a8.png",disappointed:"1f61e.png",disappointed_relieved:"1f625.png",dizzy:"1f4ab.png",dizzy_face:"1f635.png",drooling_face:"1f924.png",exploding_head:"1f92f.png",expressionless:"1f611.png",face_vomiting:"1f92e.png",face_with_cowboy_hat:"1f920.png",face_with_hand_over_mouth:"1f92d.png",face_with_head_bandage:"1f915.png",face_with_monocle:"1f9d0.png",face_with_raised_eyebrow:"1f928.png",face_with_rolling_eyes:"1f644.png",face_with_symbols_on_mouth:"1f92c.png",face_with_thermometer:"1f912.png",fearful:"1f628.png",flushed:"1f633.png",frowning:"1f626.png",ghost:"1f47b.png",gift_heart:"1f49d.png",green_heart:"1f49a.png",grimacing:"1f62c.png",grin:"1f601.png",grinning:"1f600.png",hankey:"1f4a9.png",hear_no_evil:"1f649.png",heart:"2764-fe0f.png",heart_decoration:"1f49f.png",heart_eyes:"1f60d.png",heart_eyes_cat:"1f63b.png",heartbeat:"1f493.png",heartpulse:"1f497.png",heavy_heart_exclamation_mark_ornament:"2763-fe0f.png",hole:"1f573-fe0f.png",hot_face:"1f975.png",hugging_face:"1f917.png",hushed:"1f62f.png",imp:"1f47f.png",innocent:"1f607.png",japanese_goblin:"1f47a.png",japanese_ogre:"1f479.png",joy:"1f602.png",joy_cat:"1f639.png",kiss:"1f48b.png",kissing:"1f617.png",kissing_cat:"1f63d.png",kissing_closed_eyes:"1f61a.png",kissing_heart:"1f618.png",kissing_smiling_eyes:"1f619.png",laughing:"1f606.png",left_speech_bubble:"1f5e8-fe0f.png",love_letter:"1f48c.png",lying_face:"1f925.png",mask:"1f637.png",money_mouth_face:"1f911.png",nauseated_face:"1f922.png",nerd_face:"1f913.png",neutral_face:"1f610.png",no_mouth:"1f636.png",open_mouth:"1f62e.png",orange_heart:"1f9e1.png",partying_face:"1f973.png",pensive:"1f614.png",persevere:"1f623.png",pleading_face:"1f97a.png",pouting_cat:"1f63e.png",purple_heart:"1f49c.png",rage:"1f621.png",relaxed:"263a-fe0f.png",relieved:"1f60c.png",revolving_hearts:"1f49e.png",right_anger_bubble:"1f5ef-fe0f.png",robot_face:"1f916.png",rolling_on_the_floor_laughing:"1f923.png",scream:"1f631.png",scream_cat:"1f640.png",see_no_evil:"1f648.png",shushing_face:"1f92b.png",skull:"1f480.png",skull_and_crossbones:"2620-fe0f.png",sleeping:"1f634.png",sleepy:"1f62a.png",slightly_frowning_face:"1f641.png",slightly_smiling_face:"1f642.png",smile:"1f604.png",smile_cat:"1f638.png",smiley:"1f603.png",smiley_cat:"1f63a.png",smiling_face_with_3_hearts:"1f970.png",smiling_imp:"1f608.png",smirk:"1f60f.png",smirk_cat:"1f63c.png",sneezing_face:"1f927.png",sob:"1f62d.png",space_invader:"1f47e.png",sparkling_heart:"1f496.png",speak_no_evil:"1f64a.png",speech_balloon:"1f4ac.png","star-struck":"1f929.png",stuck_out_tongue:"1f61b.png",stuck_out_tongue_closed_eyes:"1f61d.png",stuck_out_tongue_winking_eye:"1f61c.png",sunglasses:"1f60e.png",sweat:"1f613.png",sweat_drops:"1f4a6.png",sweat_smile:"1f605.png",thinking_face:"1f914.png",thought_balloon:"1f4ad.png",tired_face:"1f62b.png",triumph:"1f624.png",two_hearts:"1f495.png",unamused:"1f612.png",upside_down_face:"1f643.png",weary:"1f629.png",white_frowning_face:"2639-fe0f.png",white_heart:"1f90d.png",wink:"1f609.png",woozy_face:"1f974.png",worried:"1f61f.png",yawning_face:"1f971.png",yellow_heart:"1f49b.png",yum:"1f60b.png",zany_face:"1f92a.png",zipper_mouth_face:"1f910.png",zzz:"1f4a4.png"},enableQQ:!1,highlight:!0,lang:"zh-CN",pageSize:10,placeholder:"你的评论 ...",recordIP:!0,serverURLs:"https://zdvjohji.lc-cn-n1-shared.com",visitor:!0}},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"",algoliaIndex:"",algoliaSearchKey:"",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:30,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.c1d5acc03abc8af9ee0a42aa4e942566a338a3e29d21b6c9f11536101f6914ad.js integrity="sha256-wdWswDq8ivnuCkKqTpQlZqM4o+KdIbbJ8RU2EB9pFK0="></script></body></html>

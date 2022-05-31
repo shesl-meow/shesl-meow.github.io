@@ -1,0 +1,189 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Elf Sections - shesl's blog</title><meta name=Description content="佘崧林同学的碎碎念博客"><meta property="og:title" content="Elf Sections"><meta property="og:description" content="参考： https://linux-audit.com/elf-binaries-on-linux-understanding-and-analysis/ https://lief.quarkslab.com/doc/stable/tutorials/05_elf_infect_plt_got.html http://blog.k3170makan.com/2018/10/introduction-to-elf-format-part-v.html http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html https://stackoverflow.com/questions/34966097/what-functions-does-gcc-add-to-the-linux-elf 常见节 我们分析以下几个比较重要的节头： .text：该段包含的是可执行代码，该段中的数据只可读不可写，该段中的数据只加载一次。"><meta property="og:type" content="article"><meta property="og:url" content="http://shesl-meow.github.io/note/%E9%A1%B9%E7%9B%AE%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/linux%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/elfsections/"><meta property="og:image" content="http://shesl-meow.github.io/avatar.png"><meta property="article:section" content="note"><meta property="article:published_time" content="2019-08-29T22:27:32+08:00"><meta property="article:modified_time" content="2019-08-29T22:27:32+08:00"><meta property="og:site_name" content="shesl's blog"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="http://shesl-meow.github.io/avatar.png"><meta name=twitter:title content="Elf Sections"><meta name=twitter:description content="参考： https://linux-audit.com/elf-binaries-on-linux-understanding-and-analysis/ https://lief.quarkslab.com/doc/stable/tutorials/05_elf_infect_plt_got.html http://blog.k3170makan.com/2018/10/introduction-to-elf-format-part-v.html http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html https://stackoverflow.com/questions/34966097/what-functions-does-gcc-add-to-the-linux-elf 常见节 我们分析以下几个比较重要的节头： .text：该段包含的是可执行代码，该段中的数据只可读不可写，该段中的数据只加载一次。"><meta name=application-name content="shesl's blog"><meta name=apple-mobile-web-app-title content="shesl's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://shesl-meow.github.io/note/%E9%A1%B9%E7%9B%AE%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/linux%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/elfsections/><link rel=prev href=http://shesl-meow.github.io/note/%E9%A1%B9%E7%9B%AE%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/linux%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/glibctcache/><link rel=stylesheet href=/css/style.min.fa85115dce490a9d0bf009e2892b6d42439bdea75160d08cddcb0b97c8def676.css integrity="sha256-+oURXc5JCp0L8AniiSttQkOb3qdRYNCM3csLl8je9nY="><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Elf Sections","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/shesl-meow.github.io\/note\/%E9%A1%B9%E7%9B%AE%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0\/linux%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB\/elfsections\/"},"genre":"note","keywords":"","wordcount":1980,"url":"http:\/\/shesl-meow.github.io\/note\/%E9%A1%B9%E7%9B%AE%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0\/linux%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB\/elfsections\/","datePublished":"2019-08-29T22:27:32+08:00","dateModified":"2019-08-29T22:27:32+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"佘崧林"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>博客 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/note/>笔记 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>博客</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/note/ title>笔记</a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">Elf Sections</h1><div class=content id=content><blockquote><p>参考：</p><ul><li><p><a href=https://linux-audit.com/elf-binaries-on-linux-understanding-and-analysis/ target=_blank rel="noopener noreffer">https://linux-audit.com/elf-binaries-on-linux-understanding-and-analysis/</a></p></li><li><p><a href=https://lief.quarkslab.com/doc/stable/tutorials/05_elf_infect_plt_got.html target=_blank rel="noopener noreffer">https://lief.quarkslab.com/doc/stable/tutorials/05_elf_infect_plt_got.html</a></p></li><li><p><a href=http://blog.k3170makan.com/2018/10/introduction-to-elf-format-part-v.html target=_blank rel="noopener noreffer">http://blog.k3170makan.com/2018/10/introduction-to-elf-format-part-v.html</a></p></li><li><p><a href=http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html target=_blank rel="noopener noreffer">http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html</a></p></li><li><p><a href=https://stackoverflow.com/questions/34966097/what-functions-does-gcc-add-to-the-linux-elf target=_blank rel="noopener noreffer">https://stackoverflow.com/questions/34966097/what-functions-does-gcc-add-to-the-linux-elf</a></p></li></ul></blockquote><h2 id=常见节>常见节</h2><p>我们分析以下几个比较重要的节头：</p><ol><li><code>.text</code>：该段包含的是可执行代码，该段中的数据只可读不可写，该段中的数据只加载一次。</li><li><code>.data</code>：已被初始化的数据，可读可写。</li><li><code>.rodata</code>：已被初始化的数据，只可读不可写。</li><li><code>.bss</code>：未初始化数据，可读可写。</li></ol><h2 id=链接相关>链接相关</h2><h3 id=动态链接过程>动态链接过程</h3><p>此处详解以下动态链接过程中最重要的部分，<code>libc</code> 函数的链接过程。<code>libc</code> 中的函数，若使用动态链接，则关键的两个表项时 <code>.got</code> 表与 <code>.plt</code> 表，这种绑定方式又称为延迟绑定。</p><p>比如我们在某一个函数中进行了 <code>puts</code> 系统调用，在调用之前表结构大致如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>                                                         
+</span></span><span class=line><span class=cl>  .text sections       .plt table         .got table      
+</span></span><span class=line><span class=cl>                                                          
+</span></span><span class=line><span class=cl> +--------------+    +---------------+   +------------------+   
+</span></span><span class=line><span class=cl> | [my_func]    |    | [puts@plt]    |   | [puts@got]       |   
+</span></span><span class=line><span class=cl> |              |    |               |   |                  |   
+</span></span><span class=line><span class=cl> | jmp 0x400480 ----&gt;| jmp 0x601028  ---&gt;| 0x601028:0x400486--+  
+</span></span><span class=line><span class=cl> |              |    |               |   |                  | |  
+</span></span><span class=line><span class=cl> | ...          | +-&gt;| push 0x2      |   | ...              | |  
+</span></span><span class=line><span class=cl> +--------------+ |  |               |   +------------------+ |  
+</span></span><span class=line><span class=cl>                  |  | jmp 0x400450  --+                      |  
+</span></span><span class=line><span class=cl>                  |  |               | |                      |  
+</span></span><span class=line><span class=cl>                  |  | ...           | |                      |  
+</span></span><span class=line><span class=cl>                  |  +---------------+ |                      |  
+</span></span><span class=line><span class=cl>                  +--------------------|----------------------+  
+</span></span><span class=line><span class=cl>                +----------------------+                   
+</span></span><span class=line><span class=cl>                |   +------------------+                  
+</span></span><span class=line><span class=cl>                +--&gt;|[_dl_resolve@plt] |                  
+</span></span><span class=line><span class=cl>                    +------------------+                       
+</span></span></code></pre></td></tr></table></div></div><p>可见：</p><ol><li><code>.text</code> 段中任何对 <code>libc</code> 函数得调用，编译是只会将程序执行权交给 <code>.plt</code> 表；</li><li><code>.plt</code> 表实际上是一段代码，<code>.got</code> 表实际上只是地址到地址的映射；</li><li>一个函数对应的 <code>.plt</code> 表代码由三行组成：<ol><li><code>.plt</code> 表的第一行指向 <code>.got</code> 表对应的位置；</li><li>如果函数第一次调用，<code>.got</code> 默认会指向 <code>.plt</code> 表的第二行；</li><li><code>.plt</code> 表的第二三行调用 <code>_dl_runtime_resolve</code> 函数，将实际的地址导入 <code>.got</code> 表中</li></ol></li></ol><p>也就是说，调用了之后，这三段结构会变成下面的结构：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>                                                         
+</span></span><span class=line><span class=cl>  .text sections      .plt table         .got table      
+</span></span><span class=line><span class=cl>                                                         
+</span></span><span class=line><span class=cl> +--------------+   +---------------+   +--------------+ 
+</span></span><span class=line><span class=cl> | [my_func]    |   | [puts@plt]    |   | [puts@got]   | 
+</span></span><span class=line><span class=cl> |              |   |               |   |              | 
+</span></span><span class=line><span class=cl> | jmp 0x400480 ---&gt;| jmp 0x601028  ---&gt;| 0x601028:puts-----&gt;puts 
+</span></span><span class=line><span class=cl> |              |   |               |   |              | 
+</span></span><span class=line><span class=cl> | ...          |   | push 0x2      |   | ...          | 
+</span></span><span class=line><span class=cl> +--------------+   |               |   +--------------+ 
+</span></span><span class=line><span class=cl>                    | jmp 0x400450  --+                  
+</span></span><span class=line><span class=cl>                    |               | |                  
+</span></span><span class=line><span class=cl>                    | ...           | |                  
+</span></span><span class=line><span class=cl>                    +---------------+ |                  
+</span></span><span class=line><span class=cl>                                      |                  
+</span></span><span class=line><span class=cl>               +----------------------v                  
+</span></span><span class=line><span class=cl>               |   +------------------+                  
+</span></span><span class=line><span class=cl>               ---&gt;|[_dl_resolve@plt] |                  
+</span></span><span class=line><span class=cl>                   +------------------+                  
+</span></span></code></pre></td></tr></table></div></div><h3 id=动态链接节>动态链接节</h3><p>在使用 <code>readelf</code> 命令查看一个程序的节列表时，类型为 <code>REL</code> 的节区包含重定位表项：</p><ol><li><p><code>.got</code> 节保存全局变量偏移表，<code>.got.plt</code> 节保存全局函数偏移表；<code>.plt</code> 节是过程链接表。过程链接表把位置独立的函数调用重定向到绝对位置。</p></li><li><p><code>.rel.dyn</code> 节是用于变量重定位，<code>.rel.plt</code> 节是用于函数重定位。</p><p>可以使用 <code>readelf</code> 命令的 <code>--relocs</code> 参数查看这两个节区的内容：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ readelf -r ./ret2dlresolve
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>重定位节 <span class=s1>&#39;.rel.dyn&#39;</span> at offset 0x3a4 contains <span class=m>10</span> entries:
+</span></span><span class=line><span class=cl> 偏移量     信息    类型              符号值      符号名称
+</span></span><span class=line><span class=cl>00001ec4  <span class=m>00000008</span> R_386_RELATIVE   
+</span></span><span class=line><span class=cl>00001ec8  <span class=m>00000008</span> R_386_RELATIVE   
+</span></span><span class=line><span class=cl>00001ff8  <span class=m>00000008</span> R_386_RELATIVE   
+</span></span><span class=line><span class=cl><span class=m>00002004</span>  <span class=m>00000008</span> R_386_RELATIVE   
+</span></span><span class=line><span class=cl>00001fe4  <span class=m>00000306</span> R_386_GLOB_DAT    <span class=m>00000000</span>   _ITM_deregisterTMClone
+</span></span><span class=line><span class=cl>00001fe8  <span class=m>00000406</span> R_386_GLOB_DAT    <span class=m>00000000</span>   __cxa_finalize@GLIBC_2.1.3
+</span></span><span class=line><span class=cl>00001fec  <span class=m>00000506</span> R_386_GLOB_DAT    <span class=m>00000000</span>   __gmon_start__
+</span></span><span class=line><span class=cl>00001ff0  <span class=m>00000906</span> R_386_GLOB_DAT    <span class=m>00000000</span>   stdin@GLIBC_2.0
+</span></span><span class=line><span class=cl>00001ff4  00000a06 R_386_GLOB_DAT    <span class=m>00000000</span>   stdout@GLIBC_2.0
+</span></span><span class=line><span class=cl>00001ffc  00000b06 R_386_GLOB_DAT    <span class=m>00000000</span>   _ITM_registerTMCloneTa
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>重定位节 <span class=s1>&#39;.rel.plt&#39;</span> at offset 0x3f4 contains <span class=m>5</span> entries:
+</span></span><span class=line><span class=cl> 偏移量     信息    类型              符号值      符号名称
+</span></span><span class=line><span class=cl>00001fd0  <span class=m>00000107</span> R_386_JUMP_SLOT   <span class=m>00000000</span>   setbuf@GLIBC_2.0
+</span></span><span class=line><span class=cl>00001fd4  <span class=m>00000207</span> R_386_JUMP_SLOT   <span class=m>00000000</span>   read@GLIBC_2.0
+</span></span><span class=line><span class=cl>00001fd8  <span class=m>00000607</span> R_386_JUMP_SLOT   <span class=m>00000000</span>   strlen@GLIBC_2.0
+</span></span><span class=line><span class=cl>00001fdc  <span class=m>00000707</span> R_386_JUMP_SLOT   <span class=m>00000000</span>   __libc_start_main@GLIBC_2.0
+</span></span><span class=line><span class=cl>00001fe0  <span class=m>00000807</span> R_386_JUMP_SLOT   <span class=m>00000000</span>   write@GLIBC_2.0
+</span></span></code></pre></td></tr></table></div></div></li><li><p><code>.dynsym</code> 节包含了动态链接符号表。可以用 <code>readelf</code> 命令的 <code>--symbols</code> 参数查看：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ readelf --symbols ./ret2dlresolve
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Symbol table <span class=s1>&#39;.dynsym&#39;</span> contains <span class=m>13</span> entries:
+</span></span><span class=line><span class=cl>   Num:    Value  Size Type    Bind   Vis      Ndx Name
+</span></span><span class=line><span class=cl>     0: <span class=m>00000000</span>     <span class=m>0</span> NOTYPE  LOCAL  DEFAULT  UND 
+</span></span><span class=line><span class=cl>     1: <span class=m>00000000</span>     <span class=m>0</span> FUNC    GLOBAL DEFAULT  UND setbuf@GLIBC_2.0 <span class=o>(</span>2<span class=o>)</span>
+</span></span><span class=line><span class=cl>     2: <span class=m>00000000</span>     <span class=m>0</span> FUNC    GLOBAL DEFAULT  UND read@GLIBC_2.0 <span class=o>(</span>2<span class=o>)</span>
+</span></span><span class=line><span class=cl>     3: <span class=m>00000000</span>     <span class=m>0</span> NOTYPE  WEAK   DEFAULT  UND _ITM_deregisterTMCloneTab
+</span></span><span class=line><span class=cl>     4: <span class=m>00000000</span>     <span class=m>0</span> FUNC    WEAK   DEFAULT  UND __cxa_finalize@GLIBC_2.1.3 <span class=o>(</span>3<span class=o>)</span>
+</span></span><span class=line><span class=cl>     5: <span class=m>00000000</span>     <span class=m>0</span> NOTYPE  WEAK   DEFAULT  UND __gmon_start__
+</span></span><span class=line><span class=cl>     6: <span class=m>00000000</span>     <span class=m>0</span> FUNC    GLOBAL DEFAULT  UND strlen@GLIBC_2.0 <span class=o>(</span>2<span class=o>)</span>
+</span></span><span class=line><span class=cl>     7: <span class=m>00000000</span>     <span class=m>0</span> FUNC    GLOBAL DEFAULT  UND __libc_start_main@GLIBC_2.0 <span class=o>(</span>2<span class=o>)</span>
+</span></span><span class=line><span class=cl>     8: <span class=m>00000000</span>     <span class=m>0</span> FUNC    GLOBAL DEFAULT  UND write@GLIBC_2.0 <span class=o>(</span>2<span class=o>)</span>
+</span></span><span class=line><span class=cl>     9: <span class=m>00000000</span>     <span class=m>0</span> OBJECT  GLOBAL DEFAULT  UND stdin@GLIBC_2.0 <span class=o>(</span>2<span class=o>)</span>
+</span></span><span class=line><span class=cl>    10: <span class=m>00000000</span>     <span class=m>0</span> OBJECT  GLOBAL DEFAULT  UND stdout@GLIBC_2.0 <span class=o>(</span>2<span class=o>)</span>
+</span></span><span class=line><span class=cl>    11: <span class=m>00000000</span>     <span class=m>0</span> NOTYPE  WEAK   DEFAULT  UND _ITM_registerTMCloneTable
+</span></span><span class=line><span class=cl>    12: 0000075c     <span class=m>4</span> OBJECT  GLOBAL DEFAULT   <span class=m>16</span> _IO_stdin_used
+</span></span><span class=line><span class=cl>....
+</span></span></code></pre></td></tr></table></div></div></li><li><p><code>.dynstr</code> 节包含了动态链接的字符串。这个节以 <code>\x00</code> 作为开始和结尾，中间每个字符串也以 <code>\x00</code> 间隔。</p></li></ol><h2 id=_start-相关><code>_start</code> 相关</h2><h3 id=__libc_start_main-函数流程><code>__libc_start_main</code> 函数流程</h3><p>在介绍这一节之前可以需要先了解以下 Linux 程序是如何启动一个程序的。以下是 loader 的调用图：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../_start_callgraph.png data-srcset="../_start_callgraph.png, ../_start_callgraph.png 1.5x, ../_start_callgraph.png 2x" data-sizes=auto alt=../_start_callgraph.png title=_start_callgraph></p><p>下面我们依次介绍以下整个程序运行的流程：</p><ol><li><p>在 <code>_start</code> 函数之前，Linux 进行了 <code>execuve()</code> 系统调用，在栈上布置好了 <code>argc</code>、<code>argv</code> 与 <code>envp</code> 参数，并且设置好了 <code>stdin</code>、<code>stdout</code>、<code>stderr</code>。</p></li><li><p>在 <code>_start</code> 函数中，传入数个参数执行了 <code>__libc_start_main</code>，这个函数的原型如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=kt>int</span> <span class=nf>__libc_start_main</span><span class=p>(</span>  <span class=kt>int</span> <span class=p>(</span><span class=o>*</span><span class=n>main</span><span class=p>)</span> <span class=p>(</span><span class=kt>int</span><span class=p>,</span> <span class=kt>char</span> <span class=o>*</span> <span class=o>*</span><span class=p>,</span> <span class=kt>char</span> <span class=o>*</span> <span class=o>*</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>			    <span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=kt>char</span> <span class=o>*</span> <span class=o>*</span> <span class=n>ubp_av</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>			    <span class=kt>void</span> <span class=p>(</span><span class=o>*</span><span class=n>init</span><span class=p>)</span> <span class=p>(</span><span class=kt>void</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>			    <span class=kt>void</span> <span class=p>(</span><span class=o>*</span><span class=n>fini</span><span class=p>)</span> <span class=p>(</span><span class=kt>void</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>			    <span class=kt>void</span> <span class=p>(</span><span class=o>*</span><span class=n>rtld_fini</span><span class=p>)</span> <span class=p>(</span><span class=kt>void</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>			    <span class=kt>void</span> <span class=p>(</span><span class=o>*</span> <span class=n>stack_end</span><span class=p>));</span>
+</span></span></code></pre></td></tr></table></div></div><p>这些参数的含义分别是：</p><ol><li><code>main</code>：程序的主进程，它的返回值最终会传递给 <code>exit</code> 函数，之后退出进程；</li><li><code>arcg</code>、<code>ubp_av</code>：<code>main</code> 函数传入的两个参数 <code>argc</code> 与 <code>argv</code>；</li><li><code>init</code>：<code>__libc_csu_init</code> 的地址，在 <code>main</code> 函数之前调用，程序的构造函数；</li><li><code>fini</code>：<code>__libc_csu_fini</code> 的地址，程序的析构函数；通过 <code>__cxat_exit</code> 函数注册；</li><li><code>rtld_fini</code>：动态链接段的析构函数；通过 <code>__cxat_exit</code> 函数注册；</li><li><code>stack_end</code>：栈的尾指针；</li></ol></li><li><p>然后程序在程序中按照上图的次序依次调用各个函数（这里先不细说了，详见 <a href=http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html target=_blank rel="noopener noreffer">LinuxProgramStart</a>）。</p></li></ol><h3 id=__libc_start_main-节作用><code>__libc_start_main</code> 节作用</h3><p>那么这个过程中主要创建了哪些个节呢？</p><ul><li>主要有三个：<code>preinit_array</code>、<code>init_array</code> 与 <code>fini_array</code>。</li><li>这三个节的本质都是一个<strong>函数指针的数组</strong>。它们存储的函数，会在程序运行的特定时刻，被执行。</li></ul><p>下面分别介绍这三个节：</p><ol><li><code>.preinit_array</code>：其中的函数，会在程序的构造函数（一般指 <code>__libc_csu_init</code>）执行之前，被调用；</li><li><code>.init_array</code>：其中的函数，会在程序构造函数执行之后，<code>main</code> 函数执行之前被执行。这个数组有一个默认就存在的函数 <code>frame_dummy</code>，它用于保护栈的运行与安全。</li><li><code>.fini_array</code>：其中的函数，会在 <code>main</code> 函数执行之后被执行。glibc 中定义了一个函数 <code>__do_global_dtors_aux</code> 会在这个节未被定义时被默认执行，详见 <a href=https://stackoverflow.com/questions/34966097/what-functions-does-gcc-add-to-the-linux-elf target=_blank rel="noopener noreffer">Stack Overflow</a>。</li></ol><p>当然，程序员在写 c 程序时可以自己向数组中添加元素：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=kt>void</span> <span class=nf>init</span><span class=p>(</span><span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=kt>char</span> <span class=o>**</span><span class=n>argv</span><span class=p>,</span> <span class=kt>char</span> <span class=o>**</span><span class=n>envp</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl> <span class=n>printf</span><span class=p>(</span><span class=s>&#34;%s</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>,</span> <span class=n>__FUNCTION__</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>__attribute__</span><span class=p>((</span><span class=n>section</span><span class=p>(</span><span class=s>&#34;.init_array&#34;</span><span class=p>)))</span> <span class=n>typeof</span><span class=p>(</span><span class=n>init</span><span class=p>)</span> <span class=o>*</span><span class=n>__init</span> <span class=o>=</span> <span class=n>init</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div></div><div id=comments><div id=valine class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.</noscript></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://shesl-meow.github.io target=_blank>佘崧林</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/valine/valine.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/valine@1.4.18/dist/Valine.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:50},comment:{valine:{appId:"zDVJohJIQbD6f3W267xtaYRC-gzGzoHsz",appKey:"ewsfU9ocNOeuvt0MzONe6yKx",avatar:"mp",el:"#valine",emojiCDN:"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/",emojiMaps:{100:"1f4af.png",alien:"1f47d.png",anger:"1f4a2.png",angry:"1f620.png",anguished:"1f627.png",astonished:"1f632.png",black_heart:"1f5a4.png",blue_heart:"1f499.png",blush:"1f60a.png",bomb:"1f4a3.png",boom:"1f4a5.png",broken_heart:"1f494.png",brown_heart:"1f90e.png",clown_face:"1f921.png",cold_face:"1f976.png",cold_sweat:"1f630.png",confounded:"1f616.png",confused:"1f615.png",cry:"1f622.png",crying_cat_face:"1f63f.png",cupid:"1f498.png",dash:"1f4a8.png",disappointed:"1f61e.png",disappointed_relieved:"1f625.png",dizzy:"1f4ab.png",dizzy_face:"1f635.png",drooling_face:"1f924.png",exploding_head:"1f92f.png",expressionless:"1f611.png",face_vomiting:"1f92e.png",face_with_cowboy_hat:"1f920.png",face_with_hand_over_mouth:"1f92d.png",face_with_head_bandage:"1f915.png",face_with_monocle:"1f9d0.png",face_with_raised_eyebrow:"1f928.png",face_with_rolling_eyes:"1f644.png",face_with_symbols_on_mouth:"1f92c.png",face_with_thermometer:"1f912.png",fearful:"1f628.png",flushed:"1f633.png",frowning:"1f626.png",ghost:"1f47b.png",gift_heart:"1f49d.png",green_heart:"1f49a.png",grimacing:"1f62c.png",grin:"1f601.png",grinning:"1f600.png",hankey:"1f4a9.png",hear_no_evil:"1f649.png",heart:"2764-fe0f.png",heart_decoration:"1f49f.png",heart_eyes:"1f60d.png",heart_eyes_cat:"1f63b.png",heartbeat:"1f493.png",heartpulse:"1f497.png",heavy_heart_exclamation_mark_ornament:"2763-fe0f.png",hole:"1f573-fe0f.png",hot_face:"1f975.png",hugging_face:"1f917.png",hushed:"1f62f.png",imp:"1f47f.png",innocent:"1f607.png",japanese_goblin:"1f47a.png",japanese_ogre:"1f479.png",joy:"1f602.png",joy_cat:"1f639.png",kiss:"1f48b.png",kissing:"1f617.png",kissing_cat:"1f63d.png",kissing_closed_eyes:"1f61a.png",kissing_heart:"1f618.png",kissing_smiling_eyes:"1f619.png",laughing:"1f606.png",left_speech_bubble:"1f5e8-fe0f.png",love_letter:"1f48c.png",lying_face:"1f925.png",mask:"1f637.png",money_mouth_face:"1f911.png",nauseated_face:"1f922.png",nerd_face:"1f913.png",neutral_face:"1f610.png",no_mouth:"1f636.png",open_mouth:"1f62e.png",orange_heart:"1f9e1.png",partying_face:"1f973.png",pensive:"1f614.png",persevere:"1f623.png",pleading_face:"1f97a.png",pouting_cat:"1f63e.png",purple_heart:"1f49c.png",rage:"1f621.png",relaxed:"263a-fe0f.png",relieved:"1f60c.png",revolving_hearts:"1f49e.png",right_anger_bubble:"1f5ef-fe0f.png",robot_face:"1f916.png",rolling_on_the_floor_laughing:"1f923.png",scream:"1f631.png",scream_cat:"1f640.png",see_no_evil:"1f648.png",shushing_face:"1f92b.png",skull:"1f480.png",skull_and_crossbones:"2620-fe0f.png",sleeping:"1f634.png",sleepy:"1f62a.png",slightly_frowning_face:"1f641.png",slightly_smiling_face:"1f642.png",smile:"1f604.png",smile_cat:"1f638.png",smiley:"1f603.png",smiley_cat:"1f63a.png",smiling_face_with_3_hearts:"1f970.png",smiling_imp:"1f608.png",smirk:"1f60f.png",smirk_cat:"1f63c.png",sneezing_face:"1f927.png",sob:"1f62d.png",space_invader:"1f47e.png",sparkling_heart:"1f496.png",speak_no_evil:"1f64a.png",speech_balloon:"1f4ac.png","star-struck":"1f929.png",stuck_out_tongue:"1f61b.png",stuck_out_tongue_closed_eyes:"1f61d.png",stuck_out_tongue_winking_eye:"1f61c.png",sunglasses:"1f60e.png",sweat:"1f613.png",sweat_drops:"1f4a6.png",sweat_smile:"1f605.png",thinking_face:"1f914.png",thought_balloon:"1f4ad.png",tired_face:"1f62b.png",triumph:"1f624.png",two_hearts:"1f495.png",unamused:"1f612.png",upside_down_face:"1f643.png",weary:"1f629.png",white_frowning_face:"2639-fe0f.png",white_heart:"1f90d.png",wink:"1f609.png",woozy_face:"1f974.png",worried:"1f61f.png",yawning_face:"1f971.png",yellow_heart:"1f49b.png",yum:"1f60b.png",zany_face:"1f92a.png",zipper_mouth_face:"1f910.png",zzz:"1f4a4.png"},enableQQ:!1,highlight:!0,lang:"zh-CN",pageSize:10,placeholder:"你的评论 ...",recordIP:!0,serverURLs:"https://zdvjohji.lc-cn-n1-shared.com",visitor:!0}},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"",algoliaIndex:"",algoliaSearchKey:"",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:30,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.c1d5acc03abc8af9ee0a42aa4e942566a338a3e29d21b6c9f11536101f6914ad.js integrity="sha256-wdWswDq8ivnuCkKqTpQlZqM4o+KdIbbJ8RU2EB9pFK0="></script></body></html>

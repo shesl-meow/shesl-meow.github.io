@@ -1,0 +1,479 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>第一部分：数据结构与对象 - shesl's blog</title><meta name=Description content="佘崧林同学的碎碎念博客"><meta property="og:title" content="第一部分：数据结构与对象"><meta property="og:description" content="因为阅读的书已经较为过时，新的数据结构没有完全讲完，比如： zipmap、quicklist、stream 字符串 (Simple Dynamic String) Redis 没有使用 C 语言中的 \0 结"><meta property="og:type" content="article"><meta property="og:url" content="http://shesl-meow.github.io/note/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/redis%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/1.%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E5%AF%B9%E8%B1%A1/"><meta property="og:image" content="http://shesl-meow.github.io/avatar.png"><meta property="article:section" content="note"><meta property="article:published_time" content="2021-03-27T23:18:11+08:00"><meta property="article:modified_time" content="2021-03-27T23:18:11+08:00"><meta property="og:site_name" content="shesl's blog"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="http://shesl-meow.github.io/avatar.png"><meta name=twitter:title content="第一部分：数据结构与对象"><meta name=twitter:description content="因为阅读的书已经较为过时，新的数据结构没有完全讲完，比如： zipmap、quicklist、stream 字符串 (Simple Dynamic String) Redis 没有使用 C 语言中的 \0 结"><meta name=application-name content="shesl's blog"><meta name=apple-mobile-web-app-title content="shesl's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://shesl-meow.github.io/note/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/redis%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/1.%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E5%AF%B9%E8%B1%A1/><link rel=prev href=http://shesl-meow.github.io/note/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/redis%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E9%94%81%E5%AE%9E%E7%8E%B0/><link rel=stylesheet href=/css/style.min.fa85115dce490a9d0bf009e2892b6d42439bdea75160d08cddcb0b97c8def676.css integrity="sha256-+oURXc5JCp0L8AniiSttQkOb3qdRYNCM3csLl8je9nY="><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"第一部分：数据结构与对象","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/shesl-meow.github.io\/note\/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B\/redis%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0\/1.%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E5%AF%B9%E8%B1%A1\/"},"genre":"note","keywords":"","wordcount":5999,"url":"http:\/\/shesl-meow.github.io\/note\/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B\/redis%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0\/1.%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E5%AF%B9%E8%B1%A1\/","datePublished":"2021-03-27T23:18:11+08:00","dateModified":"2021-03-27T23:18:11+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"佘崧林"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>博客 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/note/>笔记 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>博客</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/note/ title>笔记</a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">第一部分：数据结构与对象</h1><div class=content id=content><blockquote><p>因为阅读的书已经较为过时，新的数据结构没有完全讲完，比如：</p><ul><li><code>zipmap</code>、<code>quicklist</code>、<code>stream</code></li></ul></blockquote><h2 id=字符串-simple-dynamic-string>字符串 (Simple Dynamic String)</h2><p>Redis 没有使用 C 语言中的 <code>\0</code> 结尾的方式表示一个字符串，而是自己构建了一个结构 SDS 作为基本字符串类型。这一结构的定义和实现分别在源码的 <code>src/sds.h</code>、<code>src/sds.c</code> 这两个文件中。</p><h3 id=结构>结构</h3><p>以最长 256 字节长度串的结构 <code>sdshdr8</code> 为例：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=k>struct</span> <span class=nf>__attribute__</span> <span class=p>((</span><span class=n>__packed__</span><span class=p>))</span> <span class=n>sdshdr8</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>uint8_t</span> <span class=n>len</span><span class=p>;</span> <span class=cm>/* used */</span>
+</span></span><span class=line><span class=cl>    <span class=kt>uint8_t</span> <span class=n>alloc</span><span class=p>;</span> <span class=cm>/* excluding the header and null terminator */</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=kt>char</span> <span class=n>flags</span><span class=p>;</span> <span class=cm>/* 3 lsb of type, 5 unused bits */</span>
+</span></span><span class=line><span class=cl>    <span class=kt>char</span> <span class=n>buf</span><span class=p>[];</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><p>由上面的源码可以看出 SDS 结构的核心是：</p><ol><li><p><code>len</code>：已经使用的字符串长度；</p></li><li><p><code>alloc</code>：总共分配的缓冲区长度；</p><p>SDS 为了兼容 C 语言的空字符串结尾，会额外分配一个字节的大小，如果假设字符串可以增加的大小为 <code>rmd</code>，那么有公式：<code>alloc = rmd + len + 1</code>；</p></li><li><p><code>buf</code>：字符串字面量；</p></li></ol><p>像大多数高级语言一样，使用简单动态字符串这种封装方式有以下好处：</p><ol><li>获取字符串长度，时间复杂度 <code>O(1)</code>；</li><li>二进制安全：杜绝缓冲区溢出、可以存储二进制形式的字符串；</li><li>减少修改字符串所需要的内存重新分配次数；</li><li>兼容部分 C 字符串函数；</li></ol><h3 id=方法>方法</h3><p><code>sds</code> 的创建核心方法可以看到源码中的 <code>_sdsnewlen</code>，它的函数签名如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=n>sds</span> <span class=n>_sdsnewlen</span><span class=p>(</span><span class=k>const</span> <span class=kt>void</span> <span class=o>*</span><span class=n>init</span><span class=p>,</span> <span class=n>size_t</span> <span class=n>initlen</span><span class=p>,</span> <span class=kt>int</span> <span class=n>trymalloc</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>在这个函数中可以看到 <code>sds</code> 的内存排列方式：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl>    <span class=n>s</span> <span class=o>=</span> <span class=p>(</span><span class=kt>char</span><span class=o>*</span><span class=p>)</span><span class=n>sh</span><span class=o>+</span><span class=n>hdrlen</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>fp</span> <span class=o>=</span> <span class=p>((</span><span class=kt>unsigned</span> <span class=kt>char</span><span class=o>*</span><span class=p>)</span><span class=n>s</span><span class=p>)</span><span class=o>-</span><span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>usable</span> <span class=o>=</span> <span class=n>usable</span><span class=o>-</span><span class=n>hdrlen</span><span class=o>-</span><span class=mi>1</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>其中 <code>s</code> 就是 sds 结构中的 <code>buf</code>，并最终赋值给了 <code>sds</code> 结构指针；</p><h2 id=链表-linked-list>链表 (Linked List)</h2><h3 id=普通双端链表>普通双端链表</h3><p>Redis 链表的底层是一个无环双向链表，结构可以在 <code>src/adlink.h</code>、<code>src/adlink.c</code> 这两个文件中看到。<code>adlink</code> 是 <code>A Generic Doubly Linked List</code> 的缩写。</p><p>链表的节点使用结构 <code>listNode</code>：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=k>typedef</span> <span class=k>struct</span> <span class=n>listNode</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>struct</span> <span class=n>listNode</span> <span class=o>*</span><span class=n>prev</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>struct</span> <span class=n>listNode</span> <span class=o>*</span><span class=n>next</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>void</span> <span class=o>*</span><span class=n>value</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> <span class=n>listNode</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>链表本身使用结构 <code>list</code>：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=k>typedef</span> <span class=k>struct</span> <span class=n>list</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>listNode</span> <span class=o>*</span><span class=n>head</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>listNode</span> <span class=o>*</span><span class=n>tail</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>void</span> <span class=o>*</span><span class=p>(</span><span class=o>*</span><span class=n>dup</span><span class=p>)(</span><span class=kt>void</span> <span class=o>*</span><span class=n>ptr</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=kt>void</span> <span class=p>(</span><span class=o>*</span><span class=n>free</span><span class=p>)(</span><span class=kt>void</span> <span class=o>*</span><span class=n>ptr</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=p>(</span><span class=o>*</span><span class=n>match</span><span class=p>)(</span><span class=kt>void</span> <span class=o>*</span><span class=n>ptr</span><span class=p>,</span> <span class=kt>void</span> <span class=o>*</span><span class=n>key</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=kt>long</span> <span class=n>len</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> <span class=n>list</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>除了 头节点 <code>head</code>、尾节点 <code>tail</code>、以及链表长度 <code>len</code>，结构中另外三个是三个函数：</p><ul><li><code>dup</code> 函数用于复制节点，<code>free</code> 函数用于释放节点、<code>match</code> 函数用于比较节点；</li><li>因为 <code>listNode</code> 的 <code>value</code> 可以指向任意对象，因此需要为 <code>list</code> 结构的实例设置三个用于操作节点的函数，这其实是一种多态的体现；</li></ul><h3 id=使用快速链表>使用快速链表</h3><p>Redis3.2，在 <a href=https://github.com/redis/redis/commit/5e362b84ab8b769bf2738daea97b45a375d223f1 target=_blank rel="noopener noreffer">quicklist implementation</a> 这个 PR 提交之后，Redis 实现链表这一数据对象的默认方式由 <code>ziplist</code>/<code>linkedlist</code> 变成了 <code>quicklist</code>。这种实现方式相对于之前的实现有以下的好处：</p><ol><li>对于 <code>linkedlist</code> 实现的链表，容易形成很多内存碎片，查找的时间复杂度可以认为是 <code>O(n)</code>；</li><li>而对于 <code>ziplist</code> 实现的链表，每次执行插入删除操作时都会进行内存的重新分配；</li></ol><p>快速链表 <code>quicklist</code> 的结构简单地说就是一个 <code>ziplist</code> 的 <code>linkedlist</code>。</p><h3 id=快速链表结构>快速链表结构</h3><p><code>quicklist</code> 本身的结构：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=cm>/* quicklist is a 40 byte struct (on 64-bit systems) describing a quicklist.
+</span></span></span><span class=line><span class=cl><span class=cm> * &#39;count&#39; is the number of total entries.
+</span></span></span><span class=line><span class=cl><span class=cm> * &#39;len&#39; is the number of quicklist nodes.
+</span></span></span><span class=line><span class=cl><span class=cm> * &#39;compress&#39; is: 0 if compression disabled, otherwise it&#39;s the number
+</span></span></span><span class=line><span class=cl><span class=cm> *                of quicklistNodes to leave uncompressed at ends of quicklist.
+</span></span></span><span class=line><span class=cl><span class=cm> * &#39;fill&#39; is the user-requested (or default) fill factor.
+</span></span></span><span class=line><span class=cl><span class=cm> * &#39;bookmakrs are an optional feature that is used by realloc this struct,
+</span></span></span><span class=line><span class=cl><span class=cm> *      so that they don&#39;t consume memory when not used. */</span>
+</span></span><span class=line><span class=cl><span class=k>typedef</span> <span class=k>struct</span> <span class=n>quicklist</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>quicklistNode</span> <span class=o>*</span><span class=n>head</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>quicklistNode</span> <span class=o>*</span><span class=n>tail</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=kt>long</span> <span class=n>count</span><span class=p>;</span>        <span class=cm>/* total count of all entries in all ziplists */</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=kt>long</span> <span class=n>len</span><span class=p>;</span>          <span class=cm>/* number of quicklistNodes */</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=nl>fill</span> <span class=p>:</span> <span class=n>QL_FILL_BITS</span><span class=p>;</span>              <span class=cm>/* fill factor for individual nodes */</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=kt>int</span> <span class=nl>compress</span> <span class=p>:</span> <span class=n>QL_COMP_BITS</span><span class=p>;</span> <span class=cm>/* depth of end nodes not to compress;0=off */</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=kt>int</span> <span class=nl>bookmark_count</span><span class=p>:</span> <span class=n>QL_BM_BITS</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>quicklistBookmark</span> <span class=n>bookmarks</span><span class=p>[];</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> <span class=n>quicklist</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>其中，除了容易理解的几个参数之外：</p><ul><li><p><code>fill</code> 的默认值是 16，被注释为 <code>fill factor</code>，这是什么意思呢？可以在 <code>.c</code> 文件的 <code>_quicklistNodeAllowInsert</code> 函数最后三行得知：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl>    <span class=k>if</span> <span class=p>((</span><span class=kt>int</span><span class=p>)</span><span class=n>node</span><span class=o>-&gt;</span><span class=n>count</span> <span class=o>&lt;</span> <span class=n>fill</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>这也就是说，单个节点的长度不超过 <code>fill</code> 才可以继续执行插入，所以 <code>fill</code> 表征的是这些 <code>ziplist</code> 的大小；</p></li><li><p><code>compress</code> 的默认值也为 16，注释里说它是没有被压缩的节点数量。具体可以在 <code>__quicklistCompress</code> 这个函数中看到 <code>compress</code> 这个变量的具体使用方式：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl>		<span class=n>quicklistNode</span> <span class=o>*</span><span class=n>forward</span> <span class=o>=</span> <span class=n>quicklist</span><span class=o>-&gt;</span><span class=n>head</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>quicklistNode</span> <span class=o>*</span><span class=n>reverse</span> <span class=o>=</span> <span class=n>quicklist</span><span class=o>-&gt;</span><span class=n>tail</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>depth</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>in_depth</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=p>(</span><span class=n>depth</span><span class=o>++</span> <span class=o>&lt;</span> <span class=n>quicklist</span><span class=o>-&gt;</span><span class=n>compress</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>quicklistDecompressNode</span><span class=p>(</span><span class=n>forward</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=n>quicklistDecompressNode</span><span class=p>(</span><span class=n>reverse</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=n>forward</span> <span class=o>==</span> <span class=n>node</span> <span class=o>||</span> <span class=n>reverse</span> <span class=o>==</span> <span class=n>node</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>in_depth</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=cm>/* We passed into compress depth of opposite side of the quicklist
+</span></span></span><span class=line><span class=cl><span class=cm>         * so there&#39;s no need to compress anything and we can exit. */</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=n>forward</span> <span class=o>==</span> <span class=n>reverse</span> <span class=o>||</span> <span class=n>forward</span><span class=o>-&gt;</span><span class=n>next</span> <span class=o>==</span> <span class=n>reverse</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>forward</span> <span class=o>=</span> <span class=n>forward</span><span class=o>-&gt;</span><span class=n>next</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>reverse</span> <span class=o>=</span> <span class=n>reverse</span><span class=o>-&gt;</span><span class=n>prev</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>举个例子说如果一个 <code>quicklist</code> 的长度为 20，<code>compress</code> 的值为 2，那么第 0、1、18、19 这四个 <code>quicklistNode</code> 则是没有压缩的；</p></li><li><p><code>bookmarks</code> 与 <code>bookmark_count</code> 是一个为了加速访问的，面向 Redis 使用者的工具，它提供了以 <code>O(1)</code> 到达某个具体位置的能力。</p></li></ul><p>Bookmark 的使用可以查看它结构定义位置的注释：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=cm>/* Bookmarks are padded with realloc at the end of of the quicklist struct.
+</span></span></span><span class=line><span class=cl><span class=cm> * They should only be used for very big lists if thousands of nodes were the
+</span></span></span><span class=line><span class=cl><span class=cm> * excess memory usage is negligible, and there&#39;s a real need to iterate on them
+</span></span></span><span class=line><span class=cl><span class=cm> * in portions.
+</span></span></span><span class=line><span class=cl><span class=cm> * When not used, they don&#39;t add any memory overhead, but when used and then
+</span></span></span><span class=line><span class=cl><span class=cm> * deleted, some overhead remains (to avoid resonance).
+</span></span></span><span class=line><span class=cl><span class=cm> * The number of bookmarks used should be kept to minimum since it also adds
+</span></span></span><span class=line><span class=cl><span class=cm> * overhead on node deletion (searching for a bookmark to update). */</span>
+</span></span><span class=line><span class=cl><span class=k>typedef</span> <span class=k>struct</span> <span class=n>quicklistBookmark</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>quicklistNode</span> <span class=o>*</span><span class=n>node</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>char</span> <span class=o>*</span><span class=n>name</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> <span class=n>quicklistBookmark</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>只有在 <code>quicklist</code> 特别大，而又有强烈的局部访问诉求时，才建议使用它。否则它不会增加 <code>quicklist</code> 的内存开销。</p><p><code>quicklistNode</code> 结构的定义如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=cm>/* quicklistNode is a 32 byte struct describing a ziplist for a quicklist.
+</span></span></span><span class=line><span class=cl><span class=cm> * We use bit fields keep the quicklistNode at 32 bytes.
+</span></span></span><span class=line><span class=cl><span class=cm> * count: 16 bits, max 65536 (max zl bytes is 65k, so max count actually &lt; 32k).
+</span></span></span><span class=line><span class=cl><span class=cm> * encoding: 2 bits, RAW=1, LZF=2.
+</span></span></span><span class=line><span class=cl><span class=cm> * container: 2 bits, NONE=1, ZIPLIST=2.
+</span></span></span><span class=line><span class=cl><span class=cm> * recompress: 1 bit, bool, true if node is temporary decompressed for usage.
+</span></span></span><span class=line><span class=cl><span class=cm> * attempted_compress: 1 bit, boolean, used for verifying during testing.
+</span></span></span><span class=line><span class=cl><span class=cm> * extra: 10 bits, free for future use; pads out the remainder of 32 bits */</span>
+</span></span><span class=line><span class=cl><span class=k>typedef</span> <span class=k>struct</span> <span class=n>quicklistNode</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>struct</span> <span class=n>quicklistNode</span> <span class=o>*</span><span class=n>prev</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>struct</span> <span class=n>quicklistNode</span> <span class=o>*</span><span class=n>next</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=kt>char</span> <span class=o>*</span><span class=n>zl</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>sz</span><span class=p>;</span>             <span class=cm>/* ziplist size in bytes */</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=kt>int</span> <span class=nl>count</span> <span class=p>:</span> <span class=mi>16</span><span class=p>;</span>     <span class=cm>/* count of items in ziplist */</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=kt>int</span> <span class=nl>encoding</span> <span class=p>:</span> <span class=mi>2</span><span class=p>;</span>   <span class=cm>/* RAW==1 or LZF==2 */</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=kt>int</span> <span class=nl>container</span> <span class=p>:</span> <span class=mi>2</span><span class=p>;</span>  <span class=cm>/* NONE==1 or ZIPLIST==2 */</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=kt>int</span> <span class=nl>recompress</span> <span class=p>:</span> <span class=mi>1</span><span class=p>;</span> <span class=cm>/* was this node previous compressed? */</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=kt>int</span> <span class=nl>attempted_compress</span> <span class=p>:</span> <span class=mi>1</span><span class=p>;</span> <span class=cm>/* node can&#39;t compress; too small */</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=kt>int</span> <span class=nl>extra</span> <span class=p>:</span> <span class=mi>10</span><span class=p>;</span> <span class=cm>/* more bits to steal for future usage */</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> <span class=n>quicklistNode</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>注释中可以看出此处用的压缩方式是 <a href=http://liblzf.plan9.de/ target=_blank rel="noopener noreffer">lzf</a>，它的压缩解压缩函数在 <code>lzf_c.c - lzf_compress</code>/<code>lzf_d.c - lzf_decompress</code> 这两个函数中。</p><h2 id=字典-hash-table>字典 (Hash Table)</h2><p>字典的结构与核心方法可以在 <code>src/dict.c</code> 与 <code>src/dict.h</code> 这两个文件中看到。</p><h3 id=结构-1>结构</h3><p>实现字典的结构中过程中，涉及了三个核心结构。</p><p>字典本身使用 <code>dict</code> 这个结构实现的：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=k>typedef</span> <span class=k>struct</span> <span class=n>dict</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>dictType</span> <span class=o>*</span><span class=n>type</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>void</span> <span class=o>*</span><span class=n>privdata</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>dictht</span> <span class=n>ht</span><span class=p>[</span><span class=mi>2</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>    <span class=kt>long</span> <span class=n>rehashidx</span><span class=p>;</span> <span class=cm>/* rehashing not in progress if rehashidx == -1 */</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int16_t</span> <span class=n>pauserehash</span><span class=p>;</span> <span class=cm>/* If &gt;0 rehashing is paused (&lt;0 indicates coding error) */</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> <span class=n>dict</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><ol><li>跟 <code>list</code> 类似，其中 <code>dictType</code> 是一个为了实现多态的函数指针封装；</li><li><code>dictht</code> 结构才是实现字典的核心结构；</li><li><code>dict</code> 持有两个 <code>dictht</code> 并且定义了 <code>rehashidx</code>/<code>rehashidx</code> 这些成员变量，是为了 <code>rehash</code> 的性能与可用性的考虑；</li></ol><p>哈希表使用 <code>dictht</code> 实现：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=k>typedef</span> <span class=k>struct</span> <span class=n>dictht</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>dictEntry</span> <span class=o>**</span><span class=n>table</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=kt>long</span> <span class=n>size</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=kt>long</span> <span class=n>sizemask</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=kt>long</span> <span class=n>used</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> <span class=n>dictht</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>其中 <code>dictEntry</code> 是以链式存储的哈希表节点：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=k>typedef</span> <span class=k>struct</span> <span class=n>dictEntry</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>void</span> <span class=o>*</span><span class=n>key</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>union</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=kt>void</span> <span class=o>*</span><span class=n>val</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=kt>uint64_t</span> <span class=n>u64</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=kt>int64_t</span> <span class=n>s64</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=kt>double</span> <span class=n>d</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span> <span class=n>v</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>struct</span> <span class=n>dictEntry</span> <span class=o>*</span><span class=n>next</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> <span class=n>dictEntry</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>通过 <code>next</code> 字段可以看出 <code>dictEntry</code> 的本质是一个链表的节点，哈希表通过这种方式解决哈希冲突；</p><h3 id=哈希算法>哈希算法</h3><p>哈希算法是哈希表实现的重点，在代码的注释中可以看到，默认的哈希算法是 <code>siphash</code>，该算法在 <code>siphash.c</code> 这个文件中实现。</p><h3 id=rehash-大小>Rehash 大小</h3><p>Redis 的哈希表设计巧妙之处正在于 <code>Rehash</code> 的方法实现。</p><p>调整大小的核心方法是：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=kt>int</span> <span class=n>_dictExpand</span><span class=p>(</span><span class=n>dict</span> <span class=o>*</span><span class=n>d</span><span class=p>,</span> <span class=kt>unsigned</span> <span class=kt>long</span> <span class=n>size</span><span class=p>,</span> <span class=kt>int</span><span class=o>*</span> <span class=n>malloc_failed</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>查看这个方法的实现，可以知道函数通过 <code>_dictNextPower</code> 来计算预期的大小。这个方法中会根据 <code>size</code> 计算实际预期的大小，这个计算方法是：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=k>static</span> <span class=kt>unsigned</span> <span class=kt>long</span> <span class=nf>_dictNextPower</span><span class=p>(</span><span class=kt>unsigned</span> <span class=kt>long</span> <span class=n>size</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=kt>long</span> <span class=n>i</span> <span class=o>=</span> <span class=n>DICT_HT_INITIAL_SIZE</span><span class=p>;</span>	<span class=c1>// 4
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>if</span> <span class=p>(</span><span class=n>size</span> <span class=o>&gt;=</span> <span class=n>LONG_MAX</span><span class=p>)</span> <span class=k>return</span> <span class=n>LONG_MAX</span> <span class=o>+</span> <span class=mi>1LU</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=n>i</span> <span class=o>&gt;=</span> <span class=n>size</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=n>i</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>i</span> <span class=o>*=</span> <span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>查看这个方法的调用，可以得到在什么条件下会触发 Rehash：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=cm>/* Expand the hash table if needed */</span>
+</span></span><span class=line><span class=cl><span class=k>static</span> <span class=kt>int</span> <span class=nf>_dictExpandIfNeeded</span><span class=p>(</span><span class=n>dict</span> <span class=o>*</span><span class=n>d</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  	<span class=c1>/// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=cm>/* If we reached the 1:1 ratio, and we are allowed to resize the hash
+</span></span></span><span class=line><span class=cl><span class=cm>     * table (global setting) or we should avoid it but the ratio between
+</span></span></span><span class=line><span class=cl><span class=cm>     * elements/buckets is over the &#34;safe&#34; threshold, we resize doubling
+</span></span></span><span class=line><span class=cl><span class=cm>     * the number of buckets. */</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=n>d</span><span class=o>-&gt;</span><span class=n>ht</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>used</span> <span class=o>&gt;=</span> <span class=n>d</span><span class=o>-&gt;</span><span class=n>ht</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>size</span> <span class=o>&amp;&amp;</span>
+</span></span><span class=line><span class=cl>        <span class=p>(</span><span class=n>dict_can_resize</span> <span class=o>||</span>
+</span></span><span class=line><span class=cl>         <span class=n>d</span><span class=o>-&gt;</span><span class=n>ht</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>used</span><span class=o>/</span><span class=n>d</span><span class=o>-&gt;</span><span class=n>ht</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>size</span> <span class=o>&gt;</span> <span class=n>dict_force_resize_ratio</span><span class=p>)</span> <span class=o>&amp;&amp;</span>
+</span></span><span class=line><span class=cl>        <span class=n>dictTypeExpandAllowed</span><span class=p>(</span><span class=n>d</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>dictExpand</span><span class=p>(</span><span class=n>d</span><span class=p>,</span> <span class=n>d</span><span class=o>-&gt;</span><span class=n>ht</span><span class=p>[</span><span class=mi>0</span><span class=p>].</span><span class=n>used</span> <span class=o>+</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>  	<span class=c1>/// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>而 <code>_dictExpandIfNeeded</code> 则会在每次使用 <code>_dictKeyIndex</code> 插入新的 key 时调用。</p><h3 id=rehash-流程>Rehash 流程</h3><p>如果使用普通的 rehash 方案全局调整并且复制，在数据量较大的情况下，会导致服务器短暂的宕机。</p><p>因此 Redis 设计了一个渐进式的 Rehash 方式，渐进式地多次完成，而不是集中地一次完成。具体的，在 Rehash 的过程中 ，<code>dict</code> 会存储两份 <code>dictht</code> 数据，所有的增删改查操作都会在这两个表中进行。</p><p>Rehash 的原子步骤是源码中的 <code>dictRehash</code> 这个方法，它的签名和注释如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=cm>/* Performs N steps of incremental rehashing. Returns 1 if there are still
+</span></span></span><span class=line><span class=cl><span class=cm> * keys to move from the old to the new hash table, otherwise 0 is returned.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * Note that a rehashing step consists in moving a bucket (that may have more
+</span></span></span><span class=line><span class=cl><span class=cm> * than one key as we use chaining) from the old to the new hash table, however
+</span></span></span><span class=line><span class=cl><span class=cm> * since part of the hash table may be composed of empty spaces, it is not
+</span></span></span><span class=line><span class=cl><span class=cm> * guaranteed that this function will rehash even a single bucket, since it
+</span></span></span><span class=line><span class=cl><span class=cm> * will visit at max N*10 empty buckets in total, otherwise the amount of
+</span></span></span><span class=line><span class=cl><span class=cm> * work it does would be unbound and the function may block for a long time. */</span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=n>dictRehash</span><span class=p>(</span><span class=n>dict</span> <span class=o>*</span><span class=n>d</span><span class=p>,</span> <span class=kt>int</span> <span class=n>n</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>在这个方法中，以 <code>rehashidx</code> 为标记，把之后连续的 <code>n</code> 个记录从 <code>ht[0]</code> 迁移到 <code>ht[1]</code>。每当一个元素从 <code>ht[0]</code> 迁移到 <code>ht[1]</code>，函数会更改 <code>used</code> 字段同时维持 <code>size</code> 字段不变，<code>ht[0]</code> 中对应下标位置的指针将会被指向为 <code>NULL</code>。</p><p>查看这个函数的调用栈可以分析 Redis 具体是如何执行 Rehash 操作的。</p><ol><li><p><code>dictRehashMilliseconds</code>：函数接收一个以 <code>ms</code> 为单位的时间参数，函数内部每次 “迁移 100 个元素”为原子操作，进行执行时间不超过这个上限的 rehash。</p><p>在 <code>server.c</code> 文件中通过调用这个函数进行 rehash 操作，每 <code>100ms</code> 会占用小于 <code>1ms</code> 时间进行 rehash。</p></li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=cm>/* Rehash in ms+&#34;delta&#34; milliseconds. The value of &#34;delta&#34; is larger 
+</span></span></span><span class=line><span class=cl><span class=cm> * than 0, and is smaller than 1 in most cases. The exact upper bound 
+</span></span></span><span class=line><span class=cl><span class=cm> * depends on the running time of dictRehash(d,100).*/</span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>dictRehashMilliseconds</span><span class=p>(</span><span class=n>dict</span> <span class=o>*</span><span class=n>d</span><span class=p>,</span> <span class=kt>int</span> <span class=n>ms</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=n>d</span><span class=o>-&gt;</span><span class=n>pauserehash</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>)</span> <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>long</span> <span class=kt>long</span> <span class=n>start</span> <span class=o>=</span> <span class=n>timeInMilliseconds</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>rehashes</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span><span class=p>(</span><span class=n>dictRehash</span><span class=p>(</span><span class=n>d</span><span class=p>,</span><span class=mi>100</span><span class=p>))</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>rehashes</span> <span class=o>+=</span> <span class=mi>100</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=n>timeInMilliseconds</span><span class=p>()</span><span class=o>-</span><span class=n>start</span> <span class=o>&gt;</span> <span class=n>ms</span><span class=p>)</span> <span class=k>break</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>rehashes</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=2><li><p><code>_dictRehashStep</code>：对单步迁移操作的封装。</p><p>该函数在添加删除查找等方法被执行时会用到，我感觉这么做的好处是可以将计算压力分摊到每次访问请求中，而基本不会影响每次访问的查询速度。同时间接地实现了“越被频繁使用的字典，计算优先级越高”；</p></li></ol><p><code>PS</code>：美团技术团队针对 Redis-Rehash 这一方向进行了优化：https://tech.meituan.com/2018/07/27/redis-rehash-practice-optimization.html</p><h3 id=zipmap><code>zipmap</code></h3><p><code>zipmap</code> 名字叫 <code>zip</code>，实际上并没有进行压缩操作，它将键值对连续存储，省去了许多管理 map 的指针结构，它的大致结构可以在 <code>zipmapNew</code> 这个函数中看到：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=kt>unsigned</span> <span class=kt>char</span> <span class=o>*</span><span class=nf>zipmapNew</span><span class=p>(</span><span class=kt>void</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=kt>char</span> <span class=o>*</span><span class=n>zm</span> <span class=o>=</span> <span class=n>zmalloc</span><span class=p>(</span><span class=mi>2</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>zm</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=cm>/* Length */</span>
+</span></span><span class=line><span class=cl>    <span class=n>zm</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=n>ZIPMAP_END</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>zm</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=跳跃表-skip-list>跳跃表 (Skip List)</h2><blockquote><p>跳跃表最初在论文《Skip Lists: A Probabilistic Alternative to Balanced Trees》中提出，在 Redis 中的使用是这个数据结构的高光时刻。</p></blockquote><h3 id=redis-中的实现>Redis 中的实现</h3><p>跳跃表定义在 <code>server.h</code> 这个文件中，它是有序集合的底层实现之一。</p><p>跳跃表本身的实现结构名称为 <code>zskiplist</code>：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=k>typedef</span> <span class=k>struct</span> <span class=n>zskiplist</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>struct</span> <span class=n>zskiplistNode</span> <span class=o>*</span><span class=n>header</span><span class=p>,</span> <span class=o>*</span><span class=n>tail</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=kt>long</span> <span class=n>length</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>level</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> <span class=n>zskiplist</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>其中 <code>zskiplistNode</code> 主要由 字符值、分值、多层跳跃指针 三个部分构成：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=k>typedef</span> <span class=k>struct</span> <span class=n>zskiplistNode</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>sds</span> <span class=n>ele</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>double</span> <span class=n>score</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>struct</span> <span class=n>zskiplistNode</span> <span class=o>*</span><span class=n>backward</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>struct</span> <span class=n>zskiplistLevel</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>struct</span> <span class=n>zskiplistNode</span> <span class=o>*</span><span class=n>forward</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=kt>unsigned</span> <span class=kt>long</span> <span class=n>span</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span> <span class=n>level</span><span class=p>[];</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> <span class=n>zskiplistNode</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>完美的跳跃表可以实现 <code>O(log n)</code> 的查找时间复杂度。</p><h3 id=参数-p>参数 p</h3><p>跳跃表的实现有一个关键参数 p，在 Redis 中它被定义为默认值 1/4：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=cp>#define ZSKIPLIST_P 0.25      </span><span class=cm>/* Skiplist P = 1/4 */</span><span class=cp>
+</span></span></span></code></pre></td></tr></table></div></div><p>它有以下的含义：</p><ol><li>在实现跳跃表的程序中，它表征新插入的元素是否要新加一层的概率。这也就是说：<ul><li>一个新插入的元素有一层跳跃指针概率为 p，两层的概率为 $p^2$，后是 $p^3$；</li></ul></li><li>第 x+1 层指针数量的数学期望，与第 x 层指针数量的数学期望，的比；</li></ol><h3 id=查找时间复杂度>查找时间复杂度</h3><p>设函数 f(x) 为：长度为 n 的跳跃表在查找第 x 项时需要经过的总路径数量。</p><p>那么容易得到方程：</p><ul><li>$\displaystyle f(x) = f(px) + \frac{1}{2p}$</li></ul><p>其中，因为这个差值是一个介于 0 与 $\displaystyle \frac{1}{p}$ 之间均匀分布的变量，所以期望是 $\displaystyle \frac{1}{2p}$。</p><p>因为 p&lt;1，所以：</p><ul><li>$\displaystyle \lim_{i \rightarrow +\infin} f(p^{i}x) = f(0) = 0$</li></ul><p>其中 $f(0) = 0$ ，表示如果要查找的元素位于第一个元素，则不需要进行任何的查找操作。</p><p>因此对上面的方程进行迭代，在长度为 n 的跳跃表中，最高层数为 $log_{\frac{1}{p}} n$，所以可以得到这个函数方程的解：</p><ul><li>$\displaystyle f(x) = 0 + \frac{1}{2p} * log_{\frac{1}{p}}n = - \frac{ln(n)}{2p * ln(p)}$</li></ul><p>对分母求导可以得到，考虑时间复杂度时的最合适的 p 是 $\displaystyle \frac{1}{e}$。</p><h3 id=期望空间复杂度>期望空间复杂度</h3><p>根据 <code>zskiplistNode</code> 的结构，我们基本可以认为一个 <code>node</code> 的大小跟一个 <code>level</code> 的大小是相同的，我们设这个大小为单位 1，于是可以得到空间复杂度计算方程：</p><ul><li>$\displaystyle Size = n + np + np^2 + \dots + n p^{log_{\frac{1}{p}} n}$</li></ul><p>乘 p 做差可得：</p><ul><li>$\displaystyle Size = \frac{1}{1 - p} *(n - n * n^{-1} * p) = \frac{n - p}{1- p}$</li></ul><p>可见 p 于区间 0-1 内，与 Size 是成正比关系的，所以在考虑 $\frac{1}{2}$ 与 $\frac{1}{4}$ 这两个理论实践复杂度时间取值中，Redis 选择了 $\frac{1}{4}$。</p><h2 id=整数集合integer-set>整数集合（Integer Set）</h2><p>整数集合定义在 <code>intset.c</code> 与 <code>inset.h</code> 这两个文件中，它是用于保存整数值的集合抽象数据结构：即它保存内容为整数值，并且集合内不会出现重复元素。它是集合键的底层实现之一。</p><h3 id=结构-2>结构</h3><p><code>intset</code> 的结构定义相当简单：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=k>typedef</span> <span class=k>struct</span> <span class=n>intset</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>uint32_t</span> <span class=n>encoding</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>uint32_t</span> <span class=n>length</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int8_t</span> <span class=n>contents</span><span class=p>[];</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> <span class=n>intset</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>其中 <code>encoding</code> 可以认为是高级语言中的枚举值，它定义在 <code>intset.c</code> 文件中：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=cp>#define INTSET_ENC_INT16 (sizeof(int16_t))
+</span></span></span><span class=line><span class=cl><span class=cp>#define INTSET_ENC_INT32 (sizeof(int32_t))
+</span></span></span><span class=line><span class=cl><span class=cp>#define INTSET_ENC_INT64 (sizeof(int64_t))
+</span></span></span></code></pre></td></tr></table></div></div><p><code>contents</code> 实际存储的数据类型由这个 <code>encoding</code> 决定，它会在访问时进行强制类型转化。</p><h3 id=升级>升级</h3><p>通过不同的 encoding 存储有以下好处：</p><ol><li>提升灵活性，因为 C 语言的特性，不能用一个结构同时存储多个类型的数据；</li><li>节约内存，不需要为了大量小数字开辟大量高位内存；</li></ol><p>但是因为 inset 的内容会动态变化，在一些场景下会触发升级（encoding 从小的类型转变为大的类型）。</p><p>升级：<code>intsetUpgradeAndAdd</code>，在插入一个比类型值还大的数字时会触发升级。函数签名：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=cm>/* Upgrades the intset to a larger encoding and inserts the given integer. */</span>
+</span></span><span class=line><span class=cl><span class=k>static</span> <span class=n>intset</span> <span class=o>*</span><span class=n>intsetUpgradeAndAdd</span><span class=p>(</span><span class=n>intset</span> <span class=o>*</span><span class=n>is</span><span class=p>,</span> <span class=kt>int64_t</span> <span class=n>value</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p><em>PS</em>：为什么 inset 不像 hashtable 设计一个渐进性的升级方案。</p><h2 id=压缩列表zip-list>压缩列表（Zip List）</h2><p>压缩列表是为了节约内存而诞生的一种数据结构，它的本质是一个通过特殊编码方式存储的双向链表。</p><p>当一个列表值中只包含少量的列表项，并且每个列表项要么就是小的整数值，要么就是比较短的字符串。那么Redis 底层就是使用压缩列表来做列表键的底层实现。</p><h3 id=结构-3>结构</h3><p>压缩列表的详细数据结构在源代码的 <code>ziplist.c</code> 文件开头有长达 200 行的注释解释，大体概括就是下面的结构：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=o>&lt;</span><span class=n>zlbytes</span><span class=o>&gt;</span> <span class=o>&lt;</span><span class=n>zltail</span><span class=o>&gt;</span> <span class=o>&lt;</span><span class=n>zllen</span><span class=o>&gt;</span> <span class=o>&lt;</span><span class=n>entry</span><span class=o>&gt;</span> <span class=o>&lt;</span><span class=n>entry</span><span class=o>&gt;</span> <span class=p>...</span> <span class=o>&lt;</span><span class=n>entry</span><span class=o>&gt;</span> <span class=o>&lt;</span><span class=n>zlend</span><span class=o>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>其中：</p><ul><li><code>zlbytes</code> 指明了包括它自己在内的整个 <code>ziplist</code> 字节大小；</li><li><code>zltail</code> 指明了最后一个 entry 的相对偏移；</li><li><code>zllen</code> 指明了数组长度大小，即之后跟的 <code>entry</code> 的数量；</li><li><code>zlend</code> 是一个表征压缩列表结尾的字节，固定的值 <code>0xFF</code>；</li></ul><p><code>entry</code> 的内部也有许多通过编码降低内存的设计，大体概述就是下面的结构：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=o>&lt;</span><span class=n>prevlen</span><span class=o>&gt;</span> <span class=o>&lt;</span><span class=n>encoding</span><span class=o>&gt;</span> <span class=o>&lt;</span><span class=n>entry</span><span class=o>-</span><span class=n>data</span><span class=o>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>在不同的情况下，这一基本结构有不同的变体。</p><p>比如对于小整数，encoding，自身就可以表示数值，此时的结构为：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=o>&lt;</span><span class=n>prevlen</span><span class=o>&gt;</span> <span class=o>&lt;</span><span class=n>encoding</span><span class=o>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>prevlen</code> 通常只用一个字节表示，如果长度大于等于 254，则第一个字节置位为 <code>0xFE</code>：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=mh>0xFE</span> <span class=o>&lt;</span><span class=mi>4</span> <span class=n>bytes</span> <span class=kt>unsigned</span> <span class=n>little</span> <span class=n>endian</span> <span class=n>prevlen</span><span class=o>&gt;</span> <span class=o>&lt;</span><span class=n>encoding</span><span class=o>&gt;</span> <span class=o>&lt;</span><span class=n>entry</span><span class=o>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=操作>操作</h3><p>压缩列表是一个“时间换空间”的设计，所以只能用于小列表项。</p><ul><li><p>下标访问、entry 前指、entry 后指、获取字节数、获取列表大小等查询操作都是 <code>O(1)</code>；</p></li><li><p>插入、删除等涉及到大小变化的更新操作时间复杂度都是平均 <code>O(N)</code>；</p></li><li><p>插入、删除可能会引发连锁更新，所以最坏的时间复杂度是 <code>O(N^2)</code></p></li></ul><p>什么是连锁更新？</p><ul><li>当 <code>ziplist</code> 保存了大量长度为 253 长度的 entry 时，如果在第一个位置插入了一个长度大于 253 的元素，则会导致之后的每一个 entry 执行连锁更新，时间复杂度 <code>O(N^2)</code></li></ul><h2 id=对象>对象</h2><p>Redis 暴露给用户的并不是上面列举的这些“基本数据结构”，而是五个对象：</p><ul><li>字符串对象（无前缀）、列表对象 (l)、哈希对象 (h)、集合对象 (s)、有序集合对象 (z)；</li></ul><p>Redis 通过不同的编码方式表征具体的底层实现。</p><h3 id=结构-4>结构</h3><p>redisObject 声明在文件 <code>rio.h</code> 中，实际定义在 <code>server.c</code> 中：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=k>typedef</span> <span class=k>struct</span> <span class=n>redisObject</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=nl>type</span><span class=p>:</span><span class=mi>4</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=nl>encoding</span><span class=p>:</span><span class=mi>4</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>unsigned</span> <span class=nl>lru</span><span class=p>:</span><span class=n>LRU_BITS</span><span class=p>;</span> <span class=cm>/* LRU time (relative to global lru_clock) or
+</span></span></span><span class=line><span class=cl><span class=cm>                            * LFU data (least significant 8 bits frequency
+</span></span></span><span class=line><span class=cl><span class=cm>                            * and most significant 16 bits access time). */</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>refcount</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>void</span> <span class=o>*</span><span class=n>ptr</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> <span class=n>robj</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>其中 <code>type</code> 就是在前面列举的五个基本数据类型：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=cm>/* The actual Redis Object */</span>
+</span></span><span class=line><span class=cl><span class=cp>#define OBJ_STRING 0    </span><span class=cm>/* String object. */</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#define OBJ_LIST 1      </span><span class=cm>/* List object. */</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#define OBJ_SET 2       </span><span class=cm>/* Set object. */</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#define OBJ_ZSET 3      </span><span class=cm>/* Sorted set object. */</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#define OBJ_HASH 4      </span><span class=cm>/* Hash object. */</span><span class=cp>
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=编码>编码</h3><p><code>encoding</code> 表征这这个类型的对象底层使用的数据结构，通常一个类型只会使用两个底层数据结构：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=cm>/* Objects encoding. Some kind of objects like Strings and Hashes can be
+</span></span></span><span class=line><span class=cl><span class=cm> * internally represented in multiple ways. The &#39;encoding&#39; field of the object
+</span></span></span><span class=line><span class=cl><span class=cm> * is set to one of this fields for this object. */</span>
+</span></span><span class=line><span class=cl><span class=cp>#define OBJ_ENCODING_RAW 0     </span><span class=cm>/* Raw representation */</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#define OBJ_ENCODING_INT 1     </span><span class=cm>/* Encoded as integer */</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#define OBJ_ENCODING_HT 2      </span><span class=cm>/* Encoded as hash table */</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#define OBJ_ENCODING_ZIPMAP 3  </span><span class=cm>/* Encoded as zipmap */</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#define OBJ_ENCODING_LINKEDLIST 4 </span><span class=cm>/* No longer used: old list encoding. */</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#define OBJ_ENCODING_ZIPLIST 5 </span><span class=cm>/* Encoded as ziplist */</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#define OBJ_ENCODING_INTSET 6  </span><span class=cm>/* Encoded as intset */</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#define OBJ_ENCODING_SKIPLIST 7  </span><span class=cm>/* Encoded as skiplist */</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#define OBJ_ENCODING_EMBSTR 8  </span><span class=cm>/* Embedded sds string encoding */</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#define OBJ_ENCODING_QUICKLIST 9 </span><span class=cm>/* Encoded as linked list of ziplists */</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#define OBJ_ENCODING_STREAM 10 </span><span class=cm>/* Encoded as a radix tree of listpacks */</span><span class=cp>
+</span></span></span></code></pre></td></tr></table></div></div><p>具体到五个对象：</p><ol><li>字符串对象：<code>int</code>、<code>raw</code>、<code>embstr</code>；</li><li>列表对象：<code>ziplist</code>、<code>linkedlist</code>；3.2 后 <code>quicklist</code> 成为其唯一编码模式；</li><li>哈希对象：<code>ziplist</code>、<code>hashtable</code>；</li><li>集合对象：<code>intset</code>、<code>hashtable</code>；</li><li>有序集合对象：<code>ziplist</code>、<code>skiplist</code>；</li></ol><h3 id=内存管理>内存管理</h3><p>针对于对象，Redis 使用“引用计数”的内存回收机制，并为 0-10000 这些数字设置了默认的对象共享。</p></div><div id=comments><div id=valine class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.</noscript></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://shesl-meow.github.io target=_blank>佘崧林</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/valine/valine.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/valine@1.4.18/dist/Valine.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:50},comment:{valine:{appId:"zDVJohJIQbD6f3W267xtaYRC-gzGzoHsz",appKey:"ewsfU9ocNOeuvt0MzONe6yKx",avatar:"mp",el:"#valine",emojiCDN:"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/",emojiMaps:{100:"1f4af.png",alien:"1f47d.png",anger:"1f4a2.png",angry:"1f620.png",anguished:"1f627.png",astonished:"1f632.png",black_heart:"1f5a4.png",blue_heart:"1f499.png",blush:"1f60a.png",bomb:"1f4a3.png",boom:"1f4a5.png",broken_heart:"1f494.png",brown_heart:"1f90e.png",clown_face:"1f921.png",cold_face:"1f976.png",cold_sweat:"1f630.png",confounded:"1f616.png",confused:"1f615.png",cry:"1f622.png",crying_cat_face:"1f63f.png",cupid:"1f498.png",dash:"1f4a8.png",disappointed:"1f61e.png",disappointed_relieved:"1f625.png",dizzy:"1f4ab.png",dizzy_face:"1f635.png",drooling_face:"1f924.png",exploding_head:"1f92f.png",expressionless:"1f611.png",face_vomiting:"1f92e.png",face_with_cowboy_hat:"1f920.png",face_with_hand_over_mouth:"1f92d.png",face_with_head_bandage:"1f915.png",face_with_monocle:"1f9d0.png",face_with_raised_eyebrow:"1f928.png",face_with_rolling_eyes:"1f644.png",face_with_symbols_on_mouth:"1f92c.png",face_with_thermometer:"1f912.png",fearful:"1f628.png",flushed:"1f633.png",frowning:"1f626.png",ghost:"1f47b.png",gift_heart:"1f49d.png",green_heart:"1f49a.png",grimacing:"1f62c.png",grin:"1f601.png",grinning:"1f600.png",hankey:"1f4a9.png",hear_no_evil:"1f649.png",heart:"2764-fe0f.png",heart_decoration:"1f49f.png",heart_eyes:"1f60d.png",heart_eyes_cat:"1f63b.png",heartbeat:"1f493.png",heartpulse:"1f497.png",heavy_heart_exclamation_mark_ornament:"2763-fe0f.png",hole:"1f573-fe0f.png",hot_face:"1f975.png",hugging_face:"1f917.png",hushed:"1f62f.png",imp:"1f47f.png",innocent:"1f607.png",japanese_goblin:"1f47a.png",japanese_ogre:"1f479.png",joy:"1f602.png",joy_cat:"1f639.png",kiss:"1f48b.png",kissing:"1f617.png",kissing_cat:"1f63d.png",kissing_closed_eyes:"1f61a.png",kissing_heart:"1f618.png",kissing_smiling_eyes:"1f619.png",laughing:"1f606.png",left_speech_bubble:"1f5e8-fe0f.png",love_letter:"1f48c.png",lying_face:"1f925.png",mask:"1f637.png",money_mouth_face:"1f911.png",nauseated_face:"1f922.png",nerd_face:"1f913.png",neutral_face:"1f610.png",no_mouth:"1f636.png",open_mouth:"1f62e.png",orange_heart:"1f9e1.png",partying_face:"1f973.png",pensive:"1f614.png",persevere:"1f623.png",pleading_face:"1f97a.png",pouting_cat:"1f63e.png",purple_heart:"1f49c.png",rage:"1f621.png",relaxed:"263a-fe0f.png",relieved:"1f60c.png",revolving_hearts:"1f49e.png",right_anger_bubble:"1f5ef-fe0f.png",robot_face:"1f916.png",rolling_on_the_floor_laughing:"1f923.png",scream:"1f631.png",scream_cat:"1f640.png",see_no_evil:"1f648.png",shushing_face:"1f92b.png",skull:"1f480.png",skull_and_crossbones:"2620-fe0f.png",sleeping:"1f634.png",sleepy:"1f62a.png",slightly_frowning_face:"1f641.png",slightly_smiling_face:"1f642.png",smile:"1f604.png",smile_cat:"1f638.png",smiley:"1f603.png",smiley_cat:"1f63a.png",smiling_face_with_3_hearts:"1f970.png",smiling_imp:"1f608.png",smirk:"1f60f.png",smirk_cat:"1f63c.png",sneezing_face:"1f927.png",sob:"1f62d.png",space_invader:"1f47e.png",sparkling_heart:"1f496.png",speak_no_evil:"1f64a.png",speech_balloon:"1f4ac.png","star-struck":"1f929.png",stuck_out_tongue:"1f61b.png",stuck_out_tongue_closed_eyes:"1f61d.png",stuck_out_tongue_winking_eye:"1f61c.png",sunglasses:"1f60e.png",sweat:"1f613.png",sweat_drops:"1f4a6.png",sweat_smile:"1f605.png",thinking_face:"1f914.png",thought_balloon:"1f4ad.png",tired_face:"1f62b.png",triumph:"1f624.png",two_hearts:"1f495.png",unamused:"1f612.png",upside_down_face:"1f643.png",weary:"1f629.png",white_frowning_face:"2639-fe0f.png",white_heart:"1f90d.png",wink:"1f609.png",woozy_face:"1f974.png",worried:"1f61f.png",yawning_face:"1f971.png",yellow_heart:"1f49b.png",yum:"1f60b.png",zany_face:"1f92a.png",zipper_mouth_face:"1f910.png",zzz:"1f4a4.png"},enableQQ:!1,highlight:!0,lang:"zh-CN",pageSize:10,placeholder:"你的评论 ...",recordIP:!0,serverURLs:"https://zdvjohji.lc-cn-n1-shared.com",visitor:!0}},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"",algoliaIndex:"",algoliaSearchKey:"",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:30,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.c1d5acc03abc8af9ee0a42aa4e942566a338a3e29d21b6c9f11536101f6914ad.js integrity="sha256-wdWswDq8ivnuCkKqTpQlZqM4o+KdIbbJ8RU2EB9pFK0="></script></body></html>

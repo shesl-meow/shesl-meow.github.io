@@ -1,0 +1,221 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Socket Programming - shesl's blog</title><meta name=Description content="佘崧林同学的碎碎念博客"><meta property="og:title" content="Socket Programming"><meta property="og:description" content="学习网址： https://www.geeksforgeeks.org/socket-programming-cc/ 什么是 socket 编程？ Socket programming is a way of connecting two nodes on a network to communicate with each other. One socket(node) listens on a particular port at an IP, while other socket reaches out to the other to form a connection. Server forms the listener socket while client reaches out to the server. 服务端 示例代"><meta property="og:type" content="article"><meta property="og:url" content="http://shesl-meow.github.io/note/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/5.%E5%BA%94%E7%94%A8%E5%B1%82/socket/"><meta property="og:image" content="http://shesl-meow.github.io/avatar.png"><meta property="article:section" content="note"><meta property="article:published_time" content="2018-12-24T15:08:53+08:00"><meta property="article:modified_time" content="2018-12-24T15:08:53+08:00"><meta property="og:site_name" content="shesl's blog"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="http://shesl-meow.github.io/avatar.png"><meta name=twitter:title content="Socket Programming"><meta name=twitter:description content="学习网址： https://www.geeksforgeeks.org/socket-programming-cc/ 什么是 socket 编程？ Socket programming is a way of connecting two nodes on a network to communicate with each other. One socket(node) listens on a particular port at an IP, while other socket reaches out to the other to form a connection. Server forms the listener socket while client reaches out to the server. 服务端 示例代"><meta name=application-name content="shesl's blog"><meta name=apple-mobile-web-app-title content="shesl's blog"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=http://shesl-meow.github.io/note/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/5.%E5%BA%94%E7%94%A8%E5%B1%82/socket/><link rel=prev href=http://shesl-meow.github.io/note/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/5.%E5%BA%94%E7%94%A8%E5%B1%82/uwsgi/><link rel=next href=http://shesl-meow.github.io/note/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/5.%E5%BA%94%E7%94%A8%E5%B1%82/smtp/><link rel=stylesheet href=/css/style.min.fa85115dce490a9d0bf009e2892b6d42439bdea75160d08cddcb0b97c8def676.css integrity="sha256-+oURXc5JCp0L8AniiSttQkOb3qdRYNCM3csLl8je9nY="><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Socket Programming","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http:\/\/shesl-meow.github.io\/note\/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B\/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C\/5.%E5%BA%94%E7%94%A8%E5%B1%82\/socket\/"},"genre":"note","keywords":"","wordcount":975,"url":"http:\/\/shesl-meow.github.io\/note\/%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E8%AF%BE%E7%A8%8B\/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C\/5.%E5%BA%94%E7%94%A8%E5%B1%82\/socket\/","datePublished":"2018-12-24T15:08:53+08:00","dateModified":"2018-12-24T15:08:53+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"佘崧林"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>博客 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/note/>笔记 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="shesl's blog">shesl-meow</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>博客</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/note/ title>笔记</a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">Socket Programming</h1><div class=content id=content><blockquote><p>学习网址：</p><ul><li><a href=https://www.geeksforgeeks.org/socket-programming-cc/ target=_blank rel="noopener noreffer">https://www.geeksforgeeks.org/socket-programming-cc/</a></li></ul></blockquote><p>什么是 socket 编程？</p><p>Socket programming is a way of connecting two nodes on a network to communicate with each other. One socket(node) listens on a particular port at an IP, while other socket reaches out to the other to form a connection. Server forms the listener socket while client reaches out to the server.</p><h2 id=服务端>服务端</h2><h3 id=示例代码>示例代码</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=c1>// Server side C/C++ program to demonstrate Socket programming 
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=cp>#include</span> <span class=cpf>&lt;unistd.h&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;stdio.h&gt; </span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;sys/socket.h&gt; </span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;stdlib.h&gt; </span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;netinet/in.h&gt; </span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;string.h&gt; </span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#define PORT 8080 
+</span></span></span><span class=line><span class=cl><span class=cp></span><span class=kt>int</span> <span class=nf>main</span><span class=p>(</span><span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=kt>char</span> <span class=k>const</span> <span class=o>*</span><span class=n>argv</span><span class=p>[])</span> 
+</span></span><span class=line><span class=cl><span class=p>{</span> 
+</span></span><span class=line><span class=cl>	<span class=kt>int</span> <span class=n>server_fd</span><span class=p>,</span> <span class=n>new_socket</span><span class=p>,</span> <span class=n>valread</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=nc>sockaddr_in</span> <span class=n>address</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>	<span class=kt>int</span> <span class=n>opt</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>	<span class=kt>int</span> <span class=n>addrlen</span> <span class=o>=</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>address</span><span class=p>);</span> 
+</span></span><span class=line><span class=cl>	<span class=kt>char</span> <span class=n>buffer</span><span class=p>[</span><span class=mi>1024</span><span class=p>]</span> <span class=o>=</span> <span class=p>{</span><span class=mi>0</span><span class=p>};</span> 
+</span></span><span class=line><span class=cl>	<span class=kt>char</span> <span class=o>*</span><span class=n>hello</span> <span class=o>=</span> <span class=s>&#34;Hello from server&#34;</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>	
+</span></span><span class=line><span class=cl>	<span class=c1>// Creating socket file descriptor 
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=k>if</span> <span class=p>((</span><span class=n>server_fd</span> <span class=o>=</span> <span class=n>socket</span><span class=p>(</span><span class=n>AF_INET</span><span class=p>,</span> <span class=n>SOCK_STREAM</span><span class=p>,</span> <span class=mi>0</span><span class=p>))</span> <span class=o>==</span> <span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>{</span> 
+</span></span><span class=line><span class=cl>		<span class=n>perror</span><span class=p>(</span><span class=s>&#34;socket failed&#34;</span><span class=p>);</span> 
+</span></span><span class=line><span class=cl>		<span class=n>exit</span><span class=p>(</span><span class=n>EXIT_FAILURE</span><span class=p>);</span> 
+</span></span><span class=line><span class=cl>	<span class=p>}</span> 
+</span></span><span class=line><span class=cl>	
+</span></span><span class=line><span class=cl>	<span class=c1>// Forcefully attaching socket to the port 8080 
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=k>if</span> <span class=p>(</span><span class=n>setsockopt</span><span class=p>(</span><span class=n>server_fd</span><span class=p>,</span> <span class=n>SOL_SOCKET</span><span class=p>,</span> <span class=n>SO_REUSEADDR</span> <span class=o>|</span> <span class=n>SO_REUSEPORT</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>opt</span><span class=p>,</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>opt</span><span class=p>)))</span> 
+</span></span><span class=line><span class=cl>	<span class=p>{</span> 
+</span></span><span class=line><span class=cl>		<span class=n>perror</span><span class=p>(</span><span class=s>&#34;setsockopt&#34;</span><span class=p>);</span> 
+</span></span><span class=line><span class=cl>		<span class=n>exit</span><span class=p>(</span><span class=n>EXIT_FAILURE</span><span class=p>);</span> 
+</span></span><span class=line><span class=cl>	<span class=p>}</span> 
+</span></span><span class=line><span class=cl>	<span class=n>address</span><span class=p>.</span><span class=n>sin_family</span> <span class=o>=</span> <span class=n>AF_INET</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>	<span class=n>address</span><span class=p>.</span><span class=n>sin_addr</span><span class=p>.</span><span class=n>s_addr</span> <span class=o>=</span> <span class=n>INADDR_ANY</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>	<span class=n>address</span><span class=p>.</span><span class=n>sin_port</span> <span class=o>=</span> <span class=n>htons</span><span class=p>(</span> <span class=n>PORT</span> <span class=p>);</span> 
+</span></span><span class=line><span class=cl>	
+</span></span><span class=line><span class=cl>	<span class=c1>// Forcefully attaching socket to the port 8080 
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=k>if</span> <span class=p>(</span><span class=n>bind</span><span class=p>(</span><span class=n>server_fd</span><span class=p>,</span> <span class=p>(</span><span class=k>struct</span> <span class=nc>sockaddr</span> <span class=o>*</span><span class=p>)</span><span class=o>&amp;</span><span class=n>address</span><span class=p>,</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>address</span><span class=p>))</span> <span class=o>&lt;</span> <span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>{</span> 
+</span></span><span class=line><span class=cl>		<span class=n>perror</span><span class=p>(</span><span class=s>&#34;bind failed&#34;</span><span class=p>);</span> 
+</span></span><span class=line><span class=cl>		<span class=n>exit</span><span class=p>(</span><span class=n>EXIT_FAILURE</span><span class=p>);</span> 
+</span></span><span class=line><span class=cl>	<span class=p>}</span> 
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=p>(</span><span class=n>listen</span><span class=p>(</span><span class=n>server_fd</span><span class=p>,</span> <span class=mi>3</span><span class=p>)</span> <span class=o>&lt;</span> <span class=mi>0</span><span class=p>)</span> 
+</span></span><span class=line><span class=cl>	<span class=p>{</span> 
+</span></span><span class=line><span class=cl>		<span class=n>perror</span><span class=p>(</span><span class=s>&#34;listen&#34;</span><span class=p>);</span> 
+</span></span><span class=line><span class=cl>		<span class=n>exit</span><span class=p>(</span><span class=n>EXIT_FAILURE</span><span class=p>);</span> 
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=p>((</span><span class=n>new_socket</span> <span class=o>=</span> <span class=n>accept</span><span class=p>(</span><span class=n>server_fd</span><span class=p>,</span> <span class=p>(</span><span class=k>struct</span> <span class=nc>sockaddr</span> <span class=o>*</span><span class=p>)</span><span class=o>&amp;</span><span class=n>address</span><span class=p>,</span> <span class=p>(</span><span class=n>socklen_t</span><span class=o>*</span><span class=p>)</span><span class=o>&amp;</span><span class=n>addrlen</span><span class=p>))</span><span class=o>&lt;</span><span class=mi>0</span><span class=p>)</span> 
+</span></span><span class=line><span class=cl>	<span class=p>{</span> 
+</span></span><span class=line><span class=cl>		<span class=n>perror</span><span class=p>(</span><span class=s>&#34;accept&#34;</span><span class=p>);</span> 
+</span></span><span class=line><span class=cl>		<span class=n>exit</span><span class=p>(</span><span class=n>EXIT_FAILURE</span><span class=p>);</span> 
+</span></span><span class=line><span class=cl>	<span class=p>}</span> 
+</span></span><span class=line><span class=cl>	<span class=n>valread</span> <span class=o>=</span> <span class=n>read</span><span class=p>(</span> <span class=n>new_socket</span> <span class=p>,</span> <span class=n>buffer</span><span class=p>,</span> <span class=mi>1024</span><span class=p>);</span> 
+</span></span><span class=line><span class=cl>	<span class=n>printf</span><span class=p>(</span><span class=s>&#34;%s</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>,</span><span class=n>buffer</span> <span class=p>);</span> 
+</span></span><span class=line><span class=cl>	<span class=n>send</span><span class=p>(</span><span class=n>new_socket</span> <span class=p>,</span> <span class=n>hello</span> <span class=p>,</span> <span class=n>strlen</span><span class=p>(</span><span class=n>hello</span><span class=p>)</span> <span class=p>,</span> <span class=mi>0</span> <span class=p>);</span> 
+</span></span><span class=line><span class=cl>	<span class=n>printf</span><span class=p>(</span><span class=s>&#34;Hello message sent</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>);</span> 
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=mi>0</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=接口的创建>接口的创建</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=kt>int</span> <span class=n>socketfd</span> <span class=o>=</span> <span class=n>socket</span><span class=p>(</span><span class=n>domain</span><span class=p>,</span> <span class=n>type</span><span class=p>,</span> <span class=n>protocol</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><p><strong>sockfd:</strong> socket 描述符，一个整数。</p></li><li><p><strong>domain:</strong> 整数，网络层区域。比如：</p><ul><li><code>AF_INET</code> (IPv4 协议)</li><li><code>AF_INET6</code> (IPv6 协议)</li></ul></li><li><p><strong>type:</strong> 交流方式，传输层协议。</p><ul><li><code>SOCK_STREAM</code>: TCP（可信，建立连接）</li><li><code>SOCK_DGRAM</code>: UDP（不可信，不建立连接）</li></ul></li><li><p><strong>protocol:</strong> 网络层协议的值（IP），该值通常设置为 0，意味我们使用默认的协议。</p></li></ul><h3 id=绑定>绑定</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=kt>int</span> <span class=nf>bind</span><span class=p>(</span><span class=kt>int</span> <span class=n>sockfd</span><span class=p>,</span> <span class=k>const</span> <span class=k>struct</span> <span class=nc>sockaddr</span> <span class=o>*</span><span class=n>addr</span><span class=p>,</span> <span class=n>socklen_t</span> <span class=n>addrlen</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p>创建接口之后，上面的 <code>bind</code> 函数会将 <code>sockfd</code> 这个接口绑定到 <code>addr</code> 这个自定义数据结构对象中指定的地址和端口。</p><p>在上面的示例代码中我们使用 <code>INADDR_ANY</code> 来指定 IP 地址，因为我们将服务绑定到了本地的端口。</p><h3 id=监听>监听</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=kt>int</span> <span class=nf>listen</span><span class=p>(</span><span class=kt>int</span> <span class=n>sockfd</span><span class=p>,</span> <span class=kt>int</span> <span class=n>backlog</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p>该语句令服务器接口处于被动接收消息的模式，也就是说，它开始等待客户端向服务器建立连接。</p><p><code>backlog</code> 定义了 <code>socket</code> 在连接时，连接等待队列中可以增长到的最大长度。如果有客户端在最大长度时连接到服务器时，客户端会收到一个 <code>ECONNREFUSED</code> 的错误信息。</p><h3 id=接收>接收</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=kt>int</span> <span class=n>new_socket</span><span class=o>=</span> <span class=n>accept</span><span class=p>(</span><span class=kt>int</span> <span class=n>sockfd</span><span class=p>,</span> <span class=k>struct</span> <span class=nc>sockaddr</span> <span class=o>*</span><span class=n>addr</span><span class=p>,</span> <span class=n>socklen_t</span> <span class=o>*</span><span class=n>addrlen</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p>它将 <code>sockfd</code> 等待队列中最靠前的连接请求解压出来，创建一个新的 <code>socket</code> 连接，返回一个新的描述符。</p><p>到此为止，服务器和和客户端已经建立了连接，可以传送数据。</p><h2 id=客户端>客户端</h2><h3 id=示例代码-1>示例代码</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=c1>// Client side C/C++ program to demonstrate Socket programming 
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=cp>#include</span> <span class=cpf>&lt;stdio.h&gt; </span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;sys/socket.h&gt; </span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;stdlib.h&gt; </span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;netinet/in.h&gt; </span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;string.h&gt; </span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#define PORT 8080 
+</span></span></span><span class=line><span class=cl><span class=cp></span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>main</span><span class=p>(</span><span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=kt>char</span> <span class=k>const</span> <span class=o>*</span><span class=n>argv</span><span class=p>[])</span> 
+</span></span><span class=line><span class=cl><span class=p>{</span> 
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=nc>sockaddr_in</span> <span class=n>address</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>	<span class=kt>int</span> <span class=n>sock</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=n>valread</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>	<span class=k>struct</span> <span class=nc>sockaddr_in</span> <span class=n>serv_addr</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>	<span class=kt>char</span> <span class=o>*</span><span class=n>hello</span> <span class=o>=</span> <span class=s>&#34;Hello from client&#34;</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>	<span class=kt>char</span> <span class=n>buffer</span><span class=p>[</span><span class=mi>1024</span><span class=p>]</span> <span class=o>=</span> <span class=p>{</span><span class=mi>0</span><span class=p>};</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=p>((</span><span class=n>sock</span> <span class=o>=</span> <span class=n>socket</span><span class=p>(</span><span class=n>AF_INET</span><span class=p>,</span> <span class=n>SOCK_STREAM</span><span class=p>,</span> <span class=mi>0</span><span class=p>))</span> <span class=o>&lt;</span> <span class=mi>0</span><span class=p>)</span> 
+</span></span><span class=line><span class=cl>	<span class=p>{</span> 
+</span></span><span class=line><span class=cl>		<span class=n>printf</span><span class=p>(</span><span class=s>&#34;</span><span class=se>\n</span><span class=s> Socket creation error </span><span class=se>\n</span><span class=s>&#34;</span><span class=p>);</span> 
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=o>-</span><span class=mi>1</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>	<span class=p>}</span> 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=n>memset</span><span class=p>(</span><span class=o>&amp;</span><span class=n>serv_addr</span><span class=p>,</span> <span class=sc>&#39;0&#39;</span><span class=p>,</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>serv_addr</span><span class=p>));</span> 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=n>serv_addr</span><span class=p>.</span><span class=n>sin_family</span> <span class=o>=</span> <span class=n>AF_INET</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>	<span class=n>serv_addr</span><span class=p>.</span><span class=n>sin_port</span> <span class=o>=</span> <span class=n>htons</span><span class=p>(</span><span class=n>PORT</span><span class=p>);</span> 
+</span></span><span class=line><span class=cl>	
+</span></span><span class=line><span class=cl>	<span class=c1>// Convert IPv4 and IPv6 addresses from text to binary form 
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=k>if</span><span class=p>(</span><span class=n>inet_pton</span><span class=p>(</span><span class=n>AF_INET</span><span class=p>,</span> <span class=s>&#34;127.0.0.1&#34;</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>serv_addr</span><span class=p>.</span><span class=n>sin_addr</span><span class=p>)</span><span class=o>&lt;=</span><span class=mi>0</span><span class=p>)</span> 
+</span></span><span class=line><span class=cl>	<span class=p>{</span> 
+</span></span><span class=line><span class=cl>		<span class=n>printf</span><span class=p>(</span><span class=s>&#34;</span><span class=se>\n</span><span class=s>Invalid address/ Address not supported </span><span class=se>\n</span><span class=s>&#34;</span><span class=p>);</span> 
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=o>-</span><span class=mi>1</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>	<span class=p>}</span> 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=p>(</span><span class=n>connect</span><span class=p>(</span><span class=n>sock</span><span class=p>,</span> <span class=p>(</span><span class=k>struct</span> <span class=nc>sockaddr</span> <span class=o>*</span><span class=p>)</span><span class=o>&amp;</span><span class=n>serv_addr</span><span class=p>,</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>serv_addr</span><span class=p>))</span> <span class=o>&lt;</span> <span class=mi>0</span><span class=p>)</span> 
+</span></span><span class=line><span class=cl>	<span class=p>{</span> 
+</span></span><span class=line><span class=cl>		<span class=n>printf</span><span class=p>(</span><span class=s>&#34;</span><span class=se>\n</span><span class=s>Connection Failed </span><span class=se>\n</span><span class=s>&#34;</span><span class=p>);</span> 
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=o>-</span><span class=mi>1</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl>	<span class=p>}</span> 
+</span></span><span class=line><span class=cl>	<span class=n>send</span><span class=p>(</span><span class=n>sock</span> <span class=p>,</span> <span class=n>hello</span> <span class=p>,</span> <span class=n>strlen</span><span class=p>(</span><span class=n>hello</span><span class=p>)</span> <span class=p>,</span> <span class=mi>0</span> <span class=p>);</span> 
+</span></span><span class=line><span class=cl>	<span class=n>printf</span><span class=p>(</span><span class=s>&#34;Hello message sent</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>);</span> 
+</span></span><span class=line><span class=cl>	<span class=n>valread</span> <span class=o>=</span> <span class=n>read</span><span class=p>(</span> <span class=n>sock</span> <span class=p>,</span> <span class=n>buffer</span><span class=p>,</span> <span class=mi>1024</span><span class=p>);</span> 
+</span></span><span class=line><span class=cl>	<span class=n>printf</span><span class=p>(</span><span class=s>&#34;%s</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>,</span><span class=n>buffer</span> <span class=p>);</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=mi>0</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl><span class=p>}</span> 
+</span></span></code></pre></td></tr></table></div></div><h3 id=接口的创建-1>接口的创建</h3><p>与服务器端接口的创建过程相同。</p><h3 id=连接的建立>连接的建立</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=kt>int</span> <span class=nf>connect</span><span class=p>(</span><span class=kt>int</span> <span class=n>sockfd</span><span class=p>,</span> <span class=k>const</span> <span class=k>struct</span> <span class=nc>sockaddr</span> <span class=o>*</span><span class=n>addr</span><span class=p>,</span> <span class=n>socklen_t</span> <span class=n>addrlen</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>connect</code> 这个系统函数调用，将描述符 <code>sockfd</code> 与由 <code>addr</code> 参数确定的地址和端口连接起来。</p><h2 id=总结>总结</h2><p><code>TCP-IP</code> 协议下流程大致如下：</p><p><img class=lazyload src=/svg/loading.min.svg data-src=../TCP_IP_socket_diagram.png data-srcset="../TCP_IP_socket_diagram.png, ../TCP_IP_socket_diagram.png 1.5x, ../TCP_IP_socket_diagram.png 2x" data-sizes=auto alt=../TCP_IP_socket_diagram.png title=TCP-IP></p></div><div id=comments><div id=valine class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.</noscript></div></div></div></main><footer class=footer><div class=footer-container><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://shesl-meow.github.io target=_blank>佘崧林</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=/lib/valine/valine.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/valine@1.4.18/dist/Valine.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/mhchem.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:50},comment:{valine:{appId:"zDVJohJIQbD6f3W267xtaYRC-gzGzoHsz",appKey:"ewsfU9ocNOeuvt0MzONe6yKx",avatar:"mp",el:"#valine",emojiCDN:"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/",emojiMaps:{100:"1f4af.png",alien:"1f47d.png",anger:"1f4a2.png",angry:"1f620.png",anguished:"1f627.png",astonished:"1f632.png",black_heart:"1f5a4.png",blue_heart:"1f499.png",blush:"1f60a.png",bomb:"1f4a3.png",boom:"1f4a5.png",broken_heart:"1f494.png",brown_heart:"1f90e.png",clown_face:"1f921.png",cold_face:"1f976.png",cold_sweat:"1f630.png",confounded:"1f616.png",confused:"1f615.png",cry:"1f622.png",crying_cat_face:"1f63f.png",cupid:"1f498.png",dash:"1f4a8.png",disappointed:"1f61e.png",disappointed_relieved:"1f625.png",dizzy:"1f4ab.png",dizzy_face:"1f635.png",drooling_face:"1f924.png",exploding_head:"1f92f.png",expressionless:"1f611.png",face_vomiting:"1f92e.png",face_with_cowboy_hat:"1f920.png",face_with_hand_over_mouth:"1f92d.png",face_with_head_bandage:"1f915.png",face_with_monocle:"1f9d0.png",face_with_raised_eyebrow:"1f928.png",face_with_rolling_eyes:"1f644.png",face_with_symbols_on_mouth:"1f92c.png",face_with_thermometer:"1f912.png",fearful:"1f628.png",flushed:"1f633.png",frowning:"1f626.png",ghost:"1f47b.png",gift_heart:"1f49d.png",green_heart:"1f49a.png",grimacing:"1f62c.png",grin:"1f601.png",grinning:"1f600.png",hankey:"1f4a9.png",hear_no_evil:"1f649.png",heart:"2764-fe0f.png",heart_decoration:"1f49f.png",heart_eyes:"1f60d.png",heart_eyes_cat:"1f63b.png",heartbeat:"1f493.png",heartpulse:"1f497.png",heavy_heart_exclamation_mark_ornament:"2763-fe0f.png",hole:"1f573-fe0f.png",hot_face:"1f975.png",hugging_face:"1f917.png",hushed:"1f62f.png",imp:"1f47f.png",innocent:"1f607.png",japanese_goblin:"1f47a.png",japanese_ogre:"1f479.png",joy:"1f602.png",joy_cat:"1f639.png",kiss:"1f48b.png",kissing:"1f617.png",kissing_cat:"1f63d.png",kissing_closed_eyes:"1f61a.png",kissing_heart:"1f618.png",kissing_smiling_eyes:"1f619.png",laughing:"1f606.png",left_speech_bubble:"1f5e8-fe0f.png",love_letter:"1f48c.png",lying_face:"1f925.png",mask:"1f637.png",money_mouth_face:"1f911.png",nauseated_face:"1f922.png",nerd_face:"1f913.png",neutral_face:"1f610.png",no_mouth:"1f636.png",open_mouth:"1f62e.png",orange_heart:"1f9e1.png",partying_face:"1f973.png",pensive:"1f614.png",persevere:"1f623.png",pleading_face:"1f97a.png",pouting_cat:"1f63e.png",purple_heart:"1f49c.png",rage:"1f621.png",relaxed:"263a-fe0f.png",relieved:"1f60c.png",revolving_hearts:"1f49e.png",right_anger_bubble:"1f5ef-fe0f.png",robot_face:"1f916.png",rolling_on_the_floor_laughing:"1f923.png",scream:"1f631.png",scream_cat:"1f640.png",see_no_evil:"1f648.png",shushing_face:"1f92b.png",skull:"1f480.png",skull_and_crossbones:"2620-fe0f.png",sleeping:"1f634.png",sleepy:"1f62a.png",slightly_frowning_face:"1f641.png",slightly_smiling_face:"1f642.png",smile:"1f604.png",smile_cat:"1f638.png",smiley:"1f603.png",smiley_cat:"1f63a.png",smiling_face_with_3_hearts:"1f970.png",smiling_imp:"1f608.png",smirk:"1f60f.png",smirk_cat:"1f63c.png",sneezing_face:"1f927.png",sob:"1f62d.png",space_invader:"1f47e.png",sparkling_heart:"1f496.png",speak_no_evil:"1f64a.png",speech_balloon:"1f4ac.png","star-struck":"1f929.png",stuck_out_tongue:"1f61b.png",stuck_out_tongue_closed_eyes:"1f61d.png",stuck_out_tongue_winking_eye:"1f61c.png",sunglasses:"1f60e.png",sweat:"1f613.png",sweat_drops:"1f4a6.png",sweat_smile:"1f605.png",thinking_face:"1f914.png",thought_balloon:"1f4ad.png",tired_face:"1f62b.png",triumph:"1f624.png",two_hearts:"1f495.png",unamused:"1f612.png",upside_down_face:"1f643.png",weary:"1f629.png",white_frowning_face:"2639-fe0f.png",white_heart:"1f90d.png",wink:"1f609.png",woozy_face:"1f974.png",worried:"1f61f.png",yawning_face:"1f971.png",yellow_heart:"1f49b.png",yum:"1f60b.png",zany_face:"1f92a.png",zipper_mouth_face:"1f910.png",zzz:"1f4a4.png"},enableQQ:!1,highlight:!0,lang:"zh-CN",pageSize:10,placeholder:"你的评论 ...",recordIP:!0,serverURLs:"https://zdvjohji.lc-cn-n1-shared.com",visitor:!0}},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!0,left:"\\begin{equation}",right:"\\end{equation}"},{display:!0,left:"\\begin{equation*}",right:"\\end{equation*}"},{display:!0,left:"\\begin{align}",right:"\\end{align}"},{display:!0,left:"\\begin{align*}",right:"\\end{align*}"},{display:!0,left:"\\begin{alignat}",right:"\\end{alignat}"},{display:!0,left:"\\begin{alignat*}",right:"\\end{alignat*}"},{display:!0,left:"\\begin{gather}",right:"\\end{gather}"},{display:!0,left:"\\begin{CD}",right:"\\end{CD}"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"",algoliaIndex:"",algoliaSearchKey:"",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:30,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.c1d5acc03abc8af9ee0a42aa4e942566a338a3e29d21b6c9f11536101f6914ad.js integrity="sha256-wdWswDq8ivnuCkKqTpQlZqM4o+KdIbbJ8RU2EB9pFK0="></script></body></html>
