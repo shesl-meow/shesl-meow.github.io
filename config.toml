@@ -58,6 +58,14 @@ enableEmoji = true
     name = "笔记"
     url = "/note/"
     title = ""
+  [[menu.main]]
+    weight = 5
+    identifier = "games"
+    pre = ""
+    post = ""
+    name = "游戏"
+    url = "/games/"
+    title = ""
 
 [params]
   # site default theme ["auto", "light", "dark"]
