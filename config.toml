@@ -58,14 +58,18 @@ enableEmoji = true
     name = "笔记"
     url = "/note/"
     title = ""
+
   [[menu.main]]
     weight = 5
     identifier = "games"
-    pre = ""
-    post = ""
     name = "游戏"
-    url = "/games/"
-    title = ""
+  [[menu.main]]
+    parent = "games"
+    name = "2048"
+    pre = "<i class='fa-solid fa-chess-board'></i>"
+    identifier = "games2048"
+    url = "/games/2048/"
+    weight = 1
 
 [params]
   # site default theme ["auto", "light", "dark"]

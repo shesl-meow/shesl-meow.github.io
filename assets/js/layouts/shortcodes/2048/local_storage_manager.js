@@ -25,6 +25,7 @@ export default function LocalStorageManager() {
   var supported = this.localStorageSupported();
   this.storage = supported ? window.localStorage : window.fakeStorage;
 }
+
 LocalStorageManager.prototype.localStorageSupported = function () {
   var testKey = "test";
 

@@ -1,8 +1,8 @@
-{{ $cssOptions := (dict "targetPath" "/games/2048/css/main.css" "outputStyle" "compressed" "enableSourceMap" true) }}
-{{ $cssResources := resources.Get "games/2048/css/main.scss" | resources.ToCSS $cssOptions }}
+{{ $cssOptions := (dict "targetPath" "/css/layouts/shortcodes/2048/index.css" "outputStyle" "compressed" "enableSourceMap" true) }}
+{{ $cssResources := resources.Get "css/layouts/shortcodes/2048/index.scss" | resources.ToCSS $cssOptions }}
 
-{{ $jsOptions := (dict "targetPath" "/games/2048/js/index.js") }}
-{{ $jsResources := resources.Get "games/2048/js/index.js" | js.Build $jsOptions }}
+{{ $jsOptions := (dict "targetPath" "/js/layouts/shortcodes/2048/index.js") }}
+{{ $jsResources := resources.Get "js/layouts/shortcodes/2048/index.js" | js.Build $jsOptions }}
 
 <div class="shortcodes-2048-container">
   <link href="{{ $cssResources.RelPermalink }}" rel="stylesheet" type="text/css">

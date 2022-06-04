@@ -28,7 +28,7 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
       if (metadata.over) {
         self.message(false); // You lose
       } else if (metadata.won) {
-        self.message(true); // Happy QIXI to SHIBO!!!
+        self.message(true); // You win!
       }
     }
 
@@ -126,7 +126,7 @@ HTMLActuator.prototype.updateBestScore = function (bestScore) {
 
 HTMLActuator.prototype.message = function (won) {
   var type    = won ? "game-won" : "game-over";
-  var message = won ? "Happy QIXI to SHIBO!!!" : "You've seen the suprise!";
+  var message = won ? "You win!" : "Game over!";
 
   this.messageContainer.classList.add(type);
   this.messageContainer.getElementsByTagName("p")[0].textContent = message;
@@ -137,5 +137,3 @@ HTMLActuator.prototype.clearMessage = function () {
   this.messageContainer.classList.remove("game-won");
   this.messageContainer.classList.remove("game-over");
 };
-
-export {HTMLActuator};
