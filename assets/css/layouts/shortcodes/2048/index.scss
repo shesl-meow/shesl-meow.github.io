@@ -347,7 +347,12 @@ $transition-speed: 100ms;
         }
 
         // Set background
-        background: $mixed-background;
+        @if $exponent < 12 {
+          background-image: url("/layouts/shortcodes/2048/#{$exponent}.jpg");
+          background-size: contain;
+        } @else {
+          background: $mixed-background;
+        }
 
         // Add glow
         $glow-opacity: max($exponent - 4, 0) / ($limit - 4);
