@@ -195,7 +195,7 @@ enableEmoji = true
     enable = true
     # type of search engine ["lunr", "algolia"]
     # 搜索引擎的类型 ["lunr", "algolia"]
-    type = "algolia"
+    type = "lunr"
     # max index length of the chunked content
     # 文章内容最长索引长度
     contentLength = 4000
