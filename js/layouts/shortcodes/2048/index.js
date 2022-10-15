@@ -22,9 +22,12 @@
       window.requestAnimationFrame = function(callback) {
         var currTime = new Date().getTime();
         var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-        var id = window.setTimeout(function() {
-          callback(currTime + timeToCall);
-        }, timeToCall);
+        var id = window.setTimeout(
+          function() {
+            callback(currTime + timeToCall);
+          },
+          timeToCall
+        );
         lastTime = currTime + timeToCall;
         return id;
       };
@@ -238,7 +241,10 @@
   GameManager.prototype.setup = function() {
     var previousState = this.storageManager.getGameState();
     if (previousState) {
-      this.grid = new Grid(previousState.grid.size, previousState.grid.cells);
+      this.grid = new Grid(
+        previousState.grid.size,
+        previousState.grid.cells
+      );
       this.score = previousState.score;
       this.over = previousState.over;
       this.won = previousState.won;
