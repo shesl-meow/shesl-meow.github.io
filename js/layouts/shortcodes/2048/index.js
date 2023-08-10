@@ -20,7 +20,7 @@
     }
     if (!window.requestAnimationFrame) {
       window.requestAnimationFrame = function(callback) {
-        var currTime = new Date().getTime();
+        var currTime = (/* @__PURE__ */ new Date()).getTime();
         var timeToCall = Math.max(0, 16 - (currTime - lastTime));
         var id = window.setTimeout(
           function() {
@@ -355,9 +355,13 @@
   GameManager.prototype.getVector = function(direction) {
     var map = {
       0: { x: 0, y: -1 },
+      // Up
       1: { x: 1, y: 0 },
+      // Right
       2: { x: 0, y: 1 },
+      // Down
       3: { x: -1, y: 0 }
+      // Left
     };
     return map[direction];
   };
@@ -382,6 +386,7 @@
     return {
       farthest: previous,
       next: cell
+      // Used to check if a merge is required
     };
   };
   GameManager.prototype.movesAvailable = function() {
@@ -443,17 +448,29 @@
     var self = this;
     var map = {
       38: 0,
+      // Up
       39: 1,
+      // Right
       40: 2,
+      // Down
       37: 3,
+      // Left
       75: 0,
+      // Vim up
       76: 1,
+      // Vim right
       74: 2,
+      // Vim down
       72: 3,
+      // Vim left
       87: 0,
+      // W
       68: 1,
+      // D
       83: 2,
+      // S
       65: 3
+      // A
     };
     document.addEventListener("keydown", function(event) {
       var modifiers = event.altKey || event.ctrlKey || event.metaKey || event.shiftKey;
