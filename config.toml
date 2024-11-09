@@ -66,9 +66,16 @@ enableEmoji = true
   [[menu.main]]
     parent = "games"
     name = "2048"
-    pre = "<i class='fa-solid fa-chess-board'></i>"
+    pre = "<i class='fa-solid fa-puzzle-piece'></i>"
     identifier = "games2048"
     url = "/games/2048/"
+    weight = 1  
+  [[menu.main]]
+    parent = "games"
+    name = "Schulte"
+    pre = "<i class='fa-solid fa-chess-board'></i>"
+    identifier = "gamesSchulte"
+    url = "/games/schulte/"
     weight = 1
 
 [params]

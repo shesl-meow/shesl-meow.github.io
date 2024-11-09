@@ -4,6 +4,12 @@ on:
     branches:
       - hugo-loveit
   pull_request: null
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  
 jobs:
   deploy:
     runs-on: ubuntu-20.04
@@ -16,7 +22,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: 'latest'
+          hugo-version: '0.124.0'
           extended: true
 
       - name: Build
@@ -25,7 +31,8 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          personal_token: ${{ secrets.ACCESS_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          personal_token: ${{ secrets.GITHUB_TOKEN }}
           user_name: shesl-meow
           user_email: shesl-meow@qq.com
           publish_branch: master
