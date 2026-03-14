@@ -1,0 +1,73 @@
+{{ $cssOptions := (dict "targetPath" "/css/layouts/shortcodes/2048/index.css" "outputStyle" "compressed" "enableSourceMap" true) }}
+{{ $cssResources := resources.Get "css/layouts/shortcodes/2048/index.scss" | resources.ToCSS $cssOptions }}
+
+{{ $jsOptions := (dict "targetPath" "/js/layouts/shortcodes/2048/index.js") }}
+{{ $jsResources := resources.Get "js/layouts/shortcodes/2048/index.js" | js.Build $jsOptions }}
+
+<div class="shortcodes-2048-container">
+  <link href="{{ $cssResources.RelPermalink }}" rel="stylesheet" type="text/css">
+  <div class="heading">
+    <h1 class="title">2048</h1>
+    <div class="scores-container">
+      <div class="score-container">0</div>
+      <div class="best-container">0</div>
+    </div>
+  </div>
+
+  <div class="above-game">
+    <p class="game-intro">给石博同学的七夕节礼物。<strong>七夕节快乐!</strong></p>
+    <a class="restart-button">New Game</a>
+  </div>
+
+  <div class="game-container">
+    <div class="game-message">
+      <p></p>
+      <div class="lower">
+        <a class="keep-playing-button">Keep going</a>
+        <a class="retry-button">Try again</a>
+      </div>
+    </div>
+
+    <div class="grid-container">
+      <div class="grid-row">
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+      </div>
+      <div class="grid-row">
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+      </div>
+      <div class="grid-row">
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+      </div>
+      <div class="grid-row">
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+        <div class="grid-cell"></div>
+      </div>
+    </div>
+
+    <div class="tile-container">
+
+    </div>
+  </div>
+
+  <p class="game-explanation">
+    <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>
+  </p>
+  <hr>
+  <p>
+    <strong class="important">Note:</strong> A game fork from <a href="https://github.com/gabrielecirulli/2048">2048</a> by <a href="https://github.com/shesl-meow">@shesl-meow</a>
+  </p>
+  <hr>
+  <script src="{{ $jsResources.RelPermalink }}"></script>
+</div>
+
