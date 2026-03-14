@@ -1,0 +1,51 @@
+@import "./helpers";
+
+
+@include keyframes(move-up) {
+    0% {
+      top: 25px;
+      opacity: 1;
+    }
+  
+    100% {
+      top: -50px;
+      opacity: 0;
+    }
+  }
+  
+  @include keyframes(fade-in) {
+    0% {
+      opacity: 0;
+    }
+  
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  @include keyframes(appear) {
+    0% {
+      opacity: 0;
+      @include transform(scale(0));
+    }
+  
+    100% {
+      opacity: 1;
+      @include transform(scale(1));
+    }
+  }
+  
+  
+  @include keyframes(pop) {
+    0% {
+      @include transform(scale(0));
+    }
+  
+    50% {
+      @include transform(scale(1.2));
+    }
+  
+    100% {
+      @include transform(scale(1));
+    }
+  }
