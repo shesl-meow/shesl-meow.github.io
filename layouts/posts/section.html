@@ -1,0 +1,25 @@
+{{- define "title" -}}
+  Posts - {{ .Site.Title }}
+{{- end -}}
+
+{{- define "content" -}}
+  {{- $pages := .RegularPages -}}
+  {{- with .Site.Params.section.paginate | default .Site.Params.paginate -}}
+    {{- $pages = $.Paginate $pages . -}}
+  {{- else -}}
+    {{- $pages = .Paginate $pages -}}
+  {{- end -}}
+
+  <div class="page meow-posts-page">
+    <section class="meow-list-hero">
+      <h1>Posts</h1>
+    </section>
+
+    <section class="meow-post-list">
+      {{- range $pages.Pages -}}
+        {{- .Render "summary" -}}
+      {{- end -}}
+      {{- partial "paginator.html" . -}}
+    </section>
+  </div>
+{{- end -}}

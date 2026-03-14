@@ -1,0 +1,134 @@
+{{- define "title" -}}
+  {{ .Site.Title }}
+{{- end -}}
+
+{{- define "content" -}}
+  {{- $brand := .Site.Params.brand -}}
+  {{- $posts := where .Site.RegularPages "Section" "posts" -}}
+  {{- $notes := where .Site.RegularPages "Section" "note" -}}
+  {{- $latestPosts := first 3 (sort $posts "Date" "desc") -}}
+  {{- $latestNotes := first 6 (sort $notes "Lastmod" "desc") -}}
+  {{- $intro := .Site.Params.home.profile.subtitle | default ($brand.intro | default .Site.Params.description) -}}
+  {{- $introNormalized := replaceRE `(?i)<br\s*/?>` "|||" $intro -}}
+  {{- $introPartsRaw := split $introNormalized "|||" -}}
+  {{- $introParts := slice -}}
+  {{- range $introPartsRaw -}}
+    {{- $part := replaceRE `^\s+|\s+$` "" . -}}
+    {{- if $part -}}
+      {{- $introParts = $introParts | append $part -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $hasStatus := gt (len $introParts) 1 -}}
+  {{- $statusRaw := "" -}}
+  {{- if $hasStatus -}}
+    {{- $statusRaw = index $introParts (sub (len $introParts) 1) | replaceRE `(?i)^NOW\s*:?\s*` "" -}}
+  {{- end -}}
+  {{- $socialMap := resources.Get "data/social.yml" | transform.Unmarshal -}}
+  {{- $socialArr := slice -}}
+  {{- range $key, $value := .Site.Params.social -}}
+    {{- $social := $key | lower | index $socialMap | default dict -}}
+    {{- if $value -}}
+      {{- if reflect.IsMap $value -}}
+        {{- with $value.weight -}}
+          {{- $social = dict "Weight" . | merge $social -}}
+        {{- end -}}
+        {{- with $value.prefix -}}
+          {{- $social = dict "Prefix" . | merge $social -}}
+        {{- end -}}
+        {{- with $value.template -}}
+          {{- $social = dict "Template" . | merge $social -}}
+        {{- end -}}
+        {{- with $value.id -}}
+          {{- $social = dict "Id" . | merge $social -}}
+        {{- end -}}
+        {{- with $value.url -}}
+          {{- $social = dict "Url" . | merge $social -}}
+        {{- end -}}
+        {{- with $value.title -}}
+          {{- $social = dict "Title" . | merge $social -}}
+        {{- end -}}
+        {{- with $value.newtab -}}
+          {{- $social = dict "Newtab" . | merge $social -}}
+        {{- end -}}
+        {{- with $value.icon -}}
+          {{- $social = dict "Icon" . | merge $social -}}
+        {{- end -}}
+        {{- with $value.rel -}}
+          {{- $social = dict "Rel" . | merge $social -}}
+        {{- end -}}
+      {{- else if ne $value true -}}
+        {{- $social = dict "Id" $value | merge $social -}}
+      {{- end -}}
+      {{- if $social.Icon.Simpleicons -}}
+        {{- $prefix := ($.Scratch.Get "cdn" | default dict).simpleIconsPrefix -}}
+        {{- $social = dict "Prefix" $prefix | dict "Icon" | merge $social -}}
+      {{- end -}}
+      {{- $socialArr = $socialArr | append $social -}}
+    {{- end -}}
+  {{- end -}}
+
+  <div class="page meow-home meow-home-minimal">
+    <section class="meow-hero meow-hero-legacy">
+      <div class="meow-avatar-wrap">
+        <img src="/avatar.png" alt="shesl avatar" class="meow-avatar">
+        <a class="meow-avatar-contact" href="mailto:shesl-meow@qq.com">Contact</a>
+      </div>
+      <h1 class="meow-name">{{ .Site.Title | emojify }}</h1>
+      <div class="meow-intro">
+        {{- if $hasStatus -}}
+          <div class="meow-intro-lines">
+            {{- range first (sub (len $introParts) 1) $introParts -}}
+              <p class="meow-intro-line">{{ . | emojify | safeHTML }}</p>
+            {{- end -}}
+          </div>
+          <div class="meow-status-line" aria-label="current status">
+            <span class="meow-status-dot" aria-hidden="true"></span>
+            <i class="fa-solid fa-satellite-dish" aria-hidden="true"></i>
+            <span>{{ $statusRaw | emojify | safeHTML }}</span>
+          </div>
+        {{- else -}}
+          <p class="meow-intro-line">{{ $intro | emojify | safeHTML }}</p>
+        {{- end -}}
+      </div>
+      <div class="meow-contact-links meow-hero-links">
+        {{- range sort $socialArr "Weight" -}}
+          {{- partial "plugin/social.html" . -}}
+        {{- end -}}
+      </div>
+    </section>
+
+    <section class="meow-min-section">
+      <div class="meow-min-head">
+        <h2>Latest Posts</h2>
+        <a href="/posts/">More ({{ len $posts }})</a>
+      </div>
+      <div class="meow-post-cards">
+        {{- range $latestPosts -}}
+          <article class="meow-post-card">
+            <h3><a href="{{ .RelPermalink }}">{{ .Title | emojify }}</a></h3>
+            <p>{{ .Summary | plainify | truncate 80 }}</p>
+            <div class="meow-post-card-meta">
+              <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+            </div>
+          </article>
+        {{- end -}}
+      </div>
+    </section>
+
+    <section class="meow-min-section">
+      <div class="meow-min-head">
+        <h2>Latest Notes</h2>
+        <a href="/note/">More ({{ len $notes }})</a>
+      </div>
+      <ul class="meow-min-list">
+        {{- range $latestNotes -}}
+          <li>
+            <a href="{{ .RelPermalink }}">{{ .Title | emojify }}</a>
+            <time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod.Format "2006-01-02" }}</time>
+          </li>
+        {{- end -}}
+      </ul>
+    </section>
+
+  </div>
+{{- end -}}

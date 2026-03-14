@@ -1,0 +1,41 @@
+{{- define "title" -}}
+  Notes - {{ .Site.Title }}
+{{- end -}}
+
+{{- define "content" -}}
+  {{- $files := sort .RegularPagesRecursive "Lastmod" "desc" -}}
+  {{- $files = .Paginate $files 80 -}}
+
+  <div class="page meow-notes-page">
+    <section class="meow-list-hero">
+      <h1>Notes</h1>
+    </section>
+
+    <section class="meow-note-taxonomy">
+      <h2>Knowledge Areas</h2>
+      <div class="meow-note-grid">
+        {{- range .Sections.ByTitle -}}
+          <a class="meow-note-domain" href="{{ .RelPermalink }}">
+            <h3>{{ .Title }}</h3>
+            <p>{{ len .RegularPagesRecursive }} docs</p>
+          </a>
+        {{- end -}}
+      </div>
+    </section>
+
+    <section class="meow-note-files">
+      <div class="meow-min-head">
+        <h2>Recent Note Files</h2>
+      </div>
+      <ul class="meow-min-list">
+        {{- range $files.Pages -}}
+          <li>
+            <a href="{{ .RelPermalink }}">{{ .Title | emojify }}</a>
+            <time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod.Format "2006-01-02" }}</time>
+          </li>
+        {{- end -}}
+      </ul>
+      {{- partial "paginator.html" . -}}
+    </section>
+  </div>
+{{- end -}}
