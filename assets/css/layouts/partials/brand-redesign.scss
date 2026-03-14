@@ -1,0 +1,563 @@
+.page.meow-home-minimal {
+  max-width: 760px;
+  margin: 1.2rem auto 0;
+}
+
+.meow-home-minimal {
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+
+.meow-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.28rem;
+  margin-bottom: 1.2rem;
+}
+
+.meow-kicker {
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8d8d8d;
+}
+
+[theme=dark] .meow-kicker {
+  color: #8f8f98;
+}
+
+.meow-tagline {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.meow-intro {
+  margin-top: 0.15rem;
+  font-size: 1.03rem;
+  line-height: 1.72;
+  font-weight: 400;
+  max-width: 43rem;
+  color: #2f2f2f;
+  padding: 0.1rem 0.3rem;
+}
+
+[theme=dark] .meow-intro {
+  color: #d0d0d7;
+}
+
+.meow-intro-lines {
+  display: grid;
+  gap: 0.06rem;
+}
+
+.meow-intro-line {
+  margin: 0.08rem 0;
+  font-size: 0.96rem;
+}
+
+.meow-status-line {
+  margin: 0.16rem auto 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  padding: 0.18rem 0.58rem 0.2rem;
+  border: 1px dashed #d8d8d8;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.03);
+  font-size: 1.03rem;
+  line-height: 1.3;
+}
+
+.meow-status-line i {
+  font-size: 0.8rem;
+  opacity: 0.82;
+}
+
+.meow-status-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: #2db46e;
+  box-shadow: 0 0 0 0 rgba(45, 180, 110, 0.44);
+  animation: meowPulse 2.2s ease-out infinite;
+}
+
+[theme=dark] .meow-status-line {
+  border-color: #4a4a4a;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+[theme=dark] .meow-status-dot {
+  background: #42c884;
+  box-shadow: 0 0 0 0 rgba(66, 200, 132, 0.45);
+}
+
+@keyframes meowPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(45, 180, 110, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(45, 180, 110, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(45, 180, 110, 0);
+  }
+}
+
+.meow-hero-side {
+  grid-area: side;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.55rem;
+  align-self: center;
+  margin-top: 0;
+}
+
+.meow-avatar-wrap {
+  position: relative;
+  transition: transform 0.35s ease;
+}
+
+.meow-avatar-wrap:hover {
+  transform: translateY(-0.45rem);
+}
+
+.meow-avatar {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 0 0 0.32rem rgba(0, 0, 0, 0.075);
+  transition: box-shadow 0.35s ease;
+}
+
+[theme=dark] .meow-avatar {
+  border-color: #3e3e3e;
+  box-shadow: 0 0 0 0.32rem rgba(255, 255, 255, 0.08);
+}
+
+.meow-avatar-wrap:hover .meow-avatar {
+  box-shadow: 0 0 0 0.38rem rgba(0, 0, 0, 0.1);
+}
+
+[theme=dark] .meow-avatar-wrap:hover .meow-avatar {
+  box-shadow: 0 0 0 0.38rem rgba(255, 255, 255, 0.11);
+}
+
+.meow-avatar-contact {
+  position: absolute;
+  right: 0;
+  bottom: 0.5rem;
+  transform: translateX(50%);
+  border: 1px solid #dbdbdb;
+  background: #fff;
+  color: #3d3d3d;
+  border-radius: 999px;
+  padding: 0.02rem 0.43rem;
+  font-size: 0.66rem;
+  line-height: 1.35;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
+}
+
+.meow-avatar-contact:hover {
+  text-decoration: none;
+  border-color: #c6c6c6;
+}
+
+[theme=dark] .meow-avatar-contact {
+  border-color: #4a4a4a;
+  background: #2a2b2e;
+  color: #d8d8de;
+}
+
+.meow-home-minimal p {
+  margin: 0.6rem 0;
+}
+
+.meow-intro .meow-intro-line {
+  margin: 0.08rem 0;
+}
+
+.meow-name {
+  margin: 0.3rem 0 0.1rem;
+  font-size: 2rem;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.meow-intro-block {
+  margin-bottom: 1.2rem;
+}
+
+.meow-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.35rem;
+}
+
+.meow-chip-row a {
+  border: 1px solid #e8e8e8;
+  border-radius: 0.4rem;
+  padding: 0.05rem 0.55rem;
+  font-size: 0.84rem;
+  color: inherit;
+  background: rgba(0, 0, 0, 0.015);
+}
+
+[theme=dark] .meow-chip-row a {
+  border-color: #424242;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.meow-min-section {
+  margin-top: 1.25rem;
+}
+
+.meow-min-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.15rem;
+}
+
+.meow-min-head h2 {
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #7a7a7a;
+}
+
+[theme=dark] .meow-min-head h2 {
+  color: #8c8c93;
+}
+
+.meow-min-head a {
+  font-size: 0.9rem;
+}
+
+.meow-contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0.1rem;
+  font-size: 1.2rem;
+}
+
+.meow-hero-links {
+  margin-top: 0.62rem;
+  margin-bottom: 0.15rem;
+}
+
+.meow-contact-links a {
+  color: inherit;
+  line-height: 1;
+  opacity: 0.92;
+}
+
+.meow-contact-links a:hover {
+  text-decoration: none;
+  opacity: 1;
+}
+
+.meow-contact-links img {
+  height: 1.2rem;
+  width: 1.2rem;
+}
+
+.meow-min-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px dashed #e6e6e6;
+}
+
+[theme=dark] .meow-min-list {
+  border-top-color: #3f3f3f;
+}
+
+.meow-min-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: baseline;
+  border-bottom: 1px dashed #e6e6e6;
+  padding: 0.5rem 0;
+}
+
+[theme=dark] .meow-min-list li {
+  border-bottom-color: #3f3f3f;
+}
+
+.meow-min-list li a {
+  flex: 1;
+}
+
+.meow-min-list li time {
+  white-space: nowrap;
+  font-size: 0.82rem;
+  color: #959595;
+}
+
+[theme=dark] .meow-min-list li time {
+  color: #8e8e97;
+}
+
+.meow-post-cards {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.meow-post-card {
+  border: 1px dashed #e3e3e3;
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.75rem;
+}
+
+[theme=dark] .meow-post-card {
+  border-color: #414141;
+}
+
+.meow-post-card h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
+
+.meow-post-card p {
+  margin: 0.3rem 0 0.2rem;
+  color: #787878;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+[theme=dark] .meow-post-card p {
+  color: #9898a1;
+}
+
+.meow-post-card-meta {
+  font-size: 0.82rem;
+  color: #939393;
+}
+
+[theme=dark] .meow-post-card-meta {
+  color: #8e8e97;
+}
+
+.page.meow-posts-page,
+.page.meow-notes-page {
+  max-width: 860px;
+  margin: 1rem auto 0;
+}
+
+.page.meow-posts-page .meow-list-hero,
+.page.meow-notes-page .meow-list-hero {
+  margin-bottom: 1rem;
+}
+
+.page.meow-posts-page .meow-list-hero h1,
+.page.meow-notes-page .meow-list-hero h1 {
+  margin: 0;
+  font-size: 2.05rem;
+  letter-spacing: -0.01em;
+}
+
+.page.meow-posts-page .summary {
+  border: 1px dashed #e3e3e3;
+  border-radius: 0.55rem;
+  padding: 0.65rem 0.85rem 0.6rem;
+  margin-bottom: 0.7rem;
+}
+
+[theme=dark] .page.meow-posts-page .summary {
+  border-color: #414141;
+}
+
+.page.meow-posts-page .summary .single-title {
+  margin-top: 0.1rem;
+  margin-bottom: 0.18rem;
+  font-size: 1.24rem;
+  line-height: 1.4;
+}
+
+.page.meow-posts-page .summary .post-meta {
+  margin-top: 0.15rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.82rem;
+}
+
+.page.meow-posts-page .summary .post-meta .post-author .author i {
+  display: none !important;
+}
+
+.page.meow-posts-page .summary .post-meta .post-author .author {
+  color: #7e7e7e !important;
+  font-weight: 400;
+  font-size: 0.78rem;
+}
+
+[theme=dark] .page.meow-posts-page .summary .post-meta .post-author .author {
+  color: #9797a1 !important;
+}
+
+.page.single .post-meta .post-author .author i {
+  display: none !important;
+}
+
+.page.single .post-meta .post-author .author {
+  color: #7e7e7e !important;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+[theme=dark] .page.single .post-meta .post-author .author {
+  color: #9797a1 !important;
+}
+
+#header-desktop .header-title .logo,
+#header-mobile .header-title .logo {
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 0.38rem;
+  vertical-align: -0.22rem;
+  border: 1px solid #e1e1e1;
+}
+
+[theme=dark] #header-desktop .header-title .logo,
+[theme=dark] #header-mobile .header-title .logo {
+  border-color: #3f3f3f;
+}
+
+.page.meow-posts-page .summary .content {
+  margin-top: 0.2rem;
+  font-size: 0.98rem;
+  line-height: 1.68;
+}
+
+.page.meow-posts-page .summary .post-footer {
+  margin-top: 0.3rem;
+  font-size: 0.86rem;
+}
+
+.page.meow-notes-page .meow-note-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin-top: 0.55rem;
+}
+
+.page.meow-notes-page .meow-note-domain {
+  border: 1px dashed #e2e2e2;
+  border-radius: 0.5rem;
+  padding: 0.55rem 0.72rem;
+  line-height: 1.55;
+}
+
+[theme=dark] .page.meow-notes-page .meow-note-domain {
+  border-color: #424242;
+}
+
+.page.meow-notes-page .meow-note-domain h3 {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.35;
+}
+
+.page.meow-notes-page .meow-note-domain p {
+  margin: 0.22rem 0 0;
+  font-size: 0.86rem;
+  color: #8a8a8a;
+}
+
+[theme=dark] .page.meow-notes-page .meow-note-domain p {
+  color: #8f8f98;
+}
+
+.page.meow-notes-page .meow-min-list {
+  margin-top: 0.55rem;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.page.meow-notes-page .meow-note-files {
+  margin-top: 1.05rem;
+}
+
+body {
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.06) 0.65px, transparent 0.7px);
+  background-size: 18px 18px;
+}
+
+[theme=dark] body {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0.65px, transparent 0.7px);
+}
+
+@media screen and (max-width: 680px) {
+  .page.meow-home-minimal {
+    margin-top: 0.7rem;
+  }
+
+  .meow-hero {
+    gap: 0.2rem;
+  }
+
+  .meow-hero-side {
+    align-items: flex-start;
+    align-self: start;
+  }
+
+  .meow-avatar-contact {
+    right: 0;
+    bottom: 0.48rem;
+    transform: translateX(50%);
+  }
+
+  .meow-name {
+    font-size: 1.95rem;
+  }
+
+  .meow-status-line {
+    font-size: 0.95rem;
+  }
+
+  .meow-home-minimal {
+    font-size: 1rem;
+  }
+
+  .page.meow-posts-page,
+  .page.meow-notes-page {
+    margin-top: 0.65rem;
+  }
+
+  .page.meow-posts-page .meow-list-hero h1,
+  .page.meow-notes-page .meow-list-hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .page.meow-posts-page .summary .single-title {
+    font-size: 1.2rem;
+  }
+
+  .page.meow-notes-page .meow-note-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .meow-min-list li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+}
