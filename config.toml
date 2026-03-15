@@ -1,4 +1,4 @@
-baseURL = "https://shesl.in/"
+baseURL = "https://blog.haitai-social.com/"
 
 theme = "LoveIt"
 themesDir = "./themes"
@@ -21,7 +21,7 @@ enableRobotsTXT = true
 [author]
   name = "佘崧林"
   email = "shesl-meow@qq.com"
-  link = "https://shesl.in"
+  link = "https://blog.haitai-social.com"
   
 [menu]
   [[menu.main]]
@@ -77,7 +77,7 @@ enableRobotsTXT = true
   # website title for Open Graph and Twitter Cards
   title = "蛇索尼 Aiden"
   # website description for RSS, SEO, Open Graph and Twitter Cards
-  description = "南开大学信息安全与法学，字节跳动内部创业效率工具协作产品负责人。TikTok Bidding Algo / TikTik iOS / Ads Infra / AI Agent Engineering。Co-founder of AI startup."
+  description = "南开大学信息安全与法学，字节跳动内部创业效率工具协作产品负责人。TikTok Bidding Algo / TikTik iOS / Ads Infra / AI Agent Engineering。Co-founder of some random AI startup."
   # website images for Open Graph and Twitter Cards
   images = ["avatar.png"]
 
@@ -235,7 +235,7 @@ enableRobotsTXT = true
       title = "shesl's blog"
       # subtitle shown in home page (HTML format is supported)
       # 主页显示的网站副标题 (允许 HTML 格式)
-      subtitle = "南开大学信息安全与法学, 字节跳动内部创业效率工具协作产品负责人。<br />TikTok Bidding Algo / TikTik iOS / Ads Infra / AI Agent Engineering。<br />Co-founder of AI startup."
+      subtitle = "南开大学信息安全与法学, 字节跳动内部创业效率工具协作产品负责人。<br />TikTok Bidding Algo / TikTik iOS / Ads Infra / AI Agent Engineering。<br />Co-founder of some random AI startup."
       # whether to use typeit animation for subtitle
       # 是否为副标题显示打字机动画
       typeit = false
