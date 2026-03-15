@@ -1,4 +1,4 @@
-baseURL = "https://shesl-meow.github.io/"
+baseURL = "https://shesl.in/"
 
 theme = "LoveIt"
 themesDir = "./themes"
@@ -21,7 +21,7 @@ enableRobotsTXT = true
 [author]
   name = "佘崧林"
   email = "shesl-meow@qq.com"
-  link = "https://shesl-meow.github.io"
+  link = "https://shesl.in"
   
 [menu]
   [[menu.main]]
