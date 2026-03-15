@@ -1,0 +1,104 @@
+{{- /* lazysizes + responsive image optimization override */ -}}
+{{- $src := .Src -}}
+{{- $width := .Width -}}
+{{- $height := .Height -}}
+{{- $srcLookup := replaceRE `^\./` "" $src -}}
+{{- $resource := dict "Path" $srcLookup "Resources" .Resources | partial "function/resource.html" -}}
+{{- if not $resource -}}
+  {{- $resource = dict "Path" $src "Resources" .Resources | partial "function/resource.html" -}}
+{{- end -}}
+{{- with $resource -}}
+  {{- $src = .RelPermalink -}}
+  {{- if and (eq .ResourceType "image") (ne (lower .MediaType.SubType) "svg") -}}
+    {{- $width = $width | default .Width -}}
+    {{- $height = $height | default .Height -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $small := .SrcSmall | default $src -}}
+{{- $srcSmallLookup := replaceRE `^\./` "" (.SrcSmall | default "") -}}
+{{- with dict "Path" $srcSmallLookup "Resources" .Resources | partial "function/resource.html" -}}
+  {{- $small = .RelPermalink -}}
+{{- end -}}
+
+{{- $large := .SrcLarge | default $src -}}
+{{- $srcLargeLookup := replaceRE `^\./` "" (.SrcLarge | default "") -}}
+{{- with dict "Path" $srcLargeLookup "Resources" .Resources | partial "function/resource.html" -}}
+  {{- $large = .RelPermalink -}}
+{{- end -}}
+
+{{- $optimizedSrcset := "" -}}
+{{- $processable := false -}}
+{{- if $resource -}}
+  {{- if and (eq $resource.ResourceType "image") (in (slice "jpeg" "jpg" "png" "webp") (lower $resource.MediaType.SubType)) -}}
+    {{- $processable = true -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if $processable -}}
+  {{- $maxWidth := 1600 -}}
+  {{- $targetWidth := cond (gt $resource.Width $maxWidth) $maxWidth $resource.Width -}}
+  {{- $main := $resource.Resize (printf "%dx webp q82" $targetWidth) -}}
+  {{- $src = $main.RelPermalink -}}
+  {{- if not .Width -}}
+    {{- $width = $main.Width -}}
+  {{- end -}}
+  {{- if not .Height -}}
+    {{- $height = $main.Height -}}
+  {{- end -}}
+
+  {{- $smallW := cond (lt $targetWidth 768) $targetWidth 768 -}}
+  {{- $smallImg := $resource.Resize (printf "%dx webp q80" $smallW) -}}
+  {{- $small = $smallImg.RelPermalink -}}
+
+  {{- $largeW := cond (lt $targetWidth 1366) $targetWidth 1366 -}}
+  {{- $largeImg := $resource.Resize (printf "%dx webp q82" $largeW) -}}
+  {{- $large = $largeImg.RelPermalink -}}
+
+  {{- $srcsetParts := slice -}}
+  {{- range slice 480 768 1024 1366 1600 -}}
+    {{- if le . $resource.Width -}}
+      {{- $variant := $resource.Resize (printf "%dx webp q80" .) -}}
+      {{- $srcsetParts = $srcsetParts | append (printf "%s %dw" $variant.RelPermalink $variant.Width) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if eq (len $srcsetParts) 0 -}}
+    {{- $srcsetParts = $srcsetParts | append (printf "%s %dw" $src $width) -}}
+  {{- end -}}
+  {{- $optimizedSrcset = delimit $srcsetParts ", " -}}
+{{- end -}}
+
+{{- $alt := .Alt | default $src -}}
+{{- $loading := resources.Get "svg/loading.svg" | minify -}}
+{{- if .Linked -}}
+  <a class="lightgallery" href="{{ $large | safeURL }}" title="{{ .Title | default $alt }}" data-thumbnail="{{ $small | safeURL }}"{{ with .Caption }} data-sub-html="<h2>{{ . }}</h2>{{ with $.Title }}<p>{{ . }}</p>{{ end }}"{{ end }}{{ with .Rel }} rel="{{ . }}"{{ end }}>
+    <img
+      class="lazyload{{ with .Class }} {{ . }}{{ end }}"
+      src="{{ $loading.RelPermalink }}"
+      data-src="{{ $src | safeURL }}"
+      {{- if $optimizedSrcset -}}
+      data-srcset="{{ $optimizedSrcset }}"
+      {{- else -}}
+      data-srcset="{{ $small | safeURL }}, {{ $src | safeURL }} 1.5x, {{ $large | safeURL }} 2x"
+      {{- end -}}
+      data-sizes="auto"
+      alt="{{ $alt }}"
+      {{- with $width }} width="{{ . }}"{{ end }}
+      {{- with $height }} height="{{ . }}"{{ end }} />
+  </a>
+{{- else -}}
+  <img
+    class="lazyload{{ with .Class }} {{ . }}{{ end }}"
+    src="{{ $loading.RelPermalink }}"
+    data-src="{{ $src | safeURL }}"
+    {{- if $optimizedSrcset -}}
+    data-srcset="{{ $optimizedSrcset }}"
+    {{- else -}}
+    data-srcset="{{ $small | safeURL }}, {{ $src | safeURL }} 1.5x, {{ $large | safeURL }} 2x"
+    {{- end -}}
+    data-sizes="auto"
+    alt="{{ $alt }}"
+    title="{{ .Title | default $alt }}"
+    {{- with $width }} width="{{ . }}"{{ end }}
+    {{- with $height }} height="{{ . }}"{{ end }} />
+{{- end -}}
